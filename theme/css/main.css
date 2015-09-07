@@ -323,9 +323,9 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	margin: 0 auto 0 auto;
 	overflow: hidden;
 	background: #000305;
-	border-radius: 0 0 10px 10px;
-	-moz-border-radius: 0 0 10px 10px;
-	-webkit-border-radius: 0 0 10px 10px;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
 	padding-bottom: 10px;
 }
 
@@ -336,7 +336,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	color: #008db8;
 	font-size: 1.429em;
 	margin-bottom: .25em;
-	padding: 0 3px;
+	padding: 8px 3px;
 }
 
 #extras a:link, #extras a:visited {
@@ -352,6 +352,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	/* Blogroll */
 	#extras .blogroll {
 		float: left;
+        margin: 0 0 0 10px;
 		width: 615px;
 	}
 	

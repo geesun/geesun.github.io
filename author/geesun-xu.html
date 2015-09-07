@@ -24,9 +24,33 @@
                 <article>
                     <h1 class="entry-title"><a href="../posts/2015/09/two-sum.html">Two Sum</a></h1>
 <footer class="post-info">
-        <span>四 03 九月 2015</span>
+        <span>一 07 九月 2015</span>
 
-</footer><!-- /.post-info --><p><a href="../posts/2015/09/two-sum.html#disqus_thread">comments</a></p>                </article>
+</footer><!-- /.post-info --><p><a href="https://leetcode.com/problems/two-sum/">原题链接</a></p>
+<p>Given an array of integers, find two numbers such that they add up to a specific target number.</p>
+<p>The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.</p>
+<p>You may assume that each input would have exactly one solution.</p>
+<p>Input: numbers={2, 7, 11, 15}, target=9</p>
+<p>Output: index1=1, index2=2</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">r</span> <span class="p">;</span>
+            <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">hmap</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">hmap</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">!=</span> <span class="n">hmap</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+                    <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">hmap</span><span class="p">[</span><span class="n">target</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                    <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                    <span class="n">hmap</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">};</span>
+</pre></div><p><a href="../posts/2015/09/two-sum.html#disqus_thread">comments</a></p>                </article>
 <p class="paginator">
     Page 1 / 1
 </p>
