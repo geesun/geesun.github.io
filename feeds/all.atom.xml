@@ -1,12 +1,346 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Geesun's Blog</title><link href="https://geesun.github.io/" rel="alternate"></link><link href="https://geesun.github.io/feeds/all.atom.xml" rel="self"></link><id>https://geesun.github.io/</id><updated>2015-09-10T14:20:00+08:00</updated><entry><title>Libev 学习笔记</title><link href="https://geesun.github.io/posts/2015/09/libev_note.html" rel="alternate"></link><updated>2015-09-10T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-09-10:posts/2015/09/libev_note.html</id><summary type="html">&lt;p&gt;Libev是一个用C编写的功能齐全的高性能的轻量级事件驱动库,作为Libevent的替代者，拥有更快的速度，更小的体积。&lt;/p&gt;
-&lt;h3&gt;安装Libev&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Geesun's Blog</title><link href="https://geesun.github.io/" rel="alternate"></link><link href="https://geesun.github.io/feeds/all.atom.xml" rel="self"></link><id>https://geesun.github.io/</id><updated>2015-09-24T10:20:00+08:00</updated><entry><title>对Git Fast-Forword和Rebase理解</title><link href="https://geesun.github.io/posts/2015/09/git_fast_forword_rebase.html" rel="alternate"></link><updated>2015-09-24T10:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-09-24:posts/2015/09/git_fast_forword_rebase.html</id><summary type="html">&lt;h2&gt;问题&lt;/h2&gt;
+&lt;h3&gt;遇到什么问题?&lt;/h3&gt;
+&lt;p&gt;之前日常操作都是用git pull来获取远程代码并且自动合并，如果和远程代码有分叉的话，就会出现一些奇怪的提交，如下面的提交记录：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 0c2df7467d30c46ee4884eb170cf4a521918e7d3
+Merge: 2ce37bb 236e1d3
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:19:49 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Merge branch &lt;span class="s1"&gt;&amp;#39;master&amp;#39;&lt;/span&gt; of /home/geesun/test/remote
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;很多情况下，我们并不希望有这样的自动合并产生，因为他产生了一个自动提交，会让版本变得交叉，不清晰。&lt;/p&gt;
+&lt;h3&gt;问题如何产生?&lt;/h3&gt;
+&lt;p&gt;Step 1:本地代码从远程服务器的同步完成后又提交了B,这是本地代码提交记录:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 2ce37bbfd25d5e0265cda4949b16f0110a4f45e7
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Step 2: 远程服务后来又被另外一个人提交了A,远程服务器的提交记录如下:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/remote&lt;span class="nv"&gt;$ &lt;/span&gt;git log
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Step 3:这个时候我要在本地push代码到远程服务器,会被reject,必须先同步才能push,就用git pull同步,操作结果如下:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git pull 
+remote: Counting objects: 4, &lt;span class="k"&gt;done&lt;/span&gt;.
+remote: Compressing objects: 100% &lt;span class="o"&gt;(&lt;/span&gt;2/2&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="k"&gt;done&lt;/span&gt;.
+remote: Total &lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta 0&lt;span class="o"&gt;)&lt;/span&gt;, reused &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta 0&lt;span class="o"&gt;)&lt;/span&gt;
+Unpacking objects: 100% &lt;span class="o"&gt;(&lt;/span&gt;3/3&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="k"&gt;done&lt;/span&gt;.
+来自 /home/geesun/test/remote
+   9d34ed9..236e1d3  master     -&amp;gt; origin/master
+Merge made by the &lt;span class="s1"&gt;&amp;#39;recursive&amp;#39;&lt;/span&gt; strategy.
+ local1 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt; +
+ &lt;span class="m"&gt;1&lt;/span&gt; file changed, &lt;span class="m"&gt;1&lt;/span&gt; insertion&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
+ create mode &lt;span class="m"&gt;100644&lt;/span&gt; local1
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 0c2df7467d30c46ee4884eb170cf4a521918e7d3
+Merge: 2ce37bb 236e1d3
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:19:49 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Merge branch &lt;span class="s1"&gt;&amp;#39;master&amp;#39;&lt;/span&gt; of /home/geesun/test/remote
+
+commit 2ce37bbfd25d5e0265cda4949b16f0110a4f45e7
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个时候别人在从远程服务器同步代码之后,都会看到开始那条本不该存在的提交记录.&lt;/p&gt;
+&lt;h3&gt;如何解决这个问题&lt;/h3&gt;
+&lt;p&gt;在本地代码推送到远程服务器之前,对本地代码进行rebase即可,操作记录:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git pull -r 
+首先，重置头指针以便在上面重放您的工作...
+正应用：check in by B
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 2ce37bbfd25d5e0265cda4949b16f0110a4f45e7
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by B
+
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base check in
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;什么是Fast-Forward&lt;/h2&gt;
+&lt;p&gt;要理解rebase,就先要搞清楚Fast-Forward的概念. 如果本地代码在跟远程同步之后,本地没有新的提交,而远程代码有新的提交,这就是说本地代码和远程的代码没有出现分叉,只不过是本地代码指向比较旧的版本而已.这种情况我们就称为本地代码可以做Fast-Forward. &lt;/p&gt;
+&lt;p&gt;如下:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;BASE&lt;/span&gt;&lt;span class="o"&gt;---&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;      &lt;span class="o"&gt;&amp;lt;---&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Local&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+                \
+                 \
+                  &lt;span class="n"&gt;B&lt;/span&gt;   &lt;span class="o"&gt;&amp;lt;---&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Remote&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;操作记录:&lt;/p&gt;
+&lt;p&gt;远端:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/remote&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 257d73fdbbfbaaaac18a398e46bf296cc01436ca
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:00:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by B
+
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;本地:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git pull 
+更新 236e1d3..257d73f
+Fast-forward
+ local2 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt; +
+ &lt;span class="m"&gt;1&lt;/span&gt; file changed, &lt;span class="m"&gt;1&lt;/span&gt; insertion&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
+ create mode &lt;span class="m"&gt;100644&lt;/span&gt; local2
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log
+commit 257d73fdbbfbaaaac18a398e46bf296cc01436ca
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:00:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by B
+
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt; 这里的git pull相当于 git fetch和git merge origin/master的组合. &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;因为这种情况是可以做fast-forward,所以git merge就相当于只是做了fast-forward而已.&lt;/p&gt;
+&lt;p&gt;开始问题描述的就是一种不可以做fast-forward的情况,如果再用git merge则就会产生一个自动提交,如开始问题描述的一样.&lt;/p&gt;
+&lt;p&gt;有些时候我们希望能fast-forward就fast-forward,否则我们用后面会讲的rebase命令合并。可以这样：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git pull --ff-only
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git fetch
+git merge --ff-only origin/master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果不能fast-forward, merge 操作会终止。&lt;/p&gt;
+&lt;h2&gt;什么是Rebase&lt;/h2&gt;
+&lt;p&gt;Rebase就是同步本地和远程的分支,使它们的base一样,然再应用本地没有推送的提交. &lt;/p&gt;
+&lt;p&gt;git rebase是时做了如下三件事情:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;把本地未推送到远端的所有提交，放到暂存区。&lt;/li&gt;
+&lt;li&gt;然后把本地的指针指向远端的最新提交,也就使它和远端的提交一样.&lt;/li&gt;
+&lt;li&gt;然后将暂存区的提交挨个挨个提交到本分支. 如果出现冲突,会需要手工merge.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;远端提交记录:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/remote&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 0ab394dc2ac5a4d186eb9be86da4c72987d3023a
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:37:37 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;本地提交记录:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit df94a3c6cf05c63a7b9db6fd753ef70b1d9a40df
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:45:21 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;对本地进行rebase:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local$ git pull -r 
+首先，重置头指针以便在上面重放您的工作...
+正应用：Check in by B
+geesun@geesun-OptiPlex-3010:~/test/src/local$ git log 
+commit 59e14ba0bb2e55401ca0b2d8c309f520843e8144
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep 24 16:45:21 2015 +0800
+
+    Check in by B
+
+commit 0ab394dc2ac5a4d186eb9be86da4c72987d3023a
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep 24 16:37:37 2015 +0800
+
+    Check in by A
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep 24 16:36:30 2015 +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Rebase后的结果也许是我们希望的结果,而不是开始问题描述的那样.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; 这里的git pull -r 相当于 git fetch和git rebase的组合. &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果rebase出现冲突,会需要手工merge&lt;/p&gt;
+&lt;p&gt;手工merge操作日志:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit e6bb6173b626f8ef599b86516a0e35e4cbb7bc5a
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:51:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git rebase
+首先，重置头指针以便在上面重放您的工作...
+正应用：Check in by B
+使用索引来重建一个（三路合并的）基础目录树...
+转而在基础版本上打补丁及进行三路合并...
+自动合并 test.txt
+冲突（添加/添加）：合并冲突于 test.txt
+无法合并变更。
+补丁失败于 &lt;span class="m"&gt;0001&lt;/span&gt; Check in by B
+失败的补丁文件副本位于：
+   /home/geesun/test/src/local/.git/rebase-apply/patch
+
+当您解决了此问题后，执行 &lt;span class="s2"&gt;&amp;quot;git rebase --continue&amp;quot;&lt;/span&gt;。
+如果您想跳过此补丁，则执行 &lt;span class="s2"&gt;&amp;quot;git rebase --skip&amp;quot;&lt;/span&gt;。
+要恢复原分支并停止变基，执行 &lt;span class="s2"&gt;&amp;quot;git rebase --abort&amp;quot;&lt;/span&gt;。
+
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;vi test.txt
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git add test.txt
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git rebase --continue
+正应用：Check in by B
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 0a68c730ee96d4dd37d1dd97f52a5fcb4be383e4
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:51:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 0ab394dc2ac5a4d186eb9be86da4c72987d3023a
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:37:37 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;不同分支之间也可以做rebase,应该不太常用,就不做例子了.&lt;/p&gt;
+&lt;h2&gt;总结&lt;/h2&gt;
+&lt;p&gt;在本地很远端不能做fast-forword的情况下,是采用git merge 还是采用git rebase要看项目的要求. 如果想保持完整的提交记录,可以考虑用git merge. 要想保持清晰的提交记录,采用git rebase会比较好.&lt;/p&gt;
+&lt;p&gt;git pull默认的行为是merge,如果要更改这种默认行为为rebase,可以用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git config --global branch.autosetuprebase always
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="git"></category></entry><entry><title>Libev 学习笔记</title><link href="https://geesun.github.io/posts/2015/09/libev_note.html" rel="alternate"></link><updated>2015-09-10T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-09-10:posts/2015/09/libev_note.html</id><summary type="html">&lt;h2&gt;简介&lt;/h2&gt;
+&lt;p&gt;Libev是一个用C编写的功能齐全的高性能的轻量级事件驱动库,作为Libevent的替代者，拥有更快的速度，更小的体积。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Libev supports select, poll, the Linux-specific epoll, the BSD-specific kqueue and the Solaris-specific event port mechanisms for file descriptor events (ev_io), the Linux inotify interface (for ev_stat), Linux eventfd/signalfd (for faster and cleaner inter-thread wakeup (ev_async)/signal handling (ev_signal)) relative timers (ev_timer), absolute timers with customised rescheduling (ev_periodic), synchronous signals (ev_signal), process status change events (ev_child), and event watchers dealing with the event loop mechanism itself (ev_idle, ev_embed, ev_prepare and ev_check watchers) as well as file watchers (ev_stat) and even limited support for fork events (ev_fork).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;安装Libev&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install libev-dev
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;h2&gt;使用Libev&lt;/h2&gt;
 &lt;p&gt;Libev通过ev_loop结构来表示一个事件驱动的框架,在这个框架之下，支持几十种事件，每个事件通过ev_TYPE结构体，ev_TYEP_init,ev_TYPE_set,ev_TYPE_start,ev_TYPE_stop等API来跟这个事件框架注册事件监控器。当我们要监控的事件出现是，框架便会触发已经注册的时间监控器来处理事件。&lt;/p&gt;
-&lt;h3&gt;支持的事件类型&lt;/h3&gt;
+&lt;h4&gt;支持的事件类型&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ev_io&lt;/span&gt;                 &lt;span class="c1"&gt;// IO可读可写&lt;/span&gt;
 &lt;span class="n"&gt;ev_timer&lt;/span&gt;              &lt;span class="c1"&gt;// 相对定时器&lt;/span&gt;
 &lt;span class="n"&gt;ev_periodic&lt;/span&gt;           &lt;span class="c1"&gt;// 绝对定时器&lt;/span&gt;
@@ -23,69 +357,86 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h3&gt;作者例子&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;man libev 
+&lt;h4&gt;支持后台复用&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;select    -- ev_select.c &lt;/li&gt;
+&lt;li&gt;poll        -- ev_poll.c &lt;/li&gt;
+&lt;li&gt;epoll      -- ev_epoll.c&lt;/li&gt;
+&lt;li&gt;kqueue  -- ev_kqueue.c&lt;/li&gt;
+&lt;li&gt;port       -- ev_port.c&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;使用基本流程&lt;/h4&gt;
+&lt;h5&gt;1. 初始化框架&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;     &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;EV_DEFAULT&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+     &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ev_default_loop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+     &lt;span class="err"&gt;或者&lt;/span&gt;
+
+    &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ev_loop_new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EVBACKEND_EPOLL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;//TODO&lt;/span&gt;
+    &lt;span class="n"&gt;ev_loop_destroy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;可以获得作者写的&lt;a href="http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#EXAMPLE_PROGRAM"&gt;例子&lt;/a&gt;
-,并有详细解释。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// a single header file is required&lt;/span&gt;
-&lt;span class="cp"&gt;#include &amp;lt;ev.h&amp;gt;&lt;/span&gt;
-
-&lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt; &lt;/span&gt;&lt;span class="c1"&gt;// for puts&lt;/span&gt;
-
-&lt;span class="c1"&gt;// every watcher type has its own typedef&amp;#39;d struct&lt;/span&gt;
-&lt;span class="c1"&gt;// with the name ev_TYPE&lt;/span&gt;
-&lt;span class="n"&gt;ev_io&lt;/span&gt; &lt;span class="n"&gt;stdin_watcher&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;ev_timer&lt;/span&gt; &lt;span class="n"&gt;timeout_watcher&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-
-&lt;span class="c1"&gt;// all watcher callbacks have a similar signature&lt;/span&gt;
-&lt;span class="c1"&gt;// this callback is called when data is readable on stdin&lt;/span&gt;
-&lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;stdin_cb&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_P_&lt;/span&gt; &lt;span class="n"&gt;ev_io&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;revents&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;puts&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stdin ready&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="c1"&gt;// for one-shot events, one must manually stop the watcher&lt;/span&gt;
-    &lt;span class="c1"&gt;// with its corresponding stop function.&lt;/span&gt;
-    &lt;span class="n"&gt;ev_io_stop&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
-    &lt;span class="c1"&gt;// this causes all nested ev_run&amp;#39;s to stop iterating&lt;/span&gt;
-    &lt;span class="n"&gt;ev_break&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;EVBREAK_ALL&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="c1"&gt;// another callback, this time for a time-out&lt;/span&gt;
-&lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;timeout_cb&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_P_&lt;/span&gt; &lt;span class="n"&gt;ev_timer&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;revents&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;puts&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;timeout&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="c1"&gt;// this causes the innermost ev_run to stop iterating&lt;/span&gt;
-    &lt;span class="n"&gt;ev_break&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;EVBREAK_ONE&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// use the default event loop unless you have special needs&lt;/span&gt;
-    &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;EV_DEFAULT&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-
-    &lt;span class="c1"&gt;// initialise an io watcher, then start it&lt;/span&gt;
-    &lt;span class="c1"&gt;// this one will watch for stdin to become readable&lt;/span&gt;
-    &lt;span class="n"&gt;ev_io_init&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;stdin_watcher&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;stdin_cb&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cm"&gt;/*STDIN_FILENO*/&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;EV_READ&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;ev_io_start&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;stdin_watcher&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
-    &lt;span class="c1"&gt;// initialise a timer watcher, then start it&lt;/span&gt;
-    &lt;span class="c1"&gt;// simple non-repeating 5.5 second timeout&lt;/span&gt;
-    &lt;span class="n"&gt;ev_timer_init&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;timeout_watcher&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;timeout_cb&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;5.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;ev_timer_start&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;timeout_watcher&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
-    &lt;span class="c1"&gt;// now wait for events to arrive&lt;/span&gt;
-    &lt;span class="n"&gt;ev_run&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
-    &lt;span class="c1"&gt;// break was called, so exit&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;h5&gt;2. 初始化监控器&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;ev_TYPE&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;ev_TYPE_init&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;cb&lt;/span&gt;&lt;span class="p"&gt;,...);&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;解释一下EV_P，EV_P_，EV_A，EV_A_这几个宏，在代码中会经常看到这几个宏，主要是为了简化单线程模式下的函数调用的接口，在Libev的源代码的ev.h中，有：&lt;/p&gt;
+&lt;h5&gt;3. 把监控器加入到框架的监控器列表里&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;ev_TYPE_start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h5&gt;4. 框架开始处理事件&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;ev_run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;源码分析&lt;/h2&gt;
+&lt;h3&gt;关键数据结构&lt;/h3&gt;
+&lt;p&gt;libev采用继承的关系来处理各种不同的监控器数据结构。基类：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# define EV_COMMON void *data;&lt;/span&gt;
+&lt;span class="cp"&gt;# define EV_CB_DECLARE(type) void (*cb)(EV_P_ struct type *w, int revents);&lt;/span&gt;
+&lt;span class="cp"&gt;# define EV_DECL_PRIORITY int priority;&lt;/span&gt;
+
+&lt;span class="cp"&gt;#define EV_WATCHER(type)            \&lt;/span&gt;
+&lt;span class="cp"&gt;  int active; &lt;/span&gt;&lt;span class="cm"&gt;/* private */&lt;/span&gt;&lt;span class="cp"&gt;         \&lt;/span&gt;
+&lt;span class="cp"&gt;  int pending; &lt;/span&gt;&lt;span class="cm"&gt;/* private */&lt;/span&gt;&lt;span class="cp"&gt;            \&lt;/span&gt;
+&lt;span class="cp"&gt;  EV_DECL_PRIORITY &lt;/span&gt;&lt;span class="cm"&gt;/* private */&lt;/span&gt;&lt;span class="cp"&gt;        \&lt;/span&gt;
+&lt;span class="cp"&gt;  EV_COMMON &lt;/span&gt;&lt;span class="cm"&gt;/* rw */&lt;/span&gt;&lt;span class="cp"&gt;                \&lt;/span&gt;
+&lt;span class="cp"&gt;  EV_CB_DECLARE (type) &lt;/span&gt;&lt;span class="cm"&gt;/* private */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+
+ &lt;span class="cp"&gt;#define EV_WATCHER_LIST(type)          \&lt;/span&gt;
+&lt;span class="cp"&gt;  EV_WATCHER (type)             \&lt;/span&gt;
+&lt;span class="cp"&gt;  struct ev_watcher_list *next; &lt;/span&gt;&lt;span class="cm"&gt;/* private */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_watcher&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;EV_WATCHER&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ev_watcher&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;ev_watcher&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_watcher_list&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;EV_WATCHER_LIST&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ev_watcher_list&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;ev_watcher_list&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;对于其他具体的监控器数据结构，都有基类派生而来，如ev_io类：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_io&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;EV_WATCHER_LIST&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ev_io&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="cm"&gt;/* ro */&lt;/span&gt;
+  &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;events&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* ro */&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;ev_io&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;其他类都是由类似的方法派生而来，具体可以参考源代码。&lt;/p&gt;
+&lt;p&gt;在介绍最重要的结构ev_loop之前，先解释一下EV_P，EV_P_，EV_A，EV_A_这几个宏，在代码中会经常看到这几个宏，主要是为了简化单线程模式下的函数调用的接口，在Libev的源代码的ev.h中，有：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* support multiple event loops? */&lt;/span&gt;
 &lt;span class="cp"&gt;#if EV_MULTIPLICITY&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -111,8 +462,8 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;如果包含EV_MULTIPLICITY, 表示支持多个ev_loop实例存在，一般来说，一个线程中有且只有一个ev_loop实例。如果整个程序是单线程，程序中使用默认的ev_loop即可，即全局的ev_loop( 没有用结构)，所以不需要参数。
-多实例和全局结构可以在 ev.c中找到。&lt;/p&gt;
+&lt;p&gt;如果包含EV_MULTIPLICITY, 表示支持多个ev_loop实例存在，一般来说，一个线程中有且只有一个ev_loop实例。如果整个程序是单线程，程序中可以选择使用默认的ev_loop来简化调用，即全局的ev_loop( 没有用结构)，所以不需要参数。&lt;/p&gt;
+&lt;p&gt;ev_loop结构：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#if EV_MULTIPLICITY&lt;/span&gt;
 
   &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt;
@@ -134,13 +485,169 @@
   &lt;span class="cp"&gt;#define VAR(name,decl) static decl;&lt;/span&gt;
     &lt;span class="cp"&gt;#include &amp;quot;ev_vars.h&amp;quot;&lt;/span&gt;
   &lt;span class="cp"&gt;#undef VAR&lt;/span&gt;
-
   &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ev_default_loop_ptr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-
 &lt;span class="cp"&gt;#endif&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;对于这个宏VAR,可以参考这里的&lt;a href="http://blog.csdn.net/absurd/article/details/466562"&gt;解释&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;对于单线城来说 ，定义了全局静态变量。对于多线程来说，所有数据结构都封装在ev_loop中，并且在ev_var.h中定义，通过include来展开。并且通过ev_wrap.h来简化访问，使多线程和单线城访问方式一样。&lt;/p&gt;
+&lt;p&gt;在ev_loop中有一个重要的成员，就是anfds，它定义了需要监控的I/O的文件句柄。libev需要考虑的一个问题就是执行效率，这里采用牺牲空间换时间的办法，用fd的值作为数组的下表，来加快查找的效率。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="n"&gt;ev_watcher_list&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;WL&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;WL&lt;/span&gt; &lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;events&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* the events watched for */&lt;/span&gt;
+  &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;reify&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="cm"&gt;/* flag set when this ANFD needs reification (EV_ANFD_REIFY, EV__IOFDSET) */&lt;/span&gt;
+  &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;emask&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="cm"&gt;/* the epoll backend stores the actual kernel mask in here */&lt;/span&gt;
+  &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;unused&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="cp"&gt;#if EV_USE_EPOLL&lt;/span&gt;
+  &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;egen&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* generation counter to counter epoll bugs */&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="cp"&gt;#if EV_SELECT_IS_WINSOCKET || EV_USE_IOCP&lt;/span&gt;
+  &lt;span class="n"&gt;SOCKET&lt;/span&gt; &lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="cp"&gt;#if EV_USE_IOCP&lt;/span&gt;
+  &lt;span class="n"&gt;OVERLAPPED&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ow&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;ANFD&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;关键函数&lt;/h3&gt;
+&lt;p&gt;框架初始化：
+ev_default_loop和ev_loop_new都会调用loop_init：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;noinline&lt;/span&gt; &lt;span class="n"&gt;ecb_cold&lt;/span&gt;
+&lt;span class="nf"&gt;loop_init&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_P_&lt;/span&gt; &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;EV_THROW&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;//根据不同的参数来初始化不同的backend&lt;/span&gt;
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;EVBACKEND_MASK&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+        &lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;|=&lt;/span&gt; &lt;span class="n"&gt;ev_recommended_backends&lt;/span&gt; &lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="cp"&gt;#if EV_USE_IOCP&lt;/span&gt;
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;EVBACKEND_IOCP&lt;/span&gt;  &lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;iocp_init&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="cp"&gt;#if EV_USE_PORT&lt;/span&gt;
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;EVBACKEND_PORT&lt;/span&gt;  &lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;port_init&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="cp"&gt;#if EV_USE_KQUEUE&lt;/span&gt;
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;EVBACKEND_KQUEUE&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;kqueue_init&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="cp"&gt;#if EV_USE_EPOLL&lt;/span&gt;
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;EVBACKEND_EPOLL&lt;/span&gt; &lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;epoll_init&lt;/span&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="cp"&gt;#if EV_USE_POLL&lt;/span&gt;
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;EVBACKEND_POLL&lt;/span&gt;  &lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;poll_init&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="cp"&gt;#if EV_USE_SELECT&lt;/span&gt;
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;EVBACKEND_SELECT&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="n"&gt;backend&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;select_init&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+    &lt;span class="c1"&gt;//...&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;把监视器注册到框架中，看I/O的实现，其他类似：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;noinline&lt;/span&gt;
+&lt;span class="nf"&gt;ev_io_start&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_P_&lt;/span&gt; &lt;span class="n"&gt;ev_io&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;EV_THROW&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="p"&gt;...&lt;/span&gt;  
+  &lt;span class="c1"&gt;//把active状态改成活动状态&lt;/span&gt;
+  &lt;span class="n"&gt;ev_start&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+  &lt;span class="c1"&gt;//根据fd的大小来决定来分配多少内存，同时要根据内存的分配规律来分配合适的大小，加快访问速度&lt;/span&gt;
+  &lt;span class="c1"&gt;//但是没有搞明白为什么要MALLOC_ROUND- sizeof (void *) * 4 ？？？？&lt;/span&gt;
+  &lt;span class="n"&gt;array_needsize&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ANFD&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;anfds&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;anfdmax&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fd&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;array_init_zero&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+  &lt;span class="c1"&gt;//把这个监视器放入fd对应的列表&lt;/span&gt;
+  &lt;span class="n"&gt;wlist_add&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;anfds&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;WL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;...&lt;/span&gt;
+  &lt;span class="c1"&gt;//标记哪些fd有改动，等到下一次循环的时候把这些fd的改动写到kernel里面去&lt;/span&gt;
+  &lt;span class="n"&gt;fd_change&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;events&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;EV__IOFDSET&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;EV_ANFD_REIFY&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;events&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;=&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="n"&gt;EV__IOFDSET&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;把监视器从框架删除，ev_io_start的反操作：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;noinline&lt;/span&gt;
+&lt;span class="nf"&gt;ev_io_stop&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_P_&lt;/span&gt; &lt;span class="n"&gt;ev_io&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;EV_THROW&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;//如果该事件正在等待执行，则删除&lt;/span&gt;
+  &lt;span class="n"&gt;clear_pending&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;...&lt;/span&gt;
+  &lt;span class="c1"&gt;//从对应的fd列表里面删除监视器&lt;/span&gt;
+  &lt;span class="n"&gt;wlist_del&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;anfds&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;WL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+  &lt;span class="c1"&gt;//把监视器active改成0&lt;/span&gt;
+  &lt;span class="n"&gt;ev_stop&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+ &lt;span class="c1"&gt;//标记哪些fd有改动，等到下一次循环的时候把这些fd的改动写到kernel里面去&lt;/span&gt;
+  &lt;span class="n"&gt;fd_change&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;fd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;EV_ANFD_REIFY&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;主要循环ev_run，监视事件是否有变化,有变化，这调用通知监视器：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt;
+&lt;span class="nf"&gt;ev_run&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_P_&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+   &lt;span class="p"&gt;...&lt;/span&gt;
+  &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+
+&lt;span class="cp"&gt;#if EV_PREPARE_ENABLE&lt;/span&gt;
+      &lt;span class="c1"&gt;//如果有prepare监视器，则在执行select/poll等之前先执行prepare&lt;/span&gt;
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;expect_false&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;preparecnt&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+         &lt;span class="c1"&gt;//触发PREPARE事件&lt;/span&gt;
+          &lt;span class="n"&gt;queue_events&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;prepares&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;preparecnt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;EV_PREPARE&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+          &lt;span class="c1"&gt;//执行callback&lt;/span&gt;
+          &lt;span class="n"&gt;EV_INVOKE_PENDING&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+      &lt;span class="p"&gt;...&lt;/span&gt;
+
+     &lt;span class="c1"&gt;//把ev_io_start中fd_change有改动的fd同步到kernel里面去,这里会调用具体backend的函数&lt;/span&gt;
+      &lt;span class="n"&gt;fd_reify&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+     &lt;span class="c1"&gt;//这里很长一段代码主要是计算时间&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+
+        &lt;span class="c1"&gt;//调用select/poll等方法来等待事件的发生，发生之后放入队列。 这里会调用具体backend的函数&lt;/span&gt;
+        &lt;span class="n"&gt;backend_poll&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="n"&gt;waittime&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="cp"&gt;#if EV_CHECK_ENABLE&lt;/span&gt;
+     &lt;span class="c1"&gt;//如果有注册check监视器，则等待事件发生之后调用callback&lt;/span&gt;
+      &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;expect_false&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;checkcnt&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+        &lt;span class="c1"&gt;//触发CHECK事件&lt;/span&gt;
+        &lt;span class="n"&gt;queue_events&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EV_A_&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;W&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;checks&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;checkcnt&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;EV_CHECK&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+     &lt;span class="c1"&gt;//执行所有pending的callback&lt;/span&gt;
+      &lt;span class="n"&gt;EV_INVOKE_PENDING&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;expect_true&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="n"&gt;activecnt&lt;/span&gt;
+    &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;loop_done&lt;/span&gt;
+    &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EVRUN_ONCE&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;EVRUN_NOWAIT&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="p"&gt;));&lt;/span&gt;
+  &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;例子&lt;/h2&gt;
+&lt;h3&gt;作者例子&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;man libev 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者&lt;a href="http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#EXAMPLE_PROGRAM"&gt;这里&lt;/a&gt;可以获得
+,并有详细解释。&lt;/p&gt;
 &lt;h3&gt;简单socket例子&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include &amp;lt;string.h&amp;gt;&lt;/span&gt;

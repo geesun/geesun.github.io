@@ -16,6 +16,7 @@
                 <h1><a href="../../../">Geesun's Blog </a></h1>
                 <nav><ul>
                     <li><a href="../../../category/leetcode.html">Leetcode</a></li>
+                    <li><a href="../../../category/misc.html">Misc</a></li>
                     <li class="active"><a href="../../../category/network.html">Network</a></li>
                 </ul>
                 </nav>
@@ -32,14 +33,19 @@
 <footer class="post-info">
         <span>四 10 九月 2015</span>
 <span>| tags: <a href="../../../tag/libev.html">libev</a></span>
-</footer><!-- /.post-info -->      <p>Libev是一个用C编写的功能齐全的高性能的轻量级事件驱动库,作为Libevent的替代者，拥有更快的速度，更小的体积。</p>
-<h3>安装Libev</h3>
+</footer><!-- /.post-info -->      <h2>简介</h2>
+<p>Libev是一个用C编写的功能齐全的高性能的轻量级事件驱动库,作为Libevent的替代者，拥有更快的速度，更小的体积。</p>
+<blockquote>
+<p>Libev supports select, poll, the Linux-specific epoll, the BSD-specific kqueue and the Solaris-specific event port mechanisms for file descriptor events (ev_io), the Linux inotify interface (for ev_stat), Linux eventfd/signalfd (for faster and cleaner inter-thread wakeup (ev_async)/signal handling (ev_signal)) relative timers (ev_timer), absolute timers with customised rescheduling (ev_periodic), synchronous signals (ev_signal), process status change events (ev_child), and event watchers dealing with the event loop mechanism itself (ev_idle, ev_embed, ev_prepare and ev_check watchers) as well as file watchers (ev_stat) and even limited support for fork events (ev_fork).</p>
+</blockquote>
+<h2>安装Libev</h2>
 <div class="highlight"><pre>sudo apt-get install libev-dev
 </pre></div>
 
 
+<h2>使用Libev</h2>
 <p>Libev通过ev_loop结构来表示一个事件驱动的框架,在这个框架之下，支持几十种事件，每个事件通过ev_TYPE结构体，ev_TYEP_init,ev_TYPE_set,ev_TYPE_start,ev_TYPE_stop等API来跟这个事件框架注册事件监控器。当我们要监控的事件出现是，框架便会触发已经注册的时间监控器来处理事件。</p>
-<h3>支持的事件类型</h3>
+<h4>支持的事件类型</h4>
 <div class="highlight"><pre><span class="n">ev_io</span>                 <span class="c1">// IO可读可写</span>
 <span class="n">ev_timer</span>              <span class="c1">// 相对定时器</span>
 <span class="n">ev_periodic</span>           <span class="c1">// 绝对定时器</span>
@@ -56,69 +62,86 @@
 </pre></div>
 
 
-<h3>作者例子</h3>
-<div class="highlight"><pre>man libev 
+<h4>支持后台复用</h4>
+<ul>
+<li>select    -- ev_select.c </li>
+<li>poll        -- ev_poll.c </li>
+<li>epoll      -- ev_epoll.c</li>
+<li>kqueue  -- ev_kqueue.c</li>
+<li>port       -- ev_port.c</li>
+</ul>
+<h4>使用基本流程</h4>
+<h5>1. 初始化框架</h5>
+<div class="highlight"><pre>     <span class="k">struct</span> <span class="n">ev_loop</span> <span class="o">*</span><span class="n">loop</span> <span class="o">=</span> <span class="n">EV_DEFAULT</span><span class="p">;</span>
+     <span class="k">struct</span> <span class="n">ev_loop</span> <span class="o">*</span><span class="n">loop</span> <span class="o">=</span> <span class="n">ev_default_loop</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+     <span class="err">或者</span>
+
+    <span class="k">struct</span> <span class="n">ev_loop</span> <span class="o">*</span><span class="n">loop</span> <span class="o">=</span> <span class="n">ev_loop_new</span><span class="p">(</span><span class="n">EVBACKEND_EPOLL</span><span class="p">);</span>
+    <span class="c1">//TODO</span>
+    <span class="n">ev_loop_destroy</span><span class="p">(</span><span class="n">loop</span><span class="p">);</span>
 </pre></div>
 
 
-<p>可以获得作者写的<a href="http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#EXAMPLE_PROGRAM">例子</a>
-,并有详细解释。</p>
-<div class="highlight"><pre><span class="c1">// a single header file is required</span>
-<span class="cp">#include &lt;ev.h&gt;</span>
-
-<span class="cp">#include &lt;stdio.h&gt; </span><span class="c1">// for puts</span>
-
-<span class="c1">// every watcher type has its own typedef&#39;d struct</span>
-<span class="c1">// with the name ev_TYPE</span>
-<span class="n">ev_io</span> <span class="n">stdin_watcher</span><span class="p">;</span>
-<span class="n">ev_timer</span> <span class="n">timeout_watcher</span><span class="p">;</span>
-
-<span class="c1">// all watcher callbacks have a similar signature</span>
-<span class="c1">// this callback is called when data is readable on stdin</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">stdin_cb</span> <span class="p">(</span><span class="n">EV_P_</span> <span class="n">ev_io</span> <span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="kt">int</span> <span class="n">revents</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">puts</span> <span class="p">(</span><span class="s">&quot;stdin ready&quot;</span><span class="p">);</span>
-    <span class="c1">// for one-shot events, one must manually stop the watcher</span>
-    <span class="c1">// with its corresponding stop function.</span>
-    <span class="n">ev_io_stop</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="n">w</span><span class="p">);</span>
-
-    <span class="c1">// this causes all nested ev_run&#39;s to stop iterating</span>
-    <span class="n">ev_break</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="n">EVBREAK_ALL</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// another callback, this time for a time-out</span>
-<span class="k">static</span> <span class="kt">void</span> <span class="nf">timeout_cb</span> <span class="p">(</span><span class="n">EV_P_</span> <span class="n">ev_timer</span> <span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="kt">int</span> <span class="n">revents</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">puts</span> <span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">);</span>
-    <span class="c1">// this causes the innermost ev_run to stop iterating</span>
-    <span class="n">ev_break</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="n">EVBREAK_ONE</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// use the default event loop unless you have special needs</span>
-    <span class="k">struct</span> <span class="n">ev_loop</span> <span class="o">*</span><span class="n">loop</span> <span class="o">=</span> <span class="n">EV_DEFAULT</span><span class="p">;</span>
-
-    <span class="c1">// initialise an io watcher, then start it</span>
-    <span class="c1">// this one will watch for stdin to become readable</span>
-    <span class="n">ev_io_init</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">stdin_watcher</span><span class="p">,</span> <span class="n">stdin_cb</span><span class="p">,</span> <span class="cm">/*STDIN_FILENO*/</span> <span class="mi">0</span><span class="p">,</span> <span class="n">EV_READ</span><span class="p">);</span>
-    <span class="n">ev_io_start</span> <span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">stdin_watcher</span><span class="p">);</span>
-
-    <span class="c1">// initialise a timer watcher, then start it</span>
-    <span class="c1">// simple non-repeating 5.5 second timeout</span>
-    <span class="n">ev_timer_init</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">timeout_watcher</span><span class="p">,</span> <span class="n">timeout_cb</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">);</span>
-    <span class="n">ev_timer_start</span> <span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">timeout_watcher</span><span class="p">);</span>
-
-    <span class="c1">// now wait for events to arrive</span>
-    <span class="n">ev_run</span> <span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-
-    <span class="c1">// break was called, so exit</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<h5>2. 初始化监控器</h5>
+<div class="highlight"><pre>    <span class="n">ev_TYPE</span> <span class="n">w</span><span class="p">;</span>
+    <span class="n">ev_TYPE_init</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">cb</span><span class="p">,...);</span>
 </pre></div>
 
 
-<p>解释一下EV_P，EV_P_，EV_A，EV_A_这几个宏，在代码中会经常看到这几个宏，主要是为了简化单线程模式下的函数调用的接口，在Libev的源代码的ev.h中，有：</p>
+<h5>3. 把监控器加入到框架的监控器列表里</h5>
+<div class="highlight"><pre>    <span class="n">ev_TYPE_start</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span><span class="n">w</span><span class="p">);</span>
+</pre></div>
+
+
+<h5>4. 框架开始处理事件</h5>
+<div class="highlight"><pre>    <span class="n">ev_run</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+
+
+<h2>源码分析</h2>
+<h3>关键数据结构</h3>
+<p>libev采用继承的关系来处理各种不同的监控器数据结构。基类：</p>
+<div class="highlight"><pre><span class="cp"># define EV_COMMON void *data;</span>
+<span class="cp"># define EV_CB_DECLARE(type) void (*cb)(EV_P_ struct type *w, int revents);</span>
+<span class="cp"># define EV_DECL_PRIORITY int priority;</span>
+
+<span class="cp">#define EV_WATCHER(type)            \</span>
+<span class="cp">  int active; </span><span class="cm">/* private */</span><span class="cp">         \</span>
+<span class="cp">  int pending; </span><span class="cm">/* private */</span><span class="cp">            \</span>
+<span class="cp">  EV_DECL_PRIORITY </span><span class="cm">/* private */</span><span class="cp">        \</span>
+<span class="cp">  EV_COMMON </span><span class="cm">/* rw */</span><span class="cp">                \</span>
+<span class="cp">  EV_CB_DECLARE (type) </span><span class="cm">/* private */</span><span class="cp"></span>
+
+ <span class="cp">#define EV_WATCHER_LIST(type)          \</span>
+<span class="cp">  EV_WATCHER (type)             \</span>
+<span class="cp">  struct ev_watcher_list *next; </span><span class="cm">/* private */</span><span class="cp"></span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">ev_watcher</span>
+<span class="p">{</span>
+  <span class="n">EV_WATCHER</span> <span class="p">(</span><span class="n">ev_watcher</span><span class="p">)</span>
+<span class="p">}</span> <span class="n">ev_watcher</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">ev_watcher_list</span>
+<span class="p">{</span>
+  <span class="n">EV_WATCHER_LIST</span> <span class="p">(</span><span class="n">ev_watcher_list</span><span class="p">)</span>
+<span class="p">}</span> <span class="n">ev_watcher_list</span><span class="p">;</span>
+</pre></div>
+
+
+<p>对于其他具体的监控器数据结构，都有基类派生而来，如ev_io类：</p>
+<div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">ev_io</span>
+<span class="p">{</span>
+  <span class="n">EV_WATCHER_LIST</span> <span class="p">(</span><span class="n">ev_io</span><span class="p">)</span>
+
+  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>     <span class="cm">/* ro */</span>
+  <span class="kt">int</span> <span class="n">events</span><span class="p">;</span> <span class="cm">/* ro */</span>
+<span class="p">}</span> <span class="n">ev_io</span><span class="p">;</span>
+</pre></div>
+
+
+<p>其他类都是由类似的方法派生而来，具体可以参考源代码。</p>
+<p>在介绍最重要的结构ev_loop之前，先解释一下EV_P，EV_P_，EV_A，EV_A_这几个宏，在代码中会经常看到这几个宏，主要是为了简化单线程模式下的函数调用的接口，在Libev的源代码的ev.h中，有：</p>
 <div class="highlight"><pre><span class="cm">/* support multiple event loops? */</span>
 <span class="cp">#if EV_MULTIPLICITY</span>
 <span class="k">struct</span> <span class="n">ev_loop</span><span class="p">;</span>
@@ -144,8 +167,8 @@
 </pre></div>
 
 
-<p>如果包含EV_MULTIPLICITY, 表示支持多个ev_loop实例存在，一般来说，一个线程中有且只有一个ev_loop实例。如果整个程序是单线程，程序中使用默认的ev_loop即可，即全局的ev_loop( 没有用结构)，所以不需要参数。
-多实例和全局结构可以在 ev.c中找到。</p>
+<p>如果包含EV_MULTIPLICITY, 表示支持多个ev_loop实例存在，一般来说，一个线程中有且只有一个ev_loop实例。如果整个程序是单线程，程序中可以选择使用默认的ev_loop来简化调用，即全局的ev_loop( 没有用结构)，所以不需要参数。</p>
+<p>ev_loop结构：</p>
 <div class="highlight"><pre><span class="cp">#if EV_MULTIPLICITY</span>
 
   <span class="k">struct</span> <span class="n">ev_loop</span>
@@ -167,13 +190,169 @@
   <span class="cp">#define VAR(name,decl) static decl;</span>
     <span class="cp">#include &quot;ev_vars.h&quot;</span>
   <span class="cp">#undef VAR</span>
-
   <span class="k">static</span> <span class="kt">int</span> <span class="n">ev_default_loop_ptr</span><span class="p">;</span>
-
 <span class="cp">#endif</span>
 </pre></div>
 
 
+<p>对于这个宏VAR,可以参考这里的<a href="http://blog.csdn.net/absurd/article/details/466562">解释</a></p>
+<p>对于单线城来说 ，定义了全局静态变量。对于多线程来说，所有数据结构都封装在ev_loop中，并且在ev_var.h中定义，通过include来展开。并且通过ev_wrap.h来简化访问，使多线程和单线城访问方式一样。</p>
+<p>在ev_loop中有一个重要的成员，就是anfds，它定义了需要监控的I/O的文件句柄。libev需要考虑的一个问题就是执行效率，这里采用牺牲空间换时间的办法，用fd的值作为数组的下表，来加快查找的效率。</p>
+<div class="highlight"><pre><span class="k">typedef</span> <span class="n">ev_watcher_list</span> <span class="o">*</span><span class="n">WL</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+  <span class="n">WL</span> <span class="n">head</span><span class="p">;</span>
+  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">events</span><span class="p">;</span> <span class="cm">/* the events watched for */</span>
+  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">reify</span><span class="p">;</span>  <span class="cm">/* flag set when this ANFD needs reification (EV_ANFD_REIFY, EV__IOFDSET) */</span>
+  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">emask</span><span class="p">;</span>  <span class="cm">/* the epoll backend stores the actual kernel mask in here */</span>
+  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">unused</span><span class="p">;</span>
+<span class="cp">#if EV_USE_EPOLL</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">egen</span><span class="p">;</span>    <span class="cm">/* generation counter to counter epoll bugs */</span>
+<span class="cp">#endif</span>
+<span class="cp">#if EV_SELECT_IS_WINSOCKET || EV_USE_IOCP</span>
+  <span class="n">SOCKET</span> <span class="n">handle</span><span class="p">;</span>
+<span class="cp">#endif</span>
+<span class="cp">#if EV_USE_IOCP</span>
+  <span class="n">OVERLAPPED</span> <span class="n">or</span><span class="p">,</span> <span class="n">ow</span><span class="p">;</span>
+<span class="cp">#endif</span>
+<span class="p">}</span> <span class="n">ANFD</span><span class="p">;</span>
+</pre></div>
+
+
+<h3>关键函数</h3>
+<p>框架初始化：
+ev_default_loop和ev_loop_new都会调用loop_init：</p>
+<div class="highlight"><pre><span class="k">static</span> <span class="kt">void</span> <span class="n">noinline</span> <span class="n">ecb_cold</span>
+<span class="nf">loop_init</span> <span class="p">(</span><span class="n">EV_P_</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">)</span> <span class="n">EV_THROW</span>
+<span class="p">{</span>
+<span class="c1">//根据不同的参数来初始化不同的backend</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">EVBACKEND_MASK</span><span class="p">))</span>
+        <span class="n">flags</span> <span class="o">|=</span> <span class="n">ev_recommended_backends</span> <span class="p">();</span>
+
+<span class="cp">#if EV_USE_IOCP</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">backend</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">EVBACKEND_IOCP</span>  <span class="p">))</span> <span class="n">backend</span> <span class="o">=</span> <span class="n">iocp_init</span>   <span class="p">(</span><span class="n">EV_A_</span> <span class="n">flags</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="cp">#if EV_USE_PORT</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">backend</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">EVBACKEND_PORT</span>  <span class="p">))</span> <span class="n">backend</span> <span class="o">=</span> <span class="n">port_init</span>   <span class="p">(</span><span class="n">EV_A_</span> <span class="n">flags</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="cp">#if EV_USE_KQUEUE</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">backend</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">EVBACKEND_KQUEUE</span><span class="p">))</span> <span class="n">backend</span> <span class="o">=</span> <span class="n">kqueue_init</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="n">flags</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="cp">#if EV_USE_EPOLL</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">backend</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">EVBACKEND_EPOLL</span> <span class="p">))</span> <span class="n">backend</span> <span class="o">=</span> <span class="n">epoll_init</span>  <span class="p">(</span><span class="n">EV_A_</span> <span class="n">flags</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="cp">#if EV_USE_POLL</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">backend</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">EVBACKEND_POLL</span>  <span class="p">))</span> <span class="n">backend</span> <span class="o">=</span> <span class="n">poll_init</span>   <span class="p">(</span><span class="n">EV_A_</span> <span class="n">flags</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="cp">#if EV_USE_SELECT</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">backend</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">EVBACKEND_SELECT</span><span class="p">))</span> <span class="n">backend</span> <span class="o">=</span> <span class="n">select_init</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="n">flags</span><span class="p">);</span>
+<span class="cp">#endif</span>
+    <span class="c1">//...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>把监视器注册到框架中，看I/O的实现，其他类似：</p>
+<div class="highlight"><pre><span class="kt">void</span> <span class="n">noinline</span>
+<span class="nf">ev_io_start</span> <span class="p">(</span><span class="n">EV_P_</span> <span class="n">ev_io</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="n">EV_THROW</span>
+<span class="p">{</span>
+  <span class="p">...</span>  
+  <span class="c1">//把active状态改成活动状态</span>
+  <span class="n">ev_start</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="p">(</span><span class="n">W</span><span class="p">)</span><span class="n">w</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+  <span class="c1">//根据fd的大小来决定来分配多少内存，同时要根据内存的分配规律来分配合适的大小，加快访问速度</span>
+  <span class="c1">//但是没有搞明白为什么要MALLOC_ROUND- sizeof (void *) * 4 ？？？？</span>
+  <span class="n">array_needsize</span> <span class="p">(</span><span class="n">ANFD</span><span class="p">,</span> <span class="n">anfds</span><span class="p">,</span> <span class="n">anfdmax</span><span class="p">,</span> <span class="n">fd</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">array_init_zero</span><span class="p">);</span>
+
+  <span class="c1">//把这个监视器放入fd对应的列表</span>
+  <span class="n">wlist_add</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">anfds</span><span class="p">[</span><span class="n">fd</span><span class="p">].</span><span class="n">head</span><span class="p">,</span> <span class="p">(</span><span class="n">WL</span><span class="p">)</span><span class="n">w</span><span class="p">);</span>
+  <span class="p">...</span>
+  <span class="c1">//标记哪些fd有改动，等到下一次循环的时候把这些fd的改动写到kernel里面去</span>
+  <span class="n">fd_change</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="n">fd</span><span class="p">,</span> <span class="n">w</span><span class="o">-&gt;</span><span class="n">events</span> <span class="o">&amp;</span> <span class="n">EV__IOFDSET</span> <span class="o">|</span> <span class="n">EV_ANFD_REIFY</span><span class="p">);</span>
+  <span class="n">w</span><span class="o">-&gt;</span><span class="n">events</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="n">EV__IOFDSET</span><span class="p">;</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>把监视器从框架删除，ev_io_start的反操作：</p>
+<div class="highlight"><pre><span class="kt">void</span> <span class="n">noinline</span>
+<span class="nf">ev_io_stop</span> <span class="p">(</span><span class="n">EV_P_</span> <span class="n">ev_io</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="n">EV_THROW</span>
+<span class="p">{</span>
+  <span class="c1">//如果该事件正在等待执行，则删除</span>
+  <span class="n">clear_pending</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="p">(</span><span class="n">W</span><span class="p">)</span><span class="n">w</span><span class="p">);</span>
+  <span class="p">...</span>
+  <span class="c1">//从对应的fd列表里面删除监视器</span>
+  <span class="n">wlist_del</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">anfds</span><span class="p">[</span><span class="n">w</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">].</span><span class="n">head</span><span class="p">,</span> <span class="p">(</span><span class="n">WL</span><span class="p">)</span><span class="n">w</span><span class="p">);</span>
+
+  <span class="c1">//把监视器active改成0</span>
+  <span class="n">ev_stop</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="p">(</span><span class="n">W</span><span class="p">)</span><span class="n">w</span><span class="p">);</span>
+
+ <span class="c1">//标记哪些fd有改动，等到下一次循环的时候把这些fd的改动写到kernel里面去</span>
+  <span class="n">fd_change</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="n">w</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">,</span> <span class="n">EV_ANFD_REIFY</span><span class="p">);</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>主要循环ev_run，监视事件是否有变化,有变化，这调用通知监视器：</p>
+<div class="highlight"><pre><span class="kt">int</span>
+<span class="nf">ev_run</span> <span class="p">(</span><span class="n">EV_P_</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="p">...</span>
+  <span class="k">do</span>
+    <span class="p">{</span>
+
+<span class="cp">#if EV_PREPARE_ENABLE</span>
+      <span class="c1">//如果有prepare监视器，则在执行select/poll等之前先执行prepare</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">expect_false</span> <span class="p">(</span><span class="n">preparecnt</span><span class="p">))</span>
+        <span class="p">{</span>
+         <span class="c1">//触发PREPARE事件</span>
+          <span class="n">queue_events</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="p">(</span><span class="n">W</span> <span class="o">*</span><span class="p">)</span><span class="n">prepares</span><span class="p">,</span> <span class="n">preparecnt</span><span class="p">,</span> <span class="n">EV_PREPARE</span><span class="p">);</span>
+          <span class="c1">//执行callback</span>
+          <span class="n">EV_INVOKE_PENDING</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="cp">#endif</span>
+      <span class="p">...</span>
+
+     <span class="c1">//把ev_io_start中fd_change有改动的fd同步到kernel里面去,这里会调用具体backend的函数</span>
+      <span class="n">fd_reify</span> <span class="p">(</span><span class="n">EV_A</span><span class="p">);</span>
+
+     <span class="c1">//这里很长一段代码主要是计算时间</span>
+    <span class="p">...</span>
+
+        <span class="c1">//调用select/poll等方法来等待事件的发生，发生之后放入队列。 这里会调用具体backend的函数</span>
+        <span class="n">backend_poll</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="n">waittime</span><span class="p">);</span>
+
+<span class="cp">#if EV_CHECK_ENABLE</span>
+     <span class="c1">//如果有注册check监视器，则等待事件发生之后调用callback</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">expect_false</span> <span class="p">(</span><span class="n">checkcnt</span><span class="p">))</span>
+        <span class="c1">//触发CHECK事件</span>
+        <span class="n">queue_events</span> <span class="p">(</span><span class="n">EV_A_</span> <span class="p">(</span><span class="n">W</span> <span class="o">*</span><span class="p">)</span><span class="n">checks</span><span class="p">,</span> <span class="n">checkcnt</span><span class="p">,</span> <span class="n">EV_CHECK</span><span class="p">);</span>
+<span class="cp">#endif</span>
+     <span class="c1">//执行所有pending的callback</span>
+      <span class="n">EV_INVOKE_PENDING</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">expect_true</span> <span class="p">(</span>
+    <span class="n">activecnt</span>
+    <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">loop_done</span>
+    <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">EVRUN_ONCE</span> <span class="o">|</span> <span class="n">EVRUN_NOWAIT</span><span class="p">))</span>
+  <span class="p">));</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2>例子</h2>
+<h3>作者例子</h3>
+<div class="highlight"><pre>man libev 
+</pre></div>
+
+
+<p>或者<a href="http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#EXAMPLE_PROGRAM">这里</a>可以获得
+,并有详细解释。</p>
 <h3>简单socket例子</h3>
 <div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 <span class="cp">#include &lt;string.h&gt;</span>

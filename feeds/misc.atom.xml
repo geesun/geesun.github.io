@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Geesun's Blog</title><link href="https://geesun.github.io/" rel="alternate"></link><link href="https://geesun.github.io/feeds/misc.atom.xml" rel="self"></link><id>https://geesun.github.io/</id><updated>2015-09-24T10:20:00+08:00</updated><entry><title>对Git Fast-Forword和Rebase理解</title><link href="https://geesun.github.io/posts/2015/09/git_fast_forword_rebase.html" rel="alternate"></link><updated>2015-09-24T10:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-09-24:posts/2015/09/git_fast_forword_rebase.html</id><summary type="html">&lt;h2&gt;问题&lt;/h2&gt;
+&lt;h3&gt;遇到什么问题?&lt;/h3&gt;
+&lt;p&gt;之前日常操作都是用git pull来获取远程代码并且自动合并，如果和远程代码有分叉的话，就会出现一些奇怪的提交，如下面的提交记录：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 0c2df7467d30c46ee4884eb170cf4a521918e7d3
+Merge: 2ce37bb 236e1d3
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:19:49 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Merge branch &lt;span class="s1"&gt;&amp;#39;master&amp;#39;&lt;/span&gt; of /home/geesun/test/remote
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;很多情况下，我们并不希望有这样的自动合并产生，因为他产生了一个自动提交，会让版本变得交叉，不清晰。&lt;/p&gt;
+&lt;h3&gt;问题如何产生?&lt;/h3&gt;
+&lt;p&gt;Step 1:本地代码从远程服务器的同步完成后又提交了B,这是本地代码提交记录:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 2ce37bbfd25d5e0265cda4949b16f0110a4f45e7
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Step 2: 远程服务后来又被另外一个人提交了A,远程服务器的提交记录如下:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/remote&lt;span class="nv"&gt;$ &lt;/span&gt;git log
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Step 3:这个时候我要在本地push代码到远程服务器,会被reject,必须先同步才能push,就用git pull同步,操作结果如下:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git pull 
+remote: Counting objects: 4, &lt;span class="k"&gt;done&lt;/span&gt;.
+remote: Compressing objects: 100% &lt;span class="o"&gt;(&lt;/span&gt;2/2&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="k"&gt;done&lt;/span&gt;.
+remote: Total &lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta 0&lt;span class="o"&gt;)&lt;/span&gt;, reused &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta 0&lt;span class="o"&gt;)&lt;/span&gt;
+Unpacking objects: 100% &lt;span class="o"&gt;(&lt;/span&gt;3/3&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="k"&gt;done&lt;/span&gt;.
+来自 /home/geesun/test/remote
+   9d34ed9..236e1d3  master     -&amp;gt; origin/master
+Merge made by the &lt;span class="s1"&gt;&amp;#39;recursive&amp;#39;&lt;/span&gt; strategy.
+ local1 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt; +
+ &lt;span class="m"&gt;1&lt;/span&gt; file changed, &lt;span class="m"&gt;1&lt;/span&gt; insertion&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
+ create mode &lt;span class="m"&gt;100644&lt;/span&gt; local1
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 0c2df7467d30c46ee4884eb170cf4a521918e7d3
+Merge: 2ce37bb 236e1d3
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:19:49 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Merge branch &lt;span class="s1"&gt;&amp;#39;master&amp;#39;&lt;/span&gt; of /home/geesun/test/remote
+
+commit 2ce37bbfd25d5e0265cda4949b16f0110a4f45e7
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个时候别人在从远程服务器同步代码之后,都会看到开始那条本不该存在的提交记录.&lt;/p&gt;
+&lt;h3&gt;如何解决这个问题&lt;/h3&gt;
+&lt;p&gt;在本地代码推送到远程服务器之前,对本地代码进行rebase即可,操作记录:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git pull -r 
+首先，重置头指针以便在上面重放您的工作...
+正应用：check in by B
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 2ce37bbfd25d5e0265cda4949b16f0110a4f45e7
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by B
+
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base check in
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;什么是Fast-Forward&lt;/h2&gt;
+&lt;p&gt;要理解rebase,就先要搞清楚Fast-Forward的概念. 如果本地代码在跟远程同步之后,本地没有新的提交,而远程代码有新的提交,这就是说本地代码和远程的代码没有出现分叉,只不过是本地代码指向比较旧的版本而已.这种情况我们就称为本地代码可以做Fast-Forward. &lt;/p&gt;
+&lt;p&gt;如下:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;BASE&lt;/span&gt;&lt;span class="o"&gt;---&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;      &lt;span class="o"&gt;&amp;lt;---&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Local&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+                \
+                 \
+                  &lt;span class="n"&gt;B&lt;/span&gt;   &lt;span class="o"&gt;&amp;lt;---&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Remote&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;操作记录:&lt;/p&gt;
+&lt;p&gt;远端:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/remote&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 257d73fdbbfbaaaac18a398e46bf296cc01436ca
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:00:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by B
+
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;本地:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git pull 
+更新 236e1d3..257d73f
+Fast-forward
+ local2 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt; +
+ &lt;span class="m"&gt;1&lt;/span&gt; file changed, &lt;span class="m"&gt;1&lt;/span&gt; insertion&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
+ create mode &lt;span class="m"&gt;100644&lt;/span&gt; local2
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log
+commit 257d73fdbbfbaaaac18a398e46bf296cc01436ca
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:00:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by B
+
+commit 236e1d369761e180e4928a717c180d5cb776ba02
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    check in by A
+
+commit 9d34ed98d4478fa52424498940c962f9b0d921e2
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt; 这里的git pull相当于 git fetch和git merge origin/master的组合. &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;因为这种情况是可以做fast-forward,所以git merge就相当于只是做了fast-forward而已.&lt;/p&gt;
+&lt;p&gt;开始问题描述的就是一种不可以做fast-forward的情况,如果再用git merge则就会产生一个自动提交,如开始问题描述的一样.&lt;/p&gt;
+&lt;p&gt;有些时候我们希望能fast-forward就fast-forward,否则我们用后面会讲的rebase命令合并。可以这样：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git pull --ff-only
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git fetch
+git merge --ff-only origin/master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果不能fast-forward, merge 操作会终止。&lt;/p&gt;
+&lt;h2&gt;什么是Rebase&lt;/h2&gt;
+&lt;p&gt;Rebase就是同步本地和远程的分支,使它们的base一样,然再应用本地没有推送的提交. &lt;/p&gt;
+&lt;p&gt;git rebase是时做了如下三件事情:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;把本地未推送到远端的所有提交，放到暂存区。&lt;/li&gt;
+&lt;li&gt;然后把本地的指针指向远端的最新提交,也就使它和远端的提交一样.&lt;/li&gt;
+&lt;li&gt;然后将暂存区的提交挨个挨个提交到本分支. 如果出现冲突,会需要手工merge.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;远端提交记录:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/remote&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 0ab394dc2ac5a4d186eb9be86da4c72987d3023a
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:37:37 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;本地提交记录:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit df94a3c6cf05c63a7b9db6fd753ef70b1d9a40df
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:45:21 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;对本地进行rebase:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local$ git pull -r 
+首先，重置头指针以便在上面重放您的工作...
+正应用：Check in by B
+geesun@geesun-OptiPlex-3010:~/test/src/local$ git log 
+commit 59e14ba0bb2e55401ca0b2d8c309f520843e8144
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep 24 16:45:21 2015 +0800
+
+    Check in by B
+
+commit 0ab394dc2ac5a4d186eb9be86da4c72987d3023a
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep 24 16:37:37 2015 +0800
+
+    Check in by A
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep 24 16:36:30 2015 +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Rebase后的结果也许是我们希望的结果,而不是开始问题描述的那样.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; 这里的git pull -r 相当于 git fetch和git rebase的组合. &lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果rebase出现冲突,会需要手工merge&lt;/p&gt;
+&lt;p&gt;手工merge操作日志:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit e6bb6173b626f8ef599b86516a0e35e4cbb7bc5a
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:51:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git rebase
+首先，重置头指针以便在上面重放您的工作...
+正应用：Check in by B
+使用索引来重建一个（三路合并的）基础目录树...
+转而在基础版本上打补丁及进行三路合并...
+自动合并 test.txt
+冲突（添加/添加）：合并冲突于 test.txt
+无法合并变更。
+补丁失败于 &lt;span class="m"&gt;0001&lt;/span&gt; Check in by B
+失败的补丁文件副本位于：
+   /home/geesun/test/src/local/.git/rebase-apply/patch
+
+当您解决了此问题后，执行 &lt;span class="s2"&gt;&amp;quot;git rebase --continue&amp;quot;&lt;/span&gt;。
+如果您想跳过此补丁，则执行 &lt;span class="s2"&gt;&amp;quot;git rebase --skip&amp;quot;&lt;/span&gt;。
+要恢复原分支并停止变基，执行 &lt;span class="s2"&gt;&amp;quot;git rebase --abort&amp;quot;&lt;/span&gt;。
+
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;vi test.txt
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git add test.txt
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git rebase --continue
+正应用：Check in by B
+geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
+commit 0a68c730ee96d4dd37d1dd97f52a5fcb4be383e4
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:51:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by B
+
+commit 0ab394dc2ac5a4d186eb9be86da4c72987d3023a
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:37:37 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    Check in by A
+
+commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
+Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
+Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+
+    base
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;不同分支之间也可以做rebase,应该不太常用,就不做例子了.&lt;/p&gt;
+&lt;h2&gt;总结&lt;/h2&gt;
+&lt;p&gt;在本地很远端不能做fast-forword的情况下,是采用git merge 还是采用git rebase要看项目的要求. 如果想保持完整的提交记录,可以考虑用git merge. 要想保持清晰的提交记录,采用git rebase会比较好.&lt;/p&gt;
+&lt;p&gt;git pull默认的行为是merge,如果要更改这种默认行为为rebase,可以用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git config --global branch.autosetuprebase always
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="git"></category></entry></feed>
