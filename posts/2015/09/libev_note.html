@@ -18,6 +18,8 @@
                     <li><a href="../../../category/leetcode.html">Leetcode</a></li>
                     <li><a href="../../../category/misc.html">Misc</a></li>
                     <li class="active"><a href="../../../category/network.html">Network</a></li>
+                    <li><a href="../../../category/program.html">Program</a></li>
+                    <li><a href="../../../category/vim.html">VIM</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
@@ -39,7 +41,7 @@
 <p>Libev supports select, poll, the Linux-specific epoll, the BSD-specific kqueue and the Solaris-specific event port mechanisms for file descriptor events (ev_io), the Linux inotify interface (for ev_stat), Linux eventfd/signalfd (for faster and cleaner inter-thread wakeup (ev_async)/signal handling (ev_signal)) relative timers (ev_timer), absolute timers with customised rescheduling (ev_periodic), synchronous signals (ev_signal), process status change events (ev_child), and event watchers dealing with the event loop mechanism itself (ev_idle, ev_embed, ev_prepare and ev_check watchers) as well as file watchers (ev_stat) and even limited support for fork events (ev_fork).</p>
 </blockquote>
 <h2>安装Libev</h2>
-<div class="highlight"><pre>sudo apt-get install libev-dev
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libev</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 
 
@@ -113,9 +115,9 @@
 <span class="cp">  EV_COMMON </span><span class="cm">/* rw */</span><span class="cp">                \</span>
 <span class="cp">  EV_CB_DECLARE (type) </span><span class="cm">/* private */</span><span class="cp"></span>
 
- <span class="cp">#define EV_WATCHER_LIST(type)          \</span>
-<span class="cp">  EV_WATCHER (type)             \</span>
-<span class="cp">  struct ev_watcher_list *next; </span><span class="cm">/* private */</span><span class="cp"></span>
+ <span class="err">#</span><span class="n">define</span> <span class="n">EV_WATCHER_LIST</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>          \
+  <span class="n">EV_WATCHER</span> <span class="p">(</span><span class="n">type</span><span class="p">)</span>             \
+  <span class="k">struct</span> <span class="n">ev_watcher_list</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> <span class="cm">/* private */</span>
 
 <span class="k">typedef</span> <span class="k">struct</span> <span class="n">ev_watcher</span>
 <span class="p">{</span>
@@ -143,27 +145,27 @@
 <p>其他类都是由类似的方法派生而来，具体可以参考源代码。</p>
 <p>在介绍最重要的结构ev_loop之前，先解释一下EV_P，EV_P_，EV_A，EV_A_这几个宏，在代码中会经常看到这几个宏，主要是为了简化单线程模式下的函数调用的接口，在Libev的源代码的ev.h中，有：</p>
 <div class="highlight"><pre><span class="cm">/* support multiple event loops? */</span>
-<span class="cp">#if EV_MULTIPLICITY</span>
+<span class="p">#</span><span class="k">if</span> <span class="no">EV_MULTIPLICITY</span>
 <span class="k">struct</span> <span class="n">ev_loop</span><span class="p">;</span>
-<span class="cp"># define EV_P  struct ev_loop *loop               </span><span class="cm">/* a loop as sole parameter in a declaration */</span><span class="cp"></span>
-<span class="cp"># define EV_P_ EV_P,                              </span><span class="cm">/* a loop as first of multiple parameters */</span><span class="cp"></span>
-<span class="cp"># define EV_A  loop                               </span><span class="cm">/* a loop as sole argument to a function call */</span><span class="cp"></span>
-<span class="cp"># define EV_A_ EV_A,                              </span><span class="cm">/* a loop as first of multiple arguments */</span><span class="cp"></span>
-<span class="cp"># define EV_DEFAULT_UC  ev_default_loop_uc_ ()    </span><span class="cm">/* the default loop, if initialised, as sole arg */</span><span class="cp"></span>
-<span class="cp"># define EV_DEFAULT_UC_ EV_DEFAULT_UC,            </span><span class="cm">/* the default loop as first of multiple arguments */</span><span class="cp"></span>
-<span class="cp"># define EV_DEFAULT  ev_default_loop (0)          </span><span class="cm">/* the default loop as sole arg */</span><span class="cp"></span>
-<span class="cp"># define EV_DEFAULT_ EV_DEFAULT,                  </span><span class="cm">/* the default loop as first of multiple arguments */</span><span class="cp"></span>
-<span class="cp">#else</span>
-<span class="cp"># define EV_P void</span>
-<span class="cp"># define EV_P_</span>
-<span class="cp"># define EV_A</span>
-<span class="cp"># define EV_A_</span>
-<span class="cp"># define EV_DEFAULT</span>
-<span class="cp"># define EV_DEFAULT_</span>
-<span class="cp"># define EV_DEFAULT_UC</span>
-<span class="cp"># define EV_DEFAULT_UC_</span>
-<span class="cp"># undef EV_EMBED_ENABLE</span>
-<span class="cp">#endif</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_P</span>  <span class="k">struct</span> <span class="n">ev_loop</span> <span class="o">*</span><span class="n">loop</span>               <span class="cm">/* a loop as sole parameter in a declaration */</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_P_</span> <span class="no">EV_P</span><span class="p">,</span>                              <span class="cm">/* a loop as first of multiple parameters */</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_A</span>  <span class="n">loop</span>                               <span class="cm">/* a loop as sole argument to a function call */</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_A_</span> <span class="no">EV_A</span><span class="p">,</span>                              <span class="cm">/* a loop as first of multiple arguments */</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_DEFAULT_UC</span>  <span class="n">ev_default_loop_uc_</span> <span class="p">()</span>    <span class="cm">/* the default loop, if initialised, as sole arg */</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_DEFAULT_UC_</span> <span class="no">EV_DEFAULT_UC</span><span class="p">,</span>            <span class="cm">/* the default loop as first of multiple arguments */</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_DEFAULT</span>  <span class="n">ev_default_loop</span> <span class="p">(</span><span class="mh">0</span><span class="p">)</span>          <span class="cm">/* the default loop as sole arg */</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_DEFAULT_</span> <span class="no">EV_DEFAULT</span><span class="p">,</span>                  <span class="cm">/* the default loop as first of multiple arguments */</span>
+<span class="p">#</span><span class="k">else</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_P</span> <span class="k">void</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_P_</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_A</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_A_</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_DEFAULT</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_DEFAULT_</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_DEFAULT_UC</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">EV_DEFAULT_UC_</span>
+<span class="p">#</span> <span class="n">undef</span> <span class="no">EV_EMBED_ENABLE</span>
+<span class="p">#</span><span class="n">endif</span>
 </pre></div>
 
 
@@ -174,12 +176,12 @@
   <span class="k">struct</span> <span class="n">ev_loop</span>
   <span class="p">{</span>
     <span class="n">ev_tstamp</span> <span class="n">ev_rt_now</span><span class="p">;</span>
-    <span class="cp">#define ev_rt_now ((loop)-&gt;ev_rt_now)</span>
-    <span class="cp">#define VAR(name,decl) decl;</span>
-      <span class="cp">#include &quot;ev_vars.h&quot;</span>
-    <span class="cp">#undef VAR</span>
+    <span class="err">#</span><span class="n">define</span> <span class="n">ev_rt_now</span> <span class="p">((</span><span class="n">loop</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">ev_rt_now</span><span class="p">)</span>
+    <span class="err">#</span><span class="n">define</span> <span class="n">VAR</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">decl</span><span class="p">)</span> <span class="n">decl</span><span class="p">;</span>
+      <span class="err">#</span><span class="n">include</span> <span class="s">&quot;ev_vars.h&quot;</span>
+    <span class="err">#</span><span class="n">undef</span> <span class="n">VAR</span>
   <span class="p">};</span>
-  <span class="cp">#include &quot;ev_wrap.h&quot;</span>
+  <span class="err">#</span><span class="n">include</span> <span class="s">&quot;ev_wrap.h&quot;</span>
 
   <span class="k">static</span> <span class="k">struct</span> <span class="n">ev_loop</span> <span class="n">default_loop_struct</span><span class="p">;</span>
   <span class="n">EV_API_DECL</span> <span class="k">struct</span> <span class="n">ev_loop</span> <span class="o">*</span><span class="n">ev_default_loop_ptr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="cm">/* needs to be initialised to make it a definition despite extern */</span>
@@ -187,9 +189,9 @@
 <span class="cp">#else</span>
 
   <span class="n">EV_API_DECL</span> <span class="n">ev_tstamp</span> <span class="n">ev_rt_now</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="cm">/* needs to be initialised to make it a definition despite extern */</span>
-  <span class="cp">#define VAR(name,decl) static decl;</span>
-    <span class="cp">#include &quot;ev_vars.h&quot;</span>
-  <span class="cp">#undef VAR</span>
+  <span class="err">#</span><span class="n">define</span> <span class="n">VAR</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">decl</span><span class="p">)</span> <span class="k">static</span> <span class="n">decl</span><span class="p">;</span>
+    <span class="err">#</span><span class="n">include</span> <span class="s">&quot;ev_vars.h&quot;</span>
+  <span class="err">#</span><span class="n">undef</span> <span class="n">VAR</span>
   <span class="k">static</span> <span class="kt">int</span> <span class="n">ev_default_loop_ptr</span><span class="p">;</span>
 <span class="cp">#endif</span>
 </pre></div>
@@ -347,7 +349,7 @@ ev_default_loop和ev_loop_new都会调用loop_init：</p>
 
 <h2>例子</h2>
 <h3>作者例子</h3>
-<div class="highlight"><pre>man libev 
+<div class="highlight"><pre><span class="n">man</span> <span class="n">libev</span> 
 </pre></div>
 
 

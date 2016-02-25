@@ -1,188 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Geesun's Blog</title><link href="https://geesun.github.io/" rel="alternate"></link><link href="https://geesun.github.io/feeds/all.atom.xml" rel="self"></link><id>https://geesun.github.io/</id><updated>2015-09-24T10:20:00+08:00</updated><entry><title>对Git Fast-Forword和Rebase理解</title><link href="https://geesun.github.io/posts/2015/09/git_fast_forword_rebase.html" rel="alternate"></link><updated>2015-09-24T10:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-09-24:posts/2015/09/git_fast_forword_rebase.html</id><summary type="html">&lt;h2&gt;问题&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Geesun's Blog</title><link href="https://geesun.github.io/" rel="alternate"></link><link href="https://geesun.github.io/feeds/all.atom.xml" rel="self"></link><id>https://geesun.github.io/</id><updated>2015-11-03T22:20:00+08:00</updated><entry><title>vim sudo保存</title><link href="https://geesun.github.io/posts/2015/11/vim_file_save_with_sudo.html" rel="alternate"></link><updated>2015-11-03T22:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:https://geesun.github.io,2015-11-03:posts/2015/11/vim_file_save_with_sudo.html</id><summary type="html">&lt;h2&gt;问题&lt;/h2&gt;
+&lt;p&gt;使用vim修改文件的时候，经常会遇到文件修改好了，缺发现文件需要root权限才能修改。之前遇到这种问题时先保存成一个临时文件，再用sudo mv覆盖老的文件。&lt;/p&gt;
+&lt;h2&gt;解决方法&lt;/h2&gt;
+&lt;p&gt;用下面命令替换上面两步：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;tee&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;解释&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;:w   把当前缓存的内容传给shell命令&lt;/li&gt;
+&lt;li&gt;%    当前文件名&lt;/li&gt;
+&lt;li&gt;tee  把标准输入的内容同时输出到标准输出和文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;高级用法&lt;/h2&gt;
+&lt;p&gt;在.vimrc中加入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;cmap&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;!!&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;tee&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;null&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以后就可以直接用 :w!! 来替代上面的命令了。&amp;gt;/dev/null是忽略标准输出。 &lt;/p&gt;
+&lt;h2&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work"&gt;How does the vim “write with sudo” trick work?&lt;/a&gt;&lt;/p&gt;</summary><category term="vim"></category></entry><entry><title>对Git Fast-Forword和Rebase理解</title><link href="https://geesun.github.io/posts/2015/09/git_fast_forword_rebase.html" rel="alternate"></link><updated>2015-09-24T10:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:https://geesun.github.io,2015-09-24:posts/2015/09/git_fast_forword_rebase.html</id><summary type="html">&lt;h2&gt;问题&lt;/h2&gt;
 &lt;h3&gt;遇到什么问题?&lt;/h3&gt;
 &lt;p&gt;之前日常操作都是用git pull来获取远程代码并且自动合并，如果和远程代码有分叉的话，就会出现一些奇怪的提交，如下面的提交记录：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit 0c2df7467d30c46ee4884eb170cf4a521918e7d3
-Merge: 2ce37bb 236e1d3
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:19:49 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;c2df7467d30c46ee4884eb170cf4a521918e7d3&lt;/span&gt;
+&lt;span class="nl"&gt;Merge:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;ce37bb&lt;/span&gt; &lt;span class="mf"&gt;236e1&lt;/span&gt;&lt;span class="n"&gt;d3&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;19&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;49&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Merge branch &lt;span class="s1"&gt;&amp;#39;master&amp;#39;&lt;/span&gt; of /home/geesun/test/remote
+    &lt;span class="n"&gt;Merge&lt;/span&gt; &lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;master&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;remote&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;很多情况下，我们并不希望有这样的自动合并产生，因为他产生了一个自动提交，会让版本变得交叉，不清晰。&lt;/p&gt;
 &lt;h3&gt;问题如何产生?&lt;/h3&gt;
 &lt;p&gt;Step 1:本地代码从远程服务器的同步完成后又提交了B,这是本地代码提交记录:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit 2ce37bbfd25d5e0265cda4949b16f0110a4f45e7
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;ce37bbfd25d5e0265cda4949b16f0110a4f45e7&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by B
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
 
-commit 9d34ed98d4478fa52424498940c962f9b0d921e2
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;d34ed98d4478fa52424498940c962f9b0d921e2&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base 
+    &lt;span class="n"&gt;base&lt;/span&gt; 
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Step 2: 远程服务后来又被另外一个人提交了A,远程服务器的提交记录如下:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/remote&lt;span class="nv"&gt;$ &lt;/span&gt;git log
-commit 236e1d369761e180e4928a717c180d5cb776ba02
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;remote&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt;
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;236e1&lt;/span&gt;&lt;span class="n"&gt;d369761e180e4928a717c180d5cb776ba02&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;19&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by A
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;
 
-commit 9d34ed98d4478fa52424498940c962f9b0d921e2
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;d34ed98d4478fa52424498940c962f9b0d921e2&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base
+    &lt;span class="n"&gt;base&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Step 3:这个时候我要在本地push代码到远程服务器,会被reject,必须先同步才能push,就用git pull同步,操作结果如下:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git pull 
-remote: Counting objects: 4, &lt;span class="k"&gt;done&lt;/span&gt;.
-remote: Compressing objects: 100% &lt;span class="o"&gt;(&lt;/span&gt;2/2&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="k"&gt;done&lt;/span&gt;.
-remote: Total &lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta 0&lt;span class="o"&gt;)&lt;/span&gt;, reused &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;delta 0&lt;span class="o"&gt;)&lt;/span&gt;
-Unpacking objects: 100% &lt;span class="o"&gt;(&lt;/span&gt;3/3&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="k"&gt;done&lt;/span&gt;.
-来自 /home/geesun/test/remote
-   9d34ed9..236e1d3  master     -&amp;gt; origin/master
-Merge made by the &lt;span class="s1"&gt;&amp;#39;recursive&amp;#39;&lt;/span&gt; strategy.
- local1 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt; +
- &lt;span class="m"&gt;1&lt;/span&gt; file changed, &lt;span class="m"&gt;1&lt;/span&gt; insertion&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
- create mode &lt;span class="m"&gt;100644&lt;/span&gt; local1
-geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit 0c2df7467d30c46ee4884eb170cf4a521918e7d3
-Merge: 2ce37bb 236e1d3
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:19:49 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; 
+&lt;span class="nl"&gt;remote:&lt;/span&gt; &lt;span class="n"&gt;Counting&lt;/span&gt; &lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="nl"&gt;remote:&lt;/span&gt; &lt;span class="n"&gt;Compressing&lt;/span&gt; &lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="nl"&gt;remote:&lt;/span&gt; &lt;span class="n"&gt;Total&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;delta&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;reused&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;delta&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Unpacking&lt;/span&gt; &lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;来自&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;remote&lt;/span&gt;
+   &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;d34ed9&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;.236e1&lt;/span&gt;&lt;span class="n"&gt;d3&lt;/span&gt;  &lt;span class="n"&gt;master&lt;/span&gt;     &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;master&lt;/span&gt;
+&lt;span class="n"&gt;Merge&lt;/span&gt; &lt;span class="n"&gt;made&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;recursive&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;strategy&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+ &lt;span class="n"&gt;local1&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+ &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="n"&gt;changed&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;insertion&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="n"&gt;create&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="mi"&gt;100644&lt;/span&gt; &lt;span class="n"&gt;local1&lt;/span&gt;
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;c2df7467d30c46ee4884eb170cf4a521918e7d3&lt;/span&gt;
+&lt;span class="nl"&gt;Merge:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;ce37bb&lt;/span&gt; &lt;span class="mf"&gt;236e1&lt;/span&gt;&lt;span class="n"&gt;d3&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;19&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;49&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Merge branch &lt;span class="s1"&gt;&amp;#39;master&amp;#39;&lt;/span&gt; of /home/geesun/test/remote
+    &lt;span class="n"&gt;Merge&lt;/span&gt; &lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;master&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;remote&lt;/span&gt;
 
-commit 2ce37bbfd25d5e0265cda4949b16f0110a4f45e7
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;ce37bbfd25d5e0265cda4949b16f0110a4f45e7&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by B
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
 
-commit 236e1d369761e180e4928a717c180d5cb776ba02
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;236e1&lt;/span&gt;&lt;span class="n"&gt;d369761e180e4928a717c180d5cb776ba02&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;19&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by A
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;
 
-commit 9d34ed98d4478fa52424498940c962f9b0d921e2
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;d34ed98d4478fa52424498940c962f9b0d921e2&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base
+    &lt;span class="n"&gt;base&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;这个时候别人在从远程服务器同步代码之后,都会看到开始那条本不该存在的提交记录.&lt;/p&gt;
 &lt;h3&gt;如何解决这个问题&lt;/h3&gt;
 &lt;p&gt;在本地代码推送到远程服务器之前,对本地代码进行rebase即可,操作记录:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git pull -r 
-首先，重置头指针以便在上面重放您的工作...
-正应用：check in by B
-geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit 2ce37bbfd25d5e0265cda4949b16f0110a4f45e7
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt; 
+&lt;span class="err"&gt;首先，重置头指针以便在上面重放您的工作&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="err"&gt;正应用：&lt;/span&gt;&lt;span class="n"&gt;check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;ce37bbfd25d5e0265cda4949b16f0110a4f45e7&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    check in by B
+    &lt;span class="n"&gt;check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
 
-commit 236e1d369761e180e4928a717c180d5cb776ba02
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;236e1&lt;/span&gt;&lt;span class="n"&gt;d369761e180e4928a717c180d5cb776ba02&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;19&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by A
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;
 
-commit 9d34ed98d4478fa52424498940c962f9b0d921e2
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;d34ed98d4478fa52424498940c962f9b0d921e2&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base check in
+    &lt;span class="n"&gt;base&lt;/span&gt; &lt;span class="n"&gt;check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;什么是Fast-Forward&lt;/h2&gt;
 &lt;p&gt;要理解rebase,就先要搞清楚Fast-Forward的概念. 如果本地代码在跟远程同步之后,本地没有新的提交,而远程代码有新的提交,这就是说本地代码和远程的代码没有出现分叉,只不过是本地代码指向比较旧的版本而已.这种情况我们就称为本地代码可以做Fast-Forward. &lt;/p&gt;
 &lt;p&gt;如下:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;BASE&lt;/span&gt;&lt;span class="o"&gt;---&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;      &lt;span class="o"&gt;&amp;lt;---&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Local&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;BASE&lt;span class="o"&gt;---&amp;gt;&lt;/span&gt;A      &lt;span class="o"&gt;&amp;lt;---&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;Local master&lt;span class="p"&gt;]&lt;/span&gt;
                 \
                  \
-                  &lt;span class="n"&gt;B&lt;/span&gt;   &lt;span class="o"&gt;&amp;lt;---&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Remote&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+                  B   &lt;span class="o"&gt;&amp;lt;---&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;Remote master&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;操作记录:&lt;/p&gt;
 &lt;p&gt;远端:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/remote&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit 257d73fdbbfbaaaac18a398e46bf296cc01436ca
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:00:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;remote&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;257&lt;/span&gt;&lt;span class="n"&gt;d73fdbbfbaaaac18a398e46bf296cc01436ca&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;00&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    check in by B
+    &lt;span class="n"&gt;check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
 
-commit 236e1d369761e180e4928a717c180d5cb776ba02
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;236e1&lt;/span&gt;&lt;span class="n"&gt;d369761e180e4928a717c180d5cb776ba02&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;19&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    check in by A
+    &lt;span class="n"&gt;check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;
 
-commit 9d34ed98d4478fa52424498940c962f9b0d921e2
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;d34ed98d4478fa52424498940c962f9b0d921e2&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base
+    &lt;span class="n"&gt;base&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;本地:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit 236e1d369761e180e4928a717c180d5cb776ba02
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;236e1&lt;/span&gt;&lt;span class="n"&gt;d369761e180e4928a717c180d5cb776ba02&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;19&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    check in by A
+    &lt;span class="n"&gt;check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;
 
-commit 9d34ed98d4478fa52424498940c962f9b0d921e2
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;d34ed98d4478fa52424498940c962f9b0d921e2&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base
-geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git pull 
-更新 236e1d3..257d73f
-Fast-forward
- local2 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt; +
- &lt;span class="m"&gt;1&lt;/span&gt; file changed, &lt;span class="m"&gt;1&lt;/span&gt; insertion&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
- create mode &lt;span class="m"&gt;100644&lt;/span&gt; local2
-geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log
-commit 257d73fdbbfbaaaac18a398e46bf296cc01436ca
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:00:40 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+    &lt;span class="n"&gt;base&lt;/span&gt;
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; 
+&lt;span class="err"&gt;更新&lt;/span&gt; &lt;span class="mf"&gt;236e1&lt;/span&gt;&lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;.257&lt;/span&gt;&lt;span class="n"&gt;d73f&lt;/span&gt;
+&lt;span class="n"&gt;Fast&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;forward&lt;/span&gt;
+ &lt;span class="n"&gt;local2&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+ &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="n"&gt;changed&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;insertion&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="n"&gt;create&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt; &lt;span class="mi"&gt;100644&lt;/span&gt; &lt;span class="n"&gt;local2&lt;/span&gt;
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt;
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;257&lt;/span&gt;&lt;span class="n"&gt;d73fdbbfbaaaac18a398e46bf296cc01436ca&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;00&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    check in by B
+    &lt;span class="n"&gt;check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
 
-commit 236e1d369761e180e4928a717c180d5cb776ba02
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:18:19 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;236e1&lt;/span&gt;&lt;span class="n"&gt;d369761e180e4928a717c180d5cb776ba02&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;19&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    check in by A
+    &lt;span class="n"&gt;check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;
 
-commit 9d34ed98d4478fa52424498940c962f9b0d921e2
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="n"&gt;d34ed98d4478fa52424498940c962f9b0d921e2&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;14&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base 
+    &lt;span class="n"&gt;base&lt;/span&gt; 
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -190,13 +212,13 @@ Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 14:17:02 &lt;span class="m
 &lt;p&gt;因为这种情况是可以做fast-forward,所以git merge就相当于只是做了fast-forward而已.&lt;/p&gt;
 &lt;p&gt;开始问题描述的就是一种不可以做fast-forward的情况,如果再用git merge则就会产生一个自动提交,如开始问题描述的一样.&lt;/p&gt;
 &lt;p&gt;有些时候我们希望能fast-forward就fast-forward,否则我们用后面会讲的rebase命令合并。可以这样：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;git pull --ff-only
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;ff&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;only&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;或者&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;git fetch
-git merge --ff-only origin/master
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;fetch&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;merge&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;ff&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;only&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;master&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -210,59 +232,59 @@ git merge --ff-only origin/master
 &lt;li&gt;然后将暂存区的提交挨个挨个提交到本分支. 如果出现冲突,会需要手工merge.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;远端提交记录:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/remote&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit 0ab394dc2ac5a4d186eb9be86da4c72987d3023a
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:37:37 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;remote&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;ab394dc2ac5a4d186eb9be86da4c72987d3023a&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;37&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;37&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by A
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;
 
-commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;88e8&lt;/span&gt;&lt;span class="n"&gt;afd5519fe8eaf7b9e3bb04635567d83eeeee&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;36&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base
+    &lt;span class="n"&gt;base&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;本地提交记录:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit df94a3c6cf05c63a7b9db6fd753ef70b1d9a40df
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:45:21 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="n"&gt;df94a3c6cf05c63a7b9db6fd753ef70b1d9a40df&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;21&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by B
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
 
-commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;88e8&lt;/span&gt;&lt;span class="n"&gt;afd5519fe8eaf7b9e3bb04635567d83eeeee&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;36&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base
+    &lt;span class="n"&gt;base&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;对本地进行rebase:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local$ git pull -r 
-首先，重置头指针以便在上面重放您的工作...
-正应用：Check in by B
-geesun@geesun-OptiPlex-3010:~/test/src/local$ git log 
-commit 59e14ba0bb2e55401ca0b2d8c309f520843e8144
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep 24 16:45:21 2015 +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt; 
+&lt;span class="err"&gt;首先，重置头指针以便在上面重放您的工作&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="err"&gt;正应用：&lt;/span&gt;&lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;59e14&lt;/span&gt;&lt;span class="n"&gt;ba0bb2e55401ca0b2d8c309f520843e8144&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;21&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by B
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
 
-commit 0ab394dc2ac5a4d186eb9be86da4c72987d3023a
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep 24 16:37:37 2015 +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;ab394dc2ac5a4d186eb9be86da4c72987d3023a&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;37&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;37&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by A
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;
 
-commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep 24 16:36:30 2015 +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;88e8&lt;/span&gt;&lt;span class="n"&gt;afd5519fe8eaf7b9e3bb04635567d83eeeee&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;36&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base
+    &lt;span class="n"&gt;base&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -270,56 +292,56 @@ Date:   Thu Sep 24 16:36:30 2015 +0800
 &lt;p&gt;&lt;strong&gt; 这里的git pull -r 相当于 git fetch和git rebase的组合. &lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;如果rebase出现冲突,会需要手工merge&lt;/p&gt;
 &lt;p&gt;手工merge操作日志:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit e6bb6173b626f8ef599b86516a0e35e4cbb7bc5a
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:51:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="n"&gt;e6bb6173b626f8ef599b86516a0e35e4cbb7bc5a&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;51&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by B
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
 
-commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;88e8&lt;/span&gt;&lt;span class="n"&gt;afd5519fe8eaf7b9e3bb04635567d83eeeee&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;36&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base
-geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git rebase
-首先，重置头指针以便在上面重放您的工作...
-正应用：Check in by B
-使用索引来重建一个（三路合并的）基础目录树...
-转而在基础版本上打补丁及进行三路合并...
-自动合并 test.txt
-冲突（添加/添加）：合并冲突于 test.txt
-无法合并变更。
-补丁失败于 &lt;span class="m"&gt;0001&lt;/span&gt; Check in by B
-失败的补丁文件副本位于：
-   /home/geesun/test/src/local/.git/rebase-apply/patch
+    &lt;span class="n"&gt;base&lt;/span&gt;
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;rebase&lt;/span&gt;
+&lt;span class="err"&gt;首先，重置头指针以便在上面重放您的工作&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="err"&gt;正应用：&lt;/span&gt;&lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
+&lt;span class="err"&gt;使用索引来重建一个（三路合并的）基础目录树&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="err"&gt;转而在基础版本上打补丁及进行三路合并&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="err"&gt;自动合并&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;
+&lt;span class="err"&gt;冲突（添加&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;添加）：合并冲突于&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;
+&lt;span class="err"&gt;无法合并变更。&lt;/span&gt;
+&lt;span class="err"&gt;补丁失败于&lt;/span&gt; &lt;span class="mo"&gt;0001&lt;/span&gt; &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
+&lt;span class="err"&gt;失败的补丁文件副本位于：&lt;/span&gt;
+   &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;rebase&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;apply&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;patch&lt;/span&gt;
 
-当您解决了此问题后，执行 &lt;span class="s2"&gt;&amp;quot;git rebase --continue&amp;quot;&lt;/span&gt;。
-如果您想跳过此补丁，则执行 &lt;span class="s2"&gt;&amp;quot;git rebase --skip&amp;quot;&lt;/span&gt;。
-要恢复原分支并停止变基，执行 &lt;span class="s2"&gt;&amp;quot;git rebase --abort&amp;quot;&lt;/span&gt;。
+&lt;span class="err"&gt;当您解决了此问题后，执行&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;git rebase --continue&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
+&lt;span class="err"&gt;如果您想跳过此补丁，则执行&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;git rebase --skip&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
+&lt;span class="err"&gt;要恢复原分支并停止变基，执行&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;git rebase --abort&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
 
-geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;vi test.txt
-geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git add test.txt
-geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git rebase --continue
-正应用：Check in by B
-geesun@geesun-OptiPlex-3010:~/test/src/local&lt;span class="nv"&gt;$ &lt;/span&gt;git log 
-commit 0a68c730ee96d4dd37d1dd97f52a5fcb4be383e4
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:51:02 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;vi&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;rebase&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="k"&gt;continue&lt;/span&gt;
+&lt;span class="err"&gt;正应用：&lt;/span&gt;&lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
+&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt; 
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;a68c730ee96d4dd37d1dd97f52a5fcb4be383e4&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;51&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;02&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by B
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;
 
-commit 0ab394dc2ac5a4d186eb9be86da4c72987d3023a
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:37:37 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;ab394dc2ac5a4d186eb9be86da4c72987d3023a&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;37&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;37&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    Check in by A
+    &lt;span class="n"&gt;Check&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;
 
-commit 88e8afd5519fe8eaf7b9e3bb04635567d83eeeee
-Author: Geesun Xu &amp;lt;geesun@gmail.com&amp;gt;
-Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m"&gt;2015&lt;/span&gt; +0800
+&lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="mf"&gt;88e8&lt;/span&gt;&lt;span class="n"&gt;afd5519fe8eaf7b9e3bb04635567d83eeeee&lt;/span&gt;
+&lt;span class="nl"&gt;Author:&lt;/span&gt; &lt;span class="n"&gt;Geesun&lt;/span&gt; &lt;span class="n"&gt;Xu&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nl"&gt;Date:&lt;/span&gt;   &lt;span class="n"&gt;Thu&lt;/span&gt; &lt;span class="n"&gt;Sep&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;36&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;0800&lt;/span&gt;
 
-    base
+    &lt;span class="n"&gt;base&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -327,14 +349,14 @@ Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m
 &lt;h2&gt;总结&lt;/h2&gt;
 &lt;p&gt;在本地很远端不能做fast-forword的情况下,是采用git merge 还是采用git rebase要看项目的要求. 如果想保持完整的提交记录,可以考虑用git merge. 要想保持清晰的提交记录,采用git rebase会比较好.&lt;/p&gt;
 &lt;p&gt;git pull默认的行为是merge,如果要更改这种默认行为为rebase,可以用&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;git config --global branch.autosetuprebase always
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="git"></category></entry><entry><title>Libev 学习笔记</title><link href="https://geesun.github.io/posts/2015/09/libev_note.html" rel="alternate"></link><updated>2015-09-10T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-09-10:posts/2015/09/libev_note.html</id><summary type="html">&lt;h2&gt;简介&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;global&lt;/span&gt; &lt;span class="n"&gt;branch&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;autosetuprebase&lt;/span&gt; &lt;span class="n"&gt;always&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="git"></category></entry><entry><title>Libev 学习笔记</title><link href="https://geesun.github.io/posts/2015/09/libev_note.html" rel="alternate"></link><updated>2015-09-10T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:https://geesun.github.io,2015-09-10:posts/2015/09/libev_note.html</id><summary type="html">&lt;h2&gt;简介&lt;/h2&gt;
 &lt;p&gt;Libev是一个用C编写的功能齐全的高性能的轻量级事件驱动库,作为Libevent的替代者，拥有更快的速度，更小的体积。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Libev supports select, poll, the Linux-specific epoll, the BSD-specific kqueue and the Solaris-specific event port mechanisms for file descriptor events (ev_io), the Linux inotify interface (for ev_stat), Linux eventfd/signalfd (for faster and cleaner inter-thread wakeup (ev_async)/signal handling (ev_signal)) relative timers (ev_timer), absolute timers with customised rescheduling (ev_periodic), synchronous signals (ev_signal), process status change events (ev_child), and event watchers dealing with the event loop mechanism itself (ev_idle, ev_embed, ev_prepare and ev_check watchers) as well as file watchers (ev_stat) and even limited support for fork events (ev_fork).&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;安装Libev&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install libev-dev
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;libev&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -408,9 +430,9 @@ Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m
 &lt;span class="cp"&gt;  EV_COMMON &lt;/span&gt;&lt;span class="cm"&gt;/* rw */&lt;/span&gt;&lt;span class="cp"&gt;                \&lt;/span&gt;
 &lt;span class="cp"&gt;  EV_CB_DECLARE (type) &lt;/span&gt;&lt;span class="cm"&gt;/* private */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
- &lt;span class="cp"&gt;#define EV_WATCHER_LIST(type)          \&lt;/span&gt;
-&lt;span class="cp"&gt;  EV_WATCHER (type)             \&lt;/span&gt;
-&lt;span class="cp"&gt;  struct ev_watcher_list *next; &lt;/span&gt;&lt;span class="cm"&gt;/* private */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+ &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;EV_WATCHER_LIST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;          \
+  &lt;span class="n"&gt;EV_WATCHER&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;             \
+  &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_watcher_list&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* private */&lt;/span&gt;
 
 &lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_watcher&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -438,27 +460,27 @@ Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m
 &lt;p&gt;其他类都是由类似的方法派生而来，具体可以参考源代码。&lt;/p&gt;
 &lt;p&gt;在介绍最重要的结构ev_loop之前，先解释一下EV_P，EV_P_，EV_A，EV_A_这几个宏，在代码中会经常看到这几个宏，主要是为了简化单线程模式下的函数调用的接口，在Libev的源代码的ev.h中，有：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* support multiple event loops? */&lt;/span&gt;
-&lt;span class="cp"&gt;#if EV_MULTIPLICITY&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="no"&gt;EV_MULTIPLICITY&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_P  struct ev_loop *loop               &lt;/span&gt;&lt;span class="cm"&gt;/* a loop as sole parameter in a declaration */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_P_ EV_P,                              &lt;/span&gt;&lt;span class="cm"&gt;/* a loop as first of multiple parameters */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_A  loop                               &lt;/span&gt;&lt;span class="cm"&gt;/* a loop as sole argument to a function call */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_A_ EV_A,                              &lt;/span&gt;&lt;span class="cm"&gt;/* a loop as first of multiple arguments */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_UC  ev_default_loop_uc_ ()    &lt;/span&gt;&lt;span class="cm"&gt;/* the default loop, if initialised, as sole arg */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_UC_ EV_DEFAULT_UC,            &lt;/span&gt;&lt;span class="cm"&gt;/* the default loop as first of multiple arguments */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT  ev_default_loop (0)          &lt;/span&gt;&lt;span class="cm"&gt;/* the default loop as sole arg */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_ EV_DEFAULT,                  &lt;/span&gt;&lt;span class="cm"&gt;/* the default loop as first of multiple arguments */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;#else&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_P void&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_P_&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_A&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_A_&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_UC&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_UC_&lt;/span&gt;
-&lt;span class="cp"&gt;# undef EV_EMBED_ENABLE&lt;/span&gt;
-&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_P&lt;/span&gt;  &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;               &lt;span class="cm"&gt;/* a loop as sole parameter in a declaration */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_P_&lt;/span&gt; &lt;span class="no"&gt;EV_P&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;                              &lt;span class="cm"&gt;/* a loop as first of multiple parameters */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_A&lt;/span&gt;  &lt;span class="n"&gt;loop&lt;/span&gt;                               &lt;span class="cm"&gt;/* a loop as sole argument to a function call */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_A_&lt;/span&gt; &lt;span class="no"&gt;EV_A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;                              &lt;span class="cm"&gt;/* a loop as first of multiple arguments */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC&lt;/span&gt;  &lt;span class="n"&gt;ev_default_loop_uc_&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt;    &lt;span class="cm"&gt;/* the default loop, if initialised, as sole arg */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC_&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;            &lt;span class="cm"&gt;/* the default loop as first of multiple arguments */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT&lt;/span&gt;  &lt;span class="n"&gt;ev_default_loop&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;          &lt;span class="cm"&gt;/* the default loop as sole arg */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;                  &lt;span class="cm"&gt;/* the default loop as first of multiple arguments */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_P&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_P_&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_A&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_A_&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC_&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;undef&lt;/span&gt; &lt;span class="no"&gt;EV_EMBED_ENABLE&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;endif&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -469,12 +491,12 @@ Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m
   &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt;
   &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;ev_tstamp&lt;/span&gt; &lt;span class="n"&gt;ev_rt_now&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="cp"&gt;#define ev_rt_now ((loop)-&amp;gt;ev_rt_now)&lt;/span&gt;
-    &lt;span class="cp"&gt;#define VAR(name,decl) decl;&lt;/span&gt;
-      &lt;span class="cp"&gt;#include &amp;quot;ev_vars.h&amp;quot;&lt;/span&gt;
-    &lt;span class="cp"&gt;#undef VAR&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;ev_rt_now&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;ev_rt_now&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;VAR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;decl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;decl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;ev_vars.h&amp;quot;&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;undef&lt;/span&gt; &lt;span class="n"&gt;VAR&lt;/span&gt;
   &lt;span class="p"&gt;};&lt;/span&gt;
-  &lt;span class="cp"&gt;#include &amp;quot;ev_wrap.h&amp;quot;&lt;/span&gt;
+  &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;ev_wrap.h&amp;quot;&lt;/span&gt;
 
   &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="n"&gt;default_loop_struct&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="n"&gt;EV_API_DECL&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;ev_default_loop_ptr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* needs to be initialised to make it a definition despite extern */&lt;/span&gt;
@@ -482,9 +504,9 @@ Date:   Thu Sep &lt;span class="m"&gt;24&lt;/span&gt; 16:36:30 &lt;span class="m
 &lt;span class="cp"&gt;#else&lt;/span&gt;
 
   &lt;span class="n"&gt;EV_API_DECL&lt;/span&gt; &lt;span class="n"&gt;ev_tstamp&lt;/span&gt; &lt;span class="n"&gt;ev_rt_now&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* needs to be initialised to make it a definition despite extern */&lt;/span&gt;
-  &lt;span class="cp"&gt;#define VAR(name,decl) static decl;&lt;/span&gt;
-    &lt;span class="cp"&gt;#include &amp;quot;ev_vars.h&amp;quot;&lt;/span&gt;
-  &lt;span class="cp"&gt;#undef VAR&lt;/span&gt;
+  &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;VAR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;decl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;decl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;ev_vars.h&amp;quot;&lt;/span&gt;
+  &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;undef&lt;/span&gt; &lt;span class="n"&gt;VAR&lt;/span&gt;
   &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ev_default_loop_ptr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="cp"&gt;#endif&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -642,7 +664,7 @@ ev_default_loop和ev_loop_new都会调用loop_init：&lt;/p&gt;
 
 &lt;h2&gt;例子&lt;/h2&gt;
 &lt;h3&gt;作者例子&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;man libev 
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;man&lt;/span&gt; &lt;span class="n"&gt;libev&lt;/span&gt; 
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -800,7 +822,7 @@ ev_default_loop和ev_loop_new都会调用loop_init：&lt;/p&gt;
 &lt;h3&gt;参考&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod"&gt;Libev&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://www.jiancool.com/article/72062229207/"&gt;libev多线程使用例&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://blog.chinaunix.net/uid-28458801-id-4463801.html"&gt;库-libev：详解&lt;/a&gt;&lt;/p&gt;</summary><category term="libev"></category></entry><entry><title>SOCKS 5协议简析</title><link href="https://geesun.github.io/posts/2015/09/socks5_protocol.html" rel="alternate"></link><updated>2015-09-08T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-09-08:posts/2015/09/socks5_protocol.html</id><summary type="html">&lt;h2&gt;简介&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://blog.chinaunix.net/uid-28458801-id-4463801.html"&gt;库-libev：详解&lt;/a&gt;&lt;/p&gt;</summary><category term="libev"></category></entry><entry><title>SOCKS 5协议简析</title><link href="https://geesun.github.io/posts/2015/09/socks5_protocol.html" rel="alternate"></link><updated>2015-09-08T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:https://geesun.github.io,2015-09-08:posts/2015/09/socks5_protocol.html</id><summary type="html">&lt;h2&gt;简介&lt;/h2&gt;
 &lt;p&gt;要上google就是要翻墙，最基本的就是要用到代理协议，其中一个就是SOCKS 5代理协议。SOCKS 5是一种网络传输协议，SOCKS协议位于传输层(TCP/UDP等)与应用层之间，所以能代理TCP和UDP的网络流量，对于它之下的网络流量，就无能为力了。&lt;/p&gt;
 &lt;p&gt;SOCKS是怎么工作的呢，这里举个例子：&lt;/p&gt;
 &lt;p&gt;A想访问B站点，但是A和B站点之间有一个防火墙阻止A直接访问B站点，在A的网络里面有一个SOCKS代理C，C可以直接访问B站点，所以A通知C他想访问B站点，C就为A和B之间架起一条沟通的通道。&lt;/p&gt;
@@ -841,7 +863,7 @@ ev_default_loop和ev_loop_new都会调用loop_init：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;注意：Version 72 不是真的Version 为72， 而是wireshark解析问题，从72开始都是被代理的数据&lt;/strong&gt;&lt;/p&gt;
 &lt;h3&gt;参考&lt;/h3&gt;
 &lt;p&gt;&lt;a href="https://tools.ietf.org/pdf/rfc1928.pdf"&gt;RFC1928&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://tools.ietf.org/pdf/rfc1929.pdf"&gt;RFC1929&lt;/a&gt;&lt;/p&gt;</summary><category term="网络协议"></category><category term="shadowsock"></category></entry><entry><title>Two Sum</title><link href="https://geesun.github.io/posts/2015/07/two-sum.html" rel="alternate"></link><updated>2015-07-03T10:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-07-03:posts/2015/07/two-sum.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;题目描述:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://tools.ietf.org/pdf/rfc1929.pdf"&gt;RFC1929&lt;/a&gt;&lt;/p&gt;</summary><category term="网络协议"></category><category term="shadowsock"></category></entry><entry><title>Two Sum</title><link href="https://geesun.github.io/posts/2015/07/two-sum.html" rel="alternate"></link><updated>2015-07-03T10:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:https://geesun.github.io,2015-07-03:posts/2015/07/two-sum.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;题目描述:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://leetcode.com/problems/two-sum/"&gt;原题链接&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Given an array of integers, find two numbers such that they add up to a specific target number.&lt;/p&gt;
@@ -855,98 +877,353 @@ ev_default_loop和ev_loop_new都会调用loop_init：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;解法一:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;最直观的解法就是两重循环，不多说，时间复杂度最坏为 O(n^2),空间复杂度为O(1). &lt;/p&gt;
 &lt;p&gt;Leetcode OJ会Time Limit Exceeded。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-        &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;twoSum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-                &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-                    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-                        &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-                        &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;  
-                        &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
-                    &lt;span class="p"&gt;}&lt;/span&gt;
-                &lt;span class="p"&gt;}&lt;/span&gt;
-            &lt;span class="p"&gt;}&lt;/span&gt;
-            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;Solution&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;twoSum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="nx"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nb"&gt;target&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;r&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="nb"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;nums.size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+                &lt;span class="nb"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;j&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;nums.size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+                    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;nums&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt; + nums&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt; == target){
+                        r.push_back(i);
+                        r.push_back(j);  
+                        break; 
+                    }
+                }
+            }
+            return r;
+        }
+};
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;strong&gt;解法二:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;先排序，然后从两头往中间查找，直到找到为止，时间复杂度为O(nlogn), 因为要求的是数组的下标，所以要在排序之前保存数组的下标，所以空间复杂度为O(n). &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;Node&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;Node&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;){}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;struct&lt;/span&gt; &lt;span class="nx"&gt;Node&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nx"&gt;val&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
+    &lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;Node&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nx"&gt;val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;val&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;val&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;){}&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 
-&lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="nf"&gt;cmp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;Node&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;Node&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="nx"&gt;bool&lt;/span&gt; &lt;span class="nx"&gt;cmp&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;Node&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;left&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;Node&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;right&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;left.val&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;right.val&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
-&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-        &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;twoSum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Node&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-                &lt;span class="n"&gt;Node&lt;/span&gt; &lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-                &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-            &lt;span class="p"&gt;}&lt;/span&gt;
-            &lt;span class="n"&gt;sort&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;begin&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="n"&gt;cmp&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nb"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;Solution&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;twoSum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="nx"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nb"&gt;target&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;r&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;Node&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="nb"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;nums.size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+                &lt;span class="nx"&gt;Node&lt;/span&gt; &lt;span class="nb"&gt;item&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;nums&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;, i);
+                nodes.push_back(item);
+            }
+            sort(nodes.begin(),nodes.end(),cmp);
 
-            &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
-            &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            int i = 0; 
+            int j = nodes.size() - 1;
 
-            &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-                &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;val&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-                    &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                    &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="p"&gt;}&lt;/span&gt;
+            while(i &lt;span class="nt"&gt;&amp;lt; j&lt;/span&gt;&lt;span class="err"&gt;){&lt;/span&gt;
+                &lt;span class="na"&gt;int&lt;/span&gt; &lt;span class="na"&gt;sum =&lt;/span&gt;&lt;span class="err"&gt; &lt;/span&gt;&lt;span class="s"&gt;nodes&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="s"&gt;.val&lt;/span&gt; &lt;span class="err"&gt;+&lt;/span&gt; &lt;span class="na"&gt;nodes&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="err"&gt;.&lt;/span&gt;&lt;span class="na"&gt;val&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+                &lt;span class="na"&gt;if&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;sum&lt;/span&gt; &lt;span class="nt"&gt;&amp;gt;&lt;/span&gt; target){
+                    j--;
+                    continue;
+                }
 
-                &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-                    &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
-                    &lt;span class="k"&gt;continue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="p"&gt;}&lt;/span&gt;
+                if(sum &lt;span class="nt"&gt;&amp;lt; target&lt;/span&gt;&lt;span class="err"&gt;){&lt;/span&gt;
+                    &lt;span class="na"&gt;i&lt;/span&gt;&lt;span class="err"&gt;++;&lt;/span&gt; 
+                    &lt;span class="na"&gt;continue&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+                &lt;span class="err"&gt;}&lt;/span&gt;
 
-                &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-                    &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-                    &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; 
-                &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-                    &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-                    &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nodes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;   
-                &lt;span class="p"&gt;}&lt;/span&gt;
+                &lt;span class="na"&gt;if&lt;/span&gt;&lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;nodes&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="err"&gt;.&lt;/span&gt;&lt;span class="na"&gt;id&lt;/span&gt; &lt;span class="nt"&gt;&amp;gt;&lt;/span&gt; nodes&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;.id){
+                    r.push_back(nodes&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;.id + 1);
+                    r.push_back(nodes&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;.id + 1); 
+                }else{
+                    r.push_back(nodes&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;.id + 1);
+                    r.push_back(nodes&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;.id + 1);   
+                }
 
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="p"&gt;}&lt;/span&gt;
+                break;
+            }
 
-            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;    
+            return r;
+        }
+};    
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;strong&gt;解法三:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;使用hash表，键为数组的值，值为下标。每遍历到一个数，则在表中保查看是否有target减去这个值，如果没有，则把这个值以及对应的下标存入hash表。时间复杂度为O(n),空间复杂度为O(n)&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Solution&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-        &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;twoSum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;target&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="n"&gt;unordered_map&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;hmap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
-                &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hmap&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;hmap&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;()){&lt;/span&gt;
-                    &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hmap&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-                    &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-                    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-                    &lt;span class="n"&gt;hmap&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="p"&gt;}&lt;/span&gt;
-            &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;Solution&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;twoSum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class="nx"&gt;nums&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="nb"&gt;target&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;vector&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;r&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="nx"&gt;unordered_map&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;hmap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="nb"&gt;for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nx"&gt;nums.size&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hmap.find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;target&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nx"&gt;nums&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;) != hmap.end()){
+                    r.push_back(hmap&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;target&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nx"&gt;nums&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;] + 1);
+                    r.push_back(i + 1);
+                    return r;
+                }else{
+                    hmap&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;nums&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;] = i;
+                }
+            }
 
-            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="算法"></category><category term="leetcode"></category></entry></feed>
+            return r;
+        }
+};
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="算法"></category><category term="leetcode"></category></entry><entry><title>使用autotools生成Makefile学习笔记</title><link href="https://geesun.github.io/posts/2015/02/autotool.html" rel="alternate"></link><updated>2015-02-23T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:https://geesun.github.io,2015-02-23:posts/2015/02/autotool.html</id><summary type="html">&lt;h2&gt;autotools使用流程&lt;/h2&gt;
+&lt;p&gt;autotools 是一系列工具，它包含了aclocal,autoconf,autoheader和automake这些工具，使用autotools主要就是利用各个工具的来生成最后的makefile文件。其具体流程如下图:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="image" src="https://geesun.github.io/images/autotools/autotools.png" /&gt;&lt;/p&gt;
+&lt;p&gt;如果你的系统安装了autoreconf，则上面的工具调用可以通过autoreconf这一个命令来完成，如果有哪个源文件更新，autoreconf会检测到并重新调用上面的工具来生成新的Makefile.
+命令如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;autoreconf&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;force&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;基础例子&lt;/h2&gt;
+&lt;h3&gt;文件结构&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;OptiPlex&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;3010&lt;/span&gt;&lt;span class="o"&gt;:~/&lt;/span&gt;&lt;span class="n"&gt;automake&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;tree&lt;/span&gt; 
+&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;configure&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ac&lt;/span&gt;
+&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;Makefile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;am&lt;/span&gt;
+&lt;span class="err"&gt;└──&lt;/span&gt; &lt;span class="n"&gt;src&lt;/span&gt;
+    &lt;span class="err"&gt;└──&lt;/span&gt; &lt;span class="n"&gt;helloworld&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;helloworld.c代码源文件：&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;config.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello &amp;quot;&lt;/span&gt;&lt;span class="n"&gt;PACKAGE_STRING&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;configure.ac文件&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;AC_INIT&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;helloworld&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mf"&gt;1.0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;geesun&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AC_PREREQ&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mf"&gt;2.68&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AC_CONFIG_SRCDIR&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;helloworld&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AC_CONFIG_AUX_DIR&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;aux&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AM_INIT_AUTOMAKE&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;silent&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rules&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Wall&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Werror&lt;/span&gt; &lt;span class="n"&gt;subdir&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt; &lt;span class="n"&gt;foreign&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AM_SILENT_RULES&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AC_PROG_CC&lt;/span&gt;
+
+&lt;span class="n"&gt;AC_CONFIG_HEADERS&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AC_CONFIG_FILES&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;Makefile&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AC_OUTPUT&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Makefile.am文件&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;bin_PROGRAMS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;helloworld&lt;/span&gt;
+&lt;span class="n"&gt;helloworld_SOURCES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;helloworld&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;常用功能分析&lt;/h2&gt;
+&lt;h3&gt;1. 增加configure的选项&lt;/h3&gt;
+&lt;p&gt;如果要给configure生成像--enable-XXXX,--disable-XXXX,--with-XXXX,--without-XXXX这样的参数，就需在configure.ac里用到AC_ARG_ENABLE和AC_ARG_WITH这两个宏，AC_ARG_ENABLE和AC_ARG_WITH语法如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;AC_ARG_ENABLE&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;option&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;present&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;not&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;present&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;AC_ARG_WITH&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;package&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;given&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;not&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;given&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;BR&gt;
+我们来看下的configure.ac例子文件：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;......&lt;/span&gt;
+
+&lt;span class="n"&gt;AM_SILENT_RULES&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;dnl&lt;/span&gt; &lt;span class="n"&gt;Example&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;enabled&lt;/span&gt; &lt;span class="n"&gt;feature&lt;/span&gt;
+&lt;span class="n"&gt;AC_ARG_ENABLE&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;feature1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+              &lt;span class="n"&gt;AS_HELP_STRING&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;disable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;feature1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Disable&lt;/span&gt; &lt;span class="n"&gt;feature1&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+&lt;span class="n"&gt;AS_IF&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;x$enable_feature1&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;xno&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+         &lt;span class="n"&gt;AC_DEFINE&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;HAVE_FEATURE1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Enable&lt;/span&gt; &lt;span class="n"&gt;feature1&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+         &lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;dnl&lt;/span&gt; &lt;span class="n"&gt;Example&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;disabled&lt;/span&gt; &lt;span class="n"&gt;feature&lt;/span&gt;
+&lt;span class="n"&gt;AC_ARG_ENABLE&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;feature2&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+              &lt;span class="n"&gt;AS_HELP_STRING&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;feature2&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Enable&lt;/span&gt; &lt;span class="n"&gt;feature2&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+&lt;span class="n"&gt;AS_IF&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;x$enable_feature2&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;xyes&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+       &lt;span class="n"&gt;AC_DEFINE&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;HAVE_FEATURE2&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Enable&lt;/span&gt; &lt;span class="n"&gt;feature2&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+       &lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;dnl&lt;/span&gt; &lt;span class="n"&gt;feature3&lt;/span&gt; &lt;span class="n"&gt;has&lt;/span&gt; &lt;span class="n"&gt;depended&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;feature2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;feature2&lt;/span&gt; &lt;span class="n"&gt;was&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;enabled&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;feature3&lt;/span&gt; &lt;span class="n"&gt;always&lt;/span&gt; &lt;span class="n"&gt;disabled&lt;/span&gt;
+&lt;span class="n"&gt;AC_ARG_ENABLE&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;feature3&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+              &lt;span class="n"&gt;AS_HELP_STRING&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;feature3&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Enable&lt;/span&gt; &lt;span class="n"&gt;feature3&lt;/span&gt;&lt;span class="p"&gt;]),&lt;/span&gt;
+              &lt;span class="p"&gt;[&lt;/span&gt;
+                &lt;span class="n"&gt;AS_IF&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;x$enable_feature2&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;xyes&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;enable_feature3&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;no&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+              &lt;span class="p"&gt;],&lt;/span&gt;
+              &lt;span class="p"&gt;[&lt;/span&gt;
+                &lt;span class="n"&gt;enable_feature3&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;no&amp;quot;&lt;/span&gt;
+              &lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AS_IF&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;x$enable_feature3&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;xyes&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+       &lt;span class="n"&gt;AC_DEFINE&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;HAVE_FEATURE3&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Enable&lt;/span&gt; &lt;span class="n"&gt;feature3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+       &lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AS_ECHO&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;feature1 = $enable_feature1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="n"&gt;AS_ECHO&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;feature2 = $enable_feature2&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="n"&gt;AS_ECHO&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;feature3 = $enable_feature3&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AC_ARG_WITH&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+            &lt;span class="n"&gt;AS_HELP_STRING&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;without&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Ignore&lt;/span&gt; &lt;span class="n"&gt;presence&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;disable&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+
+&lt;span class="n"&gt;AS_IF&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;x$with_foo&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;xno&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+              &lt;span class="n"&gt;AC_DEFINE&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;HAVE_FOO&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;With&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+                     &lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AS_ECHO&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;with_foo = $with_foo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;AC_PROG_CC&lt;/span&gt;
+
+&lt;span class="p"&gt;......&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;有关Autoconf的语法规则，可以参考&lt;a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Autoconf-Language.html#Autoconf-Language"&gt;The Autoconf Language&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://autotools.io/autoconf/m4sh.html"&gt;AS_IF&lt;/a&gt;就是一个if else的语句,比较好理解，&lt;a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Defining-Symbols.html#index-AC_005fDEFINE-1196"&gt;AC_DEFINE&lt;/a&gt;就是在config.h里面来定义一个宏来给之后具体的代码使用。&lt;/p&gt;
+&lt;p&gt;helloworld.c代码文件：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello &amp;quot;&lt;/span&gt;&lt;span class="n"&gt;PACKAGE_STRING&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#ifdef HAVE_FEATURE1&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello Feature1 &lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+
+&lt;span class="cp"&gt;#ifdef HAVE_FEATURE2&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello Feature2 &lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="cp"&gt;#ifdef HAVE_FEATURE3&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello Feature3 &lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+
+&lt;span class="cp"&gt;#ifdef HAVE_FOO&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello Foo &lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;2.条件编译&lt;/h3&gt;
+&lt;p&gt;通常，我们针对不同平台，可能会编译不同源文件，还有就是在用户在使用configure增加或者减少某个功能时，需要编译出更多或者更少的可执行文件，这是怎么做到的呢？下面我们就用一个例子来说明这个在autoconf里面怎么做到。 &lt;/p&gt;
+&lt;p&gt;首先在configure.ac中增加选项，让用户来决定是否开启指定功能：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;AC_ARG_ENABLE&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+              &lt;span class="n"&gt;AS_HELP_STRING&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;Enable&lt;/span&gt; &lt;span class="n"&gt;debug&lt;/span&gt; &lt;span class="n"&gt;feature&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+&lt;span class="n"&gt;AM_CONDITIONAL&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;DEBUG&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;x$enable_debug&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;xyes&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href="http://www.gnu.org/software/automake/manual/html_node/Usage-of-Conditionals.html#Usage-of-Conditionals"&gt;AM_CONDITIONAL&lt;/a&gt;是在configure.ac里面定义一个条件，这样在Makefile.am里面就可以使用这个条件了，如果没有定义，是不可以使用的。&lt;/p&gt;
+&lt;p&gt;再在Makefile.am里面根据这个条件来指定文件进行编译：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;DEBUG&lt;/span&gt;
+&lt;span class="n"&gt;bin_PROGRAMS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;helloworld&lt;/span&gt; &lt;span class="n"&gt;debug&lt;/span&gt; 
+&lt;span class="n"&gt;debug_SOURCES&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; 
+&lt;span class="k"&gt;else&lt;/span&gt;
+&lt;span class="n"&gt;bin_PROGRAMS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;helloworld&lt;/span&gt;
+&lt;span class="n"&gt;endif&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;DEBUG&lt;/span&gt;
+&lt;span class="n"&gt;helloworld_SOURCES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;helloworld&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;  \
+                     &lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;
+&lt;span class="n"&gt;helloworld_SOURCES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;helloworld&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; 
+&lt;span class="n"&gt;endif&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;3.查找库以及头文件&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Libraries.html#index-AC_005fCHECK_005fLIB-341"&gt;AC_CHECK_LIB和AC_SEARCH_LIB&lt;/a&gt;是用来查找库，如果找到库，则会在编译可执行文件时把这个库增加到链接库里面。语法如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AC_CHECK_LIB&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;library&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;action&lt;/span&gt;&lt;span class="na"&gt;-if-found&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;action&lt;/span&gt;&lt;span class="na"&gt;-if-not-found&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;other&lt;/span&gt;&lt;span class="na"&gt;-libraries&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AC_SEARCH_LIBS&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;libs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;action&lt;/span&gt;&lt;span class="na"&gt;-if-found&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;action&lt;/span&gt;&lt;span class="na"&gt;-if-not-found&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;other&lt;/span&gt;&lt;span class="na"&gt;-libraries&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Generic-Headers.html#index-AC_005fCHECK_005fHEADERS-669"&gt;AC_CHECK_HEADER和AC_CHECK_HEADERS&lt;/a&gt;是用来查找头文件的，如果找到，会在config.h里面增加相对应的宏。语法如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;AC_CHECK_HEADER&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;not&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;includes&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;AC_CHECK_HEADERS&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;...,&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;not&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;includes&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;configure.ac例子如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;AC_CHECK_LIB&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;m&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;abs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="cp"&gt;[]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;AC_MSG_ERROR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;unable&lt;/span&gt; &lt;span class="k"&gt;to&lt;/span&gt; &lt;span class="nb"&gt;find&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nb"&gt;cos&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="nx"&gt;function&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)])&lt;/span&gt;
+&lt;span class="nx"&gt;AC_CHECK_HEADERS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;pthread.h&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;AC_MSG_ERROR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;unable&lt;/span&gt; &lt;span class="k"&gt;to&lt;/span&gt; &lt;span class="nb"&gt;find&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;pthread.h&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)])&lt;/span&gt;
+&lt;span class="nx"&gt;AC_SEARCH_LIBS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;pthread_create&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;pthread&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;4.自定义Makefile规则&lt;/h3&gt;
+&lt;p&gt;在做工程的时候，可能会有一些比较特殊的文件需要通过Makefile产生，这个时候就需要用到在Makefile.am里面增加一些自己定义的规则来完成我们的目的。这些功能就是在Makefile.am里面增加一些带-local后缀的target来实现。目前支持-local后缀的targets有： all, install-exec, uninstall, clean 等。
+例子： &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;scripts&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="n"&gt;scripts&lt;/span&gt;
+    &lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;#!/bin/sh &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;scripts&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;sh&lt;/span&gt;
+    &lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;echo &amp;quot;&amp;quot;hello world&amp;quot;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;scripts&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;sh&lt;/span&gt;
+
+&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;scripts&lt;/span&gt;
+
+&lt;span class="n"&gt;clean&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rf&lt;/span&gt; &lt;span class="n"&gt;scripts&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;更多可以参考&lt;a href="http://www.gnu.org/software/automake/manual/html_node/Extending.html#Extending"&gt;这里&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;5.自定义安装目录&lt;/h3&gt;
+&lt;p&gt;大型工程里面会有许多文件，有一些要安装在特定的目录，不一定是系统默认目录，这个时候，就需要在Makefile.am中增加目录规则。系统默认目录可以参考&lt;a href="http://www.gnu.org/software/automake/manual/html_node/Standard-Directory-Variables.html#Standard-Directory-Variables"&gt;这里&lt;/a&gt;。 要自己定义目录，首先要定义xxxdir变量，然后才可以用xxx来指定文件。如下例子：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;mydir&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mybin&lt;/span&gt;
+&lt;span class="n"&gt;my_PROGRAMS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;hello2&lt;/span&gt;
+&lt;span class="n"&gt;hello2_SOURCES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;main2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;6.其他文件安装&lt;/h3&gt;
+&lt;h4&gt;&lt;a href="http://www.gnu.org/software/automake/manual/html_node/Scripts.html#Scripts"&gt;脚本&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;脚本默认不打包，如果要默认打包进去，则要用：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;dist_bin_SCRIPTS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;my_script&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;&lt;a href="http://www.gnu.org/software/automake/manual/html_node/Headers.html#Headers"&gt;头文件&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;不保留原始目录结构：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;include_HEADERS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;保留原始目录结构：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;nobase_include_HEADERS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;&lt;a href="http://www.gnu.org/software/automake/manual/html_node/Data.html#Data"&gt;Data文件&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;data文件可以安装在如下目录：datadir, sysconfdir, sharedstatedir, localstatedir, pkgdatadir.&lt;/p&gt;
+&lt;h4&gt;&lt;a href="#"&gt;不需要安装的文件&lt;/a&gt;&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;noinst_PROGRAMS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;hello3&lt;/span&gt;
+&lt;span class="n"&gt;hello3_SOURCES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;main3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;7.更多可以参考&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://autotools.io"&gt;autotools.io&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.gnu.org/software/automake/manual/html_node/Program-and-Library-Variables.html#Program-and-Library-Variables"&gt;Program and Library Variables&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.gnu.org/software/automake/manual/html_node/A-Shared-Library.html#A-Shared-Library"&gt;Building a Shared Library&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.gnu.org/software/automake/manual/"&gt;GNU Automake&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Autoconf-Macro-Index.html#Autoconf-Macro-Index"&gt;Autoconf Macro Index&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.gnu.org/software/automake/manual/html_node/Macro-Index.html#Macro-Index"&gt;AutoMake Macro Index&lt;/a&gt;&lt;/p&gt;</summary><category term="program"></category><category term="linux"></category></entry></feed>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Geesun's Blog</title><link href="https://geesun.github.io/" rel="alternate"></link><link href="https://geesun.github.io/feeds/network.atom.xml" rel="self"></link><id>https://geesun.github.io/</id><updated>2015-09-10T14:20:00+08:00</updated><entry><title>Libev 学习笔记</title><link href="https://geesun.github.io/posts/2015/09/libev_note.html" rel="alternate"></link><updated>2015-09-10T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-09-10:posts/2015/09/libev_note.html</id><summary type="html">&lt;h2&gt;简介&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Geesun's Blog</title><link href="https://geesun.github.io/" rel="alternate"></link><link href="https://geesun.github.io/feeds/network.atom.xml" rel="self"></link><id>https://geesun.github.io/</id><updated>2015-09-10T14:20:00+08:00</updated><entry><title>Libev 学习笔记</title><link href="https://geesun.github.io/posts/2015/09/libev_note.html" rel="alternate"></link><updated>2015-09-10T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:https://geesun.github.io,2015-09-10:posts/2015/09/libev_note.html</id><summary type="html">&lt;h2&gt;简介&lt;/h2&gt;
 &lt;p&gt;Libev是一个用C编写的功能齐全的高性能的轻量级事件驱动库,作为Libevent的替代者，拥有更快的速度，更小的体积。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Libev supports select, poll, the Linux-specific epoll, the BSD-specific kqueue and the Solaris-specific event port mechanisms for file descriptor events (ev_io), the Linux inotify interface (for ev_stat), Linux eventfd/signalfd (for faster and cleaner inter-thread wakeup (ev_async)/signal handling (ev_signal)) relative timers (ev_timer), absolute timers with customised rescheduling (ev_periodic), synchronous signals (ev_signal), process status change events (ev_child), and event watchers dealing with the event loop mechanism itself (ev_idle, ev_embed, ev_prepare and ev_check watchers) as well as file watchers (ev_stat) and even limited support for fork events (ev_fork).&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;安装Libev&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install libev-dev
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;libev&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -79,9 +79,9 @@
 &lt;span class="cp"&gt;  EV_COMMON &lt;/span&gt;&lt;span class="cm"&gt;/* rw */&lt;/span&gt;&lt;span class="cp"&gt;                \&lt;/span&gt;
 &lt;span class="cp"&gt;  EV_CB_DECLARE (type) &lt;/span&gt;&lt;span class="cm"&gt;/* private */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
- &lt;span class="cp"&gt;#define EV_WATCHER_LIST(type)          \&lt;/span&gt;
-&lt;span class="cp"&gt;  EV_WATCHER (type)             \&lt;/span&gt;
-&lt;span class="cp"&gt;  struct ev_watcher_list *next; &lt;/span&gt;&lt;span class="cm"&gt;/* private */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+ &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;EV_WATCHER_LIST&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;          \
+  &lt;span class="n"&gt;EV_WATCHER&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;             \
+  &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_watcher_list&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* private */&lt;/span&gt;
 
 &lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_watcher&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -109,27 +109,27 @@
 &lt;p&gt;其他类都是由类似的方法派生而来，具体可以参考源代码。&lt;/p&gt;
 &lt;p&gt;在介绍最重要的结构ev_loop之前，先解释一下EV_P，EV_P_，EV_A，EV_A_这几个宏，在代码中会经常看到这几个宏，主要是为了简化单线程模式下的函数调用的接口，在Libev的源代码的ev.h中，有：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* support multiple event loops? */&lt;/span&gt;
-&lt;span class="cp"&gt;#if EV_MULTIPLICITY&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="no"&gt;EV_MULTIPLICITY&lt;/span&gt;
 &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_P  struct ev_loop *loop               &lt;/span&gt;&lt;span class="cm"&gt;/* a loop as sole parameter in a declaration */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_P_ EV_P,                              &lt;/span&gt;&lt;span class="cm"&gt;/* a loop as first of multiple parameters */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_A  loop                               &lt;/span&gt;&lt;span class="cm"&gt;/* a loop as sole argument to a function call */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_A_ EV_A,                              &lt;/span&gt;&lt;span class="cm"&gt;/* a loop as first of multiple arguments */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_UC  ev_default_loop_uc_ ()    &lt;/span&gt;&lt;span class="cm"&gt;/* the default loop, if initialised, as sole arg */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_UC_ EV_DEFAULT_UC,            &lt;/span&gt;&lt;span class="cm"&gt;/* the default loop as first of multiple arguments */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT  ev_default_loop (0)          &lt;/span&gt;&lt;span class="cm"&gt;/* the default loop as sole arg */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_ EV_DEFAULT,                  &lt;/span&gt;&lt;span class="cm"&gt;/* the default loop as first of multiple arguments */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
-&lt;span class="cp"&gt;#else&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_P void&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_P_&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_A&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_A_&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_UC&lt;/span&gt;
-&lt;span class="cp"&gt;# define EV_DEFAULT_UC_&lt;/span&gt;
-&lt;span class="cp"&gt;# undef EV_EMBED_ENABLE&lt;/span&gt;
-&lt;span class="cp"&gt;#endif&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_P&lt;/span&gt;  &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;               &lt;span class="cm"&gt;/* a loop as sole parameter in a declaration */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_P_&lt;/span&gt; &lt;span class="no"&gt;EV_P&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;                              &lt;span class="cm"&gt;/* a loop as first of multiple parameters */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_A&lt;/span&gt;  &lt;span class="n"&gt;loop&lt;/span&gt;                               &lt;span class="cm"&gt;/* a loop as sole argument to a function call */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_A_&lt;/span&gt; &lt;span class="no"&gt;EV_A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;                              &lt;span class="cm"&gt;/* a loop as first of multiple arguments */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC&lt;/span&gt;  &lt;span class="n"&gt;ev_default_loop_uc_&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt;    &lt;span class="cm"&gt;/* the default loop, if initialised, as sole arg */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC_&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;            &lt;span class="cm"&gt;/* the default loop as first of multiple arguments */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT&lt;/span&gt;  &lt;span class="n"&gt;ev_default_loop&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;          &lt;span class="cm"&gt;/* the default loop as sole arg */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;                  &lt;span class="cm"&gt;/* the default loop as first of multiple arguments */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_P&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_P_&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_A&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_A_&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;EV_DEFAULT_UC_&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;undef&lt;/span&gt; &lt;span class="no"&gt;EV_EMBED_ENABLE&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;endif&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -140,12 +140,12 @@
   &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt;
   &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;ev_tstamp&lt;/span&gt; &lt;span class="n"&gt;ev_rt_now&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="cp"&gt;#define ev_rt_now ((loop)-&amp;gt;ev_rt_now)&lt;/span&gt;
-    &lt;span class="cp"&gt;#define VAR(name,decl) decl;&lt;/span&gt;
-      &lt;span class="cp"&gt;#include &amp;quot;ev_vars.h&amp;quot;&lt;/span&gt;
-    &lt;span class="cp"&gt;#undef VAR&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;ev_rt_now&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;loop&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;ev_rt_now&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;VAR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;decl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;decl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;ev_vars.h&amp;quot;&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;undef&lt;/span&gt; &lt;span class="n"&gt;VAR&lt;/span&gt;
   &lt;span class="p"&gt;};&lt;/span&gt;
-  &lt;span class="cp"&gt;#include &amp;quot;ev_wrap.h&amp;quot;&lt;/span&gt;
+  &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;ev_wrap.h&amp;quot;&lt;/span&gt;
 
   &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="n"&gt;default_loop_struct&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="n"&gt;EV_API_DECL&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;ev_loop&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;ev_default_loop_ptr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* needs to be initialised to make it a definition despite extern */&lt;/span&gt;
@@ -153,9 +153,9 @@
 &lt;span class="cp"&gt;#else&lt;/span&gt;
 
   &lt;span class="n"&gt;EV_API_DECL&lt;/span&gt; &lt;span class="n"&gt;ev_tstamp&lt;/span&gt; &lt;span class="n"&gt;ev_rt_now&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* needs to be initialised to make it a definition despite extern */&lt;/span&gt;
-  &lt;span class="cp"&gt;#define VAR(name,decl) static decl;&lt;/span&gt;
-    &lt;span class="cp"&gt;#include &amp;quot;ev_vars.h&amp;quot;&lt;/span&gt;
-  &lt;span class="cp"&gt;#undef VAR&lt;/span&gt;
+  &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="n"&gt;VAR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;decl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;decl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;ev_vars.h&amp;quot;&lt;/span&gt;
+  &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;undef&lt;/span&gt; &lt;span class="n"&gt;VAR&lt;/span&gt;
   &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ev_default_loop_ptr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="cp"&gt;#endif&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -313,7 +313,7 @@ ev_default_loop和ev_loop_new都会调用loop_init：&lt;/p&gt;
 
 &lt;h2&gt;例子&lt;/h2&gt;
 &lt;h3&gt;作者例子&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;man libev 
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;man&lt;/span&gt; &lt;span class="n"&gt;libev&lt;/span&gt; 
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -471,7 +471,7 @@ ev_default_loop和ev_loop_new都会调用loop_init：&lt;/p&gt;
 &lt;h3&gt;参考&lt;/h3&gt;
 &lt;p&gt;&lt;a href="http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod"&gt;Libev&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://www.jiancool.com/article/72062229207/"&gt;libev多线程使用例&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://blog.chinaunix.net/uid-28458801-id-4463801.html"&gt;库-libev：详解&lt;/a&gt;&lt;/p&gt;</summary><category term="libev"></category></entry><entry><title>SOCKS 5协议简析</title><link href="https://geesun.github.io/posts/2015/09/socks5_protocol.html" rel="alternate"></link><updated>2015-09-08T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:geesun.github.io,2015-09-08:posts/2015/09/socks5_protocol.html</id><summary type="html">&lt;h2&gt;简介&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://blog.chinaunix.net/uid-28458801-id-4463801.html"&gt;库-libev：详解&lt;/a&gt;&lt;/p&gt;</summary><category term="libev"></category></entry><entry><title>SOCKS 5协议简析</title><link href="https://geesun.github.io/posts/2015/09/socks5_protocol.html" rel="alternate"></link><updated>2015-09-08T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:https://geesun.github.io,2015-09-08:posts/2015/09/socks5_protocol.html</id><summary type="html">&lt;h2&gt;简介&lt;/h2&gt;
 &lt;p&gt;要上google就是要翻墙，最基本的就是要用到代理协议，其中一个就是SOCKS 5代理协议。SOCKS 5是一种网络传输协议，SOCKS协议位于传输层(TCP/UDP等)与应用层之间，所以能代理TCP和UDP的网络流量，对于它之下的网络流量，就无能为力了。&lt;/p&gt;
 &lt;p&gt;SOCKS是怎么工作的呢，这里举个例子：&lt;/p&gt;
 &lt;p&gt;A想访问B站点，但是A和B站点之间有一个防火墙阻止A直接访问B站点，在A的网络里面有一个SOCKS代理C，C可以直接访问B站点，所以A通知C他想访问B站点，C就为A和B之间架起一条沟通的通道。&lt;/p&gt;

@@ -18,6 +18,8 @@
                     <li class="active"><a href="../../../category/leetcode.html">Leetcode</a></li>
                     <li><a href="../../../category/misc.html">Misc</a></li>
                     <li><a href="../../../category/network.html">Network</a></li>
+                    <li><a href="../../../category/program.html">Program</a></li>
+                    <li><a href="../../../category/vim.html">VIM</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
@@ -47,100 +49,100 @@
 <p><strong>解法一:</strong></p>
 <p>最直观的解法就是两重循环，不多说，时间复杂度最坏为 O(n^2),空间复杂度为O(1). </p>
 <p>Leetcode OJ会Time Limit Exceeded。</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">r</span> <span class="p">;</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
-                    <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">){</span>
-                        <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-                        <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>  
-                        <span class="k">break</span><span class="p">;</span> 
-                    <span class="p">}</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-            <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
-        <span class="p">}</span>
-<span class="p">};</span>
+<div class="highlight"><pre><span class="nb">class</span> <span class="nx">Solution</span> <span class="p">{</span>
+    <span class="k">public</span><span class="p">:</span>
+        <span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span> <span class="nx">twoSum</span><span class="p">(</span><span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;&amp;</span> <span class="nx">nums</span><span class="p">,</span> <span class="nx">int</span> <span class="nb">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span> <span class="nb">r</span> <span class="p">;</span>
+            <span class="nb">for</span><span class="p">(</span><span class="nx">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">nums.size</span><span class="p">();</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="nb">for</span><span class="p">(</span><span class="nx">int</span> <span class="n">j</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">nums.size</span><span class="p">();</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">nums</span><span class="err">[</span><span class="nx">i</span><span class="cp">]</span> + nums<span class="cp">[</span><span class="nx">j</span><span class="cp">]</span> == target){
+                        r.push_back(i);
+                        r.push_back(j);  
+                        break; 
+                    }
+                }
+            }
+            return r;
+        }
+};
 </pre></div>
 
 
 <p><strong>解法二:</strong></p>
 <p>先排序，然后从两头往中间查找，直到找到为止，时间复杂度为O(nlogn), 因为要求的是数组的下标，所以要在排序之前保存数组的下标，所以空间复杂度为O(n). </p>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">Node</span><span class="p">{</span>
-    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span> 
-    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
-    <span class="n">Node</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">,</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="o">:</span> <span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">id</span><span class="p">(</span><span class="n">id</span><span class="p">){}</span>
+<div class="highlight"><pre><span class="nx">struct</span> <span class="nx">Node</span><span class="p">{</span>
+    <span class="nx">int</span> <span class="nx">val</span><span class="p">;</span> 
+    <span class="nx">int</span> <span class="nb">id</span><span class="p">;</span>
+    <span class="nx">Node</span><span class="p">(</span><span class="nx">int</span> <span class="nx">val</span><span class="p">,</span><span class="nx">int</span> <span class="nb">id</span><span class="p">)</span> <span class="p">:</span> <span class="nx">val</span><span class="p">(</span><span class="nx">val</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="nb">id</span><span class="p">){}</span>
 <span class="p">};</span>
 
-<span class="kt">bool</span> <span class="nf">cmp</span><span class="p">(</span><span class="k">const</span> <span class="n">Node</span> <span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">Node</span> <span class="o">&amp;</span> <span class="n">right</span><span class="p">){</span>
-    <span class="k">return</span> <span class="n">left</span><span class="p">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">.</span><span class="n">val</span><span class="p">;</span>
+<span class="nx">bool</span> <span class="nx">cmp</span><span class="p">(</span><span class="nx">const</span> <span class="nx">Node</span> <span class="o">&amp;</span> <span class="nb">left</span><span class="p">,</span> <span class="nx">const</span> <span class="nx">Node</span> <span class="o">&amp;</span> <span class="nb">right</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">left.val</span> <span class="o">&lt;</span> <span class="nx">right.val</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">r</span> <span class="p">;</span>
-            <span class="n">vector</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">nodes</span><span class="p">;</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-                <span class="n">Node</span> <span class="n">item</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">);</span>
-                <span class="n">nodes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="n">sort</span><span class="p">(</span><span class="n">nodes</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">nodes</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="n">cmp</span><span class="p">);</span>
+<span class="nb">class</span> <span class="nx">Solution</span> <span class="p">{</span>
+    <span class="k">public</span><span class="p">:</span>
+        <span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span> <span class="nx">twoSum</span><span class="p">(</span><span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;&amp;</span> <span class="nx">nums</span><span class="p">,</span> <span class="nx">int</span> <span class="nb">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span> <span class="nb">r</span> <span class="p">;</span>
+            <span class="nx">vector</span><span class="o">&lt;</span><span class="nx">Node</span><span class="o">&gt;</span> <span class="nx">nodes</span><span class="p">;</span>
+            <span class="nb">for</span><span class="p">(</span><span class="nx">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">nums.size</span><span class="p">();</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="nx">Node</span> <span class="nb">item</span><span class="p">(</span><span class="nx">nums</span><span class="err">[</span><span class="nx">i</span><span class="cp">]</span>, i);
+                nodes.push_back(item);
+            }
+            sort(nodes.begin(),nodes.end(),cmp);
 
-            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
-            <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+            int i = 0; 
+            int j = nodes.size() - 1;
 
-            <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">){</span>
-                <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">val</span> <span class="o">+</span> <span class="n">nodes</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">val</span><span class="p">;</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">sum</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">){</span>
-                    <span class="n">j</span><span class="o">--</span><span class="p">;</span>
-                    <span class="k">continue</span><span class="p">;</span>
-                <span class="p">}</span>
+            while(i <span class="nt">&lt; j</span><span class="err">){</span>
+                <span class="na">int</span> <span class="na">sum =</span><span class="err"> </span><span class="s">nodes</span><span class="cp">[</span><span class="nx">i</span><span class="cp">]</span><span class="s">.val</span> <span class="err">+</span> <span class="na">nodes</span><span class="cp">[</span><span class="nx">j</span><span class="cp">]</span><span class="err">.</span><span class="na">val</span><span class="err">;</span>
+                <span class="na">if</span><span class="err">(</span><span class="na">sum</span> <span class="nt">&gt;</span> target){
+                    j--;
+                    continue;
+                }
 
-                <span class="k">if</span><span class="p">(</span><span class="n">sum</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">){</span>
-                    <span class="n">i</span><span class="o">++</span><span class="p">;</span> 
-                    <span class="k">continue</span><span class="p">;</span>
-                <span class="p">}</span>
+                if(sum <span class="nt">&lt; target</span><span class="err">){</span>
+                    <span class="na">i</span><span class="err">++;</span> 
+                    <span class="na">continue</span><span class="err">;</span>
+                <span class="err">}</span>
 
-                <span class="k">if</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">id</span> <span class="o">&gt;</span> <span class="n">nodes</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">id</span><span class="p">){</span>
-                    <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-                    <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> 
-                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-                    <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-                    <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>   
-                <span class="p">}</span>
+                <span class="na">if</span><span class="err">(</span><span class="na">nodes</span><span class="cp">[</span><span class="nx">i</span><span class="cp">]</span><span class="err">.</span><span class="na">id</span> <span class="nt">&gt;</span> nodes<span class="cp">[</span><span class="nx">j</span><span class="cp">]</span>.id){
+                    r.push_back(nodes<span class="cp">[</span><span class="nx">j</span><span class="cp">]</span>.id + 1);
+                    r.push_back(nodes<span class="cp">[</span><span class="nx">i</span><span class="cp">]</span>.id + 1); 
+                }else{
+                    r.push_back(nodes<span class="cp">[</span><span class="nx">i</span><span class="cp">]</span>.id + 1);
+                    r.push_back(nodes<span class="cp">[</span><span class="nx">j</span><span class="cp">]</span>.id + 1);   
+                }
 
-                <span class="k">break</span><span class="p">;</span>
-            <span class="p">}</span>
+                break;
+            }
 
-            <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
-        <span class="p">}</span>
-<span class="p">};</span>    
+            return r;
+        }
+};    
 </pre></div>
 
 
 <p><strong>解法三:</strong></p>
 <p>使用hash表，键为数组的值，值为下标。每遍历到一个数，则在表中保查看是否有target减去这个值，如果没有，则把这个值以及对应的下标存入hash表。时间复杂度为O(n),空间复杂度为O(n)</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">r</span> <span class="p">;</span>
-            <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">hmap</span><span class="p">;</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">hmap</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">!=</span> <span class="n">hmap</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
-                    <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">hmap</span><span class="p">[</span><span class="n">target</span> <span class="o">-</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-                    <span class="n">r</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-                    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
-                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-                    <span class="n">hmap</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
+<div class="highlight"><pre><span class="nb">class</span> <span class="nx">Solution</span> <span class="p">{</span>
+    <span class="k">public</span><span class="p">:</span>
+        <span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span> <span class="nx">twoSum</span><span class="p">(</span><span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;&amp;</span> <span class="nx">nums</span><span class="p">,</span> <span class="nx">int</span> <span class="nb">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span> <span class="nb">r</span> <span class="p">;</span>
+            <span class="nx">unordered_map</span><span class="o">&lt;</span><span class="nx">int</span><span class="p">,</span><span class="nx">int</span><span class="o">&gt;</span> <span class="nx">hmap</span><span class="p">;</span>
+            <span class="nb">for</span><span class="p">(</span><span class="nx">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">nums.size</span><span class="p">();</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">hmap.find</span><span class="p">(</span><span class="nb">target</span> <span class="o">-</span> <span class="nx">nums</span><span class="err">[</span><span class="nx">i</span><span class="cp">]</span>) != hmap.end()){
+                    r.push_back(hmap<span class="cp">[</span><span class="nb">target</span> <span class="o">-</span> <span class="nx">nums</span><span class="err">[</span><span class="nx">i</span><span class="cp">]</span>] + 1);
+                    r.push_back(i + 1);
+                    return r;
+                }else{
+                    hmap<span class="cp">[</span><span class="nx">nums</span><span class="err">[</span><span class="nx">i</span><span class="cp">]</span>] = i;
+                }
+            }
 
-            <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
-        <span class="p">}</span>
-<span class="p">};</span>
+            return r;
+        }
+};
 </pre></div>
     </div><!-- /.entry-content -->
     <div class="comments">

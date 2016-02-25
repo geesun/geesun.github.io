@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+        <meta charset="utf-8" />
+        <title>使用autotools生成Makefile学习笔记</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
+        <link href="https://geesun.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geesun's Blog Atom Feed" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="../../../">Geesun's Blog </a></h1>
+                <nav><ul>
+                    <li><a href="../../../category/leetcode.html">Leetcode</a></li>
+                    <li><a href="../../../category/misc.html">Misc</a></li>
+                    <li><a href="../../../category/network.html">Network</a></li>
+                    <li class="active"><a href="../../../category/program.html">Program</a></li>
+                    <li><a href="../../../category/vim.html">VIM</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2015/02/autotool.html" rel="bookmark"
+           title="Permalink to 使用autotools生成Makefile学习笔记">使用autotools生成Makefile学习笔记</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>一 23 二月 2015</span>
+<span>| tags: <a href="../../../tag/program.html">program</a><a href="../../../tag/linux.html">linux</a></span>
+</footer><!-- /.post-info -->      <h2>autotools使用流程</h2>
+<p>autotools 是一系列工具，它包含了aclocal,autoconf,autoheader和automake这些工具，使用autotools主要就是利用各个工具的来生成最后的makefile文件。其具体流程如下图:</p>
+<p><img alt="image" src="../../../images/autotools/autotools.png" /></p>
+<p>如果你的系统安装了autoreconf，则上面的工具调用可以通过autoreconf这一个命令来完成，如果有哪个源文件更新，autoreconf会检测到并重新调用上面的工具来生成新的Makefile.
+命令如下：</p>
+<div class="highlight"><pre><span class="n">autoreconf</span> <span class="o">--</span><span class="n">install</span> <span class="o">--</span><span class="n">force</span>
+</pre></div>
+
+
+<h2>基础例子</h2>
+<h3>文件结构</h3>
+<div class="highlight"><pre><span class="n">geesun</span><span class="err">@</span><span class="n">geesun</span><span class="o">-</span><span class="n">OptiPlex</span><span class="o">-</span><span class="mi">3010</span><span class="o">:~/</span><span class="n">automake</span><span class="err">$</span> <span class="n">tree</span> 
+<span class="p">.</span>
+<span class="err">├──</span> <span class="n">configure</span><span class="p">.</span><span class="n">ac</span>
+<span class="err">├──</span> <span class="n">Makefile</span><span class="p">.</span><span class="n">am</span>
+<span class="err">└──</span> <span class="n">src</span>
+    <span class="err">└──</span> <span class="n">helloworld</span><span class="p">.</span><span class="n">c</span>
+</pre></div>
+
+
+<h3>helloworld.c代码源文件：</h3>
+<div class="highlight"><pre><span class="cp">#include &lt;config.h&gt;</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello &quot;</span><span class="n">PACKAGE_STRING</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3>configure.ac文件</h3>
+<div class="highlight"><pre><span class="n">AC_INIT</span><span class="p">([</span><span class="n">helloworld</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="n">geesun</span><span class="err">@</span><span class="n">gmail</span><span class="p">.</span><span class="n">com</span><span class="p">])</span>
+
+<span class="n">AC_PREREQ</span><span class="p">([</span><span class="mf">2.68</span><span class="p">])</span>
+
+<span class="n">AC_CONFIG_SRCDIR</span><span class="p">([</span><span class="n">src</span><span class="o">/</span><span class="n">helloworld</span><span class="p">.</span><span class="n">c</span><span class="p">])</span>
+
+<span class="n">AC_CONFIG_AUX_DIR</span><span class="p">([</span><span class="n">build</span><span class="o">-</span><span class="n">aux</span><span class="p">])</span>
+
+<span class="n">AM_INIT_AUTOMAKE</span><span class="p">([</span><span class="n">silent</span><span class="o">-</span><span class="n">rules</span> <span class="o">-</span><span class="n">Wall</span> <span class="o">-</span><span class="n">Werror</span> <span class="n">subdir</span><span class="o">-</span><span class="n">objects</span> <span class="n">foreign</span><span class="p">])</span>
+
+<span class="n">AM_SILENT_RULES</span><span class="p">([</span><span class="n">yes</span><span class="p">])</span>
+
+<span class="n">AC_PROG_CC</span>
+
+<span class="n">AC_CONFIG_HEADERS</span><span class="p">([</span><span class="n">config</span><span class="p">.</span><span class="n">h</span><span class="p">])</span>
+
+<span class="n">AC_CONFIG_FILES</span><span class="p">([</span><span class="n">Makefile</span><span class="p">])</span>
+
+<span class="n">AC_OUTPUT</span>
+</pre></div>
+
+
+<h3>Makefile.am文件</h3>
+<div class="highlight"><pre><span class="n">bin_PROGRAMS</span> <span class="o">=</span> <span class="n">helloworld</span>
+<span class="n">helloworld_SOURCES</span> <span class="o">=</span> <span class="n">src</span><span class="o">/</span><span class="n">helloworld</span><span class="p">.</span><span class="n">c</span>
+</pre></div>
+
+
+<h2>常用功能分析</h2>
+<h3>1. 增加configure的选项</h3>
+<p>如果要给configure生成像--enable-XXXX,--disable-XXXX,--with-XXXX,--without-XXXX这样的参数，就需在configure.ac里用到AC_ARG_ENABLE和AC_ARG_WITH这两个宏，AC_ARG_ENABLE和AC_ARG_WITH语法如下：</p>
+<div class="highlight"><pre><span class="n">AC_ARG_ENABLE</span><span class="p">(</span><span class="n">option</span><span class="o">-</span><span class="n">name</span><span class="p">,</span> <span class="n">help</span><span class="o">-</span><span class="n">string</span><span class="p">,</span> <span class="n">action</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">present</span><span class="p">,</span> <span class="n">action</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">not</span><span class="o">-</span><span class="n">present</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="n">AC_ARG_WITH</span> <span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="n">help</span><span class="o">-</span><span class="n">string</span><span class="p">,</span> <span class="p">[</span><span class="n">action</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">given</span><span class="p">],</span> <span class="p">[</span><span class="n">action</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">not</span><span class="o">-</span><span class="n">given</span><span class="p">])</span>
+</pre></div>
+
+
+<p><BR>
+我们来看下的configure.ac例子文件：</p>
+<div class="highlight"><pre><span class="p">......</span>
+
+<span class="n">AM_SILENT_RULES</span><span class="p">([</span><span class="n">yes</span><span class="p">])</span>
+
+<span class="n">dnl</span> <span class="n">Example</span> <span class="n">of</span> <span class="k">default</span><span class="o">-</span><span class="n">enabled</span> <span class="n">feature</span>
+<span class="n">AC_ARG_ENABLE</span><span class="p">([</span><span class="n">feature1</span><span class="p">],</span>
+              <span class="n">AS_HELP_STRING</span><span class="p">([</span><span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">feature1</span><span class="p">],</span> <span class="p">[</span><span class="n">Disable</span> <span class="n">feature1</span><span class="p">]))</span>
+<span class="n">AS_IF</span><span class="p">([</span><span class="n">test</span> <span class="s">&quot;x$enable_feature1&quot;</span> <span class="o">!=</span> <span class="s">&quot;xno&quot;</span><span class="p">],</span> <span class="p">[</span>
+         <span class="n">AC_DEFINE</span><span class="p">([</span><span class="n">HAVE_FEATURE1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">Enable</span> <span class="n">feature1</span><span class="p">])</span>
+         <span class="p">])</span>
+
+<span class="n">dnl</span> <span class="n">Example</span> <span class="n">of</span> <span class="k">default</span><span class="o">-</span><span class="n">disabled</span> <span class="n">feature</span>
+<span class="n">AC_ARG_ENABLE</span><span class="p">([</span><span class="n">feature2</span><span class="p">],</span>
+              <span class="n">AS_HELP_STRING</span><span class="p">([</span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">feature2</span><span class="p">],</span> <span class="p">[</span><span class="n">Enable</span> <span class="n">feature2</span><span class="p">]))</span>
+<span class="n">AS_IF</span><span class="p">([</span><span class="n">test</span> <span class="s">&quot;x$enable_feature2&quot;</span> <span class="o">=</span> <span class="s">&quot;xyes&quot;</span><span class="p">],</span> <span class="p">[</span>
+       <span class="n">AC_DEFINE</span><span class="p">([</span><span class="n">HAVE_FEATURE2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">Enable</span> <span class="n">feature2</span><span class="p">])</span>
+       <span class="p">])</span>
+
+<span class="n">dnl</span> <span class="n">feature3</span> <span class="n">has</span> <span class="n">depended</span> <span class="n">on</span> <span class="n">feature2</span><span class="p">,</span> <span class="k">if</span> <span class="n">feature2</span> <span class="n">was</span> <span class="n">not</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">feature3</span> <span class="n">always</span> <span class="n">disabled</span>
+<span class="n">AC_ARG_ENABLE</span><span class="p">([</span><span class="n">feature3</span><span class="p">],</span>
+              <span class="n">AS_HELP_STRING</span><span class="p">([</span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">feature3</span><span class="p">],</span> <span class="p">[</span><span class="n">Enable</span> <span class="n">feature3</span><span class="p">]),</span>
+              <span class="p">[</span>
+                <span class="n">AS_IF</span><span class="p">([</span><span class="n">test</span> <span class="s">&quot;x$enable_feature2&quot;</span> <span class="o">!=</span> <span class="s">&quot;xyes&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">enable_feature3</span><span class="o">=</span><span class="s">&quot;no&quot;</span><span class="p">])</span>
+              <span class="p">],</span>
+              <span class="p">[</span>
+                <span class="n">enable_feature3</span><span class="o">=</span><span class="s">&quot;no&quot;</span>
+              <span class="p">])</span>
+
+<span class="n">AS_IF</span><span class="p">([</span><span class="n">test</span> <span class="s">&quot;x$enable_feature3&quot;</span> <span class="o">=</span> <span class="s">&quot;xyes&quot;</span><span class="p">],</span> <span class="p">[</span>
+       <span class="n">AC_DEFINE</span><span class="p">([</span><span class="n">HAVE_FEATURE3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">Enable</span> <span class="n">feature3</span><span class="p">])</span>
+       <span class="p">])</span>
+
+<span class="n">AS_ECHO</span><span class="p">([</span><span class="s">&quot;feature1 = $enable_feature1&quot;</span><span class="p">])</span>
+<span class="n">AS_ECHO</span><span class="p">([</span><span class="s">&quot;feature2 = $enable_feature2&quot;</span><span class="p">])</span>
+<span class="n">AS_ECHO</span><span class="p">([</span><span class="s">&quot;feature3 = $enable_feature3&quot;</span><span class="p">])</span>
+
+<span class="n">AC_ARG_WITH</span><span class="p">([</span><span class="n">foo</span><span class="p">],</span>
+            <span class="n">AS_HELP_STRING</span><span class="p">([</span><span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">foo</span><span class="p">],</span> <span class="p">[</span><span class="n">Ignore</span> <span class="n">presence</span> <span class="n">of</span> <span class="n">foo</span> <span class="n">and</span> <span class="n">disable</span> <span class="n">it</span><span class="p">]))</span>
+
+<span class="n">AS_IF</span><span class="p">([</span><span class="n">test</span> <span class="s">&quot;x$with_foo&quot;</span> <span class="o">!=</span> <span class="s">&quot;xno&quot;</span><span class="p">],</span> <span class="p">[</span>
+              <span class="n">AC_DEFINE</span><span class="p">([</span><span class="n">HAVE_FOO</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">With</span> <span class="n">foo</span><span class="p">])</span>
+                     <span class="p">])</span>
+
+<span class="n">AS_ECHO</span><span class="p">([</span><span class="s">&quot;with_foo = $with_foo&quot;</span><span class="p">])</span>
+
+<span class="n">AC_PROG_CC</span>
+
+<span class="p">......</span>
+</pre></div>
+
+
+<p>有关Autoconf的语法规则，可以参考<a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Autoconf-Language.html#Autoconf-Language">The Autoconf Language</a>. </p>
+<p><a href="https://autotools.io/autoconf/m4sh.html">AS_IF</a>就是一个if else的语句,比较好理解，<a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Defining-Symbols.html#index-AC_005fDEFINE-1196">AC_DEFINE</a>就是在config.h里面来定义一个宏来给之后具体的代码使用。</p>
+<p>helloworld.c代码文件：</p>
+<div class="highlight"><pre>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello &quot;</span><span class="n">PACKAGE_STRING</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="cp">#ifdef HAVE_FEATURE1</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello Feature1 </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef HAVE_FEATURE2</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello Feature2 </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="cp">#ifdef HAVE_FEATURE3</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello Feature3 </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef HAVE_FOO</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello Foo </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="cp">#endif</span>
+</pre></div>
+
+
+<h3>2.条件编译</h3>
+<p>通常，我们针对不同平台，可能会编译不同源文件，还有就是在用户在使用configure增加或者减少某个功能时，需要编译出更多或者更少的可执行文件，这是怎么做到的呢？下面我们就用一个例子来说明这个在autoconf里面怎么做到。 </p>
+<p>首先在configure.ac中增加选项，让用户来决定是否开启指定功能：</p>
+<div class="highlight"><pre><span class="n">AC_ARG_ENABLE</span><span class="p">([</span><span class="n">debug</span><span class="p">],</span>
+              <span class="n">AS_HELP_STRING</span><span class="p">([</span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">debug</span><span class="p">],</span> <span class="p">[</span><span class="n">Enable</span> <span class="n">debug</span> <span class="n">feature</span><span class="p">]))</span>
+<span class="n">AM_CONDITIONAL</span><span class="p">([</span><span class="n">DEBUG</span><span class="p">],</span> <span class="p">[</span><span class="n">test</span> <span class="s">&quot;x$enable_debug&quot;</span> <span class="o">=</span> <span class="s">&quot;xyes&quot;</span><span class="p">])</span>
+</pre></div>
+
+
+<p><a href="http://www.gnu.org/software/automake/manual/html_node/Usage-of-Conditionals.html#Usage-of-Conditionals">AM_CONDITIONAL</a>是在configure.ac里面定义一个条件，这样在Makefile.am里面就可以使用这个条件了，如果没有定义，是不可以使用的。</p>
+<p>再在Makefile.am里面根据这个条件来指定文件进行编译：</p>
+<div class="highlight"><pre><span class="k">if</span> <span class="n">DEBUG</span>
+<span class="n">bin_PROGRAMS</span> <span class="o">=</span> <span class="n">helloworld</span> <span class="n">debug</span> 
+<span class="n">debug_SOURCES</span><span class="o">=</span><span class="n">src</span><span class="o">/</span><span class="n">debug</span><span class="p">.</span><span class="n">c</span> 
+<span class="k">else</span>
+<span class="n">bin_PROGRAMS</span> <span class="o">=</span> <span class="n">helloworld</span>
+<span class="n">endif</span>
+
+<span class="k">if</span> <span class="n">DEBUG</span>
+<span class="n">helloworld_SOURCES</span> <span class="o">=</span> <span class="n">src</span><span class="o">/</span><span class="n">helloworld</span><span class="p">.</span><span class="n">c</span>  \
+                     <span class="n">src</span><span class="o">/</span><span class="n">hello</span><span class="o">-</span><span class="n">debug</span><span class="p">.</span><span class="n">c</span>
+<span class="k">else</span>
+<span class="n">helloworld_SOURCES</span> <span class="o">=</span> <span class="n">src</span><span class="o">/</span><span class="n">helloworld</span><span class="p">.</span><span class="n">c</span> 
+<span class="n">endif</span>
+</pre></div>
+
+
+<h3>3.查找库以及头文件</h3>
+<p><a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Libraries.html#index-AC_005fCHECK_005fLIB-341">AC_CHECK_LIB和AC_SEARCH_LIB</a>是用来查找库，如果找到库，则会在编译可执行文件时把这个库增加到链接库里面。语法如下：</p>
+<div class="highlight"><pre><span class="nx">AC_CHECK_LIB</span> <span class="p">(</span><span class="nx">library</span><span class="p">,</span> <span class="kd">function</span><span class="p">,</span> <span class="cp">[</span><span class="nb">action</span><span class="na">-if-found</span><span class="cp">]</span><span class="p">,</span> <span class="cp">[</span><span class="nb">action</span><span class="na">-if-not-found</span><span class="cp">]</span><span class="p">,</span> <span class="cp">[</span><span class="nx">other</span><span class="na">-libraries</span><span class="cp">]</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="nx">AC_SEARCH_LIBS</span> <span class="p">(</span><span class="kd">function</span><span class="p">,</span> <span class="nx">search</span><span class="o">-</span><span class="nx">libs</span><span class="p">,</span> <span class="cp">[</span><span class="nb">action</span><span class="na">-if-found</span><span class="cp">]</span><span class="p">,</span> <span class="cp">[</span><span class="nb">action</span><span class="na">-if-not-found</span><span class="cp">]</span><span class="p">,</span> <span class="cp">[</span><span class="nx">other</span><span class="na">-libraries</span><span class="cp">]</span><span class="p">)</span>
+</pre></div>
+
+
+<p><a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Generic-Headers.html#index-AC_005fCHECK_005fHEADERS-669">AC_CHECK_HEADER和AC_CHECK_HEADERS</a>是用来查找头文件的，如果找到，会在config.h里面增加相对应的宏。语法如下：</p>
+<div class="highlight"><pre><span class="n">AC_CHECK_HEADER</span> <span class="p">(</span><span class="n">header</span><span class="o">-</span><span class="n">file</span><span class="p">,</span> <span class="p">[</span><span class="n">action</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">found</span><span class="p">],</span> <span class="p">[</span><span class="n">action</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">not</span><span class="o">-</span><span class="n">found</span><span class="p">],</span> <span class="p">[</span><span class="n">includes</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="n">AC_CHECK_HEADERS</span> <span class="p">(</span><span class="n">header</span><span class="o">-</span><span class="n">file</span><span class="p">...,</span> <span class="p">[</span><span class="n">action</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">found</span><span class="p">],</span> <span class="p">[</span><span class="n">action</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">not</span><span class="o">-</span><span class="n">found</span><span class="p">],</span> <span class="p">[</span><span class="n">includes</span><span class="p">])</span>
+</pre></div>
+
+
+<p>configure.ac例子如下：</p>
+<div class="highlight"><pre><span class="nx">AC_CHECK_LIB</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="nx">abs</span><span class="p">,</span><span class="cp">[]</span><span class="p">,</span><span class="cp">[</span><span class="nx">AC_MSG_ERROR</span><span class="p">(</span><span class="err">[</span><span class="nx">unable</span> <span class="k">to</span> <span class="nb">find</span> <span class="nx">the</span> <span class="nb">cos</span><span class="p">()</span> <span class="nx">function</span><span class="cp">]</span><span class="p">)])</span>
+<span class="nx">AC_CHECK_HEADERS</span><span class="p">(</span><span class="cp">[</span><span class="nx">pthread.h</span><span class="cp">]</span><span class="p">,</span> <span class="cp">[]</span><span class="p">,</span><span class="cp">[</span><span class="nx">AC_MSG_ERROR</span><span class="p">(</span><span class="err">[</span><span class="nx">unable</span> <span class="k">to</span> <span class="nb">find</span> <span class="nx">the</span> <span class="nx">pthread.h</span><span class="cp">]</span><span class="p">)])</span>
+<span class="nx">AC_SEARCH_LIBS</span><span class="p">(</span><span class="cp">[</span><span class="nx">pthread_create</span><span class="cp">]</span><span class="p">,</span> <span class="cp">[</span><span class="nx">pthread</span><span class="cp">]</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>4.自定义Makefile规则</h3>
+<p>在做工程的时候，可能会有一些比较特殊的文件需要通过Makefile产生，这个时候就需要用到在Makefile.am里面增加一些自己定义的规则来完成我们的目的。这些功能就是在Makefile.am里面增加一些带-local后缀的target来实现。目前支持-local后缀的targets有： all, install-exec, uninstall, clean 等。
+例子： </p>
+<div class="highlight"><pre><span class="n">scripts</span><span class="o">:</span>
+    <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">scripts</span>
+    <span class="n">echo</span> <span class="s2">&quot;#!/bin/sh &quot;</span> <span class="o">&gt;</span> <span class="n">scripts</span><span class="o">/</span><span class="n">hello</span><span class="o">.</span><span class="na">sh</span>
+    <span class="n">echo</span> <span class="s2">&quot;echo &quot;&quot;hello world&quot;&quot; &quot;</span> <span class="o">&gt;&gt;</span> <span class="n">scripts</span><span class="o">/</span><span class="n">hello</span><span class="o">.</span><span class="na">sh</span>
+
+<span class="n">all</span><span class="o">-</span><span class="n">local</span><span class="o">:</span> <span class="n">scripts</span>
+
+<span class="n">clean</span><span class="o">-</span><span class="n">local</span><span class="o">:</span>
+    <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">scripts</span><span class="o">/</span>
+</pre></div>
+
+
+<p>更多可以参考<a href="http://www.gnu.org/software/automake/manual/html_node/Extending.html#Extending">这里</a></p>
+<h3>5.自定义安装目录</h3>
+<p>大型工程里面会有许多文件，有一些要安装在特定的目录，不一定是系统默认目录，这个时候，就需要在Makefile.am中增加目录规则。系统默认目录可以参考<a href="http://www.gnu.org/software/automake/manual/html_node/Standard-Directory-Variables.html#Standard-Directory-Variables">这里</a>。 要自己定义目录，首先要定义xxxdir变量，然后才可以用xxx来指定文件。如下例子：</p>
+<div class="highlight"><pre><span class="n">mydir</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span><span class="o">/</span><span class="n">mybin</span>
+<span class="n">my_PROGRAMS</span> <span class="o">=</span> <span class="n">hello2</span>
+<span class="n">hello2_SOURCES</span> <span class="o">=</span> <span class="n">src</span><span class="o">/</span><span class="n">main2</span><span class="p">.</span><span class="n">c</span>
+</pre></div>
+
+
+<h3>6.其他文件安装</h3>
+<h4><a href="http://www.gnu.org/software/automake/manual/html_node/Scripts.html#Scripts">脚本</a></h4>
+<p>脚本默认不打包，如果要默认打包进去，则要用：</p>
+<div class="highlight"><pre><span class="n">dist_bin_SCRIPTS</span> <span class="o">=</span> <span class="n">my_script</span>
+</pre></div>
+
+
+<h4><a href="http://www.gnu.org/software/automake/manual/html_node/Headers.html#Headers">头文件</a></h4>
+<p>不保留原始目录结构：</p>
+<div class="highlight"><pre><span class="n">include_HEADERS</span> <span class="o">=</span> <span class="n">foo</span><span class="p">.</span><span class="n">h</span> <span class="n">bar</span><span class="o">/</span><span class="n">bar</span><span class="p">.</span><span class="n">h</span>
+</pre></div>
+
+
+<p>保留原始目录结构：</p>
+<div class="highlight"><pre><span class="n">nobase_include_HEADERS</span> <span class="o">=</span> <span class="n">foo</span><span class="p">.</span><span class="n">h</span> <span class="n">bar</span><span class="o">/</span><span class="n">bar</span><span class="p">.</span><span class="n">h</span>
+</pre></div>
+
+
+<h4><a href="http://www.gnu.org/software/automake/manual/html_node/Data.html#Data">Data文件</a></h4>
+<p>data文件可以安装在如下目录：datadir, sysconfdir, sharedstatedir, localstatedir, pkgdatadir.</p>
+<h4><a href="#">不需要安装的文件</a></h4>
+<div class="highlight"><pre><span class="n">noinst_PROGRAMS</span><span class="o">=</span><span class="n">hello3</span>
+<span class="n">hello3_SOURCES</span> <span class="o">=</span> <span class="n">src</span><span class="o">/</span><span class="n">main3</span><span class="p">.</span><span class="n">c</span>
+</pre></div>
+
+
+<h3>7.更多可以参考</h3>
+<p><a href="https://autotools.io">autotools.io</a></p>
+<p><a href="http://www.gnu.org/software/automake/manual/html_node/Program-and-Library-Variables.html#Program-and-Library-Variables">Program and Library Variables</a></p>
+<p><a href="http://www.gnu.org/software/automake/manual/html_node/A-Shared-Library.html#A-Shared-Library">Building a Shared Library</a></p>
+<p><a href="http://www.gnu.org/software/automake/manual/">GNU Automake</a></p>
+<p><a href="http://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.69/html_node/Autoconf-Macro-Index.html#Autoconf-Macro-Index">Autoconf Macro Index</a></p>
+<p><a href="http://www.gnu.org/software/automake/manual/html_node/Macro-Index.html#Macro-Index">AutoMake Macro Index</a></p>
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2015/02/autotool.html";
+        var disqus_url = "https://geesun.github.io/posts/2015/02/autotool.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>个人链接</h2>
+                        <ul>
+                            <li><a href="https://geesun.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://twitter.com/geesun">Twitter</a></li>
+                            <li><a href="https://github.com/geesun">Github</a></li>
+                            <li><a href="https://geesun.github.io/resume.html">Resume</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+        </footer><!-- /#contentinfo -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'geesun';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+</html>
