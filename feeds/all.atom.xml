@@ -972,7 +972,7 @@ ev_default_loop和ev_loop_new都会调用loop_init：&lt;/p&gt;
         }
 };
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="算法"></category><category term="leetcode"></category></entry><entry><title>使用autotools生成Makefile学习笔记</title><link href="https://geesun.github.io/posts/2015/02/autotool.html" rel="alternate"></link><updated>2015-02-23T14:20:00+08:00</updated><author><name>Geesun Xu</name></author><id>tag:https://geesun.github.io,2015-02-23:posts/2015/02/autotool.html</id><summary type="html">&lt;h2&gt;autotools使用流程&lt;/h2&gt;
-&lt;p&gt;autotools 是一系列工具，它包含了aclocal,autoconf,autoheader和automake这些工具，使用autotools主要就是利用各个工具的来生成最后的makefile文件。其具体流程如下图:&lt;/p&gt;
+&lt;p&gt;autotools 是一系列工具，它包含了aclocal,autoconf,autoheader和automake这些工具，使用autotools主要就是利用各个工具来生成最后的makefile文件。其具体流程如下图:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="image" src="https://geesun.github.io/images/autotools/autotools.png" /&gt;&lt;/p&gt;
 &lt;p&gt;如果你的系统安装了autoreconf，则上面的工具调用可以通过autoreconf这一个命令来完成，如果有哪个源文件更新，autoreconf会检测到并重新调用上面的工具来生成新的Makefile.
 命令如下：&lt;/p&gt;
