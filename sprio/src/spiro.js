@@ -5,7 +5,7 @@ var bgColor = 255;
 var outerAngle = 0; 
 var rotateAngle = 0.01;
 var innerAngle = 0;
-var holePos = 0;
+var holeOffset = 0;
 var penColor; 
 var reSize = 0; 
 var speed = 3;
@@ -19,13 +19,12 @@ function genGearSize() {
     bigGearSize = wSize * 0.8 * 0.5;
 
     smallGearSize = bigGearSize * random(0.7);
-    holePos = 50;//smallGearSize * random(0.3);
+    holeOffset = smallGearSize * 0.467;
 }
 
 function initCanvas(){
     smooth()
     background(bgColor);
-    
     strokeWeight(3);
     
     smallGearLayer = createGraphics(wSize ,wSize  );
@@ -42,6 +41,14 @@ function onChangeGearSize()
 {
   var s = document.getElementById("gearSize").value;
   smallGearSize = s/100.00 * bigGearSize;
+  reSize = 1;
+}
+
+function onChangeHole()
+{
+  var h = document.getElementById("hole").value;
+  holeOffset = h/100.00 * smallGearSize;
+  reSize = 1;
 }
 
 function onSave()
@@ -104,7 +111,7 @@ function draw()
     smallGearLayer.translate((bigGearSize - smallGearSize), 0); 
     smallGearLayer.rotate(innerAngle);
     smallGearLayer.ellipse(0,0,smallGearSize * 2 - 10,smallGearSize * 2- 10);
-    smallGearLayer.ellipse(holePos,0,10,10);
+    smallGearLayer.ellipse(holeOffset,0,5,5);
     smallGearLayer.pop();
 
     if(start == 1){
@@ -117,7 +124,7 @@ function draw()
           spiroLayer.fill(penColor);
           spiroLayer.stroke(penColor);
           spiroLayer.strokeWeight(3);
-          spiroLayer.point(holePos,0);
+          spiroLayer.point(holeOffset,0);
           spiroLayer.pop(); 
 
           outerAngle += rotateAngle;
