@@ -10,6 +10,7 @@ var penColor;
 var reSize = 0; 
 var speed = 3;
 var start = 1; 
+var clearAction = 1;
 
 function genGearSize() {
     wSize = windowWidth * 0.8; 
@@ -28,13 +29,17 @@ function initCanvas(){
     strokeWeight(3);
     
     smallGearLayer = createGraphics(wSize ,wSize  );
-    spiroLayer = createGraphics(wSize ,wSize  );
+    if(clearAction == 1){
+      spiroLayer = createGraphics(wSize ,wSize);
+      clearAction = 0;
+    }
     
 }
 
 function onClear()
 {
   reSize = 1;
+  clearAction = 1;
 }
 
 function onChangeGearSize() 
