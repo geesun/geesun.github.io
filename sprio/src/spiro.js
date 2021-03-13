@@ -27,13 +27,12 @@ function initCanvas(){
     smooth()
     background(bgColor);
     strokeWeight(3);
-    
+     
     gearLayer = createGraphics(wSize ,wSize  );
     if(clearAction == 1){
       spiroLayer = createGraphics(wSize ,wSize);
       clearAction = 0;
-    }
-    
+    }  
 }
 
 function onClear()
