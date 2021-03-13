@@ -133,7 +133,7 @@ function draw()
           spiroLayer.rotate(innerAngle);
           spiroLayer.fill(penColor);
           spiroLayer.stroke(penColor);
-          spiroLayer.strokeWeight(3);
+          spiroLayer.strokeWeight(1.5);
           spiroLayer.point(holeOffset,0);
           spiroLayer.pop(); 
 
