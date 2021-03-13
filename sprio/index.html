@@ -1,50 +1,76 @@
 <html>
   <head>
   	<title>徐祥瑞 徐雯瑞的 万花尺</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/spiro.css">
+  	<meta charset="utf-8" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+  	<link rel="stylesheet" href="css/bootstrap.min.css">
+  	<link rel="stylesheet" href="css/spiro.css">
 
     <script src="p5j/p5.min.js"></script>
     <script src="src/spiro.js"></script>
   </head>
   <body>
 
- <div class="container">
-	<div id="sketch-holder">
-	<!-- Our sketch will go here! -->
-	</div>
+    <div class="container">
+      <div id="sketch-holder">
+      <!-- Our sketch will go here! -->
+      </div>
 
-	    <div class="row">
-        <div class="col-lg-6 ">
-          <p class="center-block">
+      <p>
+
+      <div class="row">
+
+        <div class="col-sm-1">
           <label>颜色</label>
-          	<input type="color" value="#ff0000" id="color" onchange ="onChangeColor()"> 
-          	&nbsp;&nbsp;&nbsp;&nbsp;
-          	<button type="button" onclick="onStart()" id="start" class="btn btn-success">停止</button>
-          	&nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="button" onclick="onClear()"class="btn btn-success">清除</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="button" onclick="onSave()" class="btn btn-success">保存</button>
-          </p>
-          <p>
-          <label>齿轮大小</label>
-          <input type="range" min="5" max="95" value="5"  id="gearSize" onchange ="onChangeGearSize()"></p>
-          <p>
-          <label>孔位置</label>
-          <input type="range" min="1" max="100" value="10"  id="hole" onchange ="onChangeHole()"></p>
-          <p>
-          <label>速度</label>
-          <input type="range" min="1" max="20" value="3"  id="speed" onchange ="onChangeSpeed()"></p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-        </div><!-- /.col-lg-4 -->
-      </div><!-- /.row -->
+        </div>
+        <div class="col-sm-2">
+          <input type="color" value="#ff0000" id="color" onchange ="onChangeColor()">
+        </div>
+        <div class="col-sm-1">
+        </div>  
+        <div class="col-sm-2">
+          <button type="button" onclick="onStart()" id="start" class="btn btn-success">停止</button>
+        </div>
 
-</div>
+        <div class="col-sm-1">
+        </div>  
+        <div class="col-sm-2">
+          <button type="button" onclick="onClear()"class="btn btn-success">清除</button>
+        </div>
+
+        <div class="col-sm-1">
+        </div>  
+        <div class="col-sm-2">
+          <button type="button" onclick="onSave()" class="btn btn-success">保存</button>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-sm-11">
+          <label>齿轮大小</label>
+          <input type="range" min="10" max="95" value="5"  id="gearSize" onchange ="onChangeGearSize()">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-11">
+        <label>孔位置</label>
+        <input type="range" min="10" max="90" value="10"  id="hole" onchange ="onChangeHole()">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-11">
+        <label>速度</label>
+        <input type="range" min="1" max="20" value="3"  id="speed" onchange ="onChangeSpeed()">
+        </div>
+      </div>
+      
+
+    </div>
+
   </body>
 </html>

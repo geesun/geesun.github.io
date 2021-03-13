@@ -8,16 +8,16 @@ var innerAngle = 0;
 var holeOffset = 0;
 var penColor; 
 var reSize = 0; 
-var speed = 3;
+var speed = 1;
 var start = 1; 
 var clearAction = 1;
 
 function genGearSize() {
-    wSize = windowWidth * 0.8; 
+    wSize = windowWidth * 0.9; 
     if (wSize  > windowHeight){
-        wSize = windowHeight * 0.8;
+        wSize = windowHeight * 0.9;
     }
-    bigGearSize = wSize * 0.8 * 0.5;
+    bigGearSize = wSize * 0.9 * 0.5;
 
     smallGearSize = bigGearSize * random(0.7);
     holeOffset = smallGearSize * 0.467;
@@ -28,7 +28,7 @@ function initCanvas(){
     background(bgColor);
     strokeWeight(3);
     
-    smallGearLayer = createGraphics(wSize ,wSize  );
+    gearLayer = createGraphics(wSize ,wSize  );
     if(clearAction == 1){
       spiroLayer = createGraphics(wSize ,wSize);
       clearAction = 0;
@@ -106,18 +106,20 @@ function draw()
         reSize = 0;
     }
 
-    smallGearLayer.push();
-    smallGearLayer.background(255);
-    smallGearLayer.noFill();
-    smallGearLayer.strokeWeight(3);
-    smallGearLayer.translate(wSize/2,wSize/2);
-    smallGearLayer.ellipse(0,0,bigGearSize * 2 - 10,bigGearSize * 2 - 10);
-    smallGearLayer.rotate(outerAngle); 
-    smallGearLayer.translate((bigGearSize - smallGearSize), 0); 
-    smallGearLayer.rotate(innerAngle);
-    smallGearLayer.ellipse(0,0,smallGearSize * 2 - 10,smallGearSize * 2- 10);
-    smallGearLayer.ellipse(holeOffset,0,5,5);
-    smallGearLayer.pop();
+    gearLayer.push();
+    gearLayer.background(255);
+    gearLayer.fill(240);
+    gearLayer.strokeWeight(3);
+    gearLayer.rect(0,0,wSize,wSize);
+    gearLayer.noFill();
+    gearLayer.translate(wSize/2,wSize/2);
+    gearLayer.ellipse(0,0,bigGearSize * 2 - 10,bigGearSize * 2 - 10);
+    gearLayer.rotate(outerAngle); 
+    gearLayer.translate((bigGearSize - smallGearSize), 0); 
+    gearLayer.rotate(innerAngle);
+    gearLayer.ellipse(0,0,smallGearSize * 2 - 10,smallGearSize * 2- 10);
+    gearLayer.ellipse(holeOffset,0,5,5);
+    gearLayer.pop();
 
     if(start == 1){
       for (var i = 0; i < speed; i++){
@@ -137,8 +139,8 @@ function draw()
       }
     }
 
-    rect(0,0,wSize,wSize);
-    image(smallGearLayer,0,0)
+    
+    image(gearLayer,0,0)
     image(spiroLayer,0,0)
 }
 

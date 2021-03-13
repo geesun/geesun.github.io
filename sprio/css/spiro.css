@@ -24,13 +24,6 @@ body {
   line-height: 40px;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-}
-
 /* Customize container */
 @media (min-width: 768px) {
   .container {
@@ -58,7 +51,9 @@ body {
 }
 
 
+/* https://www.bestcssbuttongenerator.com/#/13 */ 
 
+/* https://www.cssportal.com/style-input-range/ */
 
 input[type=range] {
   height: 32px;
@@ -143,6 +138,7 @@ input[type=range]::-ms-thumb {
   background: #DADADA;
   cursor: pointer;
 }
+
 input[type=range]:focus::-ms-fill-lower {
   background: #B6B6B6;
 }
