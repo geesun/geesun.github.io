@@ -19,7 +19,7 @@ function genGearSize() {
     }
     bigGearSize = wSize * 0.9 * 0.5;
 
-    smallGearSize = bigGearSize * random(0.7);
+    smallGearSize = bigGearSize * (random(0.5) + 0.2);//0.6;
     holeOffset = smallGearSize * 0.467;
 }
 
@@ -46,6 +46,9 @@ function onChangeGearSize()
 {
   var s = document.getElementById("gearSize").value;
   smallGearSize = s/100.00 * bigGearSize;
+  if(smallGearSize < 30){
+    smallGearSize = 30;
+  }
   reSize = 1;
 }
 
