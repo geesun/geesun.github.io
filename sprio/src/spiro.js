@@ -49,6 +49,9 @@ function onChangeGearSize()
   if(smallGearSize < 30){
     smallGearSize = 30;
   }
+
+  var h = document.getElementById("hole").value;
+  holeOffset = h/100.00 * smallGearSize;
   reSize = 1;
 }
 
@@ -133,7 +136,7 @@ function draw()
           spiroLayer.rotate(innerAngle);
           spiroLayer.fill(penColor);
           spiroLayer.stroke(penColor);
-          spiroLayer.strokeWeight(1.5);
+          spiroLayer.strokeWeight(2);
           spiroLayer.point(holeOffset,0);
           spiroLayer.pop(); 
 
