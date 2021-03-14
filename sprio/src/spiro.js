@@ -3,37 +3,14 @@ var bigGearSize = 0;
 var smallGearSize = 0; 
 var bgColor = 255;
 var outerAngle = 0; 
-var rotateAngle = 0.01;
+var rotateAngle = 0.001;
 var innerAngle = 0;
 var holeOffset = 0;
 var penColor; 
 var reSize = 0; 
-var speed = 1;
+var speed = 10;
 var start = 1; 
 var clearAction = 1;
-
-function genGearSize() {
-    wSize = windowWidth * 0.9; 
-    if (wSize  > windowHeight){
-        wSize = windowHeight * 0.9;
-    }
-    bigGearSize = wSize * 0.9 * 0.5;
-
-    smallGearSize = bigGearSize * (random(0.5) + 0.2);//0.6;
-    holeOffset = smallGearSize * 0.467;
-}
-
-function initCanvas(){
-    smooth()
-    background(bgColor);
-    strokeWeight(3);
-     
-    gearLayer = createGraphics(wSize ,wSize  );
-    if(clearAction == 1){
-      spiroLayer = createGraphics(wSize ,wSize);
-      clearAction = 0;
-    }  
-}
 
 function onClear()
 {
@@ -66,12 +43,6 @@ function onSave()
   save(spiroLayer,"万花尺.png")
 }
 
-function windowResized() {
-    genGearSize();
-    resizeCanvas(wSize,wSize);
-    initCanvas();
-}
-
 function onChangeSpeed()
 {
   speed = document.getElementById("speed").value;
@@ -93,6 +64,36 @@ function onStart()
     document.getElementById('start').innerHTML="停止";
   }
 }
+
+function windowResized() {
+    genGearSize();
+    resizeCanvas(wSize,wSize);
+    initCanvas();
+}
+
+function genGearSize() {
+    wSize = windowWidth * 0.9; 
+    if (wSize  > windowHeight){
+        wSize = windowHeight * 0.9;
+    }
+    bigGearSize = wSize * 0.9 * 0.5;
+
+    smallGearSize = bigGearSize * (random(0.5) + 0.2);//0.6;
+    holeOffset = smallGearSize * 0.467;
+}
+
+function initCanvas(){
+    smooth()
+    background(bgColor);
+    strokeWeight(3);
+
+    gearLayer = createGraphics(wSize ,wSize  );
+    if(clearAction == 1){
+      spiroLayer = createGraphics(wSize ,wSize);
+      clearAction = 0;
+    }  
+}
+
 
 function setup()
 {
