@@ -40,7 +40,8 @@ function onChangeHole()
 
 function onSave()
 {
-  save(spiroLayer,"万花尺.png")
+  save(spiroLayer,"万花尺.png");
+  
 }
 
 function onChangeSpeed()
@@ -82,12 +83,10 @@ function genGearSize() {
     holeOffset = smallGearSize * 0.467;
 }
 
-function initCanvas(){
-    smooth()
+function initCanvas(){    
     background(bgColor);
-    strokeWeight(3);
-
     gearLayer = createGraphics(wSize ,wSize  );
+
     if(clearAction == 1){
       spiroLayer = createGraphics(wSize ,wSize);
       clearAction = 0;
@@ -119,12 +118,14 @@ function draw()
     gearLayer.rect(0,0,wSize,wSize);
     gearLayer.noFill();
     gearLayer.translate(wSize/2,wSize/2);
-    gearLayer.ellipse(0,0,bigGearSize * 2 - 10,bigGearSize * 2 - 10);
+    gearLayer.circle(0,0,bigGearSize * 2 - 10);
     gearLayer.rotate(outerAngle); 
+    
     gearLayer.translate((bigGearSize - smallGearSize), 0); 
     gearLayer.rotate(innerAngle);
-    gearLayer.ellipse(0,0,smallGearSize * 2 - 10,smallGearSize * 2- 10);
-    gearLayer.ellipse(holeOffset,0,5,5);
+    gearLayer.circle(0,0,smallGearSize * 2 - 10);
+    gearLayer.circle(holeOffset,0,5);
+    
     gearLayer.pop();
 
     if(start == 1){
