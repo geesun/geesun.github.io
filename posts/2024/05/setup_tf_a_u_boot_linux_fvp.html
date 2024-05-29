@@ -2,8 +2,8 @@
 <html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>Linux学习笔记 - Linux</title>
-        <link rel="stylesheet" href="../theme/css/main.css" />
+        <title>设置tf-a u-boot 和Linux的开发和调试环境</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
 
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,20 +12,25 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="../">Linux学习笔记 </a></h1>
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
                 <nav><ul>
-                    <li><a href="../category/linux.html">Linux</a></li>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/05/setup_tf_a_u_boot_linux_fvp.html" rel="bookmark"
+           title="Permalink to 设置tf-a u-boot 和Linux的开发和调试环境">设置tf-a u-boot 和Linux的开发和调试环境</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="../posts/2024/05/setup_tf_a_u_boot_linux_fvp.html">设置tf-a u-boot 和Linux的开发和调试环境</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>Wed 29 May 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/tf-a.html">tf-a</a><a href="../tag/u-boot.html">u-boot</a></span>
-</footer><!-- /.post-info --><p>在学习Linux的过程中，调试必不可少。下面的步骤就是一步一步如何使用Arm 的FVP平台来设置Linux的开发和调试环境。
+<span>| tags: <a href="../../../tag/linux.html">Linux</a><a href="../../../tag/tf-a.html">tf-a</a><a href="../../../tag/u-boot.html">u-boot</a></span>
+</footer><!-- /.post-info -->      <p>在学习Linux的过程中，调试必不可少。下面的步骤就是一步一步如何使用Arm 的FVP平台来设置Linux的开发和调试环境。
 如下所有的步骤最终都汇聚在我的github <a class="reference external" href="https://github.com/geesun/boot-tf-a-u-boot-linux/">boot-tf-a-u-boot-linux</a>  ，如果仅仅是使用，不需要知道它的具体细节的，建议直接使用github仓库提供的Makefile。</p>
 <div class="section" id="section-1">
 <h2>开发环境准备</h2>
@@ -333,60 +338,24 @@ EL2N:0x0000000081E20100<span class="w"> </span>:<span class="w"> </span>CBNZ<spa
 EL2N:0x0000000081E20104<span class="w"> </span>:<span class="w"> </span>DMB<span class="w">      </span>SY<span class="w">                                                                     </span>│
 </pre></div>
 </div>
-<p><a href="https://geesun.github.io/posts/2024/05/setup_tf_a_u_boot_linux_fvp.html#disqus_thread">comments</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/05/idmap_pg_dir.html" rel="bookmark"
-                           title="Permalink to idmap_pg_dir页表">idmap_pg_dir页表</a></h1>
-                </header>
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/05/setup_tf_a_u_boot_linux_fvp.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/05/setup_tf_a_u_boot_linux_fvp.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Mon 27 May 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a></span>
-</footer><!-- /.post-info -->                <p>当主CPU启动完成之后，已经把页表设置成了swapper_pg_dir， 到这里为止，kernel一般情况下是不再需要idmap这个页表的，但是还是有些特殊情况下需要idmap：</p>
-<ul class="simple">
-<li><dl class="first docutils">
-<dt>第二个CPU启动</dt>
-<dd>当第二个CPU启动的时候，MMU是关闭的。要设置TTBR1 到swapper_pg_dir 之 …</dd></dl></li></ul>
-                <a class="readmore" href="../posts/2024/05/idmap_pg_dir.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/idmap_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/05/swapper_pg_dir.html" rel="bookmark"
-                           title="Permalink to swapper_pg_dir页表">swapper_pg_dir页表</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Thu 23 May 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a></span>
-</footer><!-- /.post-info -->                <div class="section" id="section-1">
-<h2>页表分配</h2>
-<p>这个页表的L0的page table是在Linux kernel中的link script 中分配：</p>
-<div class="highlight"><pre><span></span><span class="nf">swapper_pg_dir</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="c1">;</span>
-<span class="err">.</span><span class="w"> </span><span class="err">+=</span><span class="w"> </span><span class="nf">PAGE_SIZE</span><span class="c1">;</span>
-</pre></div>
-<p>这里只分配了L0的页表，其他的页表要不使用memblock来分配，要不使用正常的逻辑来分配。 除了FIXADDR的页表是静态分配的 …</p></div>
-                <a class="readmore" href="../posts/2024/05/swapper_pg_dir.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/swapper_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-<nav>
-  <ul>
-    <li>Page 1 / 3</li>
-        <li><a href="../tag/linux2.html">&rang;</a></li>
-        <li><a href="../tag/linux3.html">&Rang;</a></li>
-  </ul>
-</nav>
-            </section><!-- /#content -->
+  </article>
+</section>
 
         <footer id="contentinfo" class="body">
                 <p>&copy; 2024 Qixiang Xu</p>

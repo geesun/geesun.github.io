@@ -2,8 +2,8 @@
 <html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>Linux学习笔记</title>
-        <link rel="stylesheet" href="./theme/css/main.css" />
+        <title>Linux学习笔记 - Linux</title>
+        <link rel="stylesheet" href="../theme/css/main.css" />
 
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,9 +12,9 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="./">Linux学习笔记 </a></h1>
+                <h1><a href="../">Linux学习笔记 </a></h1>
                 <nav><ul>
-                    <li><a href="./category/linux.html">Linux</a></li>
+                    <li><a href="../category/linux.html">Linux</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
@@ -23,14 +23,14 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
-                    <h1><a href="./posts/2024/05/debugfs.html" rel="bookmark"
+                    <h1><a href="../posts/2024/05/debugfs.html" rel="bookmark"
                            title="Permalink to linux debugfs 使用">linux debugfs 使用</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
         <span>Thu 23 May 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a></span>
+<span>| tags: <a href="../tag/linux.html">Linux</a></span>
 </footer><!-- /.post-info -->                <div class="section" id="section-1">
 <h2>内核配置</h2>
 <p>确保内核配置选项中启用了debugfs支持(CONFIG_DEBUG_FS=y)并重新编译内核</p>
@@ -43,39 +43,39 @@
 <div class="section" id="kernel-page-tables">
 <h2>kernel_page_tables</h2>
 <p>确保内核配置选项中启用了如 …</p></div>
-                <a class="readmore" href="./posts/2024/05/debugfs.html">read more</a>
+                <a class="readmore" href="../posts/2024/05/debugfs.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/debugfs.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="./posts/2024/05/init_pg_dir.html" rel="bookmark"
+                    <h1><a href="../posts/2024/05/init_pg_dir.html" rel="bookmark"
                            title="Permalink to init_pg_dir页表">init_pg_dir页表</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
         <span>Thu 23 May 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a></span>
+<span>| tags: <a href="../tag/linux.html">Linux</a></span>
 </footer><!-- /.post-info -->                <div class="section" id="section-1">
 <h2>页表分配和释放</h2>
 <p>init_pg_dir页表的主要的作用就是在boot阶段，能够把kernel image的编译时VA(也就是0xffffxxxxxxxxxxxx,但是在使能了CONFIG_RANDOMIZE_BASE会加一个offset)映射成u-boot加载时的PA。
 所以这个页表的大小就是根据kernel image所占用空间来决定。</p>
 <div class="highlight"><pre><span></span><span class="cp">#define EARLY_PAGES(vstart, vend, add) ( 1                      </span><span class="cm">/* PGDIR …</span></pre></div></div>
-                <a class="readmore" href="./posts/2024/05/init_pg_dir.html">read more</a>
+                <a class="readmore" href="../posts/2024/05/init_pg_dir.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/init_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="./posts/2024/05/fdt_mapping.html" rel="bookmark"
+                    <h1><a href="../posts/2024/05/fdt_mapping.html" rel="bookmark"
                            title="Permalink to FDT的区域的Map过程">FDT的区域的Map过程</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
         <span>Wed 22 May 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a></span>
+<span>| tags: <a href="../tag/linux.html">Linux</a></span>
 </footer><!-- /.post-info -->                <p>u-boot或者uefi启动Linux的时候，会把device tree 所在的地址通过x0寄存器传给Linux。
 kernel在boot阶段会使用到x0寄存器，所以在primary_entry -&gt; preserve_boot_args 会把device tree的地址保存到x21寄存器：</p>
 <div class="highlight"><pre><span></span><span class="nf">SYM_CODE_START_LOCAL</span><span class="p">(</span><span class="no">preserve_boot_args</span><span class="p">)</span>
@@ -84,17 +84,17 @@ kernel在boot阶段会使用到x0寄存器，所以在primary_entry -&gt; preser
 <div class="section" id="mapping">
 <h2>1:1 mapping阶段</h2>
 <p>在init_idmap_pg_dir阶段，会把这个x21地址所对应的物理地址mapping到kernel结尾之后2M对的的地方，这个地方其实不是1:1的映射 …</p></div>
-                <a class="readmore" href="./posts/2024/05/fdt_mapping.html">read more</a>
+                <a class="readmore" href="../posts/2024/05/fdt_mapping.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/fdt_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>
   <ul>
-        <li><a href="./index.html">&Lang;</a></li>
-        <li><a href="./index.html">&lang;</a></li>
+        <li><a href="../tag/linux.html">&Lang;</a></li>
+        <li><a href="../tag/linux.html">&lang;</a></li>
     <li>Page 2 / 3</li>
-        <li><a href="./index3.html">&rang;</a></li>
-        <li><a href="./index3.html">&Rang;</a></li>
+        <li><a href="../tag/linux3.html">&rang;</a></li>
+        <li><a href="../tag/linux3.html">&Rang;</a></li>
   </ul>
 </nav>
             </section><!-- /#content -->

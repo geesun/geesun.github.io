@@ -2,9 +2,8 @@
 <html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>Geesun的学习笔记</title>
+        <title>Linux学习笔记</title>
         <link rel="stylesheet" href="./theme/css/main.css" />
-        <link href="https://geesun.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Geesun的学习笔记 Atom Feed" />
 
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -13,46 +12,328 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="./">Geesun的学习笔记 </a></h1>
+                <h1><a href="./">Linux学习笔记 </a></h1>
                 <nav><ul>
-                    <li><a href="./category/leetcode.html">Leetcode</a></li>
-                    <li><a href="./category/misc.html">Misc</a></li>
-                    <li><a href="./category/network.html">Network</a></li>
-                    <li><a href="./category/program.html">Program</a></li>
-                    <li><a href="./category/vim.html">VIM</a></li>
+                    <li><a href="./category/linux.html">Linux</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="./posts/2015/11/vim_file_save_with_sudo.html">vim sudo保存</a></h1>
+                    <h1 class="entry-title"><a href="./posts/2024/05/setup_tf_a_u_boot_linux_fvp.html">设置tf-a u-boot 和Linux的开发和调试环境</a></h1>
 <footer class="post-info">
-        <span>二 03 十一月 2015</span>
-<span>| tags: <a href="./tag/vim.html">vim</a></span>
-</footer><!-- /.post-info --><h2>问题</h2>
-<p>使用vim修改文件的时候，经常会遇到文件修改好了，缺发现文件需要root权限才能修改。之前遇到这种问题时先保存成一个临时文件，再用sudo mv覆盖老的文件。</p>
-<h2>解决方法</h2>
-<p>用下面命令替换上面两步：</p>
-<div class="highlight"><pre><span class="o">:</span><span class="n">w</span> <span class="o">!</span><span class="n">sudo</span> <span class="n">tee</span> <span class="o">%</span>
-</pre></div>
-
-
-<h2>解释</h2>
-<ol>
-<li>:w   把当前缓存的内容传给shell命令</li>
-<li>%    当前文件名</li>
-<li>tee  把标准输入的内容同时输出到标准输出和文件</li>
+        <span>Wed 29 May 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/tf-a.html">tf-a</a><a href="./tag/u-boot.html">u-boot</a></span>
+</footer><!-- /.post-info --><p>在学习Linux的过程中，调试必不可少。下面的步骤就是一步一步如何使用Arm 的FVP平台来设置Linux的开发和调试环境。
+如下所有的步骤最终都汇聚在我的github <a class="reference external" href="https://github.com/geesun/boot-tf-a-u-boot-linux/">boot-tf-a-u-boot-linux</a>  ，如果仅仅是使用，不需要知道它的具体细节的，建议直接使用github仓库提供的Makefile。</p>
+<div class="section" id="section-1">
+<h2>开发环境准备</h2>
+<ol class="arabic simple">
+<li>在Ububtu上安装必要的包</li>
 </ol>
-<h2>高级用法</h2>
-<p>在.vimrc中加入</p>
-<div class="highlight"><pre><span class="n">cmap</span> <span class="n">w</span><span class="o">!!</span> <span class="n">w</span> <span class="o">!</span><span class="n">sudo</span> <span class="n">tee</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span> <span class="o">%</span>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>make<span class="w"> </span>autoconf<span class="w"> </span>build-essential<span class="w"> </span>git<span class="w"> </span>wget<span class="w"> </span>fuseext2<span class="w"> </span>tmux
 </pre></div>
+<ol class="arabic simple" start="2">
+<li>下载交叉编译工具</li>
+</ol>
+<p>Arm gcc 可以在 <a class="reference external" href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">arm-gnu-toolchain-downloads</a>, 这里可以根据自己的系统来选择下载对应的gcc.</p>
+<p>一般我们使用的是x86_64 Linux host， 所以下载 <a class="reference external" href="https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz">AArch64 GNU/Linux target for x86_64 Linux host</a></p>
+<p>可以在Ubuntu 终端中，使用如下命令：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/tools
+wget<span class="w"> </span>https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
+tar<span class="w"> </span>-xvf<span class="w"> </span>arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
+</pre></div>
+<ol class="arabic simple" start="3">
+<li>下载Arm Fixed Virtual Platform (FVP)</li>
+</ol>
+<p>Arm Base FVP 平台现在是不需要License 就可以运行了，最新的FVP平台可以在 Arm的网站上 <a class="reference external" href="https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms">下载</a> , 这里使用 <a class="reference external" href="https://developer.arm.com/-/media/Files/downloads/ecosystem-models/FM_11_25/FVP_Base_RevC-2xAEMvA_11.25_15_Linux64.tgz">Armv-A Base RevC AEM FVP (x86 Linux)</a></p>
+<p>在Ubuntu 终端中，使用如下命令：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/tools
+wget<span class="w"> </span>https://armkeil.blob.core.windows.net/developer/Files/downloads/ecosystem-models/FM_11_25/FVP_Base_RevC-2xAEMvA_11.25_15_Linux64.tgz
+tar<span class="w"> </span>-zxvf<span class="w"> </span>FVP_Base_RevC-2xAEMvA_11.25_15_Linux64.tgz
+</pre></div>
+<ol class="arabic simple" start="4">
+<li>下载Arm DS</li>
+</ol>
+<p>如果需要使用Arm DS来调试Linux的话，这就需要下载Arm DS，可以在 <a class="reference external" href="https://developer.arm.com/Tools%20and%20Software/Arm%20Development%20Studio#Software-Download">arm 的网站 下载</a> .  也可以申请试用的license。</p>
+</div>
+<div class="section" id="rootfs">
+<h2>下载代码和rootfs</h2>
+<ol class="arabic simple">
+<li>下载 TF-A，u-boot和Linux</li>
+</ol>
+<p>要把linux boot起来，这里需要使用到TF-A，u-boot和Linux，这里使用的都是最新的代码，如果在使用过程中发现问题，可能需要使用某个比较稳定的版本。</p>
+<p>这里使用如下命令来下载代码：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src
+git<span class="w"> </span>clone<span class="w"> </span>https://git.denx.de/u-boot
+git<span class="w"> </span>clone<span class="w"> </span>https://git.trustedfirmware.org/TF-A/trusted-firmware-a<span class="w"> </span>tf-a
+git<span class="w"> </span>clone<span class="w"> </span>git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+</pre></div>
+<ol class="arabic simple" start="2">
+<li>下载rootfs</li>
+</ol>
+<p>制作一个rootfs不难，这里使用准备好的一个rootfs，里面已经有一些必要的包，包括vi， gcc 和gdb，如果需要调试应用程序，这里rootfs也是可以调试的。</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/rootfs
+wget<span class="w"> </span>https://github.com/geesun/boot-tf-a-u-boot-linux/raw/master/rootfs/rootfs.tar.bz2
+</pre></div>
+<p>如果我们想往这个rootfs里面加入一些别的文件，在下面的步骤里面会详细说明如何做。</p>
+</div>
+<div class="section" id="section-2">
+<h2>编译代码</h2>
+<ol class="arabic simple">
+<li>编译u-boot代码</li>
+</ol>
+<p>在编译u-boot代码之前，需要根据Linux kernel和rootfs的信息来配置u-boot的BOOTARGS和BOOTCOMMAND。 这里有几个比较关键的参数：</p>
+<ul class="simple">
+<li>BOOTARGS中的root参数</li>
+</ul>
+<p>这里使用了 root=/dev/vda1, 这是因为后面做rootfs的时候，使用了FVP的virtioblockdevice这个参数：</p>
+<div class="highlight"><pre><span></span>-C<span class="w"> </span>bp.virtioblockdevice.image_path<span class="o">=</span>rootfs/grub-busybox.img
+</pre></div>
+<p>而制作rootfs 的时候，rootfs会放到第一个分区，所以就是vda1。</p>
+<ul class="simple">
+<li>BOOTCOMMAND中kernel Image 和device tree的地址</li>
+</ul>
+<p>这里使用了 booti 0x80080000 - 0x83000000，这个是因为在启动FVP的时候，有如下参数：</p>
+<div class="highlight"><pre><span></span>--data<span class="w"> </span>cluster0.cpu0<span class="o">=</span>linux/arch/arm64/boot/Image@0x80080000
+--data<span class="w"> </span>cluster0.cpu0<span class="o">=</span>linux/arch/arm64/boot/dts/arm/fvp-base-revc.dtb@0x83000000
+</pre></div>
+<p>根据上面的描述，使用如下命令来配置u-boot：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/u-boot
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CONFIG_BOOTARGS=\&quot;console=ttyAMA0 earlycon=pl011,0x1c090000 root=/dev/vda1 rw ip=dhcp debug user_debug=31 loglevel=9\&quot;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>fvp.cfg
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CONFIG_BOOTCOMMAND=\&quot;booti 0x80080000 - 0x83000000\&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>fvp.cfg
+<span class="nb">export</span><span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>aarch64<span class="w"> </span><span class="p">;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w"> </span><span class="p">;</span>
+make<span class="w"> </span>vexpress_aemv8a_semi_config<span class="p">;</span>
+scripts/kconfig/merge_config.sh<span class="w"> </span>-m<span class="w"> </span>-O<span class="w"> </span>./<span class="w"> </span>.config<span class="w"> </span>fvp.cfg<span class="p">;</span>
+</pre></div>
+<p>这里的CROSS_COMPILE 可以根据前面下载的gcc来决定，这里可以把他设置成：</p>
+<div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/tools/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+</pre></div>
+<p>配置完成之后，可以打开u-boot目录下的.config 来确保CONFIG_BOOTARGS 和 CONFIG_BOOTCOMMAND已经设置成期望的值。</p>
+<div class="highlight"><pre><span></span><span class="nv">CONFIG_BOOTARGS</span><span class="o">=</span><span class="s2">&quot;console=ttyAMA0 earlycon=pl011,0x1c090000 root=/dev/vda1 rw ip=dhcp debug user_debug=31 loglevel=9&quot;</span>
+<span class="nv">CONFIG_BOOTCOMMAND</span><span class="o">=</span><span class="s2">&quot;booti 0x80080000 - 0x83000000&quot;</span>
+</pre></div>
+<p>接下来使用如下命令来编译u-boot：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/u-boot
+<span class="nb">export</span><span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>aarch64<span class="w"> </span><span class="p">;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w"> </span><span class="p">;</span>
+make
+</pre></div>
+<p>这一步做完，最终生成 src/u-boot/u-boot.bin.</p>
+<ol class="arabic simple" start="2">
+<li>编译tf-a代码</li>
+</ol>
+<p>编译在tf-a的过程中，u-boot是作为tf-a的BL33的image，所以需要先编译前面的u-boot后，才能编译tf-a，使用如下命令：</p>
+<div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span>
+<span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/tf-a
+make<span class="w"> </span><span class="nv">PLAT</span><span class="o">=</span>fvp<span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">BL33</span><span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/src/u-boot/u-boot.bin<span class="w"> </span>all<span class="w"> </span>fip<span class="w"> </span><span class="nv">V</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+<p>这里面仅仅是使用了tf-a的默认配置，如TTBR等feature 都有没有使能。 如果需要使能更多feature，可以根据自己的需求添加。</p>
+<p>从上面的命令可以看出, u-boot 是被打包到fib.bin里面，所以如果更改了u-boot，必须重新运行tf-a的编译过程，把u-boot重新打包到fib.bin里面。</p>
+<ol class="arabic simple" start="3">
+<li>编译Linux kernel代码</li>
+</ol>
+<p>编译Linux kernel，这里使用kernel中的默认配置，即defconfig。即使用如下命令来配置kernel：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/linux
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/linux<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span>defconfig<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span>
+</pre></div>
+<p>如果想要对kernel 进行额外的配置，使用如下命令：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/linux
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/linux<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span>menuconfig<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span>
+</pre></div>
+<p>配置完成之后，如下命令可以用来进行编译：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/linux
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/linux<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span>-j<span class="w"> </span><span class="m">24</span><span class="w"> </span>Image<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w"> </span>Image<span class="w"> </span>dtbs
+</pre></div>
+</div>
+<div class="section" id="rootfs-1">
+<h2>制作rootfs</h2>
+<p>这里不想讲如何从头开始制作一个rootfs，其实用buildroot，busybox或者yocto制作出的rootfs是可以通用的，这里使用已经打包好的一个rootfs的tar包来重制rootfs。</p>
+<p>这里主要的目的是要明白如何在已有tar基础上，如何添加一些文件到想要的rootfs里面去。</p>
+<ol class="arabic simple">
+<li>把rootfs解包</li>
+</ol>
+<p>在准备阶段，已经在rootfs目录下载了rootfs.tar.bz2，这一步先把它解压一下：</p>
+<div class="highlight"><pre><span></span><span class="n">mkdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">$</span><span class="p">(</span><span class="n">workspace</span><span class="p">)</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">rootfs</span><span class="o">/</span><span class="n">tmp</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">$</span><span class="p">(</span><span class="n">workspace</span><span class="p">)</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">rootfs</span><span class="o">/</span><span class="n">tmp</span>
+<span class="n">tar</span><span class="w"> </span><span class="o">-</span><span class="n">jxvf</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="n">rootfs</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">bz2</span>
+</pre></div>
+<ol class="arabic simple" start="2">
+<li>修改rootfs</li>
+</ol>
+<p>在目录 $(workspace)/src/rootfs/tmp/rootfs ，可以根据自己的需求来增加或者删减文件。</p>
+<p>这一步不是必须的，是根据需求来决定的，如果没有改动需求，这一步可以跳过。</p>
+<ol class="arabic simple" start="3">
+<li>生成rootfs的partition文件</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/rootfs/tmp
 
+<span class="nb">export</span><span class="w"> </span><span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="m">512</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEC_PER_MB</span><span class="o">=</span><span class="k">$((</span><span class="m">1024</span><span class="o">*</span><span class="m">2</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EXT3_SIZE_MB</span><span class="o">=</span><span class="m">512</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PART_START</span><span class="o">=</span><span class="k">$((</span><span class="m">1</span><span class="o">*</span><span class="nv">SEC_PER_MB</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EXT3_SIZE</span><span class="o">=</span><span class="k">$((</span><span class="nv">EXT3_SIZE_MB</span><span class="o">*</span><span class="nv">SEC_PER_MB</span><span class="k">))</span>
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>ext3_part<span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="nv">$BLOCK_SIZE</span><span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="nv">$EXT3_SIZE</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>mnt
+mkfs.ext3<span class="w"> </span>-F<span class="w"> </span>ext3_part
+fuse-ext2<span class="w"> </span>ext3_part<span class="w"> </span>mnt<span class="w"> </span>-o<span class="w"> </span>rw+
+cp<span class="w"> </span>-rf<span class="w"> </span>rootfs/*<span class="w"> </span>mnt/
+sync
+fusermount<span class="w"> </span>-u<span class="w"> </span>mnt
+rm<span class="w"> </span>-rf<span class="w"> </span>mnt
+</pre></div>
+<p>这里rootfs的最大大小是512M，如果需要调整大小，可以调整EXT3_SIZE_MB=512的值。</p>
+<p>完成这一步，就生成了一个ext3的rootfs partition文件ext3_part，下一步会把这个分区文件放在磁盘映像文件的第一个分区。</p>
+<ol class="arabic simple" start="4">
+<li>使用gdisk生成rootfs的磁盘映像文件</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/rootfs/tmp
 
-<p>以后就可以直接用 :w!! 来替代上面的命令了。&gt;/dev/null是忽略标准输出。 </p>
-<h2>参考</h2>
-<p><a href="http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work">How does the vim “write with sudo” trick work?</a></p><p><a href="https://geesun.github.io/posts/2015/11/vim_file_save_with_sudo.html#disqus_thread">comments</a></p>                </article>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="m">512</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEC_PER_MB</span><span class="o">=</span><span class="k">$((</span><span class="m">1024</span><span class="o">*</span><span class="m">2</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EXT3_SIZE_MB</span><span class="o">=</span><span class="m">512</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PART_START</span><span class="o">=</span><span class="k">$((</span><span class="m">1</span><span class="o">*</span><span class="nv">SEC_PER_MB</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EXT3_SIZE</span><span class="o">=</span><span class="k">$((</span><span class="nv">EXT3_SIZE_MB</span><span class="o">*</span><span class="nv">SEC_PER_MB</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">IMG_BB</span><span class="o">=</span>../rootfs.img
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>part_table<span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="nv">$BLOCK_SIZE</span><span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="nv">$PART_START</span>
+
+cat<span class="w"> </span>part_table<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$IMG_BB</span>
+cat<span class="w"> </span>ext3_part<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$IMG_BB</span>
+cat<span class="w"> </span>part_table<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$IMG_BB</span>
+<span class="o">(</span><span class="nb">echo</span><span class="w"> </span>n<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PART_START</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>+<span class="k">$((</span><span class="nv">EXT3_SIZE</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">8300</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>w<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>y<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>gdisk<span class="w"> </span><span class="nv">$IMG_BB</span>
+</pre></div>
+<p>这里就完成了把上一步生成的ext3_part放在$(workspace)/src/rootfs/rootfs.img 的第一个分区。</p>
+<p>文件$(workspace)/src/rootfs/rootfs.img就是最终的要传给FVP的rootfs。</p>
+</div>
+<div class="section" id="fvplinux">
+<h2>在FVP上运行Linux</h2>
+<p>在准备FVP那一节，FVP已经被解压到：</p>
+<div class="highlight"><pre><span></span><span class="k">$(</span>workspace<span class="k">)</span>/tools/Base_RevC_AEMvA_pkg/models/Linux64_GCC-9.3/FVP_Base_RevC-2xAEMvA
+</pre></div>
+<p>确保前面几节已经准备了如下的images：</p>
+<div class="highlight"><pre><span></span><span class="k">$(</span>workspace<span class="k">)</span>/src/tf-a/build/fvp/debug/bl1.bin
+<span class="k">$(</span>workspace<span class="k">)</span>/src/tf-a/build/fvp/debug/fip.bin
+<span class="k">$(</span>workspace<span class="k">)</span>/src/linux/arch/arm64/boot/Image
+<span class="k">$(</span>workspace<span class="k">)</span>/src/linux/arch/arm64/boot/dts/arm/fvp-base-revc.dtb
+<span class="k">$(</span>workspace<span class="k">)</span>/rootfs/rootfs.img
+</pre></div>
+<p>接下来就可以使用下面的命令来运行Linux：</p>
+<div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>
+<span class="w">    </span>tools/Base_RevC_AEMvA_pkg/models/Linux64_GCC-9.3/FVP_Base_RevC-2xAEMvA<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-C<span class="w"> </span>cluster0.NUM_CORES<span class="o">=</span><span class="m">4</span><span class="w"> </span>-C<span class="w"> </span>cluster1.NUM_CORES<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span>cluster0.has_arm_v8-3<span class="o">=</span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span>cluster1.has_arm_v8-3<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span>cluster0.has_arm_v8-5<span class="o">=</span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span>cluster1.has_arm_v8-5<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span>cluster0.has_branch_target_exception<span class="o">=</span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span>cluster1.has_branch_target_exception<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span><span class="nv">cache_state_modelled</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span>pctl.startup<span class="o">=</span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span>bp.secure_memory<span class="o">=</span><span class="m">1</span><span class="w">   </span><span class="se">\</span>
+-C<span class="w"> </span>bp.ve_sysregs.exit_on_shutdown<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span>bp.secureflashloader.fname<span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/src/tf-a/build/fvp/debug/bl1.bin<span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span>bp.flashloader0.fname<span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/src/tf-a/build/fvp/debug/fip.bin<span class="w"> </span><span class="se">\</span>
+--data<span class="w"> </span>cluster0.cpu0<span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/src/linux/arch/arm64/boot/Image@0x80080000<span class="w">  </span><span class="se">\</span>
+--data<span class="w"> </span>cluster0.cpu0<span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/src/linux/arch/arm64/boot/dts/arm/fvp-base-revc.dtb@0x83000000<span class="w">  </span><span class="se">\</span>
+-C<span class="w"> </span>bp.ve_sysregs.mmbSiteDefault<span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="se">\</span>
+-C<span class="w"> </span>bp.virtioblockdevice.image_path<span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/rootfs/rootfs.img
+</pre></div>
+<p>如果是在ssh 的terminal里面运行FVP，因为没有图形界面，所以建议使用tmux 在增加如下参数运行FVP：</p>
+<div class="highlight"><pre><span></span>-C<span class="w"> </span>bp.terminal_3.terminal_command<span class="o">=</span><span class="s2">&quot;tmux split-window -d telnet localhost %port&quot;</span><span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span>bp.terminal_0.terminal_command<span class="o">=</span><span class="s2">&quot;tmux split-window -h telnet localhost %port&quot;</span><span class="w"> </span><span class="se">\</span>
+</pre></div>
+</div>
+<div class="section" id="arm-dslinux">
+<h2>在Arm DS上调试Linux</h2>
+<p>在开始使用armdbg命令调试Linux之前，需要先去下载Arm DS和申请试用license。 这个过程这里就不赘述了。具体可以`参考 &lt;<a class="reference external" href="https://developer.arm.com/Tools%20and%20Software/Arm%20Development%20Studio#Software-Download">https://developer.arm.com/Tools%20and%20Software/Arm%20Development%20Studio#Software-Download</a>&gt;`_ .</p>
+<p>在安装好Arm DS之后，可以在图形界面来import base model 到Arm DS。 可以参考 <a class="reference external" href="https://community.arm.com/oss-platforms/w/docs/649/guide-to-set-up-debugging-environment-for-total-compute-software-stack">Arm 网站</a></p>
+<p>准备一个Arm DS的脚本ap.ds，来自动加载符号表，如下：</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>ap.ds
+
+<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/tf-a/build/fvp/debug/bl1/bl1.elf&quot;</span><span class="w"> </span>EL3:0
+<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/tf-a/build/fvp/debug/bl2/bl2.elf&quot;</span><span class="w"> </span>EL1S:0
+<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/tf-a/build/fvp/debug/bl31/bl31.elf&quot;</span><span class="w"> </span>EL3:0
+
+<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL2N:0x800000200000
+<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL1N:0x800000200000
+<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL1N:0
+<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL2N:0
+
+<span class="w">        </span><span class="k">break</span><span class="w"> </span>bl31_main
+<span class="w">        </span><span class="k">break</span><span class="w"> </span>primary_entry
+<span class="w">        </span>c
+</pre></div>
+<p>接下来就可以使用如下命令开始调试：</p>
+<div class="highlight"><pre><span></span>/opt/arm/developmentstudio_platinum-0.a/bin/armdbg<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--cdb-entry<span class="o">=</span><span class="s2">&quot;Imported::FVP_Base_RevC_2xAEMvA::Bare Metal Debug::Bare Metal Debug::ARM_AEM-A_MPx4 SMP Cluster 0&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--cdb-root<span class="w"> </span>~/developmentstudio-workspace/RevC<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-cdb-entry-param<span class="w"> </span><span class="nv">model_params</span><span class="o">=</span><span class="s2">&quot; \</span>
+<span class="s2">        -C cluster0.NUM_CORES=4 -C cluster1.NUM_CORES=4 \</span>
+<span class="s2">        -C cluster0.has_arm_v8-3=1 -C cluster1.has_arm_v8-3=1 \</span>
+<span class="s2">        -C cluster0.has_arm_v8-5=1 -C cluster1.has_arm_v8-5=1 \</span>
+<span class="s2">        -C cluster0.has_branch_target_exception=1 -C cluster1.has_branch_target_exception=1 \</span>
+<span class="s2">        -C cache_state_modelled=0 \</span>
+<span class="s2">        -C pctl.startup=0.0.0.0 \</span>
+<span class="s2">        -C bp.secure_memory=1   \</span>
+<span class="s2">        -C bp.ve_sysregs.exit_on_shutdown=1 \</span>
+<span class="s2">        -C bp.secureflashloader.fname=</span><span class="k">$(</span>workspace<span class="k">)</span><span class="s2">/src/tf-a/build/fvp/debug/bl1.bin \</span>
+<span class="s2">        -C bp.flashloader0.fname=</span><span class="k">$(</span>workspace<span class="k">)</span><span class="s2">/src/tf-a/build/fvp/debug/fip.bin \</span>
+<span class="s2">        --data cluster0.cpu0=</span><span class="k">$(</span>workspace<span class="k">)</span><span class="s2">/src/linux/arch/arm64/boot/Image@0x80080000  \</span>
+<span class="s2">        --data cluster0.cpu0=</span><span class="k">$(</span>workspace<span class="k">)</span><span class="s2">/src/linux/arch/arm64/boot/dts/arm/fvp-base-revc.dtb@0x83000000  \</span>
+<span class="s2">        -C bp.ve_sysregs.mmbSiteDefault=0    \</span>
+<span class="s2">        -C bp.virtioblockdevice.image_path=</span><span class="k">$(</span>workspace<span class="k">)</span><span class="s2">/rootfs/rootfs.img \</span>
+<span class="s2">        -C bp.terminal_3.terminal_command=\&quot;tmux split-window -d telnet localhost %port\&quot; \</span>
+<span class="s2">        -C bp.terminal_0.terminal_command=\&quot;tmux split-window -h telnet localhost %port\&quot; \</span>
+<span class="s2">        &quot;</span><span class="w"> </span>-s<span class="w"> </span>ap.ds<span class="w"> </span>--interactive
+</pre></div>
+<p>如果使用的是tmux，可以看到如下调试界面，armdbg的命令是跟gdb差不多：</p>
+<div class="highlight"><pre><span></span>EL3:0x020000000-0x02C1FFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>SP:0x020000000-0x02C1FFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Device-nGnRE<span class="w"> </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w">      </span>│INFO:<span class="w">    </span>Entry<span class="w"> </span>point<span class="w"> </span><span class="nv">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0x4003000
+EL3:0x02C200000-0x02EFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                 </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">            </span>│INFO:<span class="w">    </span><span class="nv">SPSR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0x3cd
+EL3:0x02F000000-0x02F1FFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>SP:0x02F000000-0x02F1FFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Device-nGnRE<span class="w"> </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w">      </span>│INFO:<span class="w">    </span>BL31<span class="w"> </span>FCONF:<span class="w"> </span>FW_CONFIG<span class="w"> </span><span class="nv">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4001010</span>
+EL3:0x02F200000-0x0FFDFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                 </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">            </span>│INFO:<span class="w">    </span>FCONF:<span class="w"> </span>Reading<span class="w"> </span>FW_CONFIG<span class="w"> </span>firmware<span class="w"> </span>configuration<span class="w"> </span>file<span class="w"> </span>from:<span class="w"> </span>0x4001010
+EL3:0x0FFE00000-0x0FFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>SP:0x0FFE00000-0x0FFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False<span class="w">      </span>│INFO:<span class="w">    </span>FCONF:<span class="w"> </span>Reading<span class="w"> </span>firmware<span class="w"> </span>configuration<span class="w"> </span>information<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>dyn_cfg
+EL3:0x100000000-0xFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                 </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">            </span>│INFO:<span class="w">    </span>FCONF:<span class="w"> </span>Reading<span class="w"> </span>HW_CONFIG<span class="w"> </span>firmware<span class="w"> </span>configuration<span class="w"> </span>file<span class="w"> </span>from:<span class="w"> </span>0x7f00000
+&gt;c<span class="w">                                                                                                        </span>│INFO:<span class="w">    </span>FCONF:<span class="w"> </span>Reading<span class="w"> </span>firmware<span class="w"> </span>configuration<span class="w"> </span>information<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>dram_layout
+ERROR<span class="o">(</span>?<span class="o">)</span>:<span class="w"> </span><span class="o">[</span>model<span class="o">]</span><span class="w"> </span>xterm:<span class="w"> </span>Xt<span class="w"> </span>error:<span class="w"> </span>Can<span class="err">&#39;</span>t<span class="w"> </span>open<span class="w"> </span>display:<span class="w">                                                    </span>│INFO:<span class="w">    </span>FCONF:<span class="w"> </span>Reading<span class="w"> </span>firmware<span class="w"> </span>configuration<span class="w"> </span>information<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>cpu_timer
+ERROR<span class="o">(</span>?<span class="o">)</span>:<span class="w"> </span><span class="o">[</span>model<span class="o">]</span><span class="w"> </span>xterm:<span class="w"> </span>DISPLAY<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span><span class="nb">set</span><span class="w">                                                               </span>│INFO:<span class="w">    </span>FCONF:<span class="w"> </span>Reading<span class="w"> </span>firmware<span class="w"> </span>configuration<span class="w"> </span>information<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>uart_config
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">2</span>.1:<span class="w"> </span>EL2N:0x0000000081E200E0<span class="w">                                 </span>│INFO:<span class="w">    </span>FCONF:<span class="w"> </span>Reading<span class="w"> </span>firmware<span class="w"> </span>configuration<span class="w"> </span>information<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>topology
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_0<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w">                                                                             </span>│INFO:<span class="w">    </span>FCONF:<span class="w"> </span>Reading<span class="w"> </span>firmware<span class="w"> </span>configuration<span class="w"> </span>information<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>gicv3_config
+In<span class="w"> </span>primary_entry<span class="w"> </span><span class="o">(</span>no<span class="w"> </span>debug<span class="w"> </span>info<span class="o">)</span><span class="w">                                                                          </span>│NOTICE:<span class="w">  </span>BL31:<span class="w"> </span>v2.11.0<span class="o">(</span>debug<span class="o">)</span>:v2.11.0-2-g3e8f9fd87
+EL2N:0x0000000081E200E0<span class="w">   </span>BL<span class="w">       </span>record_mmu_state<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E39CD8<span class="w">                                          </span>│NOTICE:<span class="w">  </span>BL31:<span class="w"> </span>Built<span class="w"> </span>:<span class="w"> </span><span class="m">13</span>:24:53,<span class="w"> </span>May<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">2024</span>
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">2</span>.1:<span class="w"> </span>EL2N:0x0000000081E200E0<span class="w">                                 </span>│INFO:<span class="w">    </span>GICv3<span class="w"> </span>with<span class="w"> </span>legacy<span class="w"> </span>support<span class="w"> </span>detected.
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_0<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w">                                                                             </span>│INFO:<span class="w">    </span>ARM<span class="w"> </span>GICv3<span class="w"> </span>driver<span class="w"> </span>initialized<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL3
+EL2N:0x0000000081E200E0<span class="w">   </span>BL<span class="w">       </span>record_mmu_state<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E39CD8<span class="w">                                          </span>│INFO:<span class="w">    </span>Maximum<span class="w"> </span>SPI<span class="w"> </span>INTID<span class="w"> </span>supported:<span class="w"> </span><span class="m">255</span>
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">2</span>.1:<span class="w"> </span>EL2N:0x0000000081E200E0<span class="w">                                 </span>│INFO:<span class="w">    </span>BL31:<span class="w"> </span>Initializing<span class="w"> </span>runtime<span class="w"> </span>services
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_0<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w">                                                                             </span>│INFO:<span class="w">    </span>BL31:<span class="w"> </span>Preparing<span class="w"> </span><span class="k">for</span><span class="w"> </span>EL3<span class="w"> </span><span class="nb">exit</span><span class="w"> </span>to<span class="w"> </span>normal<span class="w"> </span>world
+EL2N:0x0000000081E200E0<span class="w">   </span>BL<span class="w">       </span>record_mmu_state<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E39CD8<span class="w">                                          </span>│INFO:<span class="w">    </span>Entry<span class="w"> </span>point<span class="w"> </span><span class="nv">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0x88000000
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">2</span>.1:<span class="w"> </span>EL2N:0x0000000081E200E0<span class="w">                                 </span>│INFO:<span class="w">    </span><span class="nv">SPSR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0x3c9
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_0<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w">                                                                             </span>│
+EL2N:0x0000000081E200E0<span class="w">   </span>BL<span class="w">       </span>record_mmu_state<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E39CD8<span class="w">                                          </span>│
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">2</span>.1:<span class="w"> </span>EL2N:0x0000000081E200E0<span class="w">                                 </span>│U-Boot<span class="w"> </span><span class="m">2024</span>.07-rc3-00013-g46ff00bea5<span class="w"> </span><span class="o">(</span>May<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">2024</span><span class="w"> </span>-<span class="w"> </span><span class="m">09</span>:14:54<span class="w"> </span>+0800<span class="o">)</span><span class="w"> </span>vexpress_aemv8a
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_0<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w">                                                                             </span>│
+EL2N:0x0000000081E200E0<span class="w">   </span>BL<span class="w">       </span>record_mmu_state<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E39CD8<span class="w">                                          </span>│Model:<span class="w"> </span>FVP<span class="w"> </span>Base
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">2</span>.1:<span class="w"> </span>EL2N:0x0000000081E200E0<span class="w">                                 </span>│DRAM:<span class="w">  </span><span class="m">2</span><span class="w"> </span>GiB<span class="w"> </span><span class="o">(</span>effective<span class="w"> </span><span class="m">4</span><span class="w"> </span>GiB<span class="o">)</span>
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_0<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w">                                                                             </span>│Core:<span class="w">  </span><span class="m">26</span><span class="w"> </span>devices,<span class="w"> </span><span class="m">12</span><span class="w"> </span>uclasses,<span class="w"> </span>devicetree:<span class="w"> </span>board
+EL2N:0x0000000081E200E0<span class="w">   </span>BL<span class="w">       </span>record_mmu_state<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E39CD8<span class="w">                                          </span>│Flash:<span class="w"> </span><span class="m">64</span><span class="w"> </span>MiB
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">2</span>.1:<span class="w"> </span>EL2N:0x0000000081E200E0<span class="w">                                 </span>│Loading<span class="w"> </span>Environment<span class="w"> </span>from<span class="w"> </span>Flash...<span class="w"> </span>***<span class="w"> </span>Warning<span class="w"> </span>-<span class="w"> </span>bad<span class="w"> </span>CRC,<span class="w"> </span>using<span class="w"> </span>default<span class="w"> </span>environment
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_0<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w">                                                                             </span>│
+EL2N:0x0000000081E200E0<span class="w">   </span>BL<span class="w">       </span>record_mmu_state<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E39CD8<span class="w">                                          </span>│In:<span class="w">    </span>serial@90000
+&gt;p/x<span class="w"> </span><span class="nv">$x0</span><span class="w">                                                                                                  </span>│Out:<span class="w">   </span>serial@90000
+<span class="nv">$3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0xFD6BE000<span class="w">                                                                                           </span>│Err:<span class="w">   </span>serial@90000
+&gt;disass<span class="w">                                                                                                   </span>│Net:<span class="w">   </span>No<span class="w"> </span>ethernet<span class="w"> </span>found.
+primary_entry:<span class="w">                                                                                            </span>│
+EL2N:0x0000000081E200E0<span class="w"> </span>:<span class="w"> </span>BL<span class="w">       </span>record_mmu_state<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E39CD8<span class="w">                                          </span>│Hit<span class="w"> </span>any<span class="w"> </span>key<span class="w"> </span>to<span class="w"> </span>stop<span class="w"> </span>autoboot:<span class="w">  </span><span class="m">0</span>
+EL2N:0x0000000081E200E4<span class="w"> </span>:<span class="w"> </span>BL<span class="w">       </span>preserve_boot_args<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E39D2C<span class="w">                                        </span>│Moving<span class="w"> </span>Image<span class="w"> </span>from<span class="w"> </span>0x80080000<span class="w"> </span>to<span class="w"> </span>0x80200000,<span class="w"> </span><span class="nv">end</span><span class="o">=</span>82db0000
+EL2N:0x0000000081E200E8<span class="w"> </span>:<span class="w"> </span>ADRP<span class="w">     </span>x1,<span class="o">{</span>pc<span class="o">}</span>+0xf86000<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x82DA60E8<span class="w">                                          </span>│##<span class="w"> </span>Flattened<span class="w"> </span>Device<span class="w"> </span>Tree<span class="w"> </span>blob<span class="w"> </span>at<span class="w"> </span><span class="m">83000000</span>
+EL2N:0x0000000081E200EC<span class="w"> </span>:<span class="w"> </span>ADD<span class="w">      </span>sp,x1,#0<span class="w">                                                               </span>│<span class="w">   </span>Booting<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>fdt<span class="w"> </span>blob<span class="w"> </span>at<span class="w"> </span>0x83000000
+EL2N:0x0000000081E200F0<span class="w"> </span>:<span class="w"> </span>MOV<span class="w">      </span>x29,xzr<span class="w">                                                                </span>│Working<span class="w"> </span>FDT<span class="w"> </span><span class="nb">set</span><span class="w"> </span>to<span class="w"> </span><span class="m">83000000</span>
+EL2N:0x0000000081E200F4<span class="w"> </span>:<span class="w"> </span>ADRP<span class="w">     </span>x0,<span class="o">{</span>pc<span class="o">}</span>+0x110000<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81F300F4<span class="w">                                          </span>│<span class="w">   </span>Loading<span class="w"> </span>Device<span class="w"> </span>Tree<span class="w"> </span>to<span class="w"> </span>00000000fd6be000,<span class="w"> </span>end<span class="w"> </span>00000000fd6c3d78<span class="w"> </span>...<span class="w"> </span>OK
+EL2N:0x0000000081E200F8<span class="w"> </span>:<span class="w"> </span>MOV<span class="w">      </span>x1,xzr<span class="w">                                                                 </span>│Working<span class="w"> </span>FDT<span class="w"> </span><span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>fd6be000
+EL2N:0x0000000081E200FC<span class="w"> </span>:<span class="w"> </span>BL<span class="w">       </span>__pi_create_init_idmap<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E37518<span class="w">                                    </span>│
+EL2N:0x0000000081E20100<span class="w"> </span>:<span class="w"> </span>CBNZ<span class="w">     </span>x19,primary_entry+64<span class="w"> </span><span class="p">;</span><span class="w"> </span>0x81E20120<span class="w">                                      </span>│Starting<span class="w"> </span>kernel<span class="w"> </span>...
+EL2N:0x0000000081E20104<span class="w"> </span>:<span class="w"> </span>DMB<span class="w">      </span>SY<span class="w">                                                                     </span>│
+</pre></div>
+</div>
+<p><a href="https://geesun.github.io/posts/2024/05/setup_tf_a_u_boot_linux_fvp.html#disqus_thread">comments</a></p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -60,70 +341,55 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="./posts/2015/09/git_fast_forword_rebase.html" rel="bookmark"
-                           title="Permalink to 对Git Fast-Forword和Rebase理解">对Git Fast-Forword和Rebase理解</a></h1>
+                    <h1><a href="./posts/2024/05/idmap_pg_dir.html" rel="bookmark"
+                           title="Permalink to idmap_pg_dir页表">idmap_pg_dir页表</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <span>四 24 九月 2015</span>
-<span>| tags: <a href="./tag/git.html">git</a></span>
-</footer><!-- /.post-info -->                <h2>问题</h2>
-<h3>遇到什么问题?</h3>
-<p>之前日常操作都是用git pull来获取远程代码并且自动合并，如果和远程代码有分叉的话，就会出现一些奇怪的提交，如下面的提交记录：</p>
-<div class="highlight"><pre><span class="n">geesun</span><span class="err">@</span><span class="n">geesun</span><span class="o">-</span><span class="n">OptiPlex</span><span class="o">-</span><span class="mi">3010</span><span class="o">:~/</span><span class="n">test</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">local</span><span class="err">$</span> <span class="n">git</span> <span class="n">log</span> 
-<span class="n">commit</span> <span class="mi">0</span><span class="n">c2df7467d30c46ee4884eb170cf4a521918e7d3</span>
-<span class="nl">Merge:</span> <span class="mi">2</span><span class="n">ce37bb</span> <span class="mf">236e1</span><span class="n">d3</span>
-<span class="nl">Author:</span> <span class="n">Geesun</span> <span class="n">Xu</span> <span class="o">&lt;</span><span class="n">geesun</span><span class="err">@</span><span class="n">gmail</span><span class="p">.</span><span class="n">com</span><span class="o">&gt;</span>
-<span class="nl">Date:</span>   <span class="n">Thu</span> <span class="n">Sep</span> <span class="mi">24</span> <span class="mi">14</span><span class="o">:</span><span class="mi">19</span><span class="o">:</span><span class="mi">49</span> <span class="mi">2015</span> <span class="o">+</span><span class="mi">0800</span>
-
-    <span class="n">Merge</span> <span class="n">branch</span> <span class="err">&#39;</span><span class="n">master</span><span class="err">&#39;</span> <span class="n">of</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">geesun</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">remote</span>
-</pre></div>
-
-
-<p>很多情况下，我们并不希望有这样的自动合并产生，因为他产生了一个自动提交 ...</p>
-                <a class="readmore" href="./posts/2015/09/git_fast_forword_rebase.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2015/09/git_fast_forword_rebase.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+        <span>Mon 27 May 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->                <p>当主CPU启动完成之后，已经把页表设置成了swapper_pg_dir， 到这里为止，kernel一般情况下是不再需要idmap这个页表的，但是还是有些特殊情况下需要idmap：</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>第二个CPU启动</dt>
+<dd>当第二个CPU启动的时候，MMU是关闭的。要设置TTBR1 到swapper_pg_dir 之 …</dd></dl></li></ul>
+                <a class="readmore" href="./posts/2024/05/idmap_pg_dir.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/idmap_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="./posts/2015/09/libev_note.html" rel="bookmark"
-                           title="Permalink to Libev 学习笔记">Libev 学习笔记</a></h1>
+                    <h1><a href="./posts/2024/05/swapper_pg_dir.html" rel="bookmark"
+                           title="Permalink to swapper_pg_dir页表">swapper_pg_dir页表</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <span>四 10 九月 2015</span>
-<span>| tags: <a href="./tag/libev.html">libev</a></span>
-</footer><!-- /.post-info -->                <h2>简介</h2>
-<p>Libev是一个用C编写的功能齐全的高性能的轻量级事件驱动库,作为Libevent的替代者，拥有更快的速度，更小的体积。</p>
-<blockquote>
-<p>Libev supports select, poll, the Linux-specific epoll, the BSD-specific kqueue and the Solaris-specific event port mechanisms for file descriptor events (ev_io), the Linux inotify interface (for ev_stat), Linux eventfd/signalfd (for faster and cleaner inter-thread wakeup (ev_async)/signal handling (ev_signal)) relative timers (ev_timer), absolute timers ...</p></blockquote>
-                <a class="readmore" href="./posts/2015/09/libev_note.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2015/09/libev_note.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+        <span>Thu 23 May 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->                <div class="section" id="section-1">
+<h2>页表分配</h2>
+<p>这个页表的L0的page table是在Linux kernel中的link script 中分配：</p>
+<div class="highlight"><pre><span></span><span class="nf">swapper_pg_dir</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="c1">;</span>
+<span class="err">.</span><span class="w"> </span><span class="err">+=</span><span class="w"> </span><span class="nf">PAGE_SIZE</span><span class="c1">;</span>
+</pre></div>
+<p>这里只分配了L0的页表，其他的页表要不使用memblock来分配，要不使用正常的逻辑来分配。 除了FIXADDR的页表是静态分配的 …</p></div>
+                <a class="readmore" href="./posts/2024/05/swapper_pg_dir.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/swapper_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
-<p class="paginator">
-    Page 1 / 2
-        <a href="./index2.html">&raquo;</a>
-</p>
+<nav>
+  <ul>
+    <li>Page 1 / 3</li>
+        <li><a href="./index2.html">&rang;</a></li>
+        <li><a href="./index3.html">&Rang;</a></li>
+  </ul>
+</nav>
             </section><!-- /#content -->
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>个人链接</h2>
-                        <ul>
-                            <li><a href="https://geesun.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
-
-                            <li><a href="https://twitter.com/geesun">Twitter</a></li>
-                            <li><a href="https://github.com/geesun">Github</a></li>
-                            <li><a href="https://geesun.github.io/resume.html">Resume</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
 
         <footer id="contentinfo" class="body">
-                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+                <p>&copy; 2024 Qixiang Xu</p>
         </footer><!-- /#contentinfo -->
 
 <script type="text/javascript">

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+        <meta charset="utf-8" />
+        <title>swapper_pg_dir页表</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/05/swapper_pg_dir.html" rel="bookmark"
+           title="Permalink to swapper_pg_dir页表">swapper_pg_dir页表</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>Thu 23 May 2024</span>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->      <div class="section" id="section-1">
+<h2>页表分配</h2>
+<p>这个页表的L0的page table是在Linux kernel中的link script 中分配：</p>
+<div class="highlight"><pre><span></span><span class="nf">swapper_pg_dir</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="c1">;</span>
+<span class="err">.</span><span class="w"> </span><span class="err">+=</span><span class="w"> </span><span class="nf">PAGE_SIZE</span><span class="c1">;</span>
+</pre></div>
+<p>这里只分配了L0的页表，其他的页表要不使用memblock来分配，要不使用正常的逻辑来分配。 除了FIXADDR的页表是静态分配的。</p>
+</div>
+<div class="section" id="section-2">
+<h2>内存布局</h2>
+<p>根据内核文档Documentation/arch/arm64/memory.rst:</p>
+<div class="highlight"><pre><span></span>AArch64<span class="w"> </span>Linux<span class="w"> </span>memory<span class="w"> </span>layout<span class="w"> </span>with<span class="w"> </span>4KB<span class="w"> </span>pages<span class="w"> </span>+<span class="w"> </span><span class="m">4</span><span class="w"> </span>levels<span class="w"> </span><span class="o">(</span><span class="m">48</span>-bit<span class="o">)</span>::
+
+<span class="w">  </span>Start<span class="w">                 </span>End<span class="w">                     </span>Size<span class="w">            </span>Use
+<span class="w">  </span>-----------------------------------------------------------------------
+<span class="w">  </span><span class="m">0000000000000000</span><span class="w">      </span>0000ffffffffffff<span class="w">         </span>256TB<span class="w">          </span>user
+<span class="w">  </span>ffff000000000000<span class="w">      </span>ffff7fffffffffff<span class="w">         </span>128TB<span class="w">          </span>kernel<span class="w"> </span>logical<span class="w"> </span>memory<span class="w"> </span>map
+<span class="w"> </span><span class="o">[</span>ffff600000000000<span class="w">      </span>ffff7fffffffffff<span class="o">]</span><span class="w">         </span>32TB<span class="w">          </span><span class="o">[</span>kasan<span class="w"> </span>shadow<span class="w"> </span>region<span class="o">]</span>
+<span class="w">  </span>ffff800000000000<span class="w">      </span>ffff80007fffffff<span class="w">           </span>2GB<span class="w">          </span>modules
+<span class="w">  </span>ffff800080000000<span class="w">      </span>fffffbffefffffff<span class="w">         </span>124TB<span class="w">          </span>vmalloc
+<span class="w">  </span>fffffbfff0000000<span class="w">      </span>fffffbfffdffffff<span class="w">         </span>224MB<span class="w">          </span>fixed<span class="w"> </span>mappings<span class="w"> </span><span class="o">(</span>top<span class="w"> </span>down<span class="o">)</span>
+<span class="w">  </span>fffffbfffe000000<span class="w">      </span>fffffbfffe7fffff<span class="w">           </span>8MB<span class="w">          </span><span class="o">[</span>guard<span class="w"> </span>region<span class="o">]</span>
+<span class="w">  </span>fffffbfffe800000<span class="w">      </span>fffffbffff7fffff<span class="w">          </span>16MB<span class="w">          </span>PCI<span class="w"> </span>I/O<span class="w"> </span>space
+<span class="w">  </span>fffffbffff800000<span class="w">      </span>fffffbffffffffff<span class="w">           </span>8MB<span class="w">          </span><span class="o">[</span>guard<span class="w"> </span>region<span class="o">]</span>
+<span class="w">  </span>fffffc0000000000<span class="w">      </span>fffffdffffffffff<span class="w">           </span>2TB<span class="w">          </span>vmemmap
+<span class="w">  </span>fffffe0000000000<span class="w">      </span>ffffffffffffffff<span class="w">           </span>2TB<span class="w">          </span><span class="o">[</span>guard<span class="w"> </span>region<span class="o">]</span>
+</pre></div>
+<p>这里面对应的有几个重要的定义所对应的值：</p>
+<div class="highlight"><pre><span></span><span class="nv">PAGE_OFFSET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0xffff000000000000
+<span class="nv">VMEMMAP_START</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0xfffffc0000000000
+<span class="nv">VMALLOC_START</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">MODULES_END</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0xffff800080000000
+<span class="nv">VMALLOC_END</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>VMEMMAP_START<span class="w"> </span>-<span class="w"> </span>SZ_256M<span class="o">)</span>
+<span class="nv">FIXADDR_TOP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>VMEMMAP_START<span class="w"> </span>-<span class="w"> </span>SZ_32M<span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0xfffffbfff0000000
+<span class="nv">KIMAGE_VADDR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">MODULES_END</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0xffff800080000000
+</pre></div>
+</div>
+<div class="section" id="kernel-image">
+<h2>kernel image 页表</h2>
+<p>在使能swapper_pg_dir页表之前，所有的kernel映射都是都没有区分的很细致，都是使用的是2M的页表，映射成全都可以执行的。进入到swapper_pg_dir页表阶段，这个时候我们就要对它进行细分。</p>
+<p>可以看到KIMAGE_VADDR 是落在VMALLOC区域，同时我们可以看到在函数 setup_arch-&gt;paging_init-&gt;map_kernel 之后的结果也可以看出KIMAGE_VADDR是在vmalloc区域：</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">map_kernel</span><span class="p">(</span><span class="n">pgd_t</span><span class="w"> </span><span class="o">*</span><span class="n">pgdp</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="o">/</span><span class="p">....</span>
+<span class="w">        </span><span class="n">map_kernel_segment</span><span class="p">(</span><span class="n">pgdp</span><span class="p">,</span><span class="w"> </span><span class="n">_stext</span><span class="p">,</span><span class="w"> </span><span class="n">_etext</span><span class="p">,</span><span class="w"> </span><span class="n">text_prot</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vmlinux_text</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">VM_NO_GUARD</span><span class="p">);</span>
+<span class="w">        </span><span class="n">map_kernel_segment</span><span class="p">(</span><span class="n">pgdp</span><span class="p">,</span><span class="w"> </span><span class="n">__start_rodata</span><span class="p">,</span><span class="w"> </span><span class="n">__inittext_begin</span><span class="p">,</span><span class="w"> </span><span class="n">PAGE_KERNEL</span><span class="p">,</span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="n">vmlinux_rodata</span><span class="p">,</span><span class="w"> </span><span class="n">NO_CONT_MAPPINGS</span><span class="p">,</span><span class="w"> </span><span class="n">VM_NO_GUARD</span><span class="p">);</span>
+<span class="w">        </span><span class="n">map_kernel_segment</span><span class="p">(</span><span class="n">pgdp</span><span class="p">,</span><span class="w"> </span><span class="n">__inittext_begin</span><span class="p">,</span><span class="w"> </span><span class="n">__inittext_end</span><span class="p">,</span><span class="w"> </span><span class="n">text_prot</span><span class="p">,</span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="n">vmlinux_inittext</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">VM_NO_GUARD</span><span class="p">);</span>
+<span class="w">        </span><span class="n">map_kernel_segment</span><span class="p">(</span><span class="n">pgdp</span><span class="p">,</span><span class="w"> </span><span class="n">__initdata_begin</span><span class="p">,</span><span class="w"> </span><span class="n">__initdata_end</span><span class="p">,</span><span class="w"> </span><span class="n">PAGE_KERNEL</span><span class="p">,</span>
+<span class="w">                           </span><span class="o">&amp;</span><span class="n">vmlinux_initdata</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">VM_NO_GUARD</span><span class="p">);</span>
+<span class="w">        </span><span class="n">map_kernel_segment</span><span class="p">(</span><span class="n">pgdp</span><span class="p">,</span><span class="w"> </span><span class="n">_data</span><span class="p">,</span><span class="w"> </span><span class="n">_end</span><span class="p">,</span><span class="w"> </span><span class="n">PAGE_KERNEL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vmlinux_data</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">fixmap_copy</span><span class="p">(</span><span class="n">pgdp</span><span class="p">);</span>
+<span class="w">        </span><span class="n">kasan_copy_shadow</span><span class="p">(</span><span class="n">pgdp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="highlight"><pre><span></span>&gt;mmu<span class="w"> </span>memory-map<span class="w"> </span>EL1N_S1<span class="w"> </span><span class="nv">TTBR1_EL1</span><span class="o">=</span>0x859A5000
+Virtual<span class="w"> </span>Range<span class="w">                              </span><span class="p">|</span><span class="w"> </span>Physical<span class="w"> </span>Range<span class="w">                           </span><span class="p">|</span><span class="w"> </span>Type<span class="w">   </span><span class="p">|</span><span class="w"> </span>AP<span class="w"> </span><span class="p">|</span><span class="w"> </span>C<span class="w">    </span><span class="p">|</span><span class="w"> </span>S<span class="w">    </span><span class="p">|</span><span class="w"> </span>X
+-------------------------------------------------------------------------------------------------------------------------
+EL1N:0x0000000000000000-0x0000FFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">        </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">      </span><span class="p">|</span><span class="w">      </span><span class="p">|</span>
+EL1N:0xFFFF000000000000-0xFFFF80000800FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">        </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">      </span><span class="p">|</span><span class="w">      </span><span class="p">|</span>
+EL1N:0xFFFF800008010000-0xFFFF80000902FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000084010000-0x000000008502FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w"> </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w"> </span><span class="p">|</span><span class="w"> </span>True
+EL1N:0xFFFF800009030000-0xFFFF8000099AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000085030000-0x00000000859AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w"> </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w"> </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF8000099B0000-0xFFFF800009A8FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000000859B0000-0x0000000085A8FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w"> </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w"> </span><span class="p">|</span><span class="w"> </span>True
+EL1N:0xFFFF800009A90000-0xFFFF80000A5DFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000085A90000-0x00000000865DFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w"> </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w"> </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF80000A5E0000-0xFFFFFFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">        </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">      </span><span class="p">|</span><span class="w">      </span><span class="p">|</span>
+</pre></div>
+<p>当运行fixmap_copy(pgdp)，其实就是把之前建的那些表跟swapper_pg_dir 给对接上，运行完成之后可以看到device tree 和串口的映射就有了：</p>
+<div class="highlight"><pre><span></span>&gt;mmu<span class="w"> </span>memory-map<span class="w"> </span>EL1N_S1<span class="w"> </span><span class="nv">TTBR1_EL1</span><span class="o">=</span>0x859A5000
+Virtual<span class="w"> </span>Range<span class="w">                              </span><span class="p">|</span><span class="w"> </span>Physical<span class="w"> </span>Range<span class="w">                           </span><span class="p">|</span><span class="w"> </span>Type<span class="w">         </span><span class="p">|</span><span class="w"> </span>AP<span class="w"> </span><span class="p">|</span><span class="w"> </span>C<span class="w">     </span><span class="p">|</span><span class="w"> </span>S<span class="w">     </span><span class="p">|</span><span class="w"> </span>X
+---------------------------------------------------------------------------------------------------------------------------------
+EL1N:0x0000000000000000-0x0000FFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFF000000000000-0xFFFF80000800FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFF800008010000-0xFFFF80000902FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000084010000-0x000000008502FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True
+EL1N:0xFFFF800009030000-0xFFFF8000099AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000085030000-0x00000000859AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF8000099B0000-0xFFFF800009A8FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000000859B0000-0x0000000085A8FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True
+EL1N:0xFFFF800009A90000-0xFFFF80000A5DFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000085A90000-0x00000000865DFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF80000A5E0000-0xFFFFFBFFFDA33FFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFFFBFFFDA34000-0xFFFFFBFFFDA34FFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000000859A5000-0x00000000859A5FFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFFFBFFFDA35000-0xFFFFFBFFFDBFEFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFFFBFFFDBFF000-0xFFFFFBFFFDBFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x000000001C090000-0x000000001C090FFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Device-nGnRE<span class="w"> </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFFFBFFFDC00000-0xFFFFFBFFFDDFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000082000000-0x00000000821FFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFFFBFFFDE00000-0xFFFFFFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+</pre></div>
+</div>
+<div class="section" id="section-3">
+<h2>线性地址映射</h2>
+<p>在运行到paging_init 的时候，系统已经收集到了系统可用的memblock信息，这个时候在函数 paging_init-&gt;map_mem 的时候就根据memblock的信息，给系统的所有的物理地址建立线性映射。</p>
+<p>memblock信息是根据device tree来建立的，memblock的信息如下：</p>
+<div class="highlight"><pre><span></span><span class="c1"># cat /sys/kernel/debug/memblock/memory</span>
+<span class="w">   </span><span class="m">0</span>:<span class="w"> </span>0x0000000080000000..0x00000000fbffffff
+<span class="w">   </span><span class="m">1</span>:<span class="w"> </span>0x0000000880000000..0x00000008ffffffff
+</pre></div>
+<p>对于kernel image本身这块所占用的内存，必须把他设置在这个线性映射上不可以执行并且不能写。 在 <a class="reference external" href="../../../posts/2024/05/fdt_mapping.html">init_idmap_pg_dir</a> 有提到一部分是需要被回收的， 所以这里也就为什么是kernel_end == __init_begin。</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">map_mem</span><span class="p">(</span><span class="n">pgd_t</span><span class="w"> </span><span class="o">*</span><span class="n">pgdp</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">u64</span><span class="w"> </span><span class="n">direct_map_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_PAGE_END</span><span class="p">(</span><span class="n">VA_BITS_MIN</span><span class="p">);</span>
+<span class="w">        </span><span class="n">phys_addr_t</span><span class="w"> </span><span class="n">kernel_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__pa_symbol</span><span class="p">(</span><span class="n">_stext</span><span class="p">);</span>
+<span class="w">        </span><span class="n">phys_addr_t</span><span class="w"> </span><span class="n">kernel_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__pa_symbol</span><span class="p">(</span><span class="n">__init_begin</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">//....</span>
+<span class="w">        </span><span class="cm">/*</span>
+<span class="cm">         * Take care not to create a writable alias for the</span>
+<span class="cm">         * read-only text and rodata sections of the kernel image.</span>
+<span class="cm">         * So temporarily mark them as NOMAP to skip mappings in</span>
+<span class="cm">         * the following for-loop</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="n">memblock_mark_nomap</span><span class="p">(</span><span class="n">kernel_start</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kernel_start</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/* map all the memory banks */</span>
+<span class="w">        </span><span class="n">for_each_mem_range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">start</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">end</span><span class="p">)</span>
+<span class="w">                        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                </span><span class="cm">/*</span>
+<span class="cm">                 * The linear map must allow allocation tags reading/writing</span>
+<span class="cm">                 * if MTE is present. Otherwise, it has the same attributes as</span>
+<span class="cm">                 * PAGE_KERNEL.</span>
+<span class="cm">                 */</span>
+<span class="w">                </span><span class="n">__map_memblock</span><span class="p">(</span><span class="n">pgdp</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">pgprot_tagged</span><span class="p">(</span><span class="n">PAGE_KERNEL</span><span class="p">),</span>
+<span class="w">                               </span><span class="n">flags</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="cm">/*</span>
+<span class="cm">         * Map the linear alias of the [_stext, __init_begin) interval</span>
+<span class="cm">         * as non-executable now, and remove the write permission in</span>
+<span class="cm">         * mark_linear_text_alias_ro() below (which will be called after</span>
+<span class="cm">         * alternative patching has completed). This makes the contents</span>
+<span class="cm">         * of the region accessible to subsystems such as hibernate,</span>
+<span class="cm">         * but protects it from inadvertent modification or execution.</span>
+<span class="cm">         * Note that contiguous mappings cannot be remapped in this way,</span>
+<span class="cm">         * so we should avoid them here.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="n">__map_memblock</span><span class="p">(</span><span class="n">pgdp</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_start</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_end</span><span class="p">,</span>
+<span class="w">                       </span><span class="n">PAGE_KERNEL</span><span class="p">,</span><span class="w"> </span><span class="n">NO_CONT_MAPPINGS</span><span class="p">);</span>
+<span class="w">        </span><span class="n">memblock_clear_nomap</span><span class="p">(</span><span class="n">kernel_start</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">kernel_start</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">//...</span>
+</pre></div>
+<p>运行完成这个函数之后，可以看到对应的memory-map已经修改成如下，不过kernel对应的线性map还是可以写的，后面会修改成只读的，可以参考上面的注释。</p>
+<blockquote>
+<div class="highlight"><pre><span></span>&gt;mmu<span class="w"> </span>memory-map<span class="w"> </span>EL1N_S1<span class="w"> </span><span class="nv">TTBR1_EL1</span><span class="o">=</span>0x859A5000
+Virtual<span class="w"> </span>Range<span class="w">                              </span><span class="p">|</span><span class="w"> </span>Physical<span class="w"> </span>Range<span class="w">                           </span><span class="p">|</span><span class="w"> </span>Type<span class="w">         </span><span class="p">|</span><span class="w"> </span>AP<span class="w"> </span><span class="p">|</span><span class="w"> </span>C<span class="w">     </span><span class="p">|</span><span class="w"> </span>S<span class="w">     </span><span class="p">|</span><span class="w"> </span>X
+---------------------------------------------------------------------------------------------------------------------------------
+EL1N:0x0000000000000000-0x0000FFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFF000000000000-0xFFFF00000400FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000080000000-0x000000008400FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF000004010000-0xFFFF0000059AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000084010000-0x00000000859AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF0000059B0000-0xFFFF00007BFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000000859B0000-0x00000000FBFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF00007C000000-0xFFFF0007FFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFF000800000000-0xFFFF00087FFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000880000000-0x00000008FFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF000880000000-0xFFFF80000800FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFF800008010000-0xFFFF80000902FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000084010000-0x000000008502FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True
+EL1N:0xFFFF800009030000-0xFFFF8000099AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000085030000-0x00000000859AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF8000099B0000-0xFFFF800009A8FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000000859B0000-0x0000000085A8FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True
+EL1N:0xFFFF800009A90000-0xFFFF80000A5DFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000085A90000-0x00000000865DFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF80000A5E0000-0xFFFFFBFFFDBFEFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFFFBFFFDBFF000-0xFFFFFBFFFDBFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x000000001C090000-0x000000001C090FFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Device-nGnRE<span class="w"> </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFFFBFFFDC00000-0xFFFFFBFFFDDFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000082000000-0x00000000821FFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFFFBFFFDE00000-0xFFFFFFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+</pre></div>
+</blockquote>
+<p>线性映射一般的系统到这里就结束了，就不会再改变了，但是像NUMA的系统或者内存可以热插拔的系统，这里应该是还会有一些变化的。
+..</p>
+<blockquote>
+TODO: arch_add_memory numa_add_memblk</blockquote>
+</div>
+<div class="section" id="swapper-pg-dir-1">
+<h2>使能页表swapper_pg_dir</h2>
+<p>因为这个时候所有kernel image 的映射都已经在swapper_pg_dir 里面都准备就绪，这个时候就可以从init_pg_dir 切换到swapper_pg_dir页表，调用过程：
+paging_init -&gt; __cpu_replace_ttbr1 -&gt; idmap_cpu_replace_ttbr1</p>
+<p>在函数__cpu_replace_ttbr1 中，这里需要切换TTBR1.
+但是当前kernel代码使用的映射是通过页表TTBR1=init_pg_dir转换而来，但是在切换的过程中，这里TTBR1要被替换，那就不能直接当前的代码来切换这个TTBR1，需要用到之前1:1的映射。
+而在setup_arch-&gt;cpu_uninstall_idmap的时候init_idmap_pg_dir这个页表已经从TTBR0里面给删除了。
+这也就是__cpu_replace_ttbr1 函数需要重新安装idmap的原因，使用idmap_cpu_replace_ttbr1 1:1 的VA来，也就是PA来执行这个函数：</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">__cpu_replace_ttbr1</span><span class="p">(</span><span class="n">pgd_t</span><span class="w"> </span><span class="o">*</span><span class="n">pgdp</span><span class="p">,</span><span class="w"> </span><span class="n">pgd_t</span><span class="w"> </span><span class="o">*</span><span class="n">idmap</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">cnp</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="c1">//...</span>
+
+<span class="w">        </span><span class="cm">/* phys_to_ttbr() zeros lower 2 bits of ttbr with 52-bit PA */</span>
+<span class="w">        </span><span class="n">phys_addr_t</span><span class="w"> </span><span class="n">ttbr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phys_to_ttbr</span><span class="p">(</span><span class="n">virt_to_phys</span><span class="p">(</span><span class="n">pgdp</span><span class="p">));</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cnp</span><span class="p">)</span>
+<span class="w">                </span><span class="n">ttbr1</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">TTBR_CNP_BIT</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">replace_phys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">__pa_symbol</span><span class="p">(</span><span class="n">idmap_cpu_replace_ttbr1</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">__cpu_install_idmap</span><span class="p">(</span><span class="n">idmap</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/*</span>
+<span class="cm">         * We really don&#39;t want to take *any* exceptions while TTBR1 is</span>
+<span class="cm">         * in the process of being replaced so mask everything.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="n">daif</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">local_daif_save</span><span class="p">();</span>
+<span class="w">        </span><span class="n">replace_phys</span><span class="p">(</span><span class="n">ttbr1</span><span class="p">);</span>
+<span class="w">        </span><span class="n">local_daif_restore</span><span class="p">(</span><span class="n">daif</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">cpu_uninstall_idmap</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>设置这个TTBR1页表的时候，同样遵循Break before make的原则,还需要把TLB给invalid一下：</p>
+<div class="highlight"><pre><span></span>        offset_ttbr1 x0, x3
+        msr     ttbr1_el1, x0
+        isb
+
+        ret
+SYM_FUNC_END(idmap_cpu_replace_ttbr1)
+
+.macro  __idmap_cpu_set_reserved_ttbr1, tmp1, tmp2
+        adrp    \tmp1, reserved_pg_dir
+        phys_to_ttbr \tmp2, \tmp1
+        offset_ttbr1 \tmp2, \tmp1
+        msr     ttbr1_el1, \tmp2
+        isb
+        tlbi    vmalle1
+        dsb     nsh
+        isb
+.endm
+</pre></div>
+<p>执行完上面的代码，接下来kernel 就一直使用页表swapper_pg_dir，init_pg_dir 就可以被释放。</p>
+</div>
+<div class="section" id="vmemmap">
+<h2>vmemmap区域映射</h2>
+<p>vmemmap区域是一块起始地址是VMEMMAP_START，范围是2TB的虚拟地址区域。以section为单位来存放strcut page结构的虚拟地址空间，然后每个page再线性映射到物理内存。
+系统在执行完 setup-&gt;arch-&gt; bootmem_init -&gt; sparse_init 之后，可以看到vmemmap 已经增加了映射：</p>
+<div class="highlight"><pre><span></span>&gt;mmu<span class="w"> </span>memory-map<span class="w"> </span>EL1N_S1<span class="w"> </span><span class="nv">TTBR1_EL1</span><span class="o">=</span>0x859A5000
+Virtual<span class="w"> </span>Range<span class="w">                              </span><span class="p">|</span><span class="w"> </span>Physical<span class="w"> </span>Range<span class="w">                           </span><span class="p">|</span><span class="w"> </span>Type<span class="w">         </span><span class="p">|</span><span class="w"> </span>AP<span class="w"> </span><span class="p">|</span><span class="w"> </span>C<span class="w">     </span><span class="p">|</span><span class="w"> </span>S<span class="w">     </span><span class="p">|</span><span class="w"> </span>X
+---------------------------------------------------------------------------------------------------------------------------------
+EL1N:0x0000000000000000-0x0000FFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFF000000000000-0xFFFF00000400FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000080000000-0x000000008400FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF000004010000-0xFFFF0000059AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000084010000-0x00000000859AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF0000059B0000-0xFFFF00007BFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000000859B0000-0x00000000FBFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF00007C000000-0xFFFF0007FFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFF000800000000-0xFFFF00087FFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000880000000-0x00000008FFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF000880000000-0xFFFF80000800FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFF800008010000-0xFFFF80000902FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000084010000-0x000000008502FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True
+EL1N:0xFFFF800009030000-0xFFFF8000099AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000085030000-0x00000000859AFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF8000099B0000-0xFFFF800009A8FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000000859B0000-0x0000000085A8FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True
+EL1N:0xFFFF800009A90000-0xFFFF80000A5DFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000085A90000-0x00000000865DFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFF80000A5E0000-0xFFFFFBFFFDBFEFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFFFBFFFDBFF000-0xFFFFFBFFFDBFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x000000001C090000-0x000000001C090FFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Device-nGnRE<span class="w"> </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFFFBFFFDC00000-0xFFFFFBFFFDDFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000082000000-0x00000000821FFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFFFBFFFDE00000-0xFFFFFBFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFFFC0000000000-0xFFFFFC0001FFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FB600000-0x00000008FD5FFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFFFC0002000000-0xFFFFFC001FFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL1N:0xFFFFFC0020000000-0xFFFFFC0021FFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FD600000-0x00000008FF5FFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL1N:0xFFFFFC0022000000-0xFFFFFFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+</pre></div>
+</div>
+<div class="section" id="cpu">
+<h2>第二个CPU启动</h2>
+<p>在第二个CPU启动的时候，直接把这个页表给到CPU然后切换到kernel的VA继续执行：</p>
+<div class="highlight"><pre><span></span><span class="nf">SYM_FUNC_START_LOCAL</span><span class="p">(</span><span class="no">secondary_startup</span><span class="p">)</span>
+<span class="w">        </span><span class="cm">/*</span>
+<span class="cm">         * Common entry point for secondary CPUs.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="no">x20</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="w">                         </span><span class="c1">// preserve boot mode</span>
+<span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="no">__cpu_secondary_check52bitva</span>
+<span class="c1">#if VA_BITS &gt; 48</span>
+<span class="w">        </span><span class="nf">ldr_l</span><span class="w">   </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">vabits_actual</span>
+<span class="c1">#endif</span>
+<span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="no">__cpu_setup</span><span class="w">                     </span><span class="c1">// initialise processor</span>
+<span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">swapper_pg_dir</span>
+<span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">idmap_pg_dir</span>
+<span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="no">__enable_mmu</span>
+<span class="w">        </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x8</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="no">__secondary_switched</span>
+<span class="w">        </span><span class="nf">br</span><span class="w">      </span><span class="no">x8</span>
+<span class="nf">SYM_FUNC_END</span><span class="p">(</span><span class="no">secondary_startup</span><span class="p">)</span>
+</pre></div>
+<p>以及CPU从off 状态重新启动起来的时候，也需要把这个页表设置给CPU：</p>
+<div class="highlight"><pre><span></span><span class="nf">SYM_CODE_START</span><span class="p">(</span><span class="no">cpu_resume</span><span class="p">)</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">xzr</span>
+<span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="no">init_kernel_el</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="no">x19</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="w">                 </span><span class="c1">// preserve boot mode</span>
+<span class="c1">#if VA_BITS &gt; 48</span>
+<span class="w">        </span><span class="nf">ldr_l</span><span class="w">   </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">vabits_actual</span>
+<span class="c1">#endif</span>
+<span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="no">__cpu_setup</span>
+<span class="w">        </span><span class="cm">/* enable the MMU early - so we can access sleep_save_stash by va */</span>
+<span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">swapper_pg_dir</span>
+<span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">idmap_pg_dir</span>
+<span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="no">__enable_mmu</span>
+<span class="w">        </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x8</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="no">_cpu_resume</span>
+<span class="w">        </span><span class="nf">br</span><span class="w">      </span><span class="no">x8</span>
+<span class="nf">SYM_CODE_END</span><span class="p">(</span><span class="no">cpu_resume</span><span class="p">)</span>
+</pre></div>
+</div>
+
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/05/swapper_pg_dir.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/05/swapper_pg_dir.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
+
+  </article>
+</section>
+
+        <footer id="contentinfo" class="body">
+                <p>&copy; 2024 Qixiang Xu</p>
+        </footer><!-- /#contentinfo -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'geesun';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+</html>

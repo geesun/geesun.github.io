@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+        <meta charset="utf-8" />
+        <title>linux debugfs 使用</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/05/debugfs.html" rel="bookmark"
+           title="Permalink to linux debugfs 使用">linux debugfs 使用</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>Thu 23 May 2024</span>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->      <div class="section" id="section-1">
+<h2>内核配置</h2>
+<p>确保内核配置选项中启用了debugfs支持(CONFIG_DEBUG_FS=y)并重新编译内核</p>
+</div>
+<div class="section" id="debugfs">
+<h2>挂载debugfs文件系统</h2>
+<div class="highlight"><pre><span></span>mount<span class="w"> </span>-t<span class="w"> </span>debugfs<span class="w"> </span>none<span class="w"> </span>/sys/kernel/debug
+</pre></div>
+</div>
+<div class="section" id="kernel-page-tables">
+<h2>kernel_page_tables</h2>
+<p>确保内核配置选项中启用了如下配置：</p>
+<div class="highlight"><pre><span></span><span class="nv">CONFIG_GENERIC_PTDUMP</span><span class="o">=</span>y
+<span class="nv">CONFIG_PTDUMP_CORE</span><span class="o">=</span>y
+<span class="nv">CONFIG_PTDUMP_DEBUGFS</span><span class="o">=</span>y
+</pre></div>
+<p>对应的代码文件 arch/arm64/mm/ptdump.c,命令：</p>
+<div class="highlight"><pre><span></span><span class="c1">#cat /sys/kernel/debug/kernel_page_tables</span>
+---<span class="o">[</span><span class="w"> </span>Linear<span class="w"> </span>Mapping<span class="w"> </span>start<span class="w"> </span><span class="o">]</span>---
+0xffff000000000000-0xffff6e0000000000<span class="w">         </span>110T<span class="w"> </span>PGD
+0xffff6e0000000000-0xffff6e77c0000000<span class="w">         </span>479G<span class="w"> </span>PUD
+0xffff6e77c0000000-0xffff6e77c0210000<span class="w">        </span>2112K<span class="w"> </span>PTE<span class="w">       </span>RW<span class="w"> </span>NX<span class="w"> </span>SHD<span class="w"> </span>AF<span class="w">            </span>UXN<span class="w">    </span>MEM/NORMAL-TAGGED
+//...
+0xffff6e8130000000-0xffff6e8140000000<span class="w">         </span>256M<span class="w"> </span>PMD
+0xffff6e8140000000-0xffff6f0000000000<span class="w">         </span>507G<span class="w"> </span>PUD
+0xffff6f0000000000-0xffff800000000000<span class="w">          </span>17T<span class="w"> </span>PGD
+---<span class="o">[</span><span class="w"> </span>Linear<span class="w"> </span>Mapping<span class="w"> </span>end<span class="w"> </span><span class="o">]</span>---
+---<span class="o">[</span><span class="w"> </span>Modules<span class="w"> </span>start<span class="w"> </span><span class="o">]</span>---
+0xffff800000000000-0xffff800008000000<span class="w">         </span>128M<span class="w"> </span>PMD
+---<span class="o">[</span><span class="w"> </span>Modules<span class="w"> </span>end<span class="w"> </span><span class="o">]</span>---
+---<span class="o">[</span><span class="w"> </span>vmalloc<span class="o">()</span><span class="w"> </span>area<span class="w"> </span><span class="o">]</span>---
+0xffff800008000000-0xffff800008004000<span class="w">          </span>16K<span class="w"> </span>PTE<span class="w">       </span>RW<span class="w"> </span>NX<span class="w"> </span>SHD<span class="w"> </span>AF<span class="w">            </span>UXN<span class="w">    </span>MEM/NORMAL-TAGGED
+0xffff800008004000-0xffff800008005000<span class="w">           </span>4K<span class="w"> </span>PTE
+//...
+0xfffffbffeffc4000-0xfffffbffeffd0000<span class="w">          </span>48K<span class="w"> </span>PTE<span class="w">       </span>RW<span class="w"> </span>NX<span class="w"> </span>SHD<span class="w"> </span>AF<span class="w">            </span>UXN<span class="w">    </span>MEM/NORMAL
+0xfffffbffeffd0000-0xfffffbffeffe2000<span class="w">          </span>72K<span class="w"> </span>PTE
+0xfffffbffeffe2000-0xfffffbffeffee000<span class="w">          </span>48K<span class="w"> </span>PTE<span class="w">       </span>RW<span class="w"> </span>NX<span class="w"> </span>SHD<span class="w"> </span>AF<span class="w">            </span>UXN<span class="w">    </span>MEM/NORMAL
+0xfffffbffeffee000-0xfffffbfff0000000<span class="w">          </span>72K<span class="w"> </span>PTE
+---<span class="o">[</span><span class="w"> </span>vmalloc<span class="o">()</span><span class="w"> </span>end<span class="w"> </span><span class="o">]</span>---
+0xfffffbfff0000000-0xfffffbfffda00000<span class="w">         </span>218M<span class="w"> </span>PMD
+0xfffffbfffda00000-0xfffffbfffdbf9000<span class="w">        </span>2020K<span class="w"> </span>PTE
+---<span class="o">[</span><span class="w"> </span>Fixmap<span class="w"> </span>start<span class="w"> </span><span class="o">]</span>---
+0xfffffbfffdbf9000-0xfffffbfffdbfa000<span class="w">           </span>4K<span class="w"> </span>PTE
+0xfffffbfffdbfa000-0xfffffbfffdbfd000<span class="w">          </span>12K<span class="w"> </span>PTE<span class="w">       </span>ro<span class="w"> </span>x<span class="w">  </span>SHD<span class="w"> </span>AF<span class="w">            </span>UXN<span class="w">    </span>MEM/NORMAL
+0xfffffbfffdbfd000-0xfffffbfffdbfe000<span class="w">           </span>4K<span class="w"> </span>PTE<span class="w">       </span>ro<span class="w"> </span>NX<span class="w"> </span>SHD<span class="w"> </span>AF<span class="w">            </span>UXN<span class="w">    </span>MEM/NORMAL
+0xfffffbfffdbfe000-0xfffffbfffdbff000<span class="w">           </span>4K<span class="w"> </span>PTE
+0xfffffbfffdbff000-0xfffffbfffdc00000<span class="w">           </span>4K<span class="w"> </span>PTE<span class="w">       </span>RW<span class="w"> </span>NX<span class="w"> </span>SHD<span class="w"> </span>AF<span class="w">            </span>UXN<span class="w">    </span>DEVICE/nGnRE
+0xfffffbfffdc00000-0xfffffbfffde00000<span class="w">           </span>2M<span class="w"> </span>PMD<span class="w">       </span>ro<span class="w"> </span>NX<span class="w"> </span>SHD<span class="w"> </span>AF<span class="w">        </span>BLK<span class="w"> </span>UXN<span class="w">    </span>MEM/NORMAL
+0xfffffbfffde00000-0xfffffbfffe000000<span class="w">           </span>2M<span class="w"> </span>PMD
+---<span class="o">[</span><span class="w"> </span>Fixmap<span class="w"> </span>end<span class="w"> </span><span class="o">]</span>---
+0xfffffbfffe000000-0xfffffbfffe800000<span class="w">           </span>8M<span class="w"> </span>PMD
+---<span class="o">[</span><span class="w"> </span>PCI<span class="w"> </span>I/O<span class="w"> </span>start<span class="w"> </span><span class="o">]</span>---
+0xfffffbfffe800000-0xfffffbffff800000<span class="w">          </span>16M<span class="w"> </span>PMD
+---<span class="o">[</span><span class="w"> </span>PCI<span class="w"> </span>I/O<span class="w"> </span>end<span class="w"> </span><span class="o">]</span>---
+0xfffffbffff800000-0xfffffc0000000000<span class="w">           </span>8M<span class="w"> </span>PMD
+---<span class="o">[</span><span class="w"> </span>vmemmap<span class="w"> </span>start<span class="w"> </span><span class="o">]</span>---
+0xfffffc0000000000-0xfffffd8000000000<span class="w">        </span>1536G<span class="w"> </span>PGD
+0xfffffd8000000000-0xfffffdb9c0000000<span class="w">         </span>231G<span class="w"> </span>PUD
+0xfffffdb9c0000000-0xfffffdb9df000000<span class="w">         </span>496M<span class="w"> </span>PMD
+0xfffffdb9df000000-0xfffffdb9e1000000<span class="w">          </span>32M<span class="w"> </span>PMD<span class="w">       </span>RW<span class="w"> </span>NX<span class="w"> </span>SHD<span class="w"> </span>AF<span class="w">        </span>BLK<span class="w"> </span>UXN<span class="w">    </span>MEM/NORMAL
+0xfffffdb9e1000000-0xfffffdb9ff000000<span class="w">         </span>480M<span class="w"> </span>PMD
+0xfffffdb9ff000000-0xfffffdba04c00000<span class="w">          </span>92M<span class="w"> </span>PMD<span class="w">       </span>RW<span class="w"> </span>NX<span class="w"> </span>SHD<span class="w"> </span>AF<span class="w">        </span>BLK<span class="w"> </span>UXN<span class="w">    </span>MEM/NORMAL
+0xfffffdba04c00000-0xfffffdba40000000<span class="w">         </span>948M<span class="w"> </span>PMD
+0xfffffdba40000000-0xfffffe0000000000<span class="w">         </span>279G<span class="w"> </span>PUD
+---<span class="o">[</span><span class="w"> </span>vmemmap<span class="w"> </span>end<span class="w"> </span><span class="o">]</span>---
+0xfffffe0000000000-0x0000000000000000<span class="w">           </span>2T<span class="w"> </span>PGD
+</pre></div>
+</div>
+<div class="section" id="memblock">
+<h2>memblock</h2>
+<p>对应的代码文件 mm/memblock.c, 开启CONFIG_DEBUG_FS 就会有命令：</p>
+<div class="highlight"><pre><span></span><span class="c1"># cat /sys/kernel/debug/memblock/memory</span>
+<span class="w">   </span><span class="m">0</span>:<span class="w"> </span>0x0000000080000000..0x00000000f89fffff
+<span class="w">   </span><span class="m">1</span>:<span class="w"> </span>0x00000000f8a00000..0x00000000f8dfffff
+<span class="w">   </span><span class="m">2</span>:<span class="w"> </span>0x00000000f8e00000..0x00000000f8ffffff
+<span class="w">   </span><span class="m">3</span>:<span class="w"> </span>0x0000000880000000..0x00000009efffffff
+<span class="c1"># cat /sys/kernel/debug/memblock/reserved</span>
+<span class="w">   </span><span class="m">0</span>:<span class="w"> </span>0x0000000080210000..0x000000008239efff
+<span class="w">   </span><span class="m">1</span>:<span class="w"> </span>0x00000000823a4000..0x00000000823affff
+<span class="w">   </span><span class="m">2</span>:<span class="w"> </span>0x0000000087fffa00..0x0000000087ffffcf
+<span class="w">   </span><span class="m">3</span>:<span class="w"> </span>0x00000000efb83000..0x00000000efb8607f
+<span class="w">   </span><span class="m">4</span>:<span class="w"> </span>0x00000000f4a00000..0x00000000f89fffff
+<span class="w">   </span><span class="m">5</span>:<span class="w"> </span>0x00000000f8e00000..0x00000000f8ffffff
+<span class="w">   </span><span class="m">6</span>:<span class="w"> </span>0x00000009dba00000..0x00000009e41fffff
+<span class="w">   </span><span class="m">7</span>:<span class="w"> </span>0x00000009e4230000..0x00000009e6ffffff
+<span class="w">   </span><span class="m">8</span>:<span class="w"> </span>0x00000009e7015500..0x00000009e7015a07
+<span class="w">   </span><span class="m">9</span>:<span class="w"> </span>0x00000009e7015a40..0x00000009e7015fc7
+<span class="w">  </span><span class="m">10</span>:<span class="w"> </span>0x00000009e7017f80..0x00000009e701b08f
+<span class="w">  </span><span class="m">11</span>:<span class="w"> </span>0x00000009e701b0c0..0x00000009e701b11f
+<span class="w">  </span><span class="m">12</span>:<span class="w"> </span>0x00000009e701b140..0x00000009e701b34f
+<span class="w">  </span><span class="m">13</span>:<span class="w"> </span>0x00000009e701b380..0x00000009e701b49f
+<span class="w">  </span><span class="m">14</span>:<span class="w"> </span>0x00000009e701b4c0..0x00000009e701b51f
+<span class="w">  </span><span class="m">15</span>:<span class="w"> </span>0x00000009e701b540..0x00000009e701b547
+<span class="w">  </span><span class="m">16</span>:<span class="w"> </span>0x00000009e701b580..0x00000009e701b771
+<span class="w">  </span><span class="m">17</span>:<span class="w"> </span>0x00000009e701b780..0x00000009e701b971
+<span class="w">  </span><span class="m">18</span>:<span class="w"> </span>0x00000009e701b980..0x00000009e701db07
+<span class="w">  </span><span class="m">19</span>:<span class="w"> </span>0x00000009e701db28..0x00000009e701db56
+<span class="w">  </span><span class="m">20</span>:<span class="w"> </span>0x00000009e701db58..0x00000009e702fffb
+<span class="w">  </span><span class="m">21</span>:<span class="w"> </span>0x00000009e7030000..0x00000009efffffff
+</pre></div>
+</div>
+
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/05/debugfs.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/05/debugfs.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
+
+  </article>
+</section>
+
+        <footer id="contentinfo" class="body">
+                <p>&copy; 2024 Qixiang Xu</p>
+        </footer><!-- /#contentinfo -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'geesun';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+</html>

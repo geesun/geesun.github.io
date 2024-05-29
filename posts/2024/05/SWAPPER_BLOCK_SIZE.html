@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+        <meta charset="utf-8" />
+        <title>SWAPPER_BLOCK_SIZE 的作用</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/05/SWAPPER_BLOCK_SIZE.html" rel="bookmark"
+           title="Permalink to SWAPPER_BLOCK_SIZE 的作用">SWAPPER_BLOCK_SIZE 的作用</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>Tue 21 May 2024</span>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->      <p>在Arm64的linux kernel中，有如下定义：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* Initial memory map size */</span>
+<span class="cp">#ifdef CONFIG_ARM64_4K_PAGES</span>
+<span class="cp">#define SWAPPER_BLOCK_SHIFT     PMD_SHIFT</span>
+<span class="cp">#define SWAPPER_BLOCK_SIZE      PMD_SIZE</span>
+<span class="cp">#define SWAPPER_TABLE_SHIFT     PUD_SHIFT</span>
+<span class="cp">#else</span>
+<span class="cp">#define SWAPPER_BLOCK_SHIFT     PAGE_SHIFT</span>
+<span class="cp">#define SWAPPER_BLOCK_SIZE      PAGE_SIZE</span>
+<span class="cp">#define SWAPPER_TABLE_SHIFT     PMD_SHIFT</span>
+<span class="cp">#endif</span>
+</pre></div>
+<p>在第一次建立1:1 mapping的页表的时候，Linux kernel 除了建立_text 到_end 的映射以外，还额外加了一些区域，代码如下：</p>
+<div class="highlight"><pre><span></span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">init_idmap_pg_dir</span>
+<span class="nf">adrp</span><span class="w">    </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="no">_text</span>
+<span class="nf">adrp</span><span class="w">    </span><span class="no">x6</span><span class="p">,</span><span class="w"> </span><span class="no">_end</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="no">MAX_FDT_SIZE</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="no">SWAPPER_BLOCK_SIZE</span>
+<span class="nf">mov_q</span><span class="w">   </span><span class="no">x7</span><span class="p">,</span><span class="w"> </span><span class="no">SWAPPER_RX_MMUFLAGS</span>
+
+<span class="nf">map_memory</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="no">x6</span><span class="p">,</span><span class="w"> </span><span class="no">x7</span><span class="p">,</span><span class="w"> </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="no">IDMAP_PGD_ORDER</span><span class="p">,</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x11</span><span class="p">,</span><span class="w"> </span><span class="no">x12</span><span class="p">,</span><span class="w"> </span><span class="no">x13</span><span class="p">,</span><span class="w"> </span><span class="no">x14</span><span class="p">,</span><span class="w"> </span><span class="no">EXTRA_SHIFT</span>
+</pre></div>
+<p>MAX_FDT_SIZE 这个好理解，用来存放device tree， 而SWAPPER_BLOCK_SIZE 的作用是啥？</p>
+<p>根据上面的定义，SWAPPER_BLOCK_SIZE 的大小在默认4k页表的情况下，是2M。  而我们建立init_pg_dir 页表的时候，希望也是2M对齐的，这样可以充分利用TLB。 所以有代码：</p>
+<div class="highlight"><pre><span></span><span class="cm">/* Remap the kernel page tables r/w in the ID map */</span>
+<span class="nf">adrp</span><span class="w">    </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">_text</span>
+<span class="nf">adrp</span><span class="w">    </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">init_pg_dir</span>
+<span class="nf">adrp</span><span class="w">    </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="no">init_pf_end</span>
+<span class="nf">bic</span><span class="w">     </span><span class="no">x4</span><span class="p">,</span><span class="w"> </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="c1">#SWAPPER_BLOCK_SIZE - 1</span>
+<span class="nf">mov_q</span><span class="w">   </span><span class="no">x5</span><span class="p">,</span><span class="w"> </span><span class="no">SWAPPER_RW_MMUFLAGS</span>
+<span class="nf">mov</span><span class="w">     </span><span class="no">x6</span><span class="p">,</span><span class="w"> </span><span class="c1">#SWAPPER_BLOCK_SHIFT</span>
+<span class="nf">bl</span><span class="w">      </span><span class="no">remap_region</span>
+</pre></div>
+<p>init_pg_dir 对应的物理地址也是2M 对齐的，可以参考上面的那个bic指令：</p>
+<!--  -->
+<blockquote>
+bic指令执行位清除操作。它将x2(init_pg_dir的地址)与SWAPPER_BLOCK_SIZE的位补码相与,结果存入x4。这相当于将init_pg_dir的地址对齐到SWAPPER_BLOCK_SIZE边界。</blockquote>
+<p>init_pg_dir 如果初始的时候这个地址不是2M对齐的，为了对齐，所以它最后对应的物理地址可能要超一点，但是在SWAPPER_BLOCK_SIZE以内。 这也就是为什么要引入SWAPPER_BLOCK_SIZE的原因。 同时我们可以看到link 脚本里面：</p>
+<div class="highlight"><pre><span></span><span class="err">.</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="nf">ALIGN</span><span class="p">(</span><span class="no">PAGE_SIZE</span><span class="p">)</span><span class="c1">;</span>
+<span class="nf">init_pg_dir</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="c1">;</span>
+<span class="err">.</span><span class="w"> </span><span class="err">+=</span><span class="w"> </span><span class="nf">INIT_DIR_SIZE</span><span class="c1">;</span>
+<span class="nf">init_pg_end</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="c1">;</span>
+
+<span class="err">.</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="nf">ALIGN</span><span class="p">(</span><span class="no">SEGMENT_ALIGN</span><span class="p">)</span><span class="c1">;</span>
+<span class="nf">__pecoff_data_size</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="no">ABSOLUTE</span><span class="p">(.</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="no">__initdata_begin</span><span class="p">)</span><span class="c1">;</span>
+<span class="nf">_end</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="c1">;</span>
+</pre></div>
+<p>init_pg_dir 这个东西为啥必须放在最后的原因，即使开始的时候不是SWAPPER_BLOCK_SIZE 对齐的，也不会覆盖掉其他内容。</p>
+
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/05/SWAPPER_BLOCK_SIZE.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/05/SWAPPER_BLOCK_SIZE.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
+
+  </article>
+</section>
+
+        <footer id="contentinfo" class="body">
+                <p>&copy; 2024 Qixiang Xu</p>
+        </footer><!-- /#contentinfo -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'geesun';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+</html>

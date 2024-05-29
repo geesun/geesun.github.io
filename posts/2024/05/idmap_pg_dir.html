@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+        <meta charset="utf-8" />
+        <title>idmap_pg_dir页表</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/05/idmap_pg_dir.html" rel="bookmark"
+           title="Permalink to idmap_pg_dir页表">idmap_pg_dir页表</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>Mon 27 May 2024</span>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->      <p>当主CPU启动完成之后，已经把页表设置成了swapper_pg_dir， 到这里为止，kernel一般情况下是不再需要idmap这个页表的，但是还是有些特殊情况下需要idmap：</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>第二个CPU启动</dt>
+<dd>当第二个CPU启动的时候，MMU是关闭的。要设置TTBR1 到swapper_pg_dir 之前，需要把TTBR0 设置成idmap，否则系统在使能MMU的时候找不到下一条指令的地址。参考函数：secondary_startup</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>CPU resume时</dt>
+<dd>当CPU从sleep状态回到正常状态的时候，这个时候也需要重新设置TTBR1 到swapper_pg_dir。同样需要把TTBR0 设置成idmap。参考函数：cpu_resume</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>更改TTBR1 的Common not Private bit时</dt>
+<dd>在第一次安装页表swapper_pg_dir时，这个时候cpu feature的框架还没有准备好，当CPU feature的启动时，如果检测到CPU使能了Common not Private，就需要重新更改TTBR1的Common not Private bit。这个时候也需要用到idmap。 参考： cpu_enable_swapper_cnp</dd>
+</dl>
+</li>
+<li>//TODO kasan时</li>
+</ul>
+<p>其实这个时候也不是整个kernel都需要做idmap，只是一些跟MMU相关的代码，才需要做idmap，下面会详细提到。</p>
+<div class="section" id="idmap-pg-dir-1">
+<h2>idmap_pg_dir页表的分配</h2>
+<p>顶级页表是在Linux link 脚本中分配：</p>
+<div class="highlight"><pre><span></span><span class="nf">idmap_pg_dir</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="c1">;</span>
+<span class="err">.</span><span class="w"> </span><span class="err">+=</span><span class="w"> </span><span class="nf">PAGE_SIZE</span><span class="c1">;</span>
+</pre></div>
+<p>其他级别的页表都是通过memblock的函数：early_pgtable_alloc 来进行分配。</p>
+<p>early_pgtable_alloc分配出来的是物理地址，这个时候不可以直接对他进行access，这个时候就需要用到fixmap里面的 FIX_PGD,FIX_PUD,FIX_PMD以及FIX_PTE来把这个分配出的物理地址在页表swapper_pg_dir 中进行映射。这也就是FIX_XXX的作用。</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">phys_addr_t</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="n">early_pgtable_alloc</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">shift</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="c1">//......</span>
+<span class="w">        </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pte_set_fixmap</span><span class="p">(</span><span class="n">phys</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">memset</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">PAGE_SIZE</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/*</span>
+<span class="cm">         * Implicit barriers also ensure the zeroed page is visible to the page</span>
+<span class="cm">         * table walker</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="n">pte_clear_fixmap</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">phys</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>下面这些宏的主要作用就是映射这些页表以及地址之间的转换：</p>
+<div class="highlight"><pre><span></span><span class="cp">#define pte_offset_phys(dir,addr)       (pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(pte_t))</span>
+<span class="cp">#define pte_set_fixmap(addr)            ((pte_t *)set_fixmap_offset(FIX_PTE, addr))</span>
+<span class="cp">#define pte_set_fixmap_offset(pmd, addr)        pte_set_fixmap(pte_offset_phys(pmd, addr))</span>
+<span class="cp">#define pte_clear_fixmap()              clear_fixmap(FIX_PTE)</span>
+
+<span class="cp">#define pmd_offset_phys(dir, addr)      (pud_page_paddr(READ_ONCE(*(dir))) + pmd_index(addr) * sizeof(pmd_t))</span>
+<span class="cp">#define pmd_set_fixmap(addr)            ((pmd_t *)set_fixmap_offset(FIX_PMD, addr))</span>
+<span class="cp">#define pmd_set_fixmap_offset(pud, addr)        pmd_set_fixmap(pmd_offset_phys(pud, addr))</span>
+<span class="cp">#define pmd_clear_fixmap()              clear_fixmap(FIX_PMD)</span>
+
+<span class="cp">#define pud_offset_phys(dir, addr)      (p4d_page_paddr(READ_ONCE(*(dir))) + pud_index(addr) * sizeof(pud_t))</span>
+<span class="cp">#define pud_set_fixmap(addr)            ((pud_t *)set_fixmap_offset(FIX_PUD, addr))</span>
+<span class="cp">#define pud_set_fixmap_offset(p4d, addr)        pud_set_fixmap(pud_offset_phys(p4d, addr))</span>
+<span class="cp">#define pud_clear_fixmap()              clear_fixmap(FIX_PUD)</span>
+
+<span class="cp">#define pgd_set_fixmap(addr)    ((pgd_t *)set_fixmap_offset(FIX_PGD, addr))</span>
+<span class="cp">#define pgd_clear_fixmap()      clear_fixmap(FIX_PGD)</span>
+</pre></div>
+<p>映射页表的函数会使用如上的宏才能读写页表,如：</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init_pmd</span><span class="p">(</span><span class="n">pud_t</span><span class="w"> </span><span class="o">*</span><span class="n">pudp</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">phys_addr_t</span><span class="w"> </span><span class="n">phys</span><span class="p">,</span><span class="w"> </span><span class="n">pgprot_t</span><span class="w"> </span><span class="n">prot</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">phys_addr_t</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">pgtable_alloc</span><span class="p">)(</span><span class="kt">int</span><span class="p">),</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<span class="w">        </span><span class="n">pmd_t</span><span class="w"> </span><span class="o">*</span><span class="n">pmdp</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">pmdp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pmd_set_fixmap_offset</span><span class="p">(</span><span class="n">pudp</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">);</span>
+<span class="w">        </span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">pmd_t</span><span class="w"> </span><span class="n">old_pmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">READ_ONCE</span><span class="p">(</span><span class="o">*</span><span class="n">pmdp</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="section" id="idmap-pg-dir-2">
+<h2>idmap_pg_dir映射的范围</h2>
+<dl class="docutils">
+<dt>通过函数create_idmap，可以发现IDMAP_TEXT（idmap.text）定义的这个section都会被idmap做一一映射。 基本上可以发现，只要是跟设置TTBR1 相关的代码，都应该要放在这个section中，如函数：</dt>
+<dd><ul class="first last simple">
+<li>__enable_mmu</li>
+<li>__cpu_setup</li>
+<li>cpu_resume</li>
+<li>cpu_soft_restart</li>
+</ul>
+</dd>
+</dl>
+<p>当然还有更多函数，这里就不一一列举。</p>
+</div>
+<div class="section" id="idmap-pg-dir-3">
+<h2>idmap_pg_dir页表的创建</h2>
+<p>当主CPU 启动到 setup_arch-&gt;paging_init -&gt; create_idmap时，swapper_pg_dir 已经生效。这也就是前面提到的如果要读写那些页表，要用到FIX_PGD,FIX_PUD,FIX_PMD这些的映射。</p>
+<p>当运行完第一个 __create_pgd_mapping 之后，即</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">create_idmap</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__pa_symbol</span><span class="p">(</span><span class="n">__idmap_text_start</span><span class="p">);</span>
+<span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__pa_symbol</span><span class="p">(</span><span class="n">__idmap_text_end</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pgd_t</span><span class="w"> </span><span class="o">*</span><span class="n">pgd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">idmap_pg_dir</span><span class="p">;</span>
+<span class="w">    </span><span class="n">u64</span><span class="w"> </span><span class="n">pgd_phys</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* check if we need an additional level of translation */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">VA_BITS</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">48</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">idmap_t0sz</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="mi">64</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">VA_BITS_MIN</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">pgd_phys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">early_pgtable_alloc</span><span class="p">(</span><span class="n">PAGE_SHIFT</span><span class="p">);</span>
+<span class="w">        </span><span class="n">set_pgd</span><span class="p">(</span><span class="o">&amp;</span><span class="n">idmap_pg_dir</span><span class="p">[</span><span class="n">start</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">VA_BITS</span><span class="p">],</span>
+<span class="w">            </span><span class="n">__pgd</span><span class="p">(</span><span class="n">pgd_phys</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">P4D_TYPE_TABLE</span><span class="p">));</span>
+<span class="w">        </span><span class="n">pgd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__va</span><span class="p">(</span><span class="n">pgd_phys</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">__create_pgd_mapping</span><span class="p">(</span><span class="n">pgd</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">PAGE_KERNEL_ROX</span><span class="p">,</span>
+<span class="w">                 </span><span class="n">early_pgtable_alloc</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+<p>idmap_pg_dir 就变成如下：</p>
+<div class="highlight"><pre><span></span>&gt;mmu<span class="w"> </span>print<span class="w"> </span>EL2N_S1_TTBR0_EL2<span class="w"> </span><span class="nv">TTBR0_EL2</span><span class="o">=</span>0x0000000081D76000
+
+<span class="w">        </span>Input<span class="w"> </span>Address<span class="w">    </span><span class="p">|</span><span class="w"> </span>Type<span class="w">           </span><span class="p">|</span><span class="w"> </span>Next<span class="w"> </span>Level<span class="w">            </span><span class="p">|</span><span class="w"> </span>Output<span class="w"> </span>Address<span class="w">        </span><span class="p">|</span><span class="w"> </span>Properties
+<span class="w">        </span>------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<span class="w">        </span>+<span class="w"> </span>0x00000000<span class="w">     </span><span class="p">|</span><span class="w"> </span>TTBR0_EL2<span class="w">      </span><span class="p">|</span><span class="w"> </span>NP:0x0000000081D76000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">TBI1</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">TBI0</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">AS</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">IPS</span><span class="o">=</span>1TB,<span class="w"> </span><span class="nv">TG1</span><span class="o">=</span>4KB,<span class="w"> </span><span class="nv">SH1</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">ORGN1</span><span class="o">=</span>0x1,<span class="w"> </span><span class="nv">IRGN1</span><span class="o">=</span>0x1,<span class="w"> </span><span class="nv">EPD1</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">A1</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">T1SZ</span><span class="o">=</span><span class="m">16</span>,<span class="w"> </span><span class="nv">TG0</span><span class="o">=</span>4KB,<span class="w"> </span><span class="nv">SH0</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">ORGN0</span><span class="o">=</span>0x1,<span class="w"> </span><span class="nv">IRGN0</span><span class="o">=</span>0x1,<span class="w"> </span><span class="nv">EPD0</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">T0SZ</span><span class="o">=</span><span class="m">16</span>,<span class="w"> </span><span class="nv">HPD1</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">HPD0</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">HD</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">HA</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">CnP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">ASID</span><span class="o">=</span><span class="m">0</span>
+<span class="w">         </span>+<span class="w"> </span>0x00000000<span class="w">    </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">0</span><span class="w"> </span>Table<span class="w">  </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FF7FE000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">APTable</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">UXNTable</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXNTable</span><span class="o">=</span><span class="m">0</span>
+<span class="w">          </span>-<span class="w"> </span>0x00000000<span class="w">   </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w">        </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">          </span>-<span class="w"> </span>0x40000000<span class="w">   </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w">        </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">          </span>+<span class="w"> </span>0x80000000<span class="w">   </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">1</span><span class="w"> </span>Table<span class="w">  </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FF7FD000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">APTable</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">UXNTable</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXNTable</span><span class="o">=</span><span class="m">0</span>
+<span class="w">           </span>-<span class="w"> </span>0x80000000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x14<span class="o">)</span><span class="w">  </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">           </span>+<span class="w"> </span>0x81C00000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">2</span><span class="w"> </span>Table<span class="w">  </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FF7FC000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">APTable</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">UXNTable</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXNTable</span><span class="o">=</span><span class="m">0</span>
+<span class="w">            </span>-<span class="w"> </span>0x81C00000<span class="w"> </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x373<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">            </span>-<span class="w"> </span>0x81D75000<span class="w"> </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">3</span><span class="w"> </span>Page<span class="w">   </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span>NP:0x0000000081D75000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">UXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXN</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">Contiguous</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">DBM</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">GP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">nG</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">AF</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">SH</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">AP</span><span class="o">=</span>0x2,<span class="w"> </span><span class="nv">AttrIndx</span><span class="o">=</span>0x0
+<span class="w">            </span>-<span class="w"> </span>0x81D76000<span class="w"> </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x138<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">           </span>-<span class="w"> </span>0x81E00000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x497<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">          </span>-<span class="w"> </span>0xC0000000<span class="w">   </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x509<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">         </span>-<span class="w"> </span>0x8000000000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x511<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+</pre></div>
+<p>当把__idmap_kpti_flag加进去之后，即</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">create_idmap</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//....</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_ENABLED</span><span class="p">(</span><span class="n">CONFIG_UNMAP_KERNEL_AT_EL0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">extern</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">__idmap_kpti_flag</span><span class="p">;</span>
+<span class="w">        </span><span class="n">u64</span><span class="w"> </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__pa_symbol</span><span class="p">(</span><span class="o">&amp;</span><span class="n">__idmap_kpti_flag</span><span class="p">);</span>
+
+<span class="w">        </span><span class="cm">/*</span>
+<span class="cm">         * The KPTI G-to-nG conversion code needs a read-write mapping</span>
+<span class="cm">         * of its synchronization flag in the ID map.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="n">__create_pgd_mapping</span><span class="p">(</span><span class="n">pgd</span><span class="p">,</span><span class="w"> </span><span class="n">pa</span><span class="p">,</span><span class="w"> </span><span class="n">pa</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">u32</span><span class="p">),</span><span class="w"> </span><span class="n">PAGE_KERNEL</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">early_pgtable_alloc</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>idmap_pg_dir 就变成如下：</p>
+<div class="highlight"><pre><span></span>&gt;mmu<span class="w"> </span>print<span class="w"> </span>EL2N_S1_TTBR0_EL2<span class="w"> </span><span class="nv">TTBR0_EL2</span><span class="o">=</span>0x0000000081D76000
+Input<span class="w"> </span>Address<span class="w">    </span><span class="p">|</span><span class="w"> </span>Type<span class="w">           </span><span class="p">|</span><span class="w"> </span>Next<span class="w"> </span>Level<span class="w">            </span><span class="p">|</span><span class="w"> </span>Output<span class="w"> </span>Address<span class="w">        </span><span class="p">|</span><span class="w"> </span>Properties
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
++<span class="w"> </span>0x00000000<span class="w">     </span><span class="p">|</span><span class="w"> </span>TTBR0_EL2<span class="w">      </span><span class="p">|</span><span class="w"> </span>NP:0x0000000081D76000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">TBI1</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">TBI0</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">AS</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">IPS</span><span class="o">=</span>1TB,<span class="w"> </span><span class="nv">TG1</span><span class="o">=</span>4KB,<span class="w"> </span><span class="nv">SH1</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">ORGN1</span><span class="o">=</span>0x1,<span class="w"> </span><span class="nv">IRGN1</span><span class="o">=</span>0x1,<span class="w"> </span><span class="nv">EPD1</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">A1</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">T1SZ</span><span class="o">=</span><span class="m">16</span>,<span class="w"> </span><span class="nv">TG0</span><span class="o">=</span>4KB,<span class="w"> </span><span class="nv">SH0</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">ORGN0</span><span class="o">=</span>0x1,<span class="w"> </span><span class="nv">IRGN0</span><span class="o">=</span>0x1,<span class="w"> </span><span class="nv">EPD0</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">T0SZ</span><span class="o">=</span><span class="m">16</span>,<span class="w"> </span><span class="nv">HPD1</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">HPD0</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">HD</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">HA</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">CnP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">ASID</span><span class="o">=</span><span class="m">0</span>
+<span class="w"> </span>+<span class="w"> </span>0x00000000<span class="w">    </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">0</span><span class="w"> </span>Table<span class="w">  </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FF7FE000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">APTable</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">UXNTable</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXNTable</span><span class="o">=</span><span class="m">0</span>
+<span class="w">  </span>-<span class="w"> </span>0x00000000<span class="w">   </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w">        </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">  </span>-<span class="w"> </span>0x40000000<span class="w">   </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w">        </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">  </span>+<span class="w"> </span>0x80000000<span class="w">   </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">1</span><span class="w"> </span>Table<span class="w">  </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FF7FD000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">APTable</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">UXNTable</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXNTable</span><span class="o">=</span><span class="m">0</span>
+<span class="w">   </span>-<span class="w"> </span>0x80000000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x14<span class="o">)</span><span class="w">  </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">   </span>+<span class="w"> </span>0x81C00000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">2</span><span class="w"> </span>Table<span class="w">  </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FF7FC000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">APTable</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">UXNTable</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXNTable</span><span class="o">=</span><span class="m">0</span>
+<span class="w">    </span>-<span class="w"> </span>0x81C00000<span class="w"> </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x373<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">    </span>-<span class="w"> </span>0x81D75000<span class="w"> </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">3</span><span class="w"> </span>Page<span class="w">   </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span>NP:0x0000000081D75000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">UXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXN</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">Contiguous</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">DBM</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">GP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">nG</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">AF</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">SH</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">AP</span><span class="o">=</span>0x2,<span class="w"> </span><span class="nv">AttrIndx</span><span class="o">=</span>0x0
+<span class="w">    </span>-<span class="w"> </span>0x81D76000<span class="w"> </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x138<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">   </span>-<span class="w"> </span>0x81E00000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x4<span class="o">)</span><span class="w">   </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">   </span>+<span class="w"> </span>0x82600000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">2</span><span class="w"> </span>Table<span class="w">  </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FF7FB000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">APTable</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">UXNTable</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXNTable</span><span class="o">=</span><span class="m">0</span>
+<span class="w">    </span>-<span class="w"> </span>0x82600000<span class="w"> </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x311<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">    </span>-<span class="w"> </span>0x82737000<span class="w"> </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">3</span><span class="w"> </span>Page<span class="w">   </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span>NP:0x0000000082737000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">UXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">Contiguous</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">DBM</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">GP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">nG</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">AF</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">SH</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">AP</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">AttrIndx</span><span class="o">=</span>0x0
+<span class="w">    </span>-<span class="w"> </span>0x82738000<span class="w"> </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x200<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">   </span>-<span class="w"> </span>0x82800000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x492<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w">  </span>-<span class="w"> </span>0xC0000000<span class="w">   </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x509<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+<span class="w"> </span>-<span class="w"> </span>0x8000000000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Invalid<span class="w"> </span><span class="o">(</span>x511<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span>
+</pre></div>
+</div>
+<div class="section" id="idmap-pg-dir-4">
+<h2>idmap_pg_dir的安装</h2>
+<p>当主CPU启动好，可以detect CPU feature 时，如果发现CPU可以支持Common not Private bit，这会临时安装这个页表来重新设置TTBR1，即：</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">cpu_enable_swapper_cnp</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">__cpu_replace_ttbr1</span><span class="p">(</span><span class="n">lm_alias</span><span class="p">(</span><span class="n">swapper_pg_dir</span><span class="p">),</span><span class="w"> </span><span class="n">idmap_pg_dir</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>当第二个CPU启动的时候，系统不在走主CPU启动的流程，直接安装这个页表，参考函数： secondary_startup。 这个页表会在 secondary_start_kernel-&gt; cpu_uninstall_idmap 来卸载。</p>
+<div class="highlight"><pre><span></span><span class="n">SYM_FUNC_START_LOCAL</span><span class="p">(</span><span class="n">secondary_startup</span><span class="p">)</span>
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * Common entry point for secondary CPUs.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">x20</span><span class="p">,</span><span class="w"> </span><span class="n">x0</span><span class="w">             </span><span class="c1">// preserve boot mode</span>
+<span class="w">    </span><span class="n">bl</span><span class="w">  </span><span class="n">__cpu_secondary_check52bitva</span>
+<span class="cp">#if VA_BITS &gt; 48</span>
+<span class="w">    </span><span class="n">ldr_l</span><span class="w">   </span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="n">vabits_actual</span>
+<span class="cp">#endif</span>
+<span class="w">    </span><span class="n">bl</span><span class="w">  </span><span class="n">__cpu_setup</span><span class="w">         </span><span class="c1">// initialise processor</span>
+<span class="w">    </span><span class="n">adrp</span><span class="w">    </span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="n">swapper_pg_dir</span>
+<span class="w">    </span><span class="n">adrp</span><span class="w">    </span><span class="n">x2</span><span class="p">,</span><span class="w"> </span><span class="n">idmap_pg_dir</span>
+<span class="w">    </span><span class="n">bl</span><span class="w">  </span><span class="n">__enable_mmu</span>
+<span class="w">    </span><span class="n">ldr</span><span class="w"> </span><span class="n">x8</span><span class="p">,</span><span class="w"> </span><span class="o">=</span><span class="n">__secondary_switched</span>
+<span class="w">    </span><span class="n">br</span><span class="w">  </span><span class="n">x8</span>
+<span class="n">SYM_FUNC_END</span><span class="p">(</span><span class="n">secondary_startup</span><span class="p">)</span>
+</pre></div>
+<p>当CPU 从sleep状态恢复的时候，也会去使用这个idmap来安装mmu 页表，如下：</p>
+<div class="highlight"><pre><span></span><span class="n">SYM_CODE_START</span><span class="p">(</span><span class="n">cpu_resume</span><span class="p">)</span>
+<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="n">xzr</span>
+<span class="w">    </span><span class="n">bl</span><span class="w">  </span><span class="n">init_kernel_el</span>
+<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">x19</span><span class="p">,</span><span class="w"> </span><span class="n">x0</span><span class="w">         </span><span class="c1">// preserve boot mode</span>
+<span class="cp">#if VA_BITS &gt; 48</span>
+<span class="w">    </span><span class="n">ldr_l</span><span class="w">   </span><span class="n">x0</span><span class="p">,</span><span class="w"> </span><span class="n">vabits_actual</span>
+<span class="cp">#endif</span>
+<span class="w">    </span><span class="n">bl</span><span class="w">  </span><span class="n">__cpu_setup</span>
+<span class="w">    </span><span class="cm">/* enable the MMU early - so we can access sleep_save_stash by va */</span>
+<span class="w">    </span><span class="n">adrp</span><span class="w">    </span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="n">swapper_pg_dir</span>
+<span class="w">    </span><span class="n">adrp</span><span class="w">    </span><span class="n">x2</span><span class="p">,</span><span class="w"> </span><span class="n">idmap_pg_dir</span>
+<span class="w">    </span><span class="n">bl</span><span class="w">  </span><span class="n">__enable_mmu</span>
+<span class="w">    </span><span class="n">ldr</span><span class="w"> </span><span class="n">x8</span><span class="p">,</span><span class="w"> </span><span class="o">=</span><span class="n">_cpu_resume</span>
+<span class="w">    </span><span class="n">br</span><span class="w">  </span><span class="n">x8</span>
+<span class="n">SYM_CODE_END</span><span class="p">(</span><span class="n">cpu_resume</span><span class="p">)</span>
+</pre></div>
+</div>
+
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/05/idmap_pg_dir.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/05/idmap_pg_dir.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
+
+  </article>
+</section>
+
+        <footer id="contentinfo" class="body">
+                <p>&copy; 2024 Qixiang Xu</p>
+        </footer><!-- /#contentinfo -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'geesun';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+</html>
