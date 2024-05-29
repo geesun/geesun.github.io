@@ -131,7 +131,7 @@ make
 <li>编译tf-a代码</li>
 </ol>
 <p>编译在tf-a的过程中，u-boot是作为tf-a的BL33的image，所以需要先编译前面的u-boot后，才能编译tf-a，使用如下命令：</p>
-<div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span>
+<div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span>
 <span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/tf-a
 make<span class="w"> </span><span class="nv">PLAT</span><span class="o">=</span>fvp<span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">BL33</span><span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/src/u-boot/u-boot.bin<span class="w"> </span>all<span class="w"> </span>fip<span class="w"> </span><span class="nv">V</span><span class="o">=</span><span class="m">1</span>
 </pre></div>
@@ -225,9 +225,9 @@ cat<span class="w"> </span>part_table<span class="w"> </span>&gt;&gt;<span class
 <span class="k">$(</span>workspace<span class="k">)</span>/rootfs/rootfs.img
 </pre></div>
 <p>接下来就可以使用下面的命令来运行Linux：</p>
-<div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>
-<span class="w">    </span>tools/Base_RevC_AEMvA_pkg/models/Linux64_GCC-9.3/FVP_Base_RevC-2xAEMvA<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-C<span class="w"> </span>cluster0.NUM_CORES<span class="o">=</span><span class="m">4</span><span class="w"> </span>-C<span class="w"> </span>cluster1.NUM_CORES<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>
+tools/Base_RevC_AEMvA_pkg/models/Linux64_GCC-9.3/FVP_Base_RevC-2xAEMvA<span class="w"> </span><span class="se">\</span>
+-C<span class="w"> </span>cluster0.NUM_CORES<span class="o">=</span><span class="m">4</span><span class="w"> </span>-C<span class="w"> </span>cluster1.NUM_CORES<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 -C<span class="w"> </span>cluster0.has_arm_v8-3<span class="o">=</span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span>cluster1.has_arm_v8-3<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 -C<span class="w"> </span>cluster0.has_arm_v8-5<span class="o">=</span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span>cluster1.has_arm_v8-5<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 -C<span class="w"> </span>cluster0.has_branch_target_exception<span class="o">=</span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span>cluster1.has_branch_target_exception<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
@@ -249,23 +249,23 @@ cat<span class="w"> </span>part_table<span class="w"> </span>&gt;&gt;<span class
 </div>
 <div class="section" id="arm-dslinux">
 <h2>在Arm DS上调试Linux</h2>
-<p>在开始使用armdbg命令调试Linux之前，需要先去下载Arm DS和申请试用license。 这个过程这里就不赘述了。具体可以`参考 &lt;<a class="reference external" href="https://developer.arm.com/Tools%20and%20Software/Arm%20Development%20Studio#Software-Download">https://developer.arm.com/Tools%20and%20Software/Arm%20Development%20Studio#Software-Download</a>&gt;`_ .</p>
+<p>在开始使用armdbg命令调试Linux之前，需要先去下载Arm DS和申请试用license。 这个过程这里就不赘述了。具体可以 <a class="reference external" href="https://developer.arm.com/Tools%20and%20Software/Arm%20Development%20Studio#Software-Download">参考</a> .</p>
 <p>在安装好Arm DS之后，可以在图形界面来import base model 到Arm DS。 可以参考 <a class="reference external" href="https://community.arm.com/oss-platforms/w/docs/649/guide-to-set-up-debugging-environment-for-total-compute-software-stack">Arm 网站</a></p>
 <p>准备一个Arm DS的脚本ap.ds，来自动加载符号表，如下：</p>
 <div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>ap.ds
 
-<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/tf-a/build/fvp/debug/bl1/bl1.elf&quot;</span><span class="w"> </span>EL3:0
-<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/tf-a/build/fvp/debug/bl2/bl2.elf&quot;</span><span class="w"> </span>EL1S:0
-<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/tf-a/build/fvp/debug/bl31/bl31.elf&quot;</span><span class="w"> </span>EL3:0
+add-symbol-file<span class="w"> </span><span class="s2">&quot;src/tf-a/build/fvp/debug/bl1/bl1.elf&quot;</span><span class="w"> </span>EL3:0
+add-symbol-file<span class="w"> </span><span class="s2">&quot;src/tf-a/build/fvp/debug/bl2/bl2.elf&quot;</span><span class="w"> </span>EL1S:0
+add-symbol-file<span class="w"> </span><span class="s2">&quot;src/tf-a/build/fvp/debug/bl31/bl31.elf&quot;</span><span class="w"> </span>EL3:0
 
-<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL2N:0x800000200000
-<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL1N:0x800000200000
-<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL1N:0
-<span class="w">        </span>add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL2N:0
+add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL2N:0x800000200000
+add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL1N:0x800000200000
+add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL1N:0
+add-symbol-file<span class="w"> </span><span class="s2">&quot;src/linux/vmlinux&quot;</span><span class="w"> </span>EL2N:0
 
-<span class="w">        </span><span class="k">break</span><span class="w"> </span>bl31_main
-<span class="w">        </span><span class="k">break</span><span class="w"> </span>primary_entry
-<span class="w">        </span>c
+<span class="k">break</span><span class="w"> </span>bl31_main
+<span class="k">break</span><span class="w"> </span>primary_entry
+c
 </pre></div>
 <p>接下来就可以使用如下命令开始调试：</p>
 <div class="highlight"><pre><span></span>/opt/arm/developmentstudio_platinum-0.a/bin/armdbg<span class="w"> </span><span class="se">\</span>
