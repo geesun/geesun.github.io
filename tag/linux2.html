@@ -23,6 +23,27 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="../posts/2024/05/swapper_pg_dir.html" rel="bookmark"
+                           title="Permalink to swapper_pg_dir页表">swapper_pg_dir页表</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>Thu 23 May 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->                <div class="section" id="section-1">
+<h2>页表分配</h2>
+<p>这个页表的L0的page table是在Linux kernel中的link script 中分配：</p>
+<div class="highlight"><pre><span></span><span class="nf">swapper_pg_dir</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="c1">;</span>
+<span class="err">.</span><span class="w"> </span><span class="err">+=</span><span class="w"> </span><span class="nf">PAGE_SIZE</span><span class="c1">;</span>
+</pre></div>
+<p>这里只分配了L0的页表，其他的页表要不使用memblock来分配，要不使用正常的逻辑来分配。 除了FIXADDR的页表是静态分配的 …</p></div>
+                <a class="readmore" href="../posts/2024/05/swapper_pg_dir.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/swapper_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="../posts/2024/05/debugfs.html" rel="bookmark"
                            title="Permalink to linux debugfs 使用">linux debugfs 使用</a></h1>
                 </header>
@@ -64,28 +85,6 @@
 <div class="highlight"><pre><span></span><span class="cp">#define EARLY_PAGES(vstart, vend, add) ( 1                      </span><span class="cm">/* PGDIR …</span></pre></div></div>
                 <a class="readmore" href="../posts/2024/05/init_pg_dir.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/init_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/05/fdt_mapping.html" rel="bookmark"
-                           title="Permalink to FDT的区域的Map过程">FDT的区域的Map过程</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Wed 22 May 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a></span>
-</footer><!-- /.post-info -->                <p>u-boot或者uefi启动Linux的时候，会把device tree 所在的地址通过x0寄存器传给Linux。
-kernel在boot阶段会使用到x0寄存器，所以在primary_entry -&gt; preserve_boot_args 会把device tree的地址保存到x21寄存器：</p>
-<div class="highlight"><pre><span></span><span class="nf">SYM_CODE_START_LOCAL</span><span class="p">(</span><span class="no">preserve_boot_args</span><span class="p">)</span>
-<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="no">x21</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="w">                         </span><span class="c1">// x21=FDT</span>
-</pre></div>
-<div class="section" id="mapping">
-<h2>1:1 mapping阶段</h2>
-<p>在init_idmap_pg_dir阶段，会把这个x21地址所对应的物理地址mapping到kernel结尾之后2M对的的地方，这个地方其实不是1:1的映射 …</p></div>
-                <a class="readmore" href="../posts/2024/05/fdt_mapping.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/fdt_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>
