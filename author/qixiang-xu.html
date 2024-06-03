@@ -21,11 +21,252 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="../posts/2024/05/met_enable.html">Arm64 Linux MTE 使能</a></h1>
+                    <h1 class="entry-title"><a href="../posts/2024/06/earlycon_serial_port.html">Linux booting 串口</a></h1>
+<footer class="post-info">
+        <span>Mon 03 June 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/booting.html">booting</a><a href="../tag/serial.html">serial</a></span>
+</footer><!-- /.post-info --><p>在kernel booting的早期，肯定是希望尽快把一些信息输出的串口，能够尽早知道kernel boot 到什么阶段。 所以一般在u-boot中，在FVP平台上有如下bootargs</p>
+<div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1<span class="w"> </span>rw<span class="w"> </span><span class="nv">ip</span><span class="o">=</span>dhcp<span class="w"> </span>debug<span class="w"> </span><span class="nv">user_debug</span><span class="o">=</span><span class="m">31</span><span class="w"> </span><span class="nv">loglevel</span><span class="o">=</span><span class="m">9</span>
+</pre></div>
+<p>这里 <strong>earlycon=pl011,0x1c090000</strong> 就是让Linux boot的早期就可以知道串口的相关信息，尽早输出boot的关键信息。</p>
+<p>在FVP平台上，可以看到使用的是PL011串口，它的基地值可以参考FVP的用户文档，可以看到FVP里面有四个串口，信息如下：</p>
+<img alt="FVP 串口文件" class="align-center" src="../images/linux/boot/fvp_uart.png" style="width: 600px;" />
+<p>因为这里使用的是PL011,对应的驱动代码在 <em>drivers/tty/serial/amba-pl011.c</em>:</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">pl011_early_console_setup</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">earlycon_device</span><span class="w"> </span><span class="o">*</span><span class="n">device</span><span class="p">,</span>
+<span class="w">                                            </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">opt</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">port</span><span class="p">.</span><span class="n">membase</span><span class="p">)</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">device</span><span class="o">-&gt;</span><span class="n">con</span><span class="o">-&gt;</span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pl011_early_write</span><span class="p">;</span>
+<span class="w">        </span><span class="n">device</span><span class="o">-&gt;</span><span class="n">con</span><span class="o">-&gt;</span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pl011_early_read</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">OF_EARLYCON_DECLARE</span><span class="p">(</span><span class="n">pl011</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;arm,pl011&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pl011_early_console_setup</span><span class="p">);</span>
+
+<span class="n">OF_EARLYCON_DECLARE</span><span class="p">(</span><span class="n">pl011</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;arm,sbsa-uart&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pl011_early_console_setup</span><span class="p">);</span>
+</pre></div>
+<div class="section" id="earlyconio">
+<h2>earlycon的IO地址是如何映射的？</h2>
+<p>在Linux boot 的早期，即启动到start_kernel，这个时候就不能直接使用物理地址访问设备和内存，因为MMU已经enable了。</p>
+<p>而Linux只映射了自己image和device tree所在的位置，而这里要尽可能早的能个输出关键boot信息，所以这个串口的IO地址也要在早期给映射好。</p>
+<p>在mem_init之前，系统的内存管理并没有准备好，所以并不能直接使用ioremap 来给串口进行映射。所以这里就会使用到fixed map来映射这个早期的map。</p>
+<p>也就是 <strong>FIX_EARLYCON_MEM_BASE</strong> ，这也是在arm64的系统里面，必须要使能： <strong>CONFIG_FIX_EARLYCON_MEM</strong> 的原因：</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__iomem</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="n">earlycon_map</span><span class="p">(</span><span class="n">resource_size_t</span><span class="w"> </span><span class="n">paddr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="n">__iomem</span><span class="w"> </span><span class="o">*</span><span class="n">base</span><span class="p">;</span>
+<span class="cp">#ifdef CONFIG_FIX_EARLYCON_MEM</span>
+<span class="w">        </span><span class="n">set_fixmap_io</span><span class="p">(</span><span class="n">FIX_EARLYCON_MEM_BASE</span><span class="p">,</span><span class="w"> </span><span class="n">paddr</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">PAGE_MASK</span><span class="p">);</span>
+<span class="w">        </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="n">__iomem</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">__fix_to_virt</span><span class="p">(</span><span class="n">FIX_EARLYCON_MEM_BASE</span><span class="p">);</span>
+<span class="w">        </span><span class="n">base</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">paddr</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">PAGE_MASK</span><span class="p">;</span>
+<span class="cp">#else</span>
+<span class="w">        </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ioremap</span><span class="p">(</span><span class="n">paddr</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">base</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pr_err</span><span class="p">(</span><span class="s">&quot;%s: Couldn&#39;t map %pa</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">__func__</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">paddr</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">base</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>如何不使能这个 <strong>CONFIG_FIX_EARLYCON_MEM</strong> 的话，会出现如下错误：</p>
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>------------<span class="o">[</span><span class="w"> </span>cut<span class="w"> </span>here<span class="w"> </span><span class="o">]</span>------------
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>WARNING:<span class="w"> </span>CPU:<span class="w"> </span><span class="m">0</span><span class="w"> </span>PID:<span class="w"> </span><span class="m">0</span><span class="w"> </span>at<span class="w"> </span>mm/ioremap.c:23<span class="w"> </span>generic_ioremap_prot+0xf0/0x12c
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Modules<span class="w"> </span>linked<span class="w"> </span><span class="k">in</span>:
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU:<span class="w"> </span><span class="m">0</span><span class="w"> </span>PID:<span class="w"> </span><span class="m">0</span><span class="w"> </span>Comm:<span class="w"> </span>swapper<span class="w"> </span>Not<span class="w"> </span>tainted<span class="w"> </span><span class="m">6</span>.10.0-rc1-00013-g2bfcfd584ff5-dirty<span class="w"> </span><span class="c1">#4</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Hardware<span class="w"> </span>name:<span class="w"> </span>FVP<span class="w"> </span>Base<span class="w"> </span>RevC<span class="w"> </span><span class="o">(</span>DT<span class="o">)</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>pstate:<span class="w"> </span>800003c9<span class="w"> </span><span class="o">(</span>Nzcv<span class="w"> </span>DAIF<span class="w"> </span>-PAN<span class="w"> </span>-UAO<span class="w"> </span>-TCO<span class="w"> </span>-DIT<span class="w"> </span>-SSBS<span class="w"> </span><span class="nv">BTYPE</span><span class="o">=</span>--<span class="o">)</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>pc<span class="w"> </span>:<span class="w"> </span>generic_ioremap_prot+0xf0/0x12c
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>lr<span class="w"> </span>:<span class="w"> </span>generic_ioremap_prot+0x28/0x12c
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>sp<span class="w"> </span>:<span class="w"> </span>ffff800082623b40
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x29:<span class="w"> </span>ffff800082623b40<span class="w"> </span>x28:<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span>x27:<span class="w"> </span>ffff8000829ab000
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x26:<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span>x25:<span class="w"> </span>ffff800081e11398<span class="w"> </span>x24:<span class="w"> </span><span class="m">0000000000000000</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x23:<span class="w"> </span>ffff800081e13608<span class="w"> </span>x22:<span class="w"> </span>ffff800080033710<span class="w"> </span>x21:<span class="w"> </span><span class="m">0068000000000713</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x20:<span class="w"> </span>000000001c090000<span class="w"> </span>x19:<span class="w"> </span><span class="m">0000000000000040</span><span class="w"> </span>x18:<span class="w"> </span>fffffffffffe0198
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x17:<span class="w"> </span>00000000242dc565<span class="w"> </span>x16:<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span>x15:<span class="w"> </span><span class="m">0000000000000028</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x14:<span class="w"> </span>ffffffffffffffff<span class="w"> </span>x13:<span class="w"> </span><span class="m">0000000000000007</span><span class="w"> </span>x12:<span class="w"> </span>ffff80008168a740
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x11:<span class="w"> </span><span class="m">0101010101010101</span><span class="w"> </span>x10:<span class="w"> </span>ffff800101d38846<span class="w"> </span>x9<span class="w"> </span>:<span class="w"> </span>0fffffffffffffff
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x8<span class="w"> </span>:<span class="w"> </span><span class="m">0000000000000010</span><span class="w"> </span>x7<span class="w"> </span>:<span class="w"> </span><span class="m">0000000000000018</span><span class="w"> </span>x6<span class="w"> </span>:<span class="w"> </span>ffff800082b20500
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x5<span class="w"> </span>:<span class="w"> </span>ffff800082b20500<span class="w"> </span>x4<span class="w"> </span>:<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span>x3<span class="w"> </span>:<span class="w"> </span><span class="m">0000000000000000</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x2<span class="w"> </span>:<span class="w"> </span><span class="m">0068000000000713</span><span class="w"> </span>x1<span class="w"> </span>:<span class="w"> </span><span class="m">0000000000000040</span><span class="w"> </span>x0<span class="w"> </span>:<span class="w"> </span><span class="m">0000000000000000</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Call<span class="w"> </span>trace:
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>generic_ioremap_prot+0xf0/0x12c
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>ioremap_prot+0x50/0x78
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>earlycon_map+0x4c/0x94
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>setup_earlycon+0x254/0x314
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>param_setup_earlycon+0x30/0x50
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>do_early_param+0xb8/0xf8
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>parse_args+0x144/0x3ac
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>parse_early_param+0x60/0x78
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>setup_arch+0x14c/0x60c
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>start_kernel+0x70/0x708
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>__primary_switched+0x80/0x88
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>---<span class="o">[</span><span class="w"> </span>end<span class="w"> </span>trace<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span><span class="o">]</span>---
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>earlycon:<span class="w"> </span>earlycon_map:<span class="w"> </span>Couldn<span class="s1">&#39;t map 0x000000001c090000</span>
+<span class="s1">[    0.000000] earlycon: pl11 at MMIO 0x000000001c090000 (options &#39;&#39;)</span>
+<span class="s1">[    0.000000] Malformed early option &#39;</span>earlycon<span class="err">&#39;</span>
+</pre></div>
+<p>在运行完函数earlycon_map 之后,即：</p>
+<div class="highlight"><pre><span></span><span class="c1">#0 register_earlycon(buf = (char*) 0x0, match = &lt;Value optimised away by compiler&gt;) at earlycon.c:151</span>
+<span class="c1">#1 setup_earlycon(buf = 0xFFFF800081C78847 &quot;0x1c090000&quot;) at earlycon.c:221</span>
+<span class="c1">#2 param_setup_earlycon(buf = &lt;Value not available : Undefined value in stack frame for register X1&gt;) at earlycon.c:245</span>
+<span class="c1">#3 do_early_param(param = 0xFFFF800081C78838 &quot;earlycon&quot;, val = 0xFFFF800081C78841 &quot;pl011,0x1c090000&quot;, unused = &lt;Value not available : Undefined value in stack frame for register X2&gt;, arg = &lt;Value not available : Undefined value in stack frame for register X3&gt;) at main.c:753</span>
+<span class="c1">#4 parse_one(param = &lt;Value optimised away by compiler&gt;, val = &lt;Value optimised away by compiler&gt;, doing = &lt;Value optimised away by compiler&gt;, params = &lt;Value optimised away by compiler&gt;, num_params = &lt;Value optimised away by compiler&gt;, min_level = &lt;Value optimised away by compiler&gt;, max_level = &lt;Value optimised away by compiler&gt;, arg = &lt;Value optimised away by compiler&gt;, handle_unknown = &lt;Value optimised away by compiler&gt;) at params.c:153</span>
+<span class="c1">#5 parse_args(doing = 0xFFFF8000819075B0 &quot;early options&quot;, args = &lt;Value not available : Undefined value in stack frame for register X1&gt;, params = (const struct kernel_param*) 0x0, num = 0, min_level = &lt;Value not available : Undefined value in stack frame for register X4&gt;, max_level = &lt;Value not available : Undefined value in stack frame for register X5&gt;, arg = &lt;Value not available : Undefined value in stack frame for register X6&gt;, unknown = init/main.c#int do_early_param( char* param, char* val, const char* unused, void* arg ) = 0xffff800081b700b8) at params.c:188</span>
+<span class="c1">#6 parse_early_param() at main.c:779</span>
+<span class="c1">#7 local_daif_restore(flags = &lt;Value optimised away by compiler&gt;) at setup.c:298</span>
+<span class="c1">#8 cpu_set_reserved_ttbr0_nosync() at daifflags.h:117</span>
+<span class="c1">#9 get_boot_config_from_initrd(_size = &lt;Value optimised away by compiler&gt;) at main.c:906</span>
+<span class="c1">#10 setup_command_line(command_line = &lt;Value optimised away by compiler&gt;) at main.c:643</span>
+<span class="c1">#11 __primary_switched() at head.S:244</span>
+</pre></div>
+<p>就会发现mmu页表里面就多了串口的映射,即0x000000001C090000 --&gt;  0xFFFFFFFFFF5FD000</p>
+<div class="highlight"><pre><span></span>&gt;mmu<span class="w"> </span>memory-map
+Virtual<span class="w"> </span>Range<span class="w">                              </span><span class="p">|</span><span class="w"> </span>Physical<span class="w"> </span>Range<span class="w">                           </span><span class="p">|</span><span class="w"> </span>Type<span class="w">         </span><span class="p">|</span><span class="w"> </span>AP<span class="w"> </span><span class="p">|</span><span class="w"> </span>C<span class="w">     </span><span class="p">|</span><span class="w"> </span>S<span class="w">     </span><span class="p">|</span><span class="w"> </span>X
+---------------------------------------------------------------------------------------------------------------------------------
+EL2N:0x0000000000000000-0x000000008020FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL2N:0x0000000080210000-0x0000000081E6FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000080210000-0x0000000081E6FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True
+EL2N:0x0000000081E70000-0x0000000082C9FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000081E70000-0x0000000082C9FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL2N:0x0000000082CA0000-0x00000000FD6BDFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL2N:0x00000000FD6BE000-0x00000000FD8BDFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000000FD6BE000-0x00000000FD8BDFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL2N:0x00000000FD8BE000-0x0000FFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL2N:0xFFFF000000000000-0xFFFF80008000FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL2N:0xFFFF800080010000-0xFFFF80008105FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000080210000-0x000000008125FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True
+EL2N:0xFFFF800081060000-0xFFFF800081B6FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000081260000-0x0000000081D6FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL2N:0xFFFF800081B70000-0xFFFF800081C6FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000081D70000-0x0000000081E6FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True
+EL2N:0xFFFF800081C70000-0xFFFF800082A9FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x0000000081E70000-0x0000000082C9FFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL2N:0xFFFF800082AA0000-0xFFFFFFFFFF5FCFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+EL2N:0xFFFFFFFFFF5FD000-0xFFFFFFFFFF5FDFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x000000001C090000-0x000000001C090FFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Device-nGnRE<span class="w"> </span><span class="p">|</span><span class="w"> </span>RW<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False<span class="w"> </span><span class="p">|</span><span class="w"> </span>False
+EL2N:0xFFFFFFFFFF5FE000-0xFFFFFFFFFF600FFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>NP:0x00000000FD6BE000-0x00000000FD6C0FFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>Normal<span class="w">       </span><span class="p">|</span><span class="w"> </span>RO<span class="w"> </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>True<span class="w">  </span><span class="p">|</span><span class="w"> </span>False
+EL2N:0xFFFFFFFFFF601000-0xFFFFFFFFFFFFFFFF<span class="w"> </span><span class="p">|</span><span class="w"> </span>&lt;unmapped&gt;<span class="w">                               </span><span class="p">|</span><span class="w">              </span><span class="p">|</span><span class="w">    </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">       </span><span class="p">|</span>
+</pre></div>
+<p>有了这些IO的映射之后，就可以调用pl011_early_console_setup 对PL011串口进行初始化，然后再把这个串口设备通过函数register_console 注册到输出设备上，就可以开始输出信息了。</p>
+<p>printk调用PL011驱动函数的调用stack如下：</p>
+<div class="highlight"><pre><span></span><span class="c1">#0 pl011_early_write(con = (struct console*) 0xFFFF8000828B4878, s = 0xFFFF8000829F3678 &quot;[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd0f0]</span>
+<span class="s2">&quot;, n = 71) at amba-pl011.c:2541</span>
+<span class="s2">#1 console_emit_next_record(con = &lt;Value optimised away by compiler&gt;, handover = &lt;Value optimised away by compiler&gt;, cookie = &lt;Value optimised away by compiler&gt;) at printk.c:2915</span>
+<span class="s2">#2 __srcu_read_unlock_nmisafe(ssp = &lt;Value optimised away by compiler&gt;, idx = &lt;Value optimised away by compiler&gt;) at srcu.h:301</span>
+<span class="s2">#3 console_unlock() at printk.c:3049</span>
+<span class="s2">#4 vprintk_emit(facility = 0, level = -1, dev_info = (const struct dev_printk_info*) 0x0, fmt = 0xFFFF800081917728 &quot;</span>6printk:<span class="w"> </span>%s%sconsole<span class="w"> </span><span class="o">[</span>%s%d<span class="o">]</span><span class="w"> </span>enabled
+<span class="s2">&quot;, args = {__stack = (void*) 0x8, __gr_top = (void*) 0x2, __vr_top = (void*) 0x0, __gr_offs = 0, __vr_offs = 0}) at printk.c:2348</span>
+<span class="s2">#5 vprintk_default(fmt = &lt;Value not available : Undefined value in stack frame for register X0&gt;, args ERROR(CMD367-TAB183):</span>
+<span class="s2">! Error computing the variable &quot;</span>args<span class="s2">&quot;</span>
+<span class="s2">! Undefined value in stack frame for register X5</span>
+<span class="s2">) at printk.c:2364</span>
+<span class="s2">#6 vprintk(fmt = 0xFFFF800081917728 &quot;</span>6printk:<span class="w"> </span>%s%sconsole<span class="w"> </span><span class="o">[</span>%s%d<span class="o">]</span><span class="w"> </span>enabled
+<span class="s2">&quot;, args = {__stack = (void*) 0xFFFF800082533B90, __gr_top = (void*) 0xFFFF800082533B90, __vr_top = (void*) 0xFFFF800082533B50, __gr_offs = -56, __vr_offs = 0}) at printk_safe.c:46</span>
+<span class="s2">#7 _printk(fmt = &lt;Value not available : Undefined value in stack frame for register X0&gt;) at printk.c:2374</span>
+<span class="s2">#8 register_console(newcon = (struct console*) 0xFFFF8000828B4878) at printk.c:3570</span>
+<span class="s2">#9 register_earlycon(buf = (char*) 0x0, match = &lt;Value optimised away by compiler&gt;) at earlycon.c:162</span>
+<span class="s2">#10 setup_earlycon(buf = 0xFFFF800081C78847 &quot;</span>0x1c090000<span class="s2">&quot;) at earlycon.c:221</span>
+<span class="s2">#11 param_setup_earlycon(buf = &lt;Value not available : Undefined value in stack frame for register X1&gt;) at earlycon.c:245</span>
+<span class="s2">#12 do_early_param(param = 0xFFFF800081C78838 &quot;</span>earlycon<span class="s2">&quot;, val = 0xFFFF800081C78841 &quot;</span>pl011,0x1c090000<span class="s2">&quot;, unused = &lt;Value not available : Undefined value in stack frame for register X2&gt;, arg = &lt;Value not available : Undefined value in stack frame for register X3&gt;) at main.c:753</span>
+<span class="s2">#13 parse_one(param = &lt;Value optimised away by compiler&gt;, val = &lt;Value optimised away by compiler&gt;, doing = &lt;Value optimised away by compiler&gt;, params = &lt;Value optimised away by compiler&gt;, num_params = &lt;Value optimised away by compiler&gt;, min_level = &lt;Value optimised away by compiler&gt;, max_level = &lt;Value optimised away by compiler&gt;, arg = &lt;Value optimised away by compiler&gt;, handle_unknown = &lt;Value optimised away by compiler&gt;) at params.c:153</span>
+<span class="s2">#14 parse_args(doing = 0xFFFF8000819075B0 &quot;</span>early<span class="w"> </span>options<span class="s2">&quot;, args = &lt;Value not available : Undefined value in stack frame for register X1&gt;, params = (const struct kernel_param*) 0x0, num = 0, min_level = &lt;Value not available : Undefined value in stack frame for register X4&gt;, max_level = &lt;Value not available : Undefined value in stack frame for register X5&gt;, arg = &lt;Value not available : Undefined value in stack frame for register X6&gt;, unknown = init/main.c#int do_early_param( char* param, char* val, const char* unused, void* arg ) = 0xffff800081b700b8) at params.c:188</span>
+<span class="s2">#15 parse_early_param() at main.c:779</span>
+<span class="s2">#16 local_daif_restore(flags = &lt;Value optimised away by compiler&gt;) at setup.c:298</span>
+<span class="s2">#17 cpu_set_reserved_ttbr0_nosync() at daifflags.h:117</span>
+<span class="s2">#18 get_boot_config_from_initrd(_size = &lt;Value optimised away by compiler&gt;) at main.c:906</span>
+<span class="s2">#19 setup_command_line(command_line = &lt;Value optimised away by compiler&gt;) at main.c:643</span>
+<span class="s2">#20 __primary_switched() at head.S:244</span>
+</pre></div>
+<p>在串口初始化之前，也会调用printk，但是这些信息会被buffer住，等到串口设备注册好之后，才会输出到串口。 所以看到如下信息：</p>
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Booting<span class="w"> </span>Linux<span class="w"> </span>on<span class="w"> </span>physical<span class="w"> </span>CPU<span class="w"> </span>0x0000000000<span class="w"> </span><span class="o">[</span>0x410fd0f0<span class="o">]</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Linux<span class="w"> </span>version<span class="w"> </span><span class="m">6</span>.9.0-dirty<span class="w"> </span><span class="o">(</span>qixxu01@a015921<span class="o">)</span><span class="w"> </span><span class="o">(</span>aarch64-none-linux-gnu-gcc<span class="w"> </span><span class="o">(</span>Arm<span class="w"> </span>GNU<span class="w"> </span>Toolchain<span class="w"> </span><span class="m">13</span>.2.rel1<span class="w"> </span><span class="o">(</span>Build<span class="w"> </span>arm-13.7<span class="o">))</span><span class="w"> </span><span class="m">13</span>.2.1<span class="w"> </span><span class="m">20231009</span>,<span class="w"> </span>GNU<span class="w"> </span>ld<span class="w"> </span><span class="o">(</span>Arm<span class="w"> </span>GNU<span class="w"> </span>Toolchain<span class="w"> </span><span class="m">13</span>.2.rel1<span class="w"> </span><span class="o">(</span>Build<span class="w"> </span>arm-13.7<span class="o">))</span><span class="w"> </span><span class="m">2</span>.41.0.20231009<span class="o">)</span><span class="w"> </span><span class="c1">#37 SMP PREEMPT Fri May 31 16:16:32 CST 2024</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>KASLR<span class="w"> </span>disabled<span class="w"> </span>due<span class="w"> </span>to<span class="w"> </span>lack<span class="w"> </span>of<span class="w"> </span>seed
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Machine<span class="w"> </span>model:<span class="w"> </span>FVP<span class="w"> </span>Base<span class="w"> </span>RevC
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>earlycon:<span class="w"> </span>pl11<span class="w"> </span>at<span class="w"> </span>MMIO<span class="w"> </span>0x000000001c090000<span class="w"> </span><span class="o">(</span>options<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">)</span>
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>printk:<span class="w"> </span>legacy<span class="w"> </span>bootconsole<span class="w"> </span><span class="o">[</span>pl11<span class="o">]</span><span class="w"> </span>enabled
+</pre></div>
+</div>
+<div class="section" id="earlycon">
+<h2>earlycon是如何切换到正常串口？</h2>
+<p>在前面的bootargs里面，这里有给出最后console的device <strong>console=ttyAMA0</strong>：</p>
+<div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1<span class="w"> </span>rw<span class="w"> </span><span class="nv">ip</span><span class="o">=</span>dhcp<span class="w"> </span>debug<span class="w"> </span><span class="nv">user_debug</span><span class="o">=</span><span class="m">31</span><span class="w"> </span><span class="nv">loglevel</span><span class="o">=</span><span class="m">9</span>
+</pre></div>
+<p>这里指定了console对应的device，这个是在函数console_setup 里面进行解析，然后调用__add_preferred_console 来设置正常串口的信息.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">console_setup</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="c1">//...</span>
+<span class="w">        </span><span class="n">__add_preferred_console</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">brl_options</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">__setup</span><span class="p">(</span><span class="s">&quot;console=&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">console_setup</span><span class="p">);</span>
+</pre></div>
+<p>参考调用栈：</p>
+<div class="highlight"><pre><span></span><span class="c1">#0 console_setup(str = 0xFFFF800081D4DF28 &quot;ￃﾢￃﾍￂﾁ&quot;) at printk.c:2488</span>
+<span class="c1">#1 obsolete_checksetup(line = &lt;Value optimised away by compiler&gt;) at main.c:215</span>
+<span class="c1">#2 unknown_bootoption(param = 0xFFFF00087F801140 &quot;console=ttyAMA0&quot;, val = 0xFFFF00087F801148 &quot;ttyAMA0&quot;, unused = &lt;Value not available : Undefined value in stack frame for register X2&gt;, arg = &lt;Value not available : Undefined value in stack frame for register X3&gt;) at main.c:561</span>
+<span class="c1">#3 parse_one(param = &lt;Value optimised away by compiler&gt;, val = &lt;Value optimised away by compiler&gt;, doing = &lt;Value optimised away by compiler&gt;, params = &lt;Value optimised away by compiler&gt;, num_params = &lt;Value optimised away by compiler&gt;, min_level = &lt;Value optimised away by compiler&gt;, max_level = &lt;Value optimised away by compiler&gt;, arg = &lt;Value optimised away by compiler&gt;, handle_unknown = &lt;Value optimised away by compiler&gt;) at params.c:153</span>
+<span class="c1">#4 parse_args(doing = 0xFFFF800081907650 &quot;Booting kernel&quot;, args = &lt;Value not available : Undefined value in stack frame for register X1&gt;, params = (const struct kernel_param*) 0xFFFF800081B4E1B8, num = 477, min_level = &lt;Value not available : Undefined value in stack frame for register X4&gt;, max_level = &lt;Value not available : Undefined value in stack frame for register X5&gt;, arg = &lt;Value not available : Undefined value in stack frame for register X6&gt;, unknown = init/main.c#int unknown_bootoption( char* param, char* val, const char* unused, void* arg ) = 0xffff800081b703f8) at params.c:188</span>
+<span class="c1">#5 start_kernel() at main.c:917</span>
+<span class="c1">#6 __primary_switched() at head.S:244</span>
+</pre></div>
+<p>而在device tree， 中，有：</p>
+<div class="highlight"><pre><span></span>v2m_serial0:<span class="w"> </span>serial@90000<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nv">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;arm,pl011&quot;</span>,<span class="w"> </span><span class="s2">&quot;arm,primecell&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="nv">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;0x090000<span class="w"> </span>0x1000&gt;<span class="p">;</span>
+<span class="w">        </span><span class="nv">interrupts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;<span class="m">5</span>&gt;<span class="p">;</span>
+<span class="w">        </span><span class="nv">clocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;<span class="p">&amp;</span>v2m_clk24mhz&gt;,<span class="w"> </span>&lt;<span class="p">&amp;</span>v2m_clk24mhz&gt;<span class="p">;</span>
+<span class="w">        </span>clock-names<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;uartclk&quot;</span>,<span class="w"> </span><span class="s2">&quot;apb_pclk&quot;</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span>
+</pre></div>
+<p>当Linux解析device tree 的时候，会触发PL011的driver：</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">console</span><span class="w"> </span><span class="n">amba_console</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">name</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ttyAMA&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">write</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="n">pl011_console_write</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">device</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">uart_console_device</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">setup</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="n">pl011_console_setup</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">match</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="n">pl011_console_match</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">flags</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="n">CON_PRINTBUFFER</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">CON_ANYTIME</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">index</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">data</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">amba_reg</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+<p>当解析到上面的device tree 会调用pl011_probe ，在这个函数中，又会调用register_console 来注册新的console来替换boot阶段的console， 调用栈：</p>
+<div class="highlight"><pre><span></span><span class="c1">#8 register_console(newcon = (struct console*) 0xFFFF8000828B4B10) at printk.c:3572</span>
+<span class="c1">#9 uart_configure_port(drv = &lt;Value optimised away by compiler&gt;, state = &lt;Value optimised away by compiler&gt;, port = &lt;Value optimised away by compiler&gt;) at serial_core.c:2668</span>
+<span class="c1">#10 serial_core_add_one_port(drv = &lt;Value optimised away by compiler&gt;, uport = &lt;Value optimised away by compiler&gt;) at serial_core.c:3229</span>
+<span class="c1">#11 serial_ctrl_register_port(drv = &lt;Value not available : Undefined value in stack frame for register X0&gt;, port = &lt;Value not available : Undefined value in stack frame for register X1&gt;) at serial_ctrl.c:42</span>
+<span class="c1">#12 uart_add_one_port(drv = &lt;Value not available : Undefined value in stack frame for register X0&gt;, port = &lt;Value not available : Undefined value in stack frame for register X1&gt;) at serial_port.c:136</span>
+<span class="c1">#13 pl011_register_port(uap = (struct uart_amba_port*) 0xFFFF000800A41480) at amba-pl011.c:2764</span>
+<span class="c1">#14 pl011_probe(dev = (struct amba_device*) 0xFFFF000800A41000, id = &lt;Value not available : Undefined value in stack frame for register X1&gt;) at amba-pl011.c:2829</span>
+<span class="c1">#15 amba_probe(dev = (struct device*) 0xFFFF000800A41000) at bus.c:308</span>
+<span class="c1">#16 call_driver_probe(dev = &lt;Value optimised away by compiler&gt;, drv = &lt;Value optimised away by compiler&gt;) at dd.c:578</span>
+</pre></div>
+<p>在函数register_console 就完成了从earlycon到正式的console的切换，这个时候串口会有如下输出：</p>
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="w">    </span><span class="m">0</span>.196646<span class="o">]</span><span class="w"> </span>Serial:<span class="w"> </span>AMBA<span class="w"> </span>PL011<span class="w"> </span>UART<span class="w"> </span>driver
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.236878<span class="o">]</span><span class="w"> </span>1c090000.serial:<span class="w"> </span>ttyAMA0<span class="w"> </span>at<span class="w"> </span>MMIO<span class="w"> </span>0x1c090000<span class="w"> </span><span class="o">(</span><span class="nv">irq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span>,<span class="w"> </span><span class="nv">base_baud</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>PL011<span class="w"> </span>rev2
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.237034<span class="o">]</span><span class="w"> </span>printk:<span class="w"> </span>legacy<span class="w"> </span>console<span class="w"> </span><span class="o">[</span>ttyAMA0<span class="o">]</span><span class="w"> </span>enabled
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.237034<span class="o">]</span><span class="w"> </span>printk:<span class="w"> </span>legacy<span class="w"> </span>console<span class="w"> </span><span class="o">[</span>ttyAMA0<span class="o">]</span><span class="w"> </span>enabled
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.237160<span class="o">]</span><span class="w"> </span>printk:<span class="w"> </span>legacy<span class="w"> </span>bootconsole<span class="w"> </span><span class="o">[</span>pl11<span class="o">]</span><span class="w"> </span>disabled
+<span class="o">[</span><span class="w">    </span><span class="m">0</span>.237160<span class="o">]</span><span class="w"> </span>printk:<span class="w"> </span>legacy<span class="w"> </span>bootconsole<span class="w"> </span><span class="o">[</span>pl11<span class="o">]</span><span class="w"> </span>disabled
+</pre></div>
+<p>这里的log打印两次是因为这个时候老的还没有解注册，所以就会有两个console存在，会打印两次。</p>
+<p>运行到register_console的最后，earlycon也会被unregister_console_locked给删除掉。 这样就完成了从earycon到正式的console的切换。</p>
+<p>Note：别的系统可能会在start_kernel-&gt; console_init里面完成console的转换。参考：</p>
+<div class="highlight"><pre><span></span><span class="n">console_initcall</span><span class="p">(</span><span class="n">con_init</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><a href="https://geesun.github.io/posts/2024/06/earlycon_serial_port.html#disqus_thread">comments</a></p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../posts/2024/05/met_enable.html" rel="bookmark"
+                           title="Permalink to Arm64 Linux MTE 使能">Arm64 Linux MTE 使能</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <span>Thu 30 May 2024</span>
 <span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mte.html">MTE</a></span>
-</footer><!-- /.post-info --><p>在Arm Base FVP平台上，linux的默认配置是打开了MTE的，也就是：</p>
+</footer><!-- /.post-info -->                <p>在Arm Base FVP平台上，linux的默认配置是打开了MTE的，也就是：</p>
 <div class="highlight"><pre><span></span><span class="n">CONFIG_ARM64_AS_HAS_MTE</span><span class="o">=</span><span class="n">y</span>
 <span class="n">CONFIG_ARM64_MTE</span><span class="o">=</span><span class="n">y</span>
 </pre></div>
@@ -36,121 +277,10 @@
 <p>这个时候运行Linux kernel的时候会出现如下错误：</p>
 <div class="highlight"><pre><span></span><span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU<span class="w"> </span>features:<span class="w"> </span>detected:<span class="w"> </span>Virtualization<span class="w"> </span>Host<span class="w"> </span>Extensions
 <span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU<span class="w"> </span>features:<span class="w"> </span>detected:<span class="w"> </span>Memory<span class="w"> </span>Tagging<span class="w"> </span>Extension
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU<span class="w"> </span>features:<span class="w"> </span>detected:<span class="w"> </span>Asymmetric<span class="w"> </span>MTE<span class="w"> </span>Tag<span class="w"> </span>Check<span class="w"> </span>Fault
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Internal<span class="w"> </span>error:<span class="w"> </span>Oops<span class="w"> </span>-<span class="w"> </span>Undefined<span class="w"> </span>instruction:<span class="w"> </span><span class="m">0000000002000000</span><span class="w"> </span><span class="o">[</span><span class="c1">#1] PREEMPT SMP</span>
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Modules<span class="w"> </span>linked<span class="w"> </span><span class="k">in</span>:
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU:<span class="w"> </span><span class="m">0</span><span class="w"> </span>PID:<span class="w"> </span><span class="m">0</span><span class="w"> </span>Comm:<span class="w"> </span>swapper<span class="w"> </span>Not<span class="w"> </span>tainted<span class="w"> </span><span class="m">6</span>.10.0-rc1-00013-g2bfcfd584ff5<span class="w"> </span><span class="c1">#2</span>
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Hardware<span class="w"> </span>name:<span class="w"> </span>FVP<span class="w"> </span>Base<span class="w"> </span>RevC<span class="w"> </span><span class="o">(</span>DT<span class="o">)</span>
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>pstate:<span class="w"> </span>200000c9<span class="w"> </span><span class="o">(</span>nzCv<span class="w"> </span>daIF<span class="w"> </span>-PAN<span class="w"> </span>-UAO<span class="w"> </span>-TCO<span class="w"> </span>-DIT<span class="w"> </span>-SSBS<span class="w"> </span><span class="nv">BTYPE</span><span class="o">=</span>--<span class="o">)</span>
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>pc<span class="w"> </span>:<span class="w"> </span>mte_cpu_setup+0x2c/0x74
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>lr<span class="w"> </span>:<span class="w"> </span>cpu_enable_mte+0x30/0x14c
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>sp<span class="w"> </span>:<span class="w"> </span>ffff800082623db0
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x29:<span class="w"> </span>ffff800082623db0<span class="w"> </span>x28:<span class="w"> </span>00000000fe6d4c40<span class="w"> </span>x27:<span class="w"> </span><span class="m">0000000000000000</span>
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x26:<span class="w"> </span>ffff800081b8ff30<span class="w"> </span>x25:<span class="w"> </span>ffff800082629b40<span class="w"> </span>x24:<span class="w"> </span>ffff800082ae3000
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x23:<span class="w"> </span><span class="m">0000000000000004</span><span class="w"> </span>x22:<span class="w"> </span>ffff800082ae3250<span class="w"> </span>x21:<span class="w"> </span>ffff800081b92000
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x20:<span class="w"> </span>ffff800081b91458<span class="w"> </span>x19:<span class="w"> </span>ffff800081b912f8<span class="w"> </span>x18:<span class="w"> </span><span class="m">0000000000000006</span>
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x17:<span class="w"> </span>687469726f676c61<span class="w"> </span>x16:<span class="w"> </span>2046454420504d49<span class="w"> </span>x15:<span class="w"> </span>ffff800082623800
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x14:<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span>x13:<span class="w"> </span>ffff800082641f90<span class="w"> </span>x12:<span class="w"> </span><span class="m">0000000000000072</span>
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x11:<span class="w"> </span><span class="m">0000000000000026</span><span class="w"> </span>x10:<span class="w"> </span>ffff800082699f90<span class="w"> </span>x9<span class="w"> </span>:<span class="w"> </span>ffff800082641f90
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x8<span class="w"> </span>:<span class="w"> </span>00000000ffffefff<span class="w"> </span>x7<span class="w"> </span>:<span class="w"> </span>000000000000003c<span class="w"> </span>x6<span class="w"> </span>:<span class="w"> </span>000000000000000f
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x5<span class="w"> </span>:<span class="w"> </span>00000000410fd0f0<span class="w"> </span>x4<span class="w"> </span>:<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span>x3<span class="w"> </span>:<span class="w"> </span><span class="m">0000000000000001</span>
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>x2<span class="w"> </span>:<span class="w"> </span><span class="m">0314000040000321</span><span class="w"> </span>x1<span class="w"> </span>:<span class="w"> </span>000000040044ffff<span class="w"> </span>x0<span class="w"> </span>:<span class="w"> </span>000000000001ffff
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Call<span class="w"> </span>trace:
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>mte_cpu_setup+0x2c/0x74
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>enable_cpu_capabilities+0x90/0xe4
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>setup_boot_cpu_features+0x34/0x44
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>smp_prepare_boot_cpu+0x34/0x40
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>start_kernel+0x1a4/0x708
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w">  </span>__primary_switched+0x80/0x88
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Code:<span class="w"> </span>eb00003f<span class="w"> </span><span class="m">54000040</span><span class="w"> </span>d518a200<span class="w"> </span>b24043e0<span class="w"> </span><span class="o">(</span>d51810c0<span class="o">)</span>
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>---<span class="o">[</span><span class="w"> </span>end<span class="w"> </span>trace<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span><span class="o">]</span>---
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>Kernel<span class="w"> </span>panic<span class="w"> </span>-<span class="w"> </span>not<span class="w"> </span>syncing:<span class="w"> </span>Attempted<span class="w"> </span>to<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>the<span class="w"> </span>idle<span class="w"> </span>task!
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>---<span class="o">[</span><span class="w"> </span>end<span class="w"> </span>Kernel<span class="w"> </span>panic<span class="w"> </span>-<span class="w"> </span>not<span class="w"> </span>syncing:<span class="w"> </span>Attempted<span class="w"> </span>to<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>the<span class="w"> </span>idle<span class="w"> </span>task!<span class="w"> </span><span class="o">]</span>---
-</pre></div>
-<p>这里出现这个错误的原因是写寄存器 GCR_EL1的时候出现了Undefined instruction。 对应的代码和汇编：</p>
-<div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">mte_cpu_setup</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="c1">//...</span>
-<span class="w">        </span><span class="n">write_sysreg_s</span><span class="p">(</span><span class="n">KERNEL_GCR_EL1</span><span class="p">,</span><span class="w"> </span><span class="n">SYS_GCR_EL1</span><span class="p">);</span>
-</pre></div>
-<div class="highlight"><pre><span></span><span class="nl">mte_cpu_setup:</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF800080031210</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MRS</span><span class="w">      </span><span class="no">x0</span><span class="p">,</span><span class="no">TTBR0_EL1</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF800080031214</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">TBNZ</span><span class="w">     </span><span class="no">w0</span><span class="p">,</span><span class="mi">#0</span><span class="p">,{</span><span class="no">pc</span><span class="p">}</span><span class="err">+</span><span class="mi">104</span><span class="w"> </span><span class="c1">; 0xFFFF80008003127C</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF800080031218</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MRS</span><span class="w">      </span><span class="no">x0</span><span class="p">,</span><span class="no">TTBR1_EL1</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF80008003121C</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">TBNZ</span><span class="w">     </span><span class="no">w0</span><span class="p">,</span><span class="mi">#0</span><span class="p">,{</span><span class="no">pc</span><span class="p">}</span><span class="err">+</span><span class="mi">100</span><span class="w"> </span><span class="c1">; 0xFFFF800080031280</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF800080031220</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MRS</span><span class="w">      </span><span class="no">x1</span><span class="p">,</span><span class="no">MAIR_EL1</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF800080031224</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">AND</span><span class="w">      </span><span class="no">x0</span><span class="p">,</span><span class="no">x1</span><span class="p">,</span><span class="mi">#0</span><span class="no">xffffffffffff00ff</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF800080031228</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">ORR</span><span class="w">      </span><span class="no">x0</span><span class="p">,</span><span class="no">x0</span><span class="p">,</span><span class="mi">#0</span><span class="no">xf000</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF80008003122C</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">CMP</span><span class="w">      </span><span class="no">x1</span><span class="p">,</span><span class="no">x0</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF800080031230</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B.EQ</span><span class="w">     </span><span class="p">{</span><span class="no">pc</span><span class="p">}</span><span class="err">+</span><span class="mi">8</span><span class="w"> </span><span class="c1">; 0xFFFF800080031238</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF800080031234</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MSR</span><span class="w">      </span><span class="no">MAIR_EL1</span><span class="p">,</span><span class="no">x0</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF800080031238</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">ORR</span><span class="w">      </span><span class="no">x0</span><span class="p">,</span><span class="no">xzr</span><span class="p">,</span><span class="mi">#0</span><span class="no">x1ffff</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">xFFFF80008003123C</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MSR</span><span class="w">      </span><span class="no">GCR_EL1</span><span class="p">,</span><span class="no">x0</span>
-</pre></div>
-<p>根据Arm Arm D23.2.47的定义：</p>
-<div class="highlight"><pre><span></span><span class="c1">//....</span>
-<span class="n">elsif</span><span class="w"> </span><span class="n">PSTATE</span><span class="p">.</span><span class="n">EL</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EL2</span><span class="w"> </span><span class="n">then</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">HaveEL</span><span class="p">(</span><span class="n">EL3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">EL3SDDUndefPriority</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SCR_EL3</span><span class="p">.</span><span class="n">ATA</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="w"> </span><span class="n">then</span>
-<span class="w">                </span><span class="n">UNDEFINED</span><span class="p">;</span>
-<span class="w">        </span><span class="n">elsif</span><span class="w"> </span><span class="n">HaveEL</span><span class="p">(</span><span class="n">EL3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">SCR_EL3</span><span class="p">.</span><span class="n">ATA</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="w"> </span><span class="n">then</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">EL3SDDUndef</span><span class="p">()</span><span class="w"> </span><span class="n">then</span>
-<span class="w">                        </span><span class="n">UNDEFINED</span><span class="p">;</span>
-<span class="w">                </span><span class="k">else</span>
-<span class="w">                        </span><span class="n">AArch64</span><span class="p">.</span><span class="n">SystemAccessTrap</span><span class="p">(</span><span class="n">EL3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x18</span><span class="p">);</span>
-<span class="w">        </span><span class="k">else</span>
-<span class="w">                </span><span class="n">GCR_EL1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">];</span>
-</pre></div>
-<p>再在armdbg里检查一下SCR_EL3.ATA</p>
-<div class="highlight"><pre><span></span>&gt;p/t<span class="w"> </span><span class="nv">$SCR_EL3</span>
-<span class="nv">$3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">110000011100110001</span>
-&gt;p/t<span class="w"> </span><span class="nv">$SCR_EL3</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="m">26</span>
-<span class="nv">$4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
-</pre></div>
-<p>基本上可以确定在TF-A里面没有使能这个ATA bit， 修改TF-A的编译参数，在编译时加上 ENABLE_FEAT_MTE2=1 ：</p>
-<div class="highlight"><pre><span></span>make<span class="w"> </span><span class="nv">PLAT</span><span class="o">=</span>fvp<span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">BL33</span><span class="o">=</span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/u-boot/u-boot.bin<span class="w"> </span>all<span class="w"> </span>fip<span class="w"> </span><span class="nv">V</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">ENABLE_FEAT_MTE2</span><span class="o">=</span><span class="m">1</span>
-</pre></div>
-<p>再检查SCR_EL3的值， Linux就可以正常boot了。</p>
-<div class="highlight"><pre><span></span>&gt;p/t<span class="w"> </span><span class="nv">$SCR_EL3</span>
-<span class="nv">$4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100000000110000011100110001</span>
-&gt;p/t<span class="w"> </span><span class="nv">$SCR_EL3</span><span class="w"> </span>&gt;&gt;25
-<span class="nv">$10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span>
-</pre></div>
-<div class="section" id="section-1">
-<h2>一些别的小技巧</h2>
-<p>如果想在boot阶段临时把MTE feature 给临时关闭掉，可以在bootargs里面加上参数arm64.nomte：</p>
-<p>u-boot 里面修改：</p>
-<div class="highlight"><pre><span></span><span class="nv">CONFIG_BOOTARGS</span><span class="o">=</span><span class="se">\&quot;</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1<span class="w"> </span>rw<span class="w"> </span><span class="nv">ip</span><span class="o">=</span>dhcp<span class="w"> </span>debug<span class="w"> </span><span class="nv">user_debug</span><span class="o">=</span><span class="m">31</span><span class="w"> </span><span class="nv">loglevel</span><span class="o">=</span><span class="m">9</span><span class="w"> </span>arm64.nomte<span class="w"> </span><span class="se">\&quot;</span>
-</pre></div>
-<p>u-boot 启动阶段临时修改：</p>
-<div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1<span class="w"> </span>rw<span class="w"> </span><span class="nv">ip</span><span class="o">=</span>dhcp<span class="w"> </span>debug<span class="w"> </span><span class="nv">user_debug</span><span class="o">=</span><span class="m">31</span><span class="w"> </span><span class="nv">loglevel</span><span class="o">=</span><span class="m">9</span>
-</pre></div>
-<p>参考代码 arch/arm64/kernel/pi/idreg-override.c：</p>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">char</span><span class="w">    </span><span class="n">alias</span><span class="p">[</span><span class="n">FTR_ALIAS_NAME_LEN</span><span class="p">];</span>
-<span class="w">        </span><span class="kt">char</span><span class="w">    </span><span class="n">feature</span><span class="p">[</span><span class="n">FTR_ALIAS_OPTION_LEN</span><span class="p">];</span>
-<span class="p">}</span><span class="w"> </span><span class="n">aliases</span><span class="p">[]</span><span class="w"> </span><span class="n">__initconst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;kvm_arm.mode=nvhe&quot;</span><span class="p">,</span><span class="w">          </span><span class="s">&quot;id_aa64mmfr1.vh=0&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;kvm_arm.mode=protected&quot;</span><span class="p">,</span><span class="w">     </span><span class="s">&quot;id_aa64mmfr1.vh=0&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;arm64.nosve&quot;</span><span class="p">,</span><span class="w">                </span><span class="s">&quot;id_aa64pfr0.sve=0&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;arm64.nosme&quot;</span><span class="p">,</span><span class="w">                </span><span class="s">&quot;id_aa64pfr1.sme=0&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;arm64.nobti&quot;</span><span class="p">,</span><span class="w">                </span><span class="s">&quot;id_aa64pfr1.bt=0&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;arm64.nopauth&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="s">&quot;id_aa64isar1.gpi=0 id_aa64isar1.gpa=0 &quot;</span>
-<span class="w">          </span><span class="s">&quot;id_aa64isar1.api=0 id_aa64isar1.apa=0 &quot;</span>
-<span class="w">          </span><span class="s">&quot;id_aa64isar2.gpa3=0 id_aa64isar2.apa3=0&quot;</span><span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;arm64.nomops&quot;</span><span class="p">,</span><span class="w">               </span><span class="s">&quot;id_aa64isar2.mops=0&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;arm64.nomte&quot;</span><span class="p">,</span><span class="w">                </span><span class="s">&quot;id_aa64pfr1.mte=0&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;nokaslr&quot;</span><span class="p">,</span><span class="w">                    </span><span class="s">&quot;arm64_sw.nokaslr=1&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;rodata=off&quot;</span><span class="p">,</span><span class="w">                 </span><span class="s">&quot;arm64_sw.rodataoff=1&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;arm64.nolva&quot;</span><span class="p">,</span><span class="w">                </span><span class="s">&quot;id_aa64mmfr2.varange=0&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-<p><a href="https://geesun.github.io/posts/2024/05/met_enable.html#disqus_thread">comments</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+<span class="o">[</span><span class="w">    </span><span class="m">0 …</span></pre></div>
+                <a class="readmore" href="../posts/2024/05/met_enable.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/met_enable.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -167,31 +297,12 @@
                 <a class="readmore" href="../posts/2024/05/setup_tf_a_u_boot_linux_fvp.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/setup_tf_a_u_boot_linux_fvp.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/05/idmap_pg_dir.html" rel="bookmark"
-                           title="Permalink to idmap_pg_dir页表">idmap_pg_dir页表</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Mon 27 May 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a></span>
-</footer><!-- /.post-info -->                <p>当主CPU启动完成之后，已经把页表设置成了swapper_pg_dir， 到这里为止，kernel一般情况下是不再需要idmap这个页表的，但是还是有些特殊情况下需要idmap：</p>
-<ul class="simple">
-<li><dl class="first docutils">
-<dt>第二个CPU启动</dt>
-<dd>当第二个CPU启动的时候，MMU是关闭的。要设置TTBR1 到swapper_pg_dir 之 …</dd></dl></li></ul>
-                <a class="readmore" href="../posts/2024/05/idmap_pg_dir.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/idmap_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
             </ol><!-- /#posts-list -->
 <nav>
   <ul>
-    <li>Page 1 / 3</li>
+    <li>Page 1 / 4</li>
         <li><a href="../author/qixiang-xu2.html">&rang;</a></li>
-        <li><a href="../author/qixiang-xu3.html">&Rang;</a></li>
+        <li><a href="../author/qixiang-xu4.html">&Rang;</a></li>
   </ul>
 </nav>
             </section><!-- /#content -->

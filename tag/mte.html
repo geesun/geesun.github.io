@@ -116,10 +116,10 @@
 <span class="nv">$10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span>
 </pre></div>
 <div class="section" id="section-1">
-<h2>一些别的小技巧</h2>
+<h2>小技巧</h2>
 <p>如果想在boot阶段临时把MTE feature 给临时关闭掉，可以在bootargs里面加上参数arm64.nomte：</p>
 <p>u-boot 里面修改：</p>
-<div class="highlight"><pre><span></span><span class="nv">CONFIG_BOOTARGS</span><span class="o">=</span><span class="se">\&quot;</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1<span class="w"> </span>rw<span class="w"> </span><span class="nv">ip</span><span class="o">=</span>dhcp<span class="w"> </span>debug<span class="w"> </span><span class="nv">user_debug</span><span class="o">=</span><span class="m">31</span><span class="w"> </span><span class="nv">loglevel</span><span class="o">=</span><span class="m">9</span><span class="w"> </span>arm64.nomte<span class="w"> </span><span class="se">\&quot;</span>
+<div class="highlight"><pre><span></span><span class="nv">CONFIG_BOOTARGS</span><span class="o">=</span><span class="s2">&quot;console=ttyAMA0 earlycon=pl011,0x1c090000 root=/dev/vda1 rw ip=dhcp debug user_debug=31 loglevel=9 arm64.nomte &quot;</span>
 </pre></div>
 <p>u-boot 启动阶段临时修改：</p>
 <div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1<span class="w"> </span>rw<span class="w"> </span><span class="nv">ip</span><span class="o">=</span>dhcp<span class="w"> </span>debug<span class="w"> </span><span class="nv">user_debug</span><span class="o">=</span><span class="m">31</span><span class="w"> </span><span class="nv">loglevel</span><span class="o">=</span><span class="m">9</span>
