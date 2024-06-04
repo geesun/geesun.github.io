@@ -2,8 +2,8 @@
 <html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>Linux学习笔记</title>
-        <link rel="stylesheet" href="./theme/css/main.css" />
+        <title>Device Tree 地址映射过程</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
 
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,20 +12,25 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="./">Linux学习笔记 </a></h1>
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
                 <nav><ul>
-                    <li><a href="./category/linux.html">Linux</a></li>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/06/device_tree_mapping.html" rel="bookmark"
+           title="Permalink to Device Tree 地址映射过程">Device Tree 地址映射过程</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="./posts/2024/06/device_tree_mapping.html">Device Tree 地址映射过程</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>Tue 04 June 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/boot.html">boot</a></span>
-</footer><!-- /.post-info --><p>在Linux 的boot 阶段，Devie tree 地址是通过bootloader 传给kernel， kernel 在函数preserve_boot_args 保存在 x21这个寄存器中。</p>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a><a href="../../../tag/boot.html">boot</a></span>
+</footer><!-- /.post-info -->      <p>在Linux 的boot 阶段，Devie tree 地址是通过bootloader 传给kernel， kernel 在函数preserve_boot_args 保存在 x21这个寄存器中。</p>
 <p>但是内存相关的信息是在Device Tree里面描述的，所以Device Tree的使用是在内存管理准备好之前。 所以Device Tree的映射过程相对来说有些特殊。</p>
 <p>在Arm64平台，它需要经历三次映射：</p>
 <ul class="simple">
@@ -155,62 +160,24 @@ EL2N:0xFFFFFFFFFF601000-0xFFFFFFFFFFFFFFFF<span class="w"> </span><span class="p
 </pre></div>
 <p>这样正式的映射就建立好了，可以用VA地址读取device tree了。</p>
 </div>
-<p><a href="https://geesun.github.io/posts/2024/06/device_tree_mapping.html#disqus_thread">comments</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="./posts/2024/06/earlycon_serial_port.html" rel="bookmark"
-                           title="Permalink to Linux booting 串口">Linux booting 串口</a></h1>
-                </header>
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/06/device_tree_mapping.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/06/device_tree_mapping.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Mon 03 June 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/booting.html">booting</a><a href="./tag/serial.html">serial</a></span>
-</footer><!-- /.post-info -->                <p>在kernel booting的早期，肯定是希望尽快把一些信息输出的串口，能够尽早知道kernel boot 到什么阶段。 所以一般在u-boot中，在FVP平台上有如下bootargs</p>
-<div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1 …</pre></div>
-                <a class="readmore" href="./posts/2024/06/earlycon_serial_port.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/earlycon_serial_port.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="./posts/2024/05/met_enable.html" rel="bookmark"
-                           title="Permalink to Arm64 Linux MTE 使能">Arm64 Linux MTE 使能</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Thu 30 May 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mte.html">MTE</a></span>
-</footer><!-- /.post-info -->                <p>在Arm Base FVP平台上，linux的默认配置是打开了MTE的，也就是：</p>
-<div class="highlight"><pre><span></span><span class="n">CONFIG_ARM64_AS_HAS_MTE</span><span class="o">=</span><span class="n">y</span>
-<span class="n">CONFIG_ARM64_MTE</span><span class="o">=</span><span class="n">y</span>
-</pre></div>
-<p>当运行Base FVP的时候加上如下参数：</p>
-<div class="highlight"><pre><span></span>-C<span class="w"> </span>cluster0.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
--C<span class="w"> </span>cluster1.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
-</pre></div>
-<p>这个时候运行Linux kernel的时候会出现如下错误：</p>
-<div class="highlight"><pre><span></span><span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU<span class="w"> </span>features:<span class="w"> </span>detected:<span class="w"> </span>Virtualization<span class="w"> </span>Host<span class="w"> </span>Extensions
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU<span class="w"> </span>features:<span class="w"> </span>detected:<span class="w"> </span>Memory<span class="w"> </span>Tagging<span class="w"> </span>Extension
-<span class="o">[</span><span class="w">    </span><span class="m">0 …</span></pre></div>
-                <a class="readmore" href="./posts/2024/05/met_enable.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/met_enable.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-<nav>
-  <ul>
-    <li>Page 1 / 4</li>
-        <li><a href="./index2.html">&rang;</a></li>
-        <li><a href="./index4.html">&Rang;</a></li>
-  </ul>
-</nav>
-            </section><!-- /#content -->
+  </article>
+</section>
 
         <footer id="contentinfo" class="body">
                 <p>&copy; 2024 Qixiang Xu</p>

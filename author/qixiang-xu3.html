@@ -23,6 +23,32 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="../posts/2024/05/debugfs.html" rel="bookmark"
+                           title="Permalink to linux debugfs 使用">linux debugfs 使用</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>Thu 23 May 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->                <div class="section" id="section-1">
+<h2>内核配置</h2>
+<p>确保内核配置选项中启用了debugfs支持(CONFIG_DEBUG_FS=y)并重新编译内核</p>
+</div>
+<div class="section" id="debugfs">
+<h2>挂载debugfs文件系统</h2>
+<div class="highlight"><pre><span></span>mount<span class="w"> </span>-t<span class="w"> </span>debugfs<span class="w"> </span>none<span class="w"> </span>/sys/kernel/debug
+</pre></div>
+</div>
+<div class="section" id="kernel-page-tables">
+<h2>kernel_page_tables</h2>
+<p>确保内核配置选项中启用了如 …</p></div>
+                <a class="readmore" href="../posts/2024/05/debugfs.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/debugfs.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="../posts/2024/05/init_pg_dir.html" rel="bookmark"
                            title="Permalink to init_pg_dir页表">init_pg_dir页表</a></h1>
                 </header>
@@ -60,25 +86,6 @@ kernel在boot阶段会使用到x0寄存器，所以在primary_entry -&gt; preser
 <p>在init_idmap_pg_dir阶段，会把这个x21地址所对应的物理地址mapping到kernel结尾之后2M对的的地方，这个地方其实不是1:1的映射 …</p></div>
                 <a class="readmore" href="../posts/2024/05/fdt_mapping.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/fdt_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/05/init_idmap_pg_dir.html" rel="bookmark"
-                           title="Permalink to Arm64 Linux 下页表 init_idmap_pg_dir的使用">Arm64 Linux 下页表 init_idmap_pg_dir的使用</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Tue 21 May 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a></span>
-</footer><!-- /.post-info -->                <p>u-boot或者uefi启动kernel的时候，默认MMU是关闭的，所以这个时候kernel实际运行的地址就是物理地址。
-为了前期尽早打开MMU和cache，kernel需要建立MMU的页表，这个时候的页表是1:1映射，即VA = PA。</p>
-<div class="section" id="section-1">
-<h2>分配</h2>
-<p>这个页表是在Link 脚本中进行分配 …</p></div>
-                <a class="readmore" href="../posts/2024/05/init_idmap_pg_dir.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/init_idmap_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>
