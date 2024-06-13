@@ -371,6 +371,32 @@
 <p>这样就完成了vmemmap地址到struct page 数组的PA之间的映射。接下来有一个PA就可以直接用  __pfn_to_page 找到它对应的 struct page了。</p>
 </div>
 </div>
+<div class="section" id="subsection">
+<h2>subsection</h2>
+<p>struct mem_section 有如下字段：</p>
+<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section_usage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">rcu_head</span><span class="w"> </span><span class="n">rcu</span><span class="p">;</span>
+<span class="cp">#ifdef CONFIG_SPARSEMEM_VMEMMAP</span>
+<span class="w">        </span><span class="n">DECLARE_BITMAP</span><span class="p">(</span><span class="n">subsection_map</span><span class="p">,</span><span class="w"> </span><span class="n">SUBSECTIONS_PER_SECTION</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="w">        </span><span class="cm">/* See declaration of similar field in struct zone */</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pageblock_flags</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//....</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section_usage</span><span class="w"> </span><span class="o">*</span><span class="n">usage</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">//....</span>
+<span class="p">}</span>
+</pre></div>
+<p>在 Linux 内核中引入 subsection_map 的目的是为了提供更细粒度的内存管理，从而更有效地利用内存资源.
+在某些系统中，特别是具有内存热插拔功能的服务器系统中，内存模块可能会在系统运行时被添加或移除。</p>
+<p>一个section中，这里会给每个struct page 分配内存，但是是不是每个page 都对应有效的物理内存，这里还是不一定的。
+这个就可以通过subsection_map，如果这个subsection_map的bit 设置了，那么对应这个子段的所有struct page都有对应的物理内存和他对应。</p>
+<p>__add_pages -&gt; sparse_add_section -&gt; section_activate -&gt; fill_subsection_map 设置这个bit</p>
+<p>__remove_pages -&gt; sparse_remove_section -&gt; section_deactivate -&gt;  clear_subsection_map 清除这个bit</p>
+<p>pfn_valid -&gt; pfn_section_valid 这里会去check 这个page 在这个section中的subsection_map的bit 是不是设置了，设置了就时合法的page。否则认为这个page是不存在的。</p>
+</div>
 <div class="section" id="memory-hotplug">
 <h2>memory Hotplug</h2>
 <p>Add 可以参考__add_pages -&gt; sparse_add_section</p>
