@@ -21,415 +21,103 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="../posts/2024/06/sparse.html">Sparse内存模型的理解</a></h1>
+                    <h1 class="entry-title"><a href="../posts/2024/06/01_kmemleak.html">kmemleak的使用</a></h1>
 <footer class="post-info">
-        <span>Wed 05 June 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a></span>
-</footer><!-- /.post-info --><div class="section" id="section-1">
-<h2>解决什么问题？</h2>
-<p>内存管理以page为单位进行管理。 所以会把物理内存逻辑上切成很多的page。</p>
-<p>而每个page 都需要有一个struct page的结构来管理这个page的使用情况。而这些struct page本身也是需要占用内存空间的。</p>
-<p>如果物理内存是连续的还好，可以使用一个连续的struct page的数组来对它进行一一映射。 之前CONFIG_FLATMEM就是这么设计的。</p>
-<p>但是现实的物理内存非常有可能是不连续的，如果还是完整分配一个数组来存储struct page。 这样一来存储这个数组本身就需要很大的物理内存，中间有些空洞的部分也需要分配struct page，这些分配是没有意义的。</p>
-<p>这也就是为什么要引入Sparse内存模型。</p>
-</div>
-<div class="section" id="section-2">
-<h2>怎么解决</h2>
-<p>两种方案：</p>
-<ol class="arabic simple">
-<li>继续使用线性地址来分配struct page的数组，对应配置 CONFIG_SPARSEMEM</li>
-<li>使用连续的虚拟地址来分配struct page的数组，对应配置 CONFIG_SPARSEMEM + CONFIG_SPARSEMEM_VMEMMAP</li>
-</ol>
-<p>上面两种方案有一个共性，如果系统的物理内存有空洞，那么对于这些空洞的物理内存，系统是不需要给这些物理内存对应的struct page的数组分配空间的，也就不需要给这些struct page的数组分配物理内存。 虚拟地址分配是无所谓的。</p>
-<p>Linux中引入一个section的，在同一个section里面的物理内存（512M(64k page)/128M(4/16k page))，要么都给这些物理内存对应的struct page数组分配内存，要么全都不分配。</p>
-<p>每个section都有一个状态，如果这个section是SECTION_MARKED_PRESENT状态，就需要给他们对应的struct page数组分配内存，否则就不需要。</p>
-<p>这样那些不存在的物理内存就不需要分配对应的struct page。</p>
-</div>
-<div class="section" id="section">
-<h2>如何组织和管理section</h2>
-<p>上面说的采用section的机制，就是类似于MMU页表的分级机制，MMU页表输入的是VA。 而这里输入的是PFN.</p>
-<p>Page Frame Number（PFN）就是物理地址对应的页号。 因为系统里面的物理地址是唯一，所以这个PFN也是唯一的。</p>
-<p>拿到一个PA，可以通过：</p>
-<p>Page Frame Number (pfn) = PA &gt;&gt; PAGE_SHIFT</p>
-<p>PAGE_SHIFT = CONFIG_PAGE_SHIFT 根据选择的page size 来决定。</p>
-<p>这样就可以通过PA获取到 pfn。参考：</p>
-<div class="highlight"><pre><span></span><span class="cp">#define PFN_UP(x)       (((x) + PAGE_SIZE-1) &gt;&gt; PAGE_SHIFT)</span>
-<span class="cp">#define PFN_DOWN(x)     ((x) &gt;&gt; PAGE_SHIFT)</span>
+        <span>Wed 19 June 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info --><p>kmemleak 是一个类似在kernel 里面的Valgrind， 可以检测kernel 模块的memory leak情况。</p>
+<p>至于如何使用，kernel 里面自己的文档就已经写的很清楚，可以参考：
+Documentation/dev-tools/kmemleak.rst</p>
+<p>如果出现如下错误：</p>
+<div class="highlight"><pre><span></span><span class="c1"># echo scan &gt; /sys/kernel/debug/kmemleak</span>
+sh:<span class="w"> </span>write<span class="w"> </span>error:<span class="w"> </span>Operation<span class="w"> </span>not<span class="w"> </span>permitted
 </pre></div>
-<p>有了PFN之后，这里就可以把PFN分成两段，高的字段是section number， 低字段是section 里面的偏移，类似于页表的机制。 在同一个section里面的物理内存，要不全都分配struct page，要不全都不分配struct page。</p>
-<p>PFN可以通过如下方式来获取section number：</p>
-<p>section number (sec) = PFN &gt;&gt; PFN_SECTION_SHIFT</p>
-<p>参考：</p>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">pfn_to_section_nr</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pfn</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">pfn</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">PFN_SECTION_SHIFT</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="cp">#define PFN_SECTION_SHIFT       (SECTION_SIZE_BITS - PAGE_SHIFT)</span>
-</pre></div>
-<p>SECTION_SIZE_BITS 的大小根据就是你section 的大小，4k的 page为128M，64k的 page为512M。</p>
-<p>这里最大的section number是多少，就要分配多少的section 数组。这个数组的大小可以通过NR_MEM_SECTIONS来计算：</p>
-<div class="highlight"><pre><span></span><span class="cp">#define NR_MEM_SECTIONS         (1UL &lt;&lt; SECTIONS_SHIFT)</span>
-<span class="cp">#define SECTIONS_SHIFT      (MAX_PHYSMEM_BITS - SECTION_SIZE_BITS)</span>
-<span class="cp">#define MAX_PHYSMEM_BITS        CONFIG_ARM64_PA_BITS</span>
-</pre></div>
-<p>可以看出这个section 数组的大小根据PA的地址大小有关系。</p>
-<p>如果这个NR_MEM_SECTIONS 这个数组比较小，是可以给它直接分配一个一维连续的数组就可以了。</p>
-<p>举4k page size的例子，CONFIG_ARM64_PA_BITS 是48， 而SECTION_SIZE_BITS = 27 这样：</p>
-<p>NR_MEM_SECTIONS = 1 &lt;&lt; 21</p>
-<p>也是一个非常大的数，如果这里直接分配这么大的section 数组，也是需要耗费巨大的内存。</p>
-<p>为了解决这个section 大数组的问题，又加入一个root的概念，类似把页表多加了一级。
-这也就是CONFIG_SPARSEMEM_EXTREME这个配置的来源，如果物理内存大小不是很大，可以考虑不开这个配置。</p>
-<p>那一个root里面放多少section，跟MMU页表一样，每一级页表的内容都应该能够在一个页里面存储。 这里也一样，一个root里面的section数组也必须能够在一页里面放下，所以就有：</p>
-<div class="highlight"><pre><span></span><span class="cp">#ifdef CONFIG_SPARSEMEM_EXTREME</span>
-<span class="cp">#define SECTIONS_PER_ROOT       (PAGE_SIZE / sizeof (struct mem_section))</span>
-<span class="cp">#else</span>
-<span class="cp">#define SECTIONS_PER_ROOT       1</span>
-<span class="cp">#endif</span>
-</pre></div>
-<p>有了section 的number， 就可以计算出它对应的root，公式：</p>
-<p>root = ((sec) / SECTIONS_PER_ROOT)</p>
-<p>参考：</p>
-<div class="highlight"><pre><span></span><span class="cp">#define SECTION_NR_TO_ROOT(sec) ((sec) / SECTIONS_PER_ROOT)</span>
-</pre></div>
-<p>这样就解决怎么通过PA找到对应的root和对应的section。 这样就可以定义：</p>
-<div class="highlight"><pre><span></span><span class="cp">#ifdef CONFIG_SPARSEMEM_EXTREME</span>
-<span class="k">extern</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="w"> </span><span class="o">**</span><span class="n">mem_section</span><span class="p">;</span>
-<span class="cp">#else</span>
-<span class="k">extern</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="w"> </span><span class="n">mem_section</span><span class="p">[</span><span class="n">NR_SECTION_ROOTS</span><span class="p">][</span><span class="n">SECTIONS_PER_ROOT</span><span class="p">];</span>
-<span class="cp">#endif</span>
-</pre></div>
-<p>当配置了CONFIG_SPARSEMEM_EXTREME 之后，mem_section会首先分配NR_SECTION_ROOTS的一维指针，然后mem_section[i]只有等到它需要的时候才给他分配1个page的内存。</p>
-<p>不需要就可以不分配，这样就解决了section数组占用空间过多的问题。</p>
-<div class="section" id="section-3">
-<h3>section数组的分配</h3>
-<p>先不关注struct mem_section的具体细节，前面有提到当CONFIG_SPARSEMEM_EXTREME使能时，这里就不再是静态分配了。</p>
-<p>在函数sparse_init-&gt; memblocks_present -&gt; memory_present 会根据启动阶段已经解析的memblock信息来分配section数组。</p>
-<ol class="arabic simple">
-<li>第一步就是分配section root 相关的数组,系统需要多少个root，就分配多少struct mem_section * ：</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">memory_present</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pfn</span><span class="p">;</span>
+<p>这个可能是在kernel中的配置使能了CONFIG_DEBUG_KMEMLEAK_DEFAULT_OFF 或者是boot arg里面有：kmemleak=off 。</p>
+<p>解决办法就是去掉 CONFIG_DEBUG_KMEMLEAK_DEFAULT_OFF 这个配置或者在bootargs 里面加上 kmemleak=on 即可解决。</p>
+<p>参考如下log：</p>
+<div class="highlight"><pre><span></span><span class="c1"># modprobe kmemleak-test</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.184144<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>Kmemleak<span class="w"> </span>testing
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.184233<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">32</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.184335<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">32</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.184436<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">1024</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.184538<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">1024</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.184640<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">2048</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.184742<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">2048</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.184843<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">4096</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.184946<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">4096</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.185164<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>vmalloc<span class="o">(</span><span class="m">64</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.185368<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>vmalloc<span class="o">(</span><span class="m">64</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.185573<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>vmalloc<span class="o">(</span><span class="m">64</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.185778<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>vmalloc<span class="o">(</span><span class="m">64</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.185984<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>vmalloc<span class="o">(</span><span class="m">64</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.186086<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.186193<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.186299<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.186488<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.186595<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.186701<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.186809<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.186916<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187023<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187131<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kzalloc<span class="o">(</span>sizeof<span class="o">(</span>*elem<span class="o">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187239<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">129</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187339<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">129</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187440<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">129</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187540<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">129</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187641<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">129</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187743<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">129</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187843<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">129</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">560</span>.187944<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span>kmalloc<span class="o">(</span><span class="m">129</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>____ptrval____<span class="o">)</span>
+<span class="c1"># echo scan &gt; /sys/kernel/debug/kmemleak</span>
 
-<span class="cp">#ifdef CONFIG_SPARSEMEM_EXTREME</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">mem_section</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">align</span><span class="p">;</span>
-
-<span class="w">                </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">NR_SECTION_ROOTS</span><span class="p">;</span>
-<span class="w">                </span><span class="n">align</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">INTERNODE_CACHE_SHIFT</span><span class="p">);</span>
-<span class="w">                </span><span class="n">mem_section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memblock_alloc</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">align</span><span class="p">);</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">mem_section</span><span class="p">)</span>
-<span class="w">                        </span><span class="n">panic</span><span class="p">(</span><span class="s">&quot;%s: Failed to allocate %lu bytes align=0x%lx</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">__func__</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">align</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="cp">#endif</span>
+<span class="o">[</span><span class="w">  </span><span class="m">696</span>.107594<span class="o">]</span><span class="w"> </span>kmemleak:<span class="w"> </span><span class="m">12</span><span class="w"> </span>new<span class="w"> </span>suspected<span class="w"> </span>memory<span class="w"> </span>leaks<span class="w"> </span><span class="o">(</span>see<span class="w"> </span>/sys/kernel/debug/kmemleak<span class="o">)</span>
+<span class="c1">#</span>
+<span class="c1"># cat /sys/kernel/debug/kmemleak</span>
+unreferenced<span class="w"> </span>object<span class="w"> </span>0xffff00080089f9a0<span class="w"> </span><span class="o">(</span>size<span class="w"> </span><span class="m">32</span><span class="o">)</span>:
+<span class="w">  </span>comm<span class="w"> </span><span class="s2">&quot;modprobe&quot;</span>,<span class="w"> </span>pid<span class="w"> </span><span class="m">153</span>,<span class="w"> </span>jiffies<span class="w"> </span><span class="m">4295032338</span>
+<span class="w">  </span>hex<span class="w"> </span>dump<span class="w"> </span><span class="o">(</span>first<span class="w"> </span><span class="m">32</span><span class="w"> </span>bytes<span class="o">)</span>:
+<span class="w">    </span>cf<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>cf<span class="w"> </span>cf<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>cf<span class="w">  </span>................
+<span class="w">    </span>c0<span class="w"> </span>f9<span class="w"> </span><span class="m">89</span><span class="w"> </span><span class="m">00</span><span class="w"> </span><span class="m">08</span><span class="w"> </span><span class="m">00</span><span class="w"> </span>ff<span class="w"> </span>ff<span class="w"> </span>cf<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>df<span class="w"> </span>cf<span class="w">  </span>................
+<span class="w">  </span>backtrace<span class="w"> </span><span class="o">(</span>crc<span class="w"> </span>271abd9a<span class="o">)</span>:
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>kmemleak_alloc+0x34/0x40
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>kmalloc_trace+0x1d8/0x284
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>kmemleak_test_init+0x50/0x2a8<span class="w"> </span><span class="o">[</span>kmemleak_test<span class="o">]</span>
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>do_one_initcall+0x80/0x1c8
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>do_init_module+0x60/0x218
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>load_module+0x1bbc/0x1d88
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>init_module_from_file+0x88/0xcc
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>__arm64_sys_finit_module+0x1dc/0x2e4
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>invoke_syscall+0x48/0x114
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>el0_svc_common.constprop.0+0x40/0xe0
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>do_el0_svc+0x1c/0x28
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>el0_svc+0x34/0xd8
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>el0t_64_sync_handler+0x120/0x12c
+<span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>el0t_64_sync+0x190/0x194
 </pre></div>
-<ol class="arabic simple" start="2">
-<li>第二步根据memblock的信息，找到它所对应的root，如mem_section[i]，给它分配这个root里面SECTIONS_PER_ROOT个struct mem_section，即：</li>
-</ol>
-<p>sparse_init-&gt; memblocks_present -&gt; memory_present -&gt; sparse_index_init -&gt; sparse_index_alloc</p>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">noinline</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="w"> </span><span class="n">__ref</span><span class="w"> </span><span class="o">*</span><span class="n">sparse_index_alloc</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">nid</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="w"> </span><span class="o">*</span><span class="n">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">array_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SECTIONS_PER_ROOT</span><span class="w"> </span><span class="o">*</span>
-<span class="w">                                   </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="p">);</span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">slab_is_available</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kzalloc_node</span><span class="p">(</span><span class="n">array_size</span><span class="p">,</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">,</span><span class="w"> </span><span class="n">nid</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">section</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memblock_alloc_node</span><span class="p">(</span><span class="n">array_size</span><span class="p">,</span><span class="w"> </span><span class="n">SMP_CACHE_BYTES</span><span class="p">,</span>
-<span class="w">                                              </span><span class="n">nid</span><span class="p">);</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">section</span><span class="p">)</span>
-<span class="w">                        </span><span class="n">panic</span><span class="p">(</span><span class="s">&quot;%s: Failed to allocate %lu bytes nid=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-<span class="w">                              </span><span class="n">__func__</span><span class="p">,</span><span class="w"> </span><span class="n">array_size</span><span class="p">,</span><span class="w"> </span><span class="n">nid</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">section</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-<p>可以看出，当slab没有好的时候，就直接使用memblock来分配，并且返回的是线性地址。</p>
-</div>
-</div>
-<div class="section" id="struct-page">
-<h2>物理地址如何索引struct page</h2>
-<p>前面说过拿到一个PA，可以很容易获取PFN。 这里先看一下section这个结构体：</p>
-<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="cm">/*</span>
-<span class="cm">         * This is, logically, a pointer to an array of struct</span>
-<span class="cm">         * pages.  However, it is stored with some other magic.</span>
-<span class="cm">         * (see sparse.c::sparse_init_one_section())</span>
-<span class="cm">         *</span>
-<span class="cm">         * Additionally during early boot we encode node id of</span>
-<span class="cm">         * the location of the section here to guide allocation.</span>
-<span class="cm">         * (see sparse.c::memory_present())</span>
-<span class="cm">         *</span>
-<span class="cm">         * Making it a UL at least makes someone do a cast</span>
-<span class="cm">         * before using it wrong.</span>
-<span class="cm">         */</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">section_mem_map</span><span class="p">;</span>
-</pre></div>
-<p>section_mem_map 这个值是struct page数组所在的位置起始地址，这里面还还有别的信息。这里先不管它。</p>
-<p>这个起始地址可以是线性地址，也可以是vmemmap地址。 这个就回到前面说的两种管理方式。</p>
-<div class="section" id="struct-page-1">
-<h3>struct page数组在哪里分配</h3>
-<p>在linux boot到sparse_init -&gt; sparse_init_nid ,有代码：</p>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">sparse_init_nid</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pnum_begin</span><span class="p">,</span>
-<span class="w">                                   </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pnum_end</span><span class="p">,</span>
-<span class="w">                                   </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">map_count</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="c1">//..</span>
-<span class="w">        </span><span class="n">for_each_present_section_nr</span><span class="p">(</span><span class="n">pnum_begin</span><span class="p">,</span><span class="w"> </span><span class="n">pnum</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-
-<span class="w">                </span><span class="c1">//1. 这里负责分配 struct page 对应的数组</span>
-<span class="w">                </span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__populate_section_memmap</span><span class="p">(</span><span class="n">pfn</span><span class="p">,</span><span class="w"> </span><span class="n">PAGES_PER_SECTION</span><span class="p">,</span>
-<span class="w">                                </span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
-<span class="w">                </span><span class="c1">//...</span>
-
-<span class="w">                </span><span class="c1">//2. 这里负责把这个struct page 对应的数组的基地址跟section中的section_mem_map建立关系</span>
-<span class="w">                </span><span class="n">sparse_init_one_section</span><span class="p">(</span><span class="n">__nr_to_section</span><span class="p">(</span><span class="n">pnum</span><span class="p">),</span><span class="w"> </span><span class="n">pnum</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="p">,</span><span class="w"> </span><span class="n">usage</span><span class="p">,</span>
-<span class="w">                                </span><span class="n">SECTION_IS_EARLY</span><span class="p">);</span>
-
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="c1">//....</span>
-<span class="p">}</span>
-</pre></div>
-<p>__populate_section_memmap 负责分配struct page 对应的数组的内存，就在这里就有两种分配的方式。</p>
-<ul>
-<li><dl class="first docutils">
-<dt>线性地址</dt>
-<dd><p class="first last">先通过memblock给它分配物理地址，再通过phys_to_virt把它转成线性地址。 参考函数：memblock_alloc_internal</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>vmemmap地址</dt>
-<dd><p class="first">当开启CONFIG_SPARSEMEM_VMEMMAP配置之后，先给它分配vmemmap里面的虚拟地址，然后再通过memblock给它分配物理地址，再把这个虚拟地址和物理地址在MMU页表里面给映射上。</p>
-<p class="last">而这个vmemmap虚拟地址可以通过PFN来1:1 映射。 参考函数：</p>
-</dd>
-</dl>
-</li>
-</ul>
-<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">__meminit</span><span class="w"> </span><span class="n">__populate_section_memmap</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pfn</span><span class="p">,</span>
-<span class="w">                </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nr_pages</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">vmem_altmap</span><span class="w"> </span><span class="o">*</span><span class="n">altmap</span><span class="p">,</span>
-<span class="w">                </span><span class="k">struct</span><span class="w"> </span><span class="nc">dev_pagemap</span><span class="w"> </span><span class="o">*</span><span class="n">pgmap</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="c1">//vmemmap里面找到对应的虚拟地址，这里是1:1映射的</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="w"> </span><span class="n">pfn_to_page</span><span class="p">(</span><span class="n">pfn</span><span class="p">);</span>
-
-<span class="w">        </span><span class="c1">//这两个函数里面会给它分配真正的物理地址，在把这个vmemmap 给mapping 上</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">vmemmap_can_optimize</span><span class="p">(</span><span class="n">altmap</span><span class="p">,</span><span class="w"> </span><span class="n">pgmap</span><span class="p">))</span>
-<span class="w">                </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vmemmap_populate_compound_pages</span><span class="p">(</span><span class="n">pfn</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="n">pgmap</span><span class="p">);</span>
-<span class="w">        </span><span class="k">else</span>
-<span class="w">                </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vmemmap_populate</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="n">altmap</span><span class="p">);</span>
-<span class="w">        </span><span class="c1">//返回的是vmemmap</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">pfn_to_page</span><span class="p">(</span><span class="n">pfn</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-<p>因为一个section里面对应的struct page数组是比较大的，可能会在MMU中会使用block mapping 的方式，所以这里也就是为什么有如下定义的原因，这下面这些size可以改，但是改了之后就不是最优了，就没办法利用的block 的mapping，以达到节省TLB的目的：</p>
-<div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm"> * Section size must be at least 512MB for 64K base</span>
-<span class="cm"> * page size config. Otherwise it will be less than</span>
-<span class="cm"> * MAX_PAGE_ORDER and the build process will fail.</span>
-<span class="cm"> */</span>
-<span class="cp">#ifdef CONFIG_ARM64_64K_PAGES</span>
-<span class="cp">#define SECTION_SIZE_BITS 29</span>
-
-<span class="cp">#else</span>
-
-<span class="cm">/*</span>
-<span class="cm"> * Section size must be at least 128MB for 4K base</span>
-<span class="cm"> * page size config. Otherwise PMD based huge page</span>
-<span class="cm"> * entries could not be created for vmemmap mappings.</span>
-<span class="cm"> * 16K follows 4K for simplicity.</span>
-<span class="cm"> */</span>
-<span class="cp">#define SECTION_SIZE_BITS 27</span>
-<span class="cp">#endif </span><span class="cm">/* CONFIG_ARM64_64K_PAGES */</span>
-</pre></div>
-<p>再来看下这些struct page 数组具体的分配细节，在sparse_init -&gt; sparse_init_nid -&gt; sparse_buffer_init 会预先给每个NUMA Node分配一个大的memblock内存，这个分配的memblock内存正好可以放下这个Node里面对应的所有struct page 数组。 这个内存的大小的计算方法：</p>
-<p>size = 这个NUMA node下面 总的 section number  * section_map_size()</p>
-<div class="highlight"><pre><span></span><span class="cp">#ifdef CONFIG_SPARSEMEM_VMEMMAP</span>
-<span class="k">static</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">section_map_size</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ALIGN</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PAGES_PER_SECTION</span><span class="p">,</span><span class="w"> </span><span class="n">PMD_SIZE</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="cp">#else</span>
-<span class="k">static</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">section_map_size</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">PAGE_ALIGN</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PAGES_PER_SECTION</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-<p>在section_map_size 里面的对齐就跟SECTION_SIZE_BITS = 27是有一些关系的。 所以说当CONFIG_SPARSEMEM_VMEMMAP打开时，这里会使用 blocking mapping。
-而CONFIG_SPARSEMEM_VMEMMAP没有使能时，它最后使用的是线性地址，都是一个page一个page mapping的，所以也就是page 对齐就可以啦。</p>
-<p>这里不管使用的是线性地址还是vmemmap地址分配struct page数组是，不管怎么样，都是需要物理内存来保存这些数据， 所以这部分内存都是要从memblock里面分配。</p>
-<p>在这些分配好了之后，接下来就是怎么把这些分给一个一个section，让它的section_mem_map 指向对应的地方。</p>
-</div>
-<div class="section" id="section-mem-map">
-<h3>1. section_mem_map 为线性地址</h3>
-<p>在没有使能CONFIG_SPARSEMEM_VMEMMAP时，函数sparse_init -&gt; sparse_init_nid -&gt; __populate_section_memmap 会去到上面的分配的那个buffer 里面去分配这个section对应的struct page数组对应的内存，这个地址就是线性地址。</p>
-<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="o">*</span><span class="nf">__populate_section_memmap</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pfn</span><span class="p">,</span>
-<span class="w">                </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nr_pages</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">vmem_altmap</span><span class="w"> </span><span class="o">*</span><span class="n">altmap</span><span class="p">,</span>
-<span class="w">                </span><span class="k">struct</span><span class="w"> </span><span class="nc">dev_pagemap</span><span class="w"> </span><span class="o">*</span><span class="n">pgmap</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">section_map_size</span><span class="p">();</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sparse_buffer_alloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
-<span class="w">        </span><span class="n">这里这个map就是对应一个section的struct</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="n">map的基地址</span>
-<span class="w">        </span><span class="c1">//....</span>
-
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">map</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-<p>获得了这些struct page数组的基地址之后，在 sparse_init_one_section -&gt; sparse_encode_mem_map</p>
-<p>section_mem_map = 这个struct page的基地值 减去这个section所映射的起始PFN。</p>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">sparse_encode_mem_map</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="n">mem_map</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pnum</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">coded_mem_map</span><span class="w"> </span><span class="o">=</span>
-<span class="w">                </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)(</span><span class="n">mem_map</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">section_nr_to_pfn</span><span class="p">(</span><span class="n">pnum</span><span class="p">)));</span>
-<span class="w">        </span><span class="n">BUILD_BUG_ON</span><span class="p">(</span><span class="n">SECTION_MAP_LAST_BIT</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">PFN_SECTION_SHIFT</span><span class="p">);</span>
-<span class="w">        </span><span class="n">BUG_ON</span><span class="p">(</span><span class="n">coded_mem_map</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="o">~</span><span class="n">SECTION_MAP_MASK</span><span class="p">);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">coded_mem_map</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-<p>有了这些关系之后，当有一个PA即PFN的时候，就可以很轻松的找到它对应的struct page的地址，反过来也是一样</p>
-<div class="highlight"><pre><span></span><span class="cp">#define __page_to_pfn(pg)                                       \</span>
-<span class="cp">({      const struct page *__pg = (pg);                         \</span>
-<span class="cp">        int __sec = page_to_section(__pg);                      \</span>
-<span class="cp">        (unsigned long)(__pg - __section_mem_map_addr(__nr_to_section(__sec))); \</span>
-<span class="cp">})</span>
-
-<span class="cp">#define __pfn_to_page(pfn)                              \</span>
-<span class="cp">({      unsigned long __pfn = (pfn);                    \</span>
-<span class="cp">        struct mem_section *__sec = __pfn_to_section(__pfn);    \</span>
-<span class="cp">        __section_mem_map_addr(__sec) + __pfn;          \</span>
-<span class="cp">})</span>
-</pre></div>
-</div>
-<div class="section" id="section-mem-map-vmemmap">
-<h3>2. section_mem_map 为vmemmap地址</h3>
-<p>这种情况下是要打开配置CONFIG_SPARSEMEM_VMEMMAP， 为什么要加这个配置呢？</p>
-<p>在不打开CONFIG_SPARSEMEM_VMEMMAP的情况下，从上面可以看出__page_to_pfn/__pfn_to_page 的转换是需要经过不少步骤，而这两个定义在kernel中是会非常的频繁调用。</p>
-<p>为了优化上面的转换关系，Linux就添加了CONFIG_SPARSEMEM_VMEMMAP 这个配置，一般Arm 平台上是打开这个配置的。</p>
-<p>section_mem_map 不再是线性地址，所以就需要一个vmemmap地址(VA)和struct page数组所在的物理地址绑定。</p>
-<p>下面先看下vmemmap地址的产生办法：</p>
-<ol class="loweralpha simple">
-<li>vmemmap 定义</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="cp">#define vmemmap                 ((struct page *)VMEMMAP_START - (memstart_addr &gt;&gt; PAGE_SHIFT))</span>
-</pre></div>
-<p>这里为什么要减去memstart_addr &gt;&gt; PAGE_SHIFT 是跟 PHYS_OFFSET 定义是一一对应的</p>
-<div class="highlight"><pre><span></span><span class="cm">/* PHYS_OFFSET - the physical address of the start of memory. */</span>
-<span class="cp">#define PHYS_OFFSET             ({ VM_BUG_ON(memstart_addr &amp; 1); memstart_addr; })</span>
-</pre></div>
-<p>也就是说我们看到的线性地址和物理地址的对应是有一个OFFSET，即 VA:0xFFFF000000000000 --&gt; PA:0x0000000080000000</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">mmu</span><span class="w"> </span><span class="n">memory</span><span class="o">-</span><span class="n">map</span>
-<span class="n">Virtual</span><span class="w"> </span><span class="n">Range</span><span class="w">                              </span><span class="o">|</span><span class="w"> </span><span class="n">Physical</span><span class="w"> </span><span class="n">Range</span><span class="w">                           </span><span class="o">|</span><span class="w"> </span><span class="n">Type</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">AP</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">C</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="n">S</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="n">X</span>
-<span class="o">---------------------------------------------------------------------------------------------------------------------------------</span>
-<span class="nl">EL2N</span><span class="p">:</span><span class="mh">0x0000000000000000-0x0000FFFFFFFFFFFF</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">&lt;</span><span class="n">unmapped</span><span class="o">&gt;</span><span class="w">                               </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">    </span><span class="o">|</span><span class="w">       </span><span class="o">|</span><span class="w">       </span><span class="o">|</span>
-<span class="nl">EL2N</span><span class="p">:</span><span class="mh">0xFFFF000000000000-0xFFFF00000020FFFF</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">NP</span><span class="o">:</span><span class="mh">0x0000000080000000-0x000000008020FFFF</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Normal</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="n">RW</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">True</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">True</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">False</span>
-<span class="nl">EL2N</span><span class="p">:</span><span class="mh">0xFFFF000000210000-0xFFFF000001D6FFFF</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">NP</span><span class="o">:</span><span class="mh">0x0000000080210000-0x0000000081D6FFFF</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Normal</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="n">RW</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">True</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">True</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">False</span>
-</pre></div>
-<p>所以vmemmap 也一样有个offset。</p>
-<ol class="loweralpha simple" start="2">
-<li>PA 和struct page的对应关系</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="cm">/* memmap is virtually contiguous.  */</span>
-<span class="cp">#define __pfn_to_page(pfn)      (vmemmap + (pfn))</span>
-<span class="cp">#define __page_to_pfn(page)     (unsigned long)((page) - vmemmap)</span>
-</pre></div>
-<p>因为PA地址从0开始，正好vmemmap减去了memstart_addr所包含的的struct page，所以__pfn_to_page 就可以直接加PFN</p>
-<p>在函数sparse_init -&gt; sparse_init_nid -&gt; __populate_section_memmap，这里会去调用对应的方法产生vmemmap的VA：</p>
-<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">__meminit</span><span class="w"> </span><span class="n">__populate_section_memmap</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pfn</span><span class="p">,</span>
-<span class="w">                </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nr_pages</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">vmem_altmap</span><span class="w"> </span><span class="o">*</span><span class="n">altmap</span><span class="p">,</span>
-<span class="w">                </span><span class="k">struct</span><span class="w"> </span><span class="nc">dev_pagemap</span><span class="w"> </span><span class="o">*</span><span class="n">pgmap</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="c1">// 这里就是这个section 所对应的vmemmap的地址</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="w"> </span><span class="n">pfn_to_page</span><span class="p">(</span><span class="n">pfn</span><span class="p">);</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nr_pages</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="p">);</span>
-<span class="w">        </span><span class="c1">//........</span>
-
-<span class="w">        </span><span class="c1">// 这里就是这个section 所对应的vmemmap的地址</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">pfn_to_page</span><span class="p">(</span><span class="n">pfn</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-<p>接下来就要找到每个section 对应map的struct page数组的基地址，也就是PA，这个肯定要先在上面分配的那个大buffer里面去分配。 参考函数：</p>
-<p>sparse_init -&gt; sparse_init_nid -&gt; __populate_section_memmap-&gt; vmemmap_populate -&gt; vmemmap_populate_hugepages -&gt; vmemmap_alloc_block_buf</p>
-<p>这里可以看出，如果使用的是4k page，就使用2M的页表进行mapping，这个上面已经提到过多次。 这里调用vmemmap_alloc_block_buf 分配出来的是线性地址，所以在把它写到页表之前还要转换成PA</p>
-<div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="n">__meminit</span><span class="w"> </span><span class="nf">vmemmap_set_pmd</span><span class="p">(</span><span class="n">pmd_t</span><span class="w"> </span><span class="o">*</span><span class="n">pmdp</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span>
-<span class="w">                               </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">next</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="n">pmd_set_huge</span><span class="p">(</span><span class="n">pmdp</span><span class="p">,</span><span class="w"> </span><span class="n">__pa</span><span class="p">(</span><span class="n">p</span><span class="p">),</span><span class="w"> </span><span class="n">__pgprot</span><span class="p">(</span><span class="n">PROT_SECT_NORMAL</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
-<p>在执行完这个之后，可以发现MMU页表里面多了不少L2 block mapping</p>
-<div class="highlight"><pre><span></span>+<span class="w"> </span>0xFFFFFDFFC0000000<span class="w">   </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">1</span><span class="w"> </span>Table<span class="w">  </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FF6FA000<span class="w"> </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span><span class="nv">APTable</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">UXNTable</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXNTable</span><span class="o">=</span><span class="m">0</span>
-<span class="w"> </span>-<span class="w"> </span>0xFFFFFDFFC0000000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">2</span><span class="w"> </span>Block<span class="w">  </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FB600000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">UXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">Contiguous</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">DBM</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">GP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">nG</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">AF</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">SH</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">AP</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">AttrIndx</span><span class="o">=</span>0x0
-<span class="w"> </span>-<span class="w"> </span>0xFFFFFDFFC0200000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">2</span><span class="w"> </span>Block<span class="w">  </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FB800000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">UXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">Contiguous</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">DBM</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">GP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">nG</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">AF</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">SH</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">AP</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">AttrIndx</span><span class="o">=</span>0x0
-<span class="w"> </span>-<span class="w"> </span>0xFFFFFDFFC0400000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">2</span><span class="w"> </span>Block<span class="w">  </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FBA00000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">UXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">Contiguous</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">DBM</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">GP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">nG</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">AF</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">SH</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">AP</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">AttrIndx</span><span class="o">=</span>0x0
-<span class="w"> </span>-<span class="w"> </span>0xFFFFFDFFC0600000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">2</span><span class="w"> </span>Block<span class="w">  </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FBC00000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">UXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">Contiguous</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">DBM</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">GP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">nG</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">AF</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">SH</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">AP</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">AttrIndx</span><span class="o">=</span>0x0
-<span class="w"> </span>-<span class="w"> </span>0xFFFFFDFFC0800000<span class="w">  </span><span class="p">|</span><span class="w"> </span>Level<span class="w"> </span><span class="m">2</span><span class="w"> </span>Block<span class="w">  </span><span class="p">|</span><span class="w">                       </span><span class="p">|</span><span class="w"> </span>NP:0x00000008FBE00000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">UXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">PXN</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">Contiguous</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">DBM</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">GP</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">nG</span><span class="o">=</span><span class="m">0</span>,<span class="w"> </span><span class="nv">AF</span><span class="o">=</span><span class="m">1</span>,<span class="w"> </span><span class="nv">SH</span><span class="o">=</span>0x3,<span class="w"> </span><span class="nv">AP</span><span class="o">=</span>0x0,<span class="w"> </span><span class="nv">AttrIndx</span><span class="o">=</span>0x0
-</pre></div>
-<p>这样就完成了vmemmap地址到struct page 数组的PA之间的映射。接下来有一个PA就可以直接用  __pfn_to_page 找到它对应的 struct page了。</p>
-</div>
-</div>
-<div class="section" id="subsection">
-<h2>subsection</h2>
-<p>struct mem_section 有如下字段：</p>
-<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section_usage</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">rcu_head</span><span class="w"> </span><span class="n">rcu</span><span class="p">;</span>
-<span class="cp">#ifdef CONFIG_SPARSEMEM_VMEMMAP</span>
-<span class="w">        </span><span class="n">DECLARE_BITMAP</span><span class="p">(</span><span class="n">subsection_map</span><span class="p">,</span><span class="w"> </span><span class="n">SUBSECTIONS_PER_SECTION</span><span class="p">);</span>
-<span class="cp">#endif</span>
-<span class="w">        </span><span class="cm">/* See declaration of similar field in struct zone */</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">pageblock_flags</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="p">};</span>
-
-<span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">//....</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section_usage</span><span class="w"> </span><span class="o">*</span><span class="n">usage</span><span class="p">;</span>
-<span class="w">        </span><span class="c1">//....</span>
-<span class="p">}</span>
-</pre></div>
-<p>在 Linux 内核中引入 subsection_map 的目的是为了提供更细粒度的内存管理，从而更有效地利用内存资源.
-在某些系统中，特别是具有内存热插拔功能的服务器系统中，内存模块可能会在系统运行时被添加或移除。</p>
-<p>一个section中，这里会给每个struct page 分配内存，但是是不是每个page 都对应有效的物理内存，这里还是不一定的。
-这个就可以通过subsection_map，如果这个subsection_map的bit 设置了，那么对应这个子段的所有struct page都有对应的物理内存和他对应。</p>
-<p>__add_pages -&gt; sparse_add_section -&gt; section_activate -&gt; fill_subsection_map 设置这个bit</p>
-<p>__remove_pages -&gt; sparse_remove_section -&gt; section_deactivate -&gt;  clear_subsection_map 清除这个bit</p>
-<p>pfn_valid -&gt; pfn_section_valid 这里会去check 这个page 在这个section中的subsection_map的bit 是不是设置了，设置了就时合法的page。否则认为这个page是不存在的。</p>
-</div>
-<div class="section" id="memory-hotplug">
-<h2>memory Hotplug</h2>
-<p>Add 可以参考__add_pages -&gt; sparse_add_section</p>
-<div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">__meminit</span><span class="w"> </span><span class="nf">sparse_add_section</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">start_pfn</span><span class="p">,</span>
-<span class="w">                </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nr_pages</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">vmem_altmap</span><span class="w"> </span><span class="o">*</span><span class="n">altmap</span><span class="p">,</span>
-<span class="w">                </span><span class="k">struct</span><span class="w"> </span><span class="nc">dev_pagemap</span><span class="w"> </span><span class="o">*</span><span class="n">pgmap</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">section_nr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pfn_to_section_nr</span><span class="p">(</span><span class="n">start_pfn</span><span class="p">);</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_section</span><span class="w"> </span><span class="o">*</span><span class="n">ms</span><span class="p">;</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">page</span><span class="w"> </span><span class="o">*</span><span class="n">memmap</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
-
-<span class="w">        </span><span class="c1">//先看root中section 存不存在，不存在给root指针分配空间</span>
-<span class="w">        </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sparse_index_init</span><span class="p">(</span><span class="n">section_nr</span><span class="p">,</span><span class="w"> </span><span class="n">nid</span><span class="p">);</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
-
-<span class="w">        </span><span class="c1">//获取线性地址或者vmemmap地址，并且把vmemmap地址和struct page的物理地址在MMU给映射上</span>
-<span class="w">        </span><span class="n">memmap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">section_activate</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span><span class="w"> </span><span class="n">start_pfn</span><span class="p">,</span><span class="w"> </span><span class="n">nr_pages</span><span class="p">,</span><span class="w"> </span><span class="n">altmap</span><span class="p">,</span><span class="w"> </span><span class="n">pgmap</span><span class="p">);</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_ERR</span><span class="p">(</span><span class="n">memmap</span><span class="p">))</span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">PTR_ERR</span><span class="p">(</span><span class="n">memmap</span><span class="p">);</span>
-<span class="w">        </span><span class="o">/</span><span class="p">....</span>
-<span class="p">}</span>
-</pre></div>
-<p>Remove 可以参考：</p>
-<p>__remove_pages -&gt; sparse_remove_section -&gt; section_deactivate</p>
-<p>比较大的一个区别可能就是之前的内存使用memblock分配，这里需要使用slab直接分配。</p>
-</div>
-<p><a href="https://geesun.github.io/posts/2024/06/sparse.html#disqus_thread">comments</a></p>                </article>
+<p><a href="https://geesun.github.io/posts/2024/06/01_kmemleak.html#disqus_thread">comments</a></p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../posts/2024/06/sparse.html" rel="bookmark"
+                           title="Permalink to Sparse内存模型的理解">Sparse内存模型的理解</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>Wed 05 June 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a></span>
+</footer><!-- /.post-info -->                <div class="section" id="section-1">
+<h2>解决什么问题？</h2>
+<p>内存管理以page为单位进行管理。 所以会把物理内存逻辑上切成很多的page。</p>
+<p>而每个page 都需要有一个struct page的结构来管理这个page的使用情况。而这些struct page本身也是需要占用内存空间的。</p>
+<p>如果物理 …</p></div>
+                <a class="readmore" href="../posts/2024/06/sparse.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/sparse.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -447,28 +135,12 @@
                 <a class="readmore" href="../posts/2024/06/device_tree_mapping.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/06/device_tree_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/earlycon_serial_port.html" rel="bookmark"
-                           title="Permalink to Linux booting 串口">Linux booting 串口</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Mon 03 June 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/booting.html">booting</a><a href="../tag/serial.html">serial</a></span>
-</footer><!-- /.post-info -->                <p>在kernel booting的早期，肯定是希望尽快把一些信息输出的串口，能够尽早知道kernel boot 到什么阶段。 所以一般在u-boot中，在FVP平台上有如下bootargs</p>
-<div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1 …</pre></div>
-                <a class="readmore" href="../posts/2024/06/earlycon_serial_port.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/earlycon_serial_port.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
             </ol><!-- /#posts-list -->
 <nav>
   <ul>
-    <li>Page 1 / 4</li>
+    <li>Page 1 / 5</li>
         <li><a href="../author/qixiang-xu2.html">&rang;</a></li>
-        <li><a href="../author/qixiang-xu4.html">&Rang;</a></li>
+        <li><a href="../author/qixiang-xu5.html">&Rang;</a></li>
   </ul>
 </nav>
             </section><!-- /#content -->

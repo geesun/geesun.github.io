@@ -2,8 +2,8 @@
 <html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>Linux学习笔记 - Linux</title>
-        <link rel="stylesheet" href="../theme/css/main.css" />
+        <title>kmemleak的使用</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
 
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,20 +12,25 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="../">Linux学习笔记 </a></h1>
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
                 <nav><ul>
-                    <li><a href="../category/linux.html">Linux</a></li>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/06/01_kmemleak.html" rel="bookmark"
+           title="Permalink to kmemleak的使用">kmemleak的使用</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="../posts/2024/06/01_kmemleak.html">kmemleak的使用</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>Wed 19 June 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
-</footer><!-- /.post-info --><p>kmemleak 是一个类似在kernel 里面的Valgrind， 可以检测kernel 模块的memory leak情况。</p>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a><a href="../../../tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info -->      <p>kmemleak 是一个类似在kernel 里面的Valgrind， 可以检测kernel 模块的memory leak情况。</p>
 <p>至于如何使用，kernel 里面自己的文档就已经写的很清楚，可以参考：
 Documentation/dev-tools/kmemleak.rst</p>
 <p>如果出现如下错误：</p>
@@ -94,56 +99,24 @@ unreferenced<span class="w"> </span>object<span class="w"> </span>0xffff00080089
 <span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>el0t_64_sync_handler+0x120/0x12c
 <span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>el0t_64_sync+0x190/0x194
 </pre></div>
-<p><a href="https://geesun.github.io/posts/2024/06/01_kmemleak.html#disqus_thread">comments</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/sparse.html" rel="bookmark"
-                           title="Permalink to Sparse内存模型的理解">Sparse内存模型的理解</a></h1>
-                </header>
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/06/01_kmemleak.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/06/01_kmemleak.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Wed 05 June 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a></span>
-</footer><!-- /.post-info -->                <div class="section" id="section-1">
-<h2>解决什么问题？</h2>
-<p>内存管理以page为单位进行管理。 所以会把物理内存逻辑上切成很多的page。</p>
-<p>而每个page 都需要有一个struct page的结构来管理这个page的使用情况。而这些struct page本身也是需要占用内存空间的。</p>
-<p>如果物理 …</p></div>
-                <a class="readmore" href="../posts/2024/06/sparse.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/sparse.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/device_tree_mapping.html" rel="bookmark"
-                           title="Permalink to Device Tree 地址映射过程">Device Tree 地址映射过程</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Tue 04 June 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/boot.html">boot</a></span>
-</footer><!-- /.post-info -->                <p>在Linux 的boot 阶段，Devie tree 地址是通过bootloader 传给kernel， kernel 在函数preserve_boot_args 保存在 x21这个寄存器中。</p>
-<p>但是内存相关的信息是在Device Tree里面描述的，所以Device Tree的使用是在内存管理准备好之前。 所以Device Tree的映射过程相对来说有些特殊。</p>
-<p>在Arm64平台，它 …</p>
-                <a class="readmore" href="../posts/2024/06/device_tree_mapping.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/device_tree_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-<nav>
-  <ul>
-    <li>Page 1 / 5</li>
-        <li><a href="../tag/linux2.html">&rang;</a></li>
-        <li><a href="../tag/linux5.html">&Rang;</a></li>
-  </ul>
-</nav>
-            </section><!-- /#content -->
+  </article>
+</section>
 
         <footer id="contentinfo" class="body">
                 <p>&copy; 2024 Qixiang Xu</p>

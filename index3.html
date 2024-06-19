@@ -23,6 +23,25 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="./posts/2024/05/idmap_pg_dir.html" rel="bookmark"
+                           title="Permalink to idmap_pg_dir页表">idmap_pg_dir页表</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>Mon 27 May 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->                <p>当主CPU启动完成之后，已经把页表设置成了swapper_pg_dir， 到这里为止，kernel一般情况下是不再需要idmap这个页表的，但是还是有些特殊情况下需要idmap：</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>第二个CPU启动</dt>
+<dd>当第二个CPU启动的时候，MMU是关闭的。要设置TTBR1 到swapper_pg_dir 之 …</dd></dl></li></ul>
+                <a class="readmore" href="./posts/2024/05/idmap_pg_dir.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/idmap_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="./posts/2024/05/swapper_pg_dir.html" rel="bookmark"
                            title="Permalink to swapper_pg_dir页表">swapper_pg_dir页表</a></h1>
                 </header>
@@ -67,33 +86,14 @@
                 <a class="readmore" href="./posts/2024/05/debugfs.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/debugfs.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="./posts/2024/05/init_pg_dir.html" rel="bookmark"
-                           title="Permalink to init_pg_dir页表">init_pg_dir页表</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Thu 23 May 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a></span>
-</footer><!-- /.post-info -->                <div class="section" id="section-1">
-<h2>页表分配和释放</h2>
-<p>init_pg_dir页表的主要的作用就是在boot阶段，能够把kernel image的编译时VA(也就是0xffffxxxxxxxxxxxx,但是在使能了CONFIG_RANDOMIZE_BASE会加一个offset)映射成u-boot加载时的PA。
-所以这个页表的大小就是根据kernel image所占用空间来决定。</p>
-<div class="highlight"><pre><span></span><span class="cp">#define EARLY_PAGES(vstart, vend, add) ( 1                      </span><span class="cm">/* PGDIR …</span></pre></div></div>
-                <a class="readmore" href="./posts/2024/05/init_pg_dir.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/init_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
             </ol><!-- /#posts-list -->
 <nav>
   <ul>
         <li><a href="./index.html">&Lang;</a></li>
         <li><a href="./index2.html">&lang;</a></li>
-    <li>Page 3 / 4</li>
+    <li>Page 3 / 5</li>
         <li><a href="./index4.html">&rang;</a></li>
-        <li><a href="./index4.html">&Rang;</a></li>
+        <li><a href="./index5.html">&Rang;</a></li>
   </ul>
 </nav>
             </section><!-- /#content -->

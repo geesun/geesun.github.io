@@ -2,7 +2,7 @@
 <html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>Linux学习笔记 - Linux</title>
+        <title>Linux学习笔记 - Debug</title>
         <link rel="stylesheet" href="../theme/css/main.css" />
 
         <!--[if IE]>
@@ -95,54 +95,13 @@ unreferenced<span class="w"> </span>object<span class="w"> </span>0xffff00080089
 <span class="w">    </span><span class="o">[</span>&lt;<span class="o">(</span>____ptrval____<span class="o">)</span>&gt;<span class="o">]</span><span class="w"> </span>el0t_64_sync+0x190/0x194
 </pre></div>
 <p><a href="https://geesun.github.io/posts/2024/06/01_kmemleak.html#disqus_thread">comments</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/sparse.html" rel="bookmark"
-                           title="Permalink to Sparse内存模型的理解">Sparse内存模型的理解</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Wed 05 June 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a></span>
-</footer><!-- /.post-info -->                <div class="section" id="section-1">
-<h2>解决什么问题？</h2>
-<p>内存管理以page为单位进行管理。 所以会把物理内存逻辑上切成很多的page。</p>
-<p>而每个page 都需要有一个struct page的结构来管理这个page的使用情况。而这些struct page本身也是需要占用内存空间的。</p>
-<p>如果物理 …</p></div>
-                <a class="readmore" href="../posts/2024/06/sparse.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/sparse.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/device_tree_mapping.html" rel="bookmark"
-                           title="Permalink to Device Tree 地址映射过程">Device Tree 地址映射过程</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Tue 04 June 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/boot.html">boot</a></span>
-</footer><!-- /.post-info -->                <p>在Linux 的boot 阶段，Devie tree 地址是通过bootloader 传给kernel， kernel 在函数preserve_boot_args 保存在 x21这个寄存器中。</p>
-<p>但是内存相关的信息是在Device Tree里面描述的，所以Device Tree的使用是在内存管理准备好之前。 所以Device Tree的映射过程相对来说有些特殊。</p>
-<p>在Arm64平台，它 …</p>
-                <a class="readmore" href="../posts/2024/06/device_tree_mapping.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/device_tree_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
 <nav>
   <ul>
-    <li>Page 1 / 5</li>
-        <li><a href="../tag/linux2.html">&rang;</a></li>
-        <li><a href="../tag/linux5.html">&Rang;</a></li>
+    <li>Page 1 / 1</li>
   </ul>
 </nav>
+            </aside><!-- /#featured -->
+            </ol><!-- /#posts-list -->
             </section><!-- /#content -->
 
         <footer id="contentinfo" class="body">
