@@ -28,7 +28,7 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <span>Mon 03 June 2024</span>
+        <span>一 03 六月 2024</span>
 <span>| tags: <a href="../../../tag/linux.html">Linux</a><a href="../../../tag/booting.html">booting</a><a href="../../../tag/serial.html">serial</a></span>
 </footer><!-- /.post-info -->      <p>在kernel booting的早期，肯定是希望尽快把一些信息输出的串口，能够尽早知道kernel boot 到什么阶段。 所以一般在u-boot中，在FVP平台上有如下bootargs</p>
 <div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1<span class="w"> </span>rw<span class="w"> </span><span class="nv">ip</span><span class="o">=</span>dhcp<span class="w"> </span>debug<span class="w"> </span><span class="nv">user_debug</span><span class="o">=</span><span class="m">31</span><span class="w"> </span><span class="nv">loglevel</span><span class="o">=</span><span class="m">9</span>

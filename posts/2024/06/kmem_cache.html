@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+        <meta charset="utf-8" />
+        <title>kmem_cache内存池使用</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/06/kmem_cache.html" rel="bookmark"
+           title="Permalink to kmem_cache内存池使用">kmem_cache内存池使用</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>日 23 六月 2024</span>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a><a href="../../../tag/mmu.html">MMU</a><a href="../../../tag/slub.html">SLUB</a></span>
+</footer><!-- /.post-info -->      <p>kmem_cache 作为一个基本的 allocator 组件，这里可以把他理解为用于某个特定大小的内存对象池。</p>
+<p>Linux 系统中本身也存在很多这样的内存池，包括分配struct kmem_cache 和struct kmem_cache_node对象，也是在单独的对象内存池里面分配的。</p>
+<p>当然系统里面也根据用途和大小分配了一些通用的对象内存池，参考：</p>
+<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span>
+<span class="n">kmalloc_caches</span><span class="p">[</span><span class="n">NR_KMALLOC_TYPES</span><span class="p">][</span><span class="n">KMALLOC_SHIFT_HIGH</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="n">__ro_after_init</span><span class="w"> </span><span class="o">=</span>
+<span class="p">{</span><span class="w"> </span><span class="cm">/* initialization for https://llvm.org/pr42570 */</span><span class="w"> </span><span class="p">};</span>
+<span class="n">EXPORT_SYMBOL</span><span class="p">(</span><span class="n">kmalloc_caches</span><span class="p">);</span>
+</pre></div>
+<p>所以系统中存在各种各样的kmem_cache内存池，kmalloc这样的函数，就是在这些通用的内存池里面分配内存。</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">__do_kmalloc_node</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span>
+<span class="w">                        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">caller</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">//...</span>
+<span class="w">        </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc_slab</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="n">caller</span><span class="p">);</span><span class="w">  </span><span class="c1">// 找到对应的kmem_cache</span>
+
+<span class="w">        </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slab_alloc_node</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">caller</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w"> </span><span class="c1">//在kmem_cache池里进行分配</span>
+
+<span class="w">        </span><span class="c1">//....</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>可以通过如下命令查看系统中的内存池：</p>
+<div class="highlight"><pre><span></span><span class="cp"># cat /proc/slabinfo</span>
+<span class="n">slabinfo</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">version</span><span class="o">:</span><span class="w"> </span><span class="mf">2.1</span>
+<span class="cp"># name            &lt;active_objs&gt; &lt;num_objs&gt; &lt;objsize&gt; &lt;objperslab&gt; &lt;pagesperslab&gt; : tunables &lt;limit&gt; &lt;batchcount&gt; &lt;sharedfactor&gt; : slabdata &lt;active_slabs&gt; &lt;num_slabs&gt; &lt;sharedavail&gt;</span>
+<span class="n">ext4_groupinfo_4k</span><span class="w">     </span><span class="mi">22</span><span class="w">     </span><span class="mi">22</span><span class="w">    </span><span class="mi">184</span><span class="w">   </span><span class="mi">22</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">      </span><span class="mi">1</span><span class="w">      </span><span class="mi">1</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">p9_req_t</span><span class="w">               </span><span class="mi">0</span><span class="w">      </span><span class="mi">0</span><span class="w">    </span><span class="mi">160</span><span class="w">   </span><span class="mi">25</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">      </span><span class="mi">0</span><span class="w">      </span><span class="mi">0</span><span class="w">      </span><span class="mi">0</span>
+<span class="c1">//......</span>
+
+<span class="n">kmalloc</span><span class="mi">-8</span><span class="n">k</span><span class="w">            </span><span class="mi">20</span><span class="w">     </span><span class="mi">20</span><span class="w">   </span><span class="mi">8192</span><span class="w">    </span><span class="mi">4</span><span class="w">    </span><span class="mi">8</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">      </span><span class="mi">5</span><span class="w">      </span><span class="mi">5</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-4</span><span class="n">k</span><span class="w">            </span><span class="mi">56</span><span class="w">     </span><span class="mi">56</span><span class="w">   </span><span class="mi">4096</span><span class="w">    </span><span class="mi">8</span><span class="w">    </span><span class="mi">8</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">      </span><span class="mi">7</span><span class="w">      </span><span class="mi">7</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-2</span><span class="n">k</span><span class="w">           </span><span class="mi">160</span><span class="w">    </span><span class="mi">160</span><span class="w">   </span><span class="mi">2048</span><span class="w">   </span><span class="mi">16</span><span class="w">    </span><span class="mi">8</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">10</span><span class="w">     </span><span class="mi">10</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-1</span><span class="n">k</span><span class="w">           </span><span class="mi">544</span><span class="w">    </span><span class="mi">544</span><span class="w">   </span><span class="mi">1024</span><span class="w">   </span><span class="mi">32</span><span class="w">    </span><span class="mi">8</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">17</span><span class="w">     </span><span class="mi">17</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-512</span><span class="w">          </span><span class="mi">640</span><span class="w">    </span><span class="mi">640</span><span class="w">    </span><span class="mi">512</span><span class="w">   </span><span class="mi">32</span><span class="w">    </span><span class="mi">4</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">20</span><span class="w">     </span><span class="mi">20</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-256</span><span class="w">          </span><span class="mi">736</span><span class="w">    </span><span class="mi">736</span><span class="w">    </span><span class="mi">256</span><span class="w">   </span><span class="mi">32</span><span class="w">    </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">23</span><span class="w">     </span><span class="mi">23</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-192</span><span class="w">         </span><span class="mi">1575</span><span class="w">   </span><span class="mi">1575</span><span class="w">    </span><span class="mi">192</span><span class="w">   </span><span class="mi">21</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">75</span><span class="w">     </span><span class="mi">75</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-128</span><span class="w">          </span><span class="mi">512</span><span class="w">    </span><span class="mi">512</span><span class="w">    </span><span class="mi">128</span><span class="w">   </span><span class="mi">32</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">16</span><span class="w">     </span><span class="mi">16</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-96</span><span class="w">           </span><span class="mi">630</span><span class="w">    </span><span class="mi">630</span><span class="w">     </span><span class="mi">96</span><span class="w">   </span><span class="mi">42</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">15</span><span class="w">     </span><span class="mi">15</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-64</span><span class="w">          </span><span class="mi">1344</span><span class="w">   </span><span class="mi">1344</span><span class="w">     </span><span class="mi">64</span><span class="w">   </span><span class="mi">64</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">21</span><span class="w">     </span><span class="mi">21</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-32</span><span class="w">          </span><span class="mi">1408</span><span class="w">   </span><span class="mi">1408</span><span class="w">     </span><span class="mi">32</span><span class="w">  </span><span class="mi">128</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">11</span><span class="w">     </span><span class="mi">11</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-16</span><span class="w">          </span><span class="mi">2816</span><span class="w">   </span><span class="mi">2816</span><span class="w">     </span><span class="mi">16</span><span class="w">  </span><span class="mi">256</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">11</span><span class="w">     </span><span class="mi">11</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmalloc</span><span class="mi">-8</span><span class="w">           </span><span class="mi">5120</span><span class="w">   </span><span class="mi">5120</span><span class="w">      </span><span class="mi">8</span><span class="w">  </span><span class="mi">512</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">     </span><span class="mi">10</span><span class="w">     </span><span class="mi">10</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmem_cache_node</span><span class="w">      </span><span class="mi">320</span><span class="w">    </span><span class="mi">320</span><span class="w">     </span><span class="mi">64</span><span class="w">   </span><span class="mi">64</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">      </span><span class="mi">5</span><span class="w">      </span><span class="mi">5</span><span class="w">      </span><span class="mi">0</span>
+<span class="n">kmem_cache</span><span class="w">           </span><span class="mi">256</span><span class="w">    </span><span class="mi">256</span><span class="w">    </span><span class="mi">256</span><span class="w">   </span><span class="mi">32</span><span class="w">    </span><span class="mi">2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tunables</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">slabdata</span><span class="w">      </span><span class="mi">8</span><span class="w">      </span><span class="mi">8</span><span class="w">      </span><span class="mi">0</span>
+</pre></div>
+<p>如果kernel中的驱动，有特殊用途，也可以创建自己的内存池。</p>
+<p>可以参考文件 arch/arm64/mm/pgd.c</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">pgd_cache</span><span class="w"> </span><span class="n">__ro_after_init</span><span class="p">;</span>
+
+
+<span class="n">pgd_t</span><span class="w"> </span><span class="o">*</span><span class="nf">pgd_alloc</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mm_struct</span><span class="w"> </span><span class="o">*</span><span class="n">mm</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GFP_PGTABLE_USER</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pgdir_is_page_size</span><span class="p">())</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">pgd_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">__get_free_page</span><span class="p">(</span><span class="n">gfp</span><span class="p">);</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">kmem_cache_alloc</span><span class="p">(</span><span class="n">pgd_cache</span><span class="p">,</span><span class="w"> </span><span class="n">gfp</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">pgd_free</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mm_struct</span><span class="w"> </span><span class="o">*</span><span class="n">mm</span><span class="p">,</span><span class="w"> </span><span class="n">pgd_t</span><span class="w"> </span><span class="o">*</span><span class="n">pgd</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pgdir_is_page_size</span><span class="p">())</span>
+<span class="w">                </span><span class="n">free_page</span><span class="p">((</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">pgd</span><span class="p">);</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">                </span><span class="n">kmem_cache_free</span><span class="p">(</span><span class="n">pgd_cache</span><span class="p">,</span><span class="w"> </span><span class="n">pgd</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">pgtable_cache_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+
+<span class="w">        </span><span class="c1">//.....</span>
+<span class="w">        </span><span class="cm">/*</span>
+<span class="cm">         * Naturally aligned pgds required by the architecture.</span>
+<span class="cm">         */</span>
+<span class="w">        </span><span class="n">pgd_cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmem_cache_create</span><span class="p">(</span><span class="s">&quot;pgd_cache&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">PGD_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">PGD_SIZE</span><span class="p">,</span>
+<span class="w">                                      </span><span class="n">SLAB_PANIC</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>kernel/fork.c</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">thread_stack_cache</span><span class="p">;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">thread_stack_free_rcu</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">rcu_head</span><span class="w"> </span><span class="o">*</span><span class="n">rh</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">kmem_cache_free</span><span class="p">(</span><span class="n">thread_stack_cache</span><span class="p">,</span><span class="w"> </span><span class="n">rh</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">thread_stack_delayed_free</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">tsk</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">rcu_head</span><span class="w"> </span><span class="o">*</span><span class="n">rh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tsk</span><span class="o">-&gt;</span><span class="n">stack</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">call_rcu</span><span class="p">(</span><span class="n">rh</span><span class="p">,</span><span class="w"> </span><span class="n">thread_stack_free_rcu</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">alloc_thread_stack_node</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">tsk</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="o">*</span><span class="n">stack</span><span class="p">;</span>
+<span class="w">        </span><span class="n">stack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmem_cache_alloc_node</span><span class="p">(</span><span class="n">thread_stack_cache</span><span class="p">,</span><span class="w"> </span><span class="n">THREADINFO_GFP</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">);</span>
+<span class="w">        </span><span class="n">stack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kasan_reset_tag</span><span class="p">(</span><span class="n">stack</span><span class="p">);</span>
+<span class="w">        </span><span class="n">tsk</span><span class="o">-&gt;</span><span class="n">stack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stack</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">stack</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">thread_stack_cache_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">        </span><span class="n">thread_stack_cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmem_cache_create_usercopy</span><span class="p">(</span><span class="s">&quot;thread_stack&quot;</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">THREAD_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">THREAD_SIZE</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">THREAD_SIZE</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">        </span><span class="n">BUG_ON</span><span class="p">(</span><span class="n">thread_stack_cache</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>上面两个例子唯一的区别是不是要使用到usercopy，如果使用到usercopy的话，就用kmem_cache_create_usercopy。 这样在copyfromuser的时候，位了避免userspace的攻击，这个时候就可以通过user 的size 和offset 来检查这个copy是不是合法，不合法就可以拒绝copy。</p>
+<p>参考函数 __check_heap_object.</p>
+
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/06/kmem_cache.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/06/kmem_cache.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
+
+  </article>
+</section>
+
+        <footer id="contentinfo" class="body">
+                <p>&copy; 2024 Qixiang Xu</p>
+        </footer><!-- /#contentinfo -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'geesun';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+</html>

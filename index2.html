@@ -23,60 +23,54 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="./posts/2024/06/sparse.html" rel="bookmark"
+                           title="Permalink to Sparse内存模型的理解">Sparse内存模型的理解</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>三 05 六月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mmu.html">MMU</a></span>
+</footer><!-- /.post-info -->                <div class="section" id="section-1">
+<h2>解决什么问题？</h2>
+<p>内存管理以page为单位进行管理。 所以会把物理内存逻辑上切成很多的page。</p>
+<p>而每个page 都需要有一个struct page的结构来管理这个page的使用情况。而这些struct page本身也是需要占用内存空间的。</p>
+<p>如果物理 …</p></div>
+                <a class="readmore" href="./posts/2024/06/sparse.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/sparse.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="./posts/2024/06/device_tree_mapping.html" rel="bookmark"
+                           title="Permalink to Device Tree 地址映射过程">Device Tree 地址映射过程</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>二 04 六月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/boot.html">boot</a></span>
+</footer><!-- /.post-info -->                <p>在Linux 的boot 阶段，Devie tree 地址是通过bootloader 传给kernel， kernel 在函数preserve_boot_args 保存在 x21这个寄存器中。</p>
+<p>但是内存相关的信息是在Device Tree里面描述的，所以Device Tree的使用是在内存管理准备好之前。 所以Device Tree的映射过程相对来说有些特殊。</p>
+<p>在Arm64平台，它 …</p>
+                <a class="readmore" href="./posts/2024/06/device_tree_mapping.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/device_tree_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="./posts/2024/06/earlycon_serial_port.html" rel="bookmark"
                            title="Permalink to Linux booting 串口">Linux booting 串口</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <span>Mon 03 June 2024</span>
+        <span>一 03 六月 2024</span>
 <span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/booting.html">booting</a><a href="./tag/serial.html">serial</a></span>
 </footer><!-- /.post-info -->                <p>在kernel booting的早期，肯定是希望尽快把一些信息输出的串口，能够尽早知道kernel boot 到什么阶段。 所以一般在u-boot中，在FVP平台上有如下bootargs</p>
 <div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1 …</pre></div>
                 <a class="readmore" href="./posts/2024/06/earlycon_serial_port.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/06/earlycon_serial_port.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="./posts/2024/05/met_enable.html" rel="bookmark"
-                           title="Permalink to Arm64 Linux MTE 使能">Arm64 Linux MTE 使能</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Thu 30 May 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mte.html">MTE</a></span>
-</footer><!-- /.post-info -->                <p>在Arm Base FVP平台上，linux的默认配置是打开了MTE的，也就是：</p>
-<div class="highlight"><pre><span></span><span class="n">CONFIG_ARM64_AS_HAS_MTE</span><span class="o">=</span><span class="n">y</span>
-<span class="n">CONFIG_ARM64_MTE</span><span class="o">=</span><span class="n">y</span>
-</pre></div>
-<p>当运行Base FVP的时候加上如下参数：</p>
-<div class="highlight"><pre><span></span>-C<span class="w"> </span>cluster0.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
--C<span class="w"> </span>cluster1.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
-</pre></div>
-<p>这个时候运行Linux kernel的时候会出现如下错误：</p>
-<div class="highlight"><pre><span></span><span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU<span class="w"> </span>features:<span class="w"> </span>detected:<span class="w"> </span>Virtualization<span class="w"> </span>Host<span class="w"> </span>Extensions
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU<span class="w"> </span>features:<span class="w"> </span>detected:<span class="w"> </span>Memory<span class="w"> </span>Tagging<span class="w"> </span>Extension
-<span class="o">[</span><span class="w">    </span><span class="m">0 …</span></pre></div>
-                <a class="readmore" href="./posts/2024/05/met_enable.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/met_enable.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="./posts/2024/05/setup_tf_a_u_boot_linux_fvp.html" rel="bookmark"
-                           title="Permalink to 设置tf-a u-boot 和Linux的开发和调试环境">设置tf-a u-boot 和Linux的开发和调试环境</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>Wed 29 May 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/tf-a.html">tf-a</a><a href="./tag/u-boot.html">u-boot</a></span>
-</footer><!-- /.post-info -->                <p>在学习Linux的过程中，调试必不可少。下面的步骤就是一步一步如何使用Arm 的FVP平台来设置Linux的开发和调试环境。
-如下所有的步骤最终都汇聚在我的github <a class="reference external" href="https://github.com/geesun/boot-tf-a-u-boot-linux/">boot-tf-a-u-boot-linux</a>  ，如果仅仅是 …</p>
-                <a class="readmore" href="./posts/2024/05/setup_tf_a_u_boot_linux_fvp.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/setup_tf_a_u_boot_linux_fvp.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>
