@@ -2,8 +2,8 @@
 <html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>Linux学习笔记 - MMU</title>
-        <link rel="stylesheet" href="../theme/css/main.css" />
+        <title>vmalloc的理解</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
 
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,20 +12,25 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="../">Linux学习笔记 </a></h1>
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
                 <nav><ul>
-                    <li><a href="../category/linux.html">Linux</a></li>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/06/vmalloc.html" rel="bookmark"
+           title="Permalink to vmalloc的理解">vmalloc的理解</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="../posts/2024/06/vmalloc.html">vmalloc的理解</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>四 27 六月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a><a href="../tag/vmalloc.html">vmalloc</a></span>
-</footer><!-- /.post-info --><p>kmalloc 是分配的物理地址是连续的，如果系统中需要分配大块的内存，这个时候使用kmalloc可能就不一定能分配到连续的物理内存，这个时候就需要使用vmalloc。</p>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a><a href="../../../tag/mmu.html">MMU</a><a href="../../../tag/vmalloc.html">vmalloc</a></span>
+</footer><!-- /.post-info -->      <p>kmalloc 是分配的物理地址是连续的，如果系统中需要分配大块的内存，这个时候使用kmalloc可能就不一定能分配到连续的物理内存，这个时候就需要使用vmalloc。</p>
 <blockquote>
 可以参考kmalloc的实现，如果要分配大小大于 KMALLOC_MAX_CACHE_SIZE 的内存，系统不再使用slab来进行分配，而是使用__kmalloc_large_node。 这个时候其实就是使用        struct folio 来记录分配的。</blockquote>
 <p>vmalloc的作用就是分配大块内存，这个大块内存是从虚拟地址的角度看的，而实际的对应的物理地址，可能是一些不连续的page组成的。 所以vmalloc主要是对虚拟地址进行管理，它物理地址的分配使用的就是buddy系统来分配一些pages：</p>
@@ -370,58 +375,24 @@ __vmalloc_area_node-&gt; vmap_pages_range  -&gt; vmap_pages_range_noflush -&gt; 
 <span class="mh">0xffff800083308000-0xffff80008330d000</span><span class="w">   </span><span class="mi">20480</span><span class="w"> </span><span class="n">kernel_clone</span><span class="o">+</span><span class="mh">0x68</span><span class="o">/</span><span class="mh">0x368</span><span class="w"> </span><span class="n">pages</span><span class="o">=</span><span class="mi">4</span><span class="w"> </span><span class="n">vmalloc</span><span class="w"> </span><span class="n">N0</span><span class="o">=</span><span class="mi">4</span>
 </pre></div>
 </div>
-<p><a href="https://geesun.github.io/posts/2024/06/vmalloc.html#disqus_thread">comments</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/slub_alloc.html" rel="bookmark"
-                           title="Permalink to slub分配器的理解">slub分配器的理解</a></h1>
-                </header>
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/06/vmalloc.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/06/vmalloc.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <span>一 24 六月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a><a href="../tag/slub.html">SLUB</a></span>
-</footer><!-- /.post-info -->                <p>slub分配器的原理，<a class="reference external" href="http://www.wowotech.net/memory_management/426.html">这里</a> 已经分析的很清楚。</p>
-<p>这里主要记录我对这个的理解，怕以后忘记。</p>
-<div class="section" id="section-1">
-<h2>关键数据结构</h2>
-<ol class="arabic simple">
-<li>struct kmem_cache</li>
-</ol>
-<p>这个是slub分配器的总管，如果要针对特定大小 …</p></div>
-                <a class="readmore" href="../posts/2024/06/slub_alloc.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/slub_alloc.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/kmem_cache.html" rel="bookmark"
-                           title="Permalink to kmem_cache内存池使用">kmem_cache内存池使用</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>日 23 六月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a><a href="../tag/slub.html">SLUB</a></span>
-</footer><!-- /.post-info -->                <p>kmem_cache 作为一个基本的 allocator 组件，这里可以把他理解为用于某个特定大小的内存对象池。</p>
-<p>Linux 系统中本身也存在很多这样的内存 …</p>
-                <a class="readmore" href="../posts/2024/06/kmem_cache.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/kmem_cache.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-<nav>
-  <ul>
-    <li>Page 1 / 2</li>
-        <li><a href="../tag/mmu2.html">&rang;</a></li>
-        <li><a href="../tag/mmu2.html">&Rang;</a></li>
-  </ul>
-</nav>
-            </section><!-- /#content -->
+  </article>
+</section>
 
         <footer id="contentinfo" class="body">
                 <p>&copy; 2024 Qixiang Xu</p>

@@ -145,6 +145,69 @@
 </pre></div>
 <p>上面两个例子唯一的区别是不是要使用到usercopy，如果使用到usercopy的话，就用kmem_cache_create_usercopy。 这样在copyfromuser的时候，位了避免userspace的攻击，这个时候就可以通过user 的size 和offset 来检查这个copy是不是合法，不合法就可以拒绝copy。</p>
 <p>参考函数 __check_heap_object.</p>
+<p>在使能 CONFIG_SLUB_DEBUG 这之后，可以对每个pool的分配情况进行查询，如下：</p>
+<div class="highlight"><pre><span></span><span class="c1"># cat /sys/kernel/debug/slab/task_struct/alloc_traces</span>
+<span class="w">    </span><span class="m">102</span><span class="w"> </span>copy_process+0x144/0x141c<span class="w"> </span><span class="nv">age</span><span class="o">=</span><span class="m">39045</span>/1797787/1833528<span class="w"> </span><span class="nv">pid</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">cpus</span><span class="o">=</span><span class="m">0</span>-1
+<span class="w">        </span>kmem_cache_alloc_node+0x20c/0x264
+<span class="w">        </span>copy_process+0x144/0x141c
+<span class="w">        </span>kernel_clone+0x68/0x368
+<span class="w">        </span>kernel_thread+0x80/0xb4
+<span class="w">        </span>kthreadd+0x144/0x1c4
+<span class="w">        </span>ret_from_fork+0x10/0x20
+
+<span class="w">      </span><span class="m">7</span><span class="w"> </span>copy_process+0x144/0x141c<span class="w"> </span><span class="nv">age</span><span class="o">=</span><span class="m">1833521</span>/1833521/1833522<span class="w"> </span><span class="nv">pid</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">cpus</span><span class="o">=</span><span class="m">0</span>
+<span class="w">        </span>kmem_cache_alloc_node+0x20c/0x264
+<span class="w">        </span>copy_process+0x144/0x141c
+<span class="w">        </span>fork_idle+0x90/0x110
+<span class="w">        </span>idle_threads_init+0xcc/0x104
+<span class="w">        </span>smp_init+0x14/0x8c
+<span class="w">        </span>kernel_init_freeable+0x100/0x290
+<span class="w">        </span>kernel_init+0x20/0x1d8
+<span class="w">        </span>ret_from_fork+0x10/0x20
+
+<span class="w">      </span><span class="m">4</span><span class="w"> </span>copy_process+0x144/0x141c<span class="w"> </span><span class="nv">age</span><span class="o">=</span><span class="m">5</span>/1371620/1828871<span class="w"> </span><span class="nv">pid</span><span class="o">=</span><span class="m">1</span>-149<span class="w"> </span><span class="nv">cpus</span><span class="o">=</span><span class="m">6</span>-7
+<span class="w">        </span>kmem_cache_alloc_node+0x20c/0x264
+<span class="w">        </span>copy_process+0x144/0x141c
+<span class="w">        </span>kernel_clone+0x68/0x368
+<span class="w">        </span>__do_sys_clone+0x74/0xb0
+<span class="w">        </span>__arm64_sys_clone+0x20/0x2c
+<span class="w">        </span>invoke_syscall+0x48/0x114
+<span class="w">        </span>el0_svc_common.constprop.0+0x40/0xe0
+<span class="w">        </span>do_el0_svc+0x1c/0x28
+<span class="w">        </span>el0_svc+0x34/0xd8
+<span class="w">        </span>el0t_64_sync_handler+0x120/0x12c
+<span class="w">        </span>el0t_64_sync+0x190/0x194
+
+<span class="w">      </span><span class="m">1</span><span class="w"> </span>copy_process+0x144/0x141c<span class="w"> </span><span class="nv">age</span><span class="o">=</span><span class="m">1833529</span><span class="w"> </span><span class="nv">pid</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">cpus</span><span class="o">=</span><span class="m">0</span>
+<span class="w">        </span>kmem_cache_alloc_node+0x20c/0x264
+<span class="w">        </span>copy_process+0x144/0x141c
+<span class="w">        </span>kernel_clone+0x68/0x368
+<span class="w">        </span>user_mode_thread+0x70/0xa4
+<span class="w">        </span>rest_init+0x30/0xe4
+<span class="w">        </span>start_kernel+0x50c/0x614
+<span class="w">        </span>__primary_switched+0x80/0x88
+
+<span class="w">      </span><span class="m">1</span><span class="w"> </span>copy_process+0x144/0x141c<span class="w"> </span><span class="nv">age</span><span class="o">=</span><span class="m">1833529</span><span class="w"> </span><span class="nv">pid</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">cpus</span><span class="o">=</span><span class="m">0</span>
+<span class="w">        </span>kmem_cache_alloc_node+0x20c/0x264
+<span class="w">        </span>copy_process+0x144/0x141c
+<span class="w">        </span>kernel_clone+0x68/0x368
+<span class="w">        </span>kernel_thread+0x80/0xb4
+<span class="w">        </span>rest_init+0xa0/0xe4
+<span class="w">        </span>start_kernel+0x50c/0x614
+<span class="w">        </span>__primary_switched+0x80/0x88
+
+<span class="c1"># cat /sys/kernel/debug/slab/task_struct/free_traces</span>
+<span class="w">    </span><span class="m">104</span><span class="w"> </span>&lt;not-available&gt;<span class="w"> </span><span class="nv">age</span><span class="o">=</span><span class="m">4297136502</span><span class="w"> </span><span class="nv">pid</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">cpus</span><span class="o">=</span><span class="m">0</span>
+<span class="w">     </span><span class="m">11</span><span class="w"> </span>free_task+0x54/0x80<span class="w"> </span><span class="nv">age</span><span class="o">=</span><span class="m">410662</span>/1767494/2243661<span class="w"> </span><span class="nv">pid</span><span class="o">=</span><span class="m">0</span>-126<span class="w"> </span><span class="nv">cpus</span><span class="o">=</span><span class="m">0</span>-1,4-6
+<span class="w">        </span>kmem_cache_free+0x1fc/0x2a0
+<span class="w">        </span>free_task+0x54/0x80
+<span class="w">        </span>__put_task_struct+0x100/0x154
+<span class="w">        </span>delayed_put_task_struct+0x7c/0xa8
+<span class="w">        </span>rcu_core+0x25c/0x654
+<span class="w">        </span>rcu_core_si+0x10/0x1c
+<span class="w">        </span>handle_softirqs+0x108/0x24c
+<span class="w">        </span>__do_softirq+0x14/0x20
+</pre></div>
 
     </div><!-- /.entry-content -->
     <div class="comments">

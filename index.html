@@ -21,376 +21,224 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="./posts/2024/06/slub_alloc.html">slub分配器的理解</a></h1>
+                    <h1 class="entry-title"><a href="./posts/2024/07/02_kasan.html">Kasan 使用</a></h1>
 <footer class="post-info">
-        <span>一 24 六月 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mmu.html">MMU</a><a href="./tag/slub.html">SLUB</a></span>
-</footer><!-- /.post-info --><p>slub分配器的原理，<a class="reference external" href="http://www.wowotech.net/memory_management/426.html">这里</a> 已经分析的很清楚。</p>
-<p>这里主要记录我对这个的理解，怕以后忘记。</p>
+        <span>一 22 七月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info --><p>KASAN(Kernel Address Sanitizer)是一个在kernel里面检测内存越界访问的一个工具，可以检测</p>
+<ul class="simple">
+<li>全局变量越界 (仅Generic KASAN支持)</li>
+<li>栈变量的越界 (仅Generic KASAN和Software Tag-Based KASAN支持)</li>
+<li>SLAB 分配器分配的object</li>
+<li>PAGE 分配器分配的Page</li>
+<li>Vmalloc 分配器分配的内存</li>
+</ul>
+<p>当然，use-after-free也是可以检测到的。</p>
+<p>Generic KASAN是不需要硬件支持的， Software Tag-Based KASAN和Hardware Tag-Based KASAN 是需要硬件提供支持。</p>
+<p>Software Tag-Based KASAN和Hardware Tag-Based KASAN 目前支持arm64的系统，需要地址支持TBI（top byte ignore),因为它的tag是放在地址的高位，所以TBI的支持。</p>
+<p>Hardware Tag-Based KASAN是在Arm64 MTE（Memory Tagging Extension）硬件支持。</p>
+<div class="section" id="shadow-memory">
+<h2>Shadow memory</h2>
+<p>为了检测内存的越界访问，Generic和Software Tag-Based KASAN是需要提供影子内存的，Hardware Tag-Based KASAN因为有MTE的支持，硬件已经有存放Tag的地方，就不需要软件来支持。</p>
+<p>参考如下虚拟内存布局：</p>
+<div class="highlight"><pre><span></span>Start<span class="w"> </span>End<span class="w"> </span>Size<span class="w"> </span>Use
+<span class="w"> </span>-----------------------------------------------------------------------
+<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span>0000ffffffffffff<span class="w"> </span>256TB<span class="w"> </span>user
+<span class="w"> </span>ffff000000000000<span class="w"> </span>ffff7fffffffffff<span class="w"> </span>128TB<span class="w"> </span>kernel<span class="w"> </span>logical<span class="w"> </span>memory<span class="w"> </span>map
+<span class="w"> </span><span class="o">[</span>ffff600000000000<span class="w"> </span>ffff7fffffffffff<span class="o">]</span><span class="w">   </span>32TB<span class="w"> </span><span class="o">[</span>kasan<span class="w"> </span>shadow<span class="w"> </span>region<span class="o">]</span>
+<span class="w"> </span>ffff800000000000<span class="w"> </span>ffff80007fffffff<span class="w">   </span>2GB<span class="w"> </span>modules
+<span class="w"> </span>ffff800080000000<span class="w"> </span>fffffbffefffffff<span class="w"> </span>124TB<span class="w"> </span>vmalloc
+<span class="w"> </span>fffffbfff0000000<span class="w"> </span>fffffbfffdffffff<span class="w"> </span>224MB<span class="w"> </span>fixed<span class="w"> </span>mappings<span class="w"> </span><span class="o">(</span>top<span class="w"> </span>down<span class="o">)</span>
+<span class="w"> </span>fffffbfffe000000<span class="w"> </span>fffffbfffe7fffff<span class="w">   </span>8MB<span class="w"> </span><span class="o">[</span>guard<span class="w"> </span>region<span class="o">]</span>
+<span class="w"> </span>fffffbfffe800000<span class="w"> </span>fffffbffff7fffff<span class="w">   </span>16MB<span class="w"> </span>PCI<span class="w"> </span>I/O<span class="w"> </span>space
+<span class="w"> </span>fffffbffff800000<span class="w"> </span>fffffbffffffffff<span class="w">   </span>8MB<span class="w"> </span><span class="o">[</span>guard<span class="w"> </span>region<span class="o">]</span>
+<span class="w"> </span>fffffc0000000000<span class="w"> </span>fffffdffffffffff<span class="w">   </span>2TB<span class="w"> </span>vmemmap
+<span class="w"> </span>fffffe0000000000<span class="w"> </span>ffffffffffffffff<span class="w">   </span>2TB<span class="w"> </span><span class="o">[</span>guard<span class="w"> </span>region<span class="o">]</span>
+</pre></div>
+<p>Kernel系统里面所有的虚拟地址，都可以在kasan shadow region 找到对应的地址和它一一对应。一个VA可以通过下面的函数找到它对应的 kasan shadow的地址：</p>
+<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">kasan_mem_to_shadow</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">addr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)((</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">addr</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">KASAN_SHADOW_SCALE_SHIFT</span><span class="p">)</span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">KASAN_SHADOW_OFFSET</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>但是32T的kasan shadow region 不可能都有物理地址和它对应。</p>
+<p>所以系统里面只给 kernel logical memory map里面已经online的memory bank 给它分配kasan shadow region里面的物理内存，还有就是vmalloc 里面的kernel image对应的部分VA对应的kasan shadow region分配物理内存。</p>
+<p>其他别的虚拟地址都把他们的 kasan shadow region 映射成一个共同的物理页kasan_early_shadow_page， 这样就不需要那么多kasan shadow 物理内存了。 参考如下：</p>
+<img alt="shadow_memory" class="align-center" src="./images/linux/debug/shadow_memory_layout.png" style="width: 600px;" />
+<p>对于vmalloc区域，因为它的VA地址是动态分配的，所以系统boot起来是不会静态给它的kasan shadow region分配物理内存。 只有真正分配VA的时候才给映射kasan shadow region 的物理内存，可以参考如下函数：</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">kasan_populate_vmalloc</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">kasan_release_vmalloc</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="p">,</span>
+<span class="w">                   </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">free_region_start</span><span class="p">,</span>
+<span class="w">                   </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">free_region_end</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="section" id="section-1">
-<h2>关键数据结构</h2>
-<ol class="arabic simple">
-<li>struct kmem_cache</li>
-</ol>
-<p>这个是slub分配器的总管，如果要针对特定大小，特定用途的内存有一个分配器的话，那就必须要创建这个结构。 而每次分配内存的时候，需要把这个结构传递给分配器。</p>
-<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="p">{</span>
-<span class="cp">#ifndef CONFIG_SLUB_TINY</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="n">__percpu</span><span class="w"> </span><span class="o">*</span><span class="n">cpu_slab</span><span class="p">;</span>
-<span class="cp">#endif</span>
-<span class="w">        </span><span class="c1">//..</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_node</span><span class="w"> </span><span class="o">*</span><span class="n">node</span><span class="p">[</span><span class="n">MAX_NUMNODES</span><span class="p">];</span>
-<span class="p">};</span>
-</pre></div>
-<p>cpu_slab 是每个cpu都有自己的copy，这样每个cpu首先要在自己的cache里面进行分配，在这个cache pool里面分配是不需要锁的，毕竟这个cache pool只给这个CPU分配。 这样会大大提高效率。</p>
-<p>node 这个变量跟NUMA有关系，在分配内存的时候，肯定是希望尽可能分配的内存使这个CPU访问的效率最高。 所以当cpu_slab没法满足分配的时，尽可能的到它对应的node里面去找slab来进行分配。 也许在这个node里面别的CPU已经释放了一些slab，这样这个CPU就可以直接利用了，也不需要重新到伙伴系统里面去分配。</p>
-<p>这也就是这两个结构里面都会有一些slab的原因。</p>
-<ol class="arabic simple" start="2">
-<li>struct kmem_cache_cpu</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">freelist</span><span class="p">;</span><span class="w">        </span><span class="cm">/* Pointer to next available object */</span>
-<span class="w">                        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span><span class="w">      </span><span class="cm">/* Globally unique transaction id */</span>
-<span class="w">                </span><span class="p">};</span>
-<span class="w">                </span><span class="n">freelist_aba_t</span><span class="w"> </span><span class="n">freelist_tid</span><span class="p">;</span>
-<span class="w">        </span><span class="p">};</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">slab</span><span class="w"> </span><span class="o">*</span><span class="n">slab</span><span class="p">;</span><span class="w">      </span><span class="cm">/* The slab from which we are allocating */</span>
-<span class="cp">#ifdef CONFIG_SLUB_CPU_PARTIAL</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">slab</span><span class="w"> </span><span class="o">*</span><span class="n">partial</span><span class="p">;</span><span class="w">   </span><span class="cm">/* Partially allocated slabs */</span>
-<span class="cp">#endif</span>
-<span class="w">        </span><span class="c1">//...</span>
-<span class="p">};</span>
-</pre></div>
-<p>这里出现了一个freelist，这个是指向第一个free object的对应的指针。 这里把一个slab所对应的内存划分成很多个object，这些object就是最终要分配给上层软件的内存空间。在没有分配之前，这里会利用这个object所在的内存，存放next 指针，这个next 指针存放在这个object什么地方，由 struct kmem_cache的offset 来决定。这个offset一般放在这个object的中间，防止踩内存的出现，参考函数： calculate_sizes</p>
-<div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm"> * Store freelist pointer near middle of object to keep</span>
-<span class="cm"> * it away from the edges of the object to avoid small</span>
-<span class="cm"> * sized over/underflows from neighboring allocations.</span>
-<span class="cm"> */</span>
-<span class="n">s</span><span class="o">-&gt;</span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ALIGN_DOWN</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">object_size</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">));</span>
-</pre></div>
-<p>tid在这里的作用是同步任务用的，如果当前任务分配内存分配到一半，被切换出去了，而前面计划分配给这个任务的内存，可能被别的内务给分配了，那这个时候就需要重新给这个任务分配。 参考函数： __slab_alloc_node：</p>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">__slab_alloc_node</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span>
-<span class="w">                </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">orig_size</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="c1">//...</span>
-<span class="nl">redo</span><span class="p">:</span>
-<span class="w">        </span><span class="c1">//获取当前CPU的slab信息</span>
-<span class="w">        </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span>
-<span class="w">        </span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">READ_ONCE</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">);</span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">USE_LOCKLESS_FAST_PATH</span><span class="p">()</span><span class="w"> </span><span class="o">||</span>
-<span class="w">            </span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">object</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">slab</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">node_match</span><span class="p">(</span><span class="n">slab</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="c1">//Slow path里面会disable 任务迁移到别的CPU里面去</span>
-<span class="w">                </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__slab_alloc</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">orig_size</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="c1">//如果发现这个tid和c-&gt;tid不一样，直接fail了重新做</span>
-<span class="w">                        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">__update_cpu_freelist_fast</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">next_object</span><span class="p">,</span><span class="w"> </span><span class="n">tid</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                                </span><span class="n">note_cmpxchg_failure</span><span class="p">(</span><span class="s">&quot;slab_alloc&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">tid</span><span class="p">);</span>
-<span class="w">                                </span><span class="k">goto</span><span class="w"> </span><span class="n">redo</span><span class="p">;</span>
-<span class="w">                        </span><span class="p">}</span>
-<span class="w">            </span><span class="c1">//..</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">__slab_alloc</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span>
-<span class="w">                          </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">orig_size</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
-
-<span class="cp">#ifdef CONFIG_PREEMPT_COUNT</span>
-<span class="w">        </span><span class="cm">/*</span>
-<span class="cm">         * We may have been preempted and rescheduled on a different</span>
-<span class="cm">         * cpu before disabling preemption. Need to reload cpu area</span>
-<span class="cm">         * pointer.</span>
-<span class="cm">         */</span>
-<span class="w">        </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slub_get_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span><span class="w">  </span><span class="c1">//disable 任务迁移到别的CPU</span>
-<span class="cp">#endif</span>
-
-<span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">___slab_alloc</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">orig_size</span><span class="p">);</span>
-<span class="cp">#ifdef CONFIG_PREEMPT_COUNT</span>
-<span class="w">        </span><span class="n">slub_put_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span>
-<span class="cp">#endif</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+<h2>非法访问检查</h2>
+<p>KASAN是在使用指针访问内存的时候，提前检测这个指针的状态是不是合法。</p>
+<p>对于Generic和Software Tag-Based KASAN， 就依赖编译器在在访问内存的时候插入相对应的代码去检查这个指针对应的kasan shadow memory里面的值是不是合法，如我们有如下代码：</p>
+<div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;test = %d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">test</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;test2 = %d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">test</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
 <span class="p">}</span>
 </pre></div>
-<p>字段slab 对应的就是当前被分配的slab，每次alloc 内存的时候，如果slab为空(第一次使用），或者freelist 为空（slab没有空闲的object)，那就需要先分配一个新的slab。</p>
-<p>至于如何分配新的slab，这个首先要到partial列表里面去找对应的slab，如果还找不到，就到struct kmem_cache_node 的partial列表去找，如果还找不到，就到buddy里面去分配一个新的slab。</p>
-<p>partial 就是一个slab的列表，因为系统内存会分配和释放同时进行，这样就会出现多个slab，部分有分配出去，部分是空闲的，这也就是这个字段partial的来源。</p>
-<ol class="arabic simple" start="3">
-<li>struct kmem_cache_node</li>
-</ol>
-<p>这个结构主要是维护统一个numa node里面被分配过的slab列表。当这个CPU的slab全都被分配出去之后，就可以考虑从这个node里面去找对应的slab，也许别的CPU释放了很多内存，最终被释放到numa node里面，这样就不需要到buddy里面去分配。</p>
-<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_node</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">spinlock_t</span><span class="w"> </span><span class="n">list_lock</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nr_partial</span><span class="p">;</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_head</span><span class="w"> </span><span class="n">partial</span><span class="p">;</span>
-<span class="w">        </span><span class="c1">//....</span>
-<span class="p">};</span>
-
-<span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">//..</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_node</span><span class="w"> </span><span class="o">*</span><span class="n">node</span><span class="p">[</span><span class="n">MAX_NUMNODES</span><span class="p">];</span>
-<span class="p">};</span>
+<p>Generic KASAN 编译器会产生如下代码：</p>
+<div class="highlight"><pre><span></span><span class="err">40:</span><span class="w">   </span><span class="nf">aa1303e0</span><span class="w">    </span><span class="no">mov</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x19</span>
+<span class="err">44:</span><span class="w">   </span><span class="err">94000000</span><span class="w">    </span><span class="nf">bl</span><span class="w">  </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">__asan_load4_noabort</span><span class="p">&gt;</span>
+<span class="err">48:</span><span class="w">   </span><span class="nf">b9400261</span><span class="w">    </span><span class="no">ldr</span><span class="w"> </span><span class="no">w1</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x19</span><span class="p">]</span>
+<span class="err">4</span><span class="nl">c:</span><span class="w">   </span><span class="err">35000081</span><span class="w">    </span><span class="nf">cbnz</span><span class="w">    </span><span class="no">w1</span><span class="p">,</span><span class="w"> </span><span class="mh">5c</span> <span class="p">&lt;</span><span class="no">global_test</span><span class="p">+</span><span class="mi">0x5c</span><span class="p">&gt;</span>
+<span class="err">50:</span><span class="w">   </span><span class="err">90000000</span><span class="w">    </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">global_test</span><span class="p">&gt;</span>
+<span class="err">54:</span><span class="w">   </span><span class="err">91000000</span><span class="w">    </span><span class="nf">add</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
+<span class="err">58:</span><span class="w">   </span><span class="err">14000003</span><span class="w">    </span><span class="nf">b</span><span class="w">   </span><span class="mh">64</span> <span class="p">&lt;</span><span class="no">global_test</span><span class="p">+</span><span class="mi">0x64</span><span class="p">&gt;</span>
+<span class="err">5</span><span class="nl">c:</span><span class="w">   </span><span class="err">90000000</span><span class="w">    </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">global_test</span><span class="p">&gt;</span>
+<span class="err">60:</span><span class="w">   </span><span class="err">91000000</span><span class="w">    </span><span class="nf">add</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
+<span class="err">64:</span><span class="w">   </span><span class="err">94000000</span><span class="w">    </span><span class="nf">bl</span><span class="w">  </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">_printk</span><span class="p">&gt;</span>
 </pre></div>
-<p>kmem_cache 里面的node 是一个指针，所以也需要分配内存，这个也是一个专门的cache pool里面来分配的，具体看下面。</p>
+<p>Software Tag-Based KASAN 编译器会产生如下代码：</p>
+<div class="highlight"><pre><span></span><span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FA0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">LSR</span><span class="w">      </span><span class="no">x9</span><span class="p">,</span><span class="no">x8</span><span class="p">,</span><span class="mi">#4</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FA4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">LSR</span><span class="w">      </span><span class="no">x8</span><span class="p">,</span><span class="no">x0</span><span class="p">,</span><span class="mi">#56</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FA8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">LDRB</span><span class="w">     </span><span class="no">w9</span><span class="p">,[</span><span class="no">x19</span><span class="p">,</span><span class="no">x9</span><span class="p">]</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FAC</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">CMP</span><span class="w">      </span><span class="no">w8</span><span class="p">,</span><span class="no">w9</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FB0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B.EQ</span><span class="w">     </span><span class="no">global_test</span><span class="err">+</span><span class="mi">152</span><span class="w"> </span><span class="c1">; 0x840E3FBC</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FB4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">CMP</span><span class="w">      </span><span class="no">w8</span><span class="p">,</span><span class="mi">#0</span><span class="no">xff</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FB8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B.NE</span><span class="w">     </span><span class="no">global_test</span><span class="err">+</span><span class="mi">400</span><span class="w"> </span><span class="c1">; 0x840E40B4 /// check first</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FBC</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">ADRP</span><span class="w">     </span><span class="no">x8</span><span class="p">,{</span><span class="no">pc</span><span class="p">}</span><span class="err">+</span><span class="mi">0xf51000</span><span class="w"> </span><span class="c1">; 0x85034FBC</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FC0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">LDR</span><span class="w">      </span><span class="no">w8</span><span class="p">,[</span><span class="no">x8</span><span class="p">,</span><span class="mi">#0</span><span class="no">x7e0</span><span class="p">]</span>
+
+<span class="c1">//....</span>
+
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40B4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MOV</span><span class="w">      </span><span class="no">x9</span><span class="p">,</span><span class="no">x19</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40B8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">BL</span><span class="w">       </span><span class="no">__hwasan_check_x0_67043362</span><span class="w"> </span><span class="c1">; 0x80215390</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40BC</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B</span><span class="w">        </span><span class="no">global_test</span><span class="err">+</span><span class="mi">152</span><span class="w"> </span><span class="c1">; 0x840E3FBC</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40C0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MOV</span><span class="w">      </span><span class="no">x9</span><span class="p">,</span><span class="no">x19</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40C4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">BL</span><span class="w">       </span><span class="no">__hwasan_check_x0_67043378</span><span class="w"> </span><span class="c1">; 0x80215420</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40C8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B</span><span class="w">        </span><span class="no">global_test</span><span class="err">+</span><span class="mi">196</span><span class="w"> </span><span class="c1">; 0x840E3FE8</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40CC</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MOV</span><span class="w">      </span><span class="no">x9</span><span class="p">,</span><span class="no">x19</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40D0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">BL</span><span class="w">       </span><span class="no">__hwasan_check_x1_67043360</span><span class="w"> </span><span class="c1">; 0x80215960</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40D4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B</span><span class="w">        </span><span class="no">global_test</span><span class="err">+</span><span class="mi">244</span><span class="w"> </span><span class="c1">; 0x840E4018</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40D8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">BL</span><span class="w">       </span><span class="no">__stack_chk_fail</span><span class="w"> </span><span class="c1">; 0x835A6A4C</span>
+
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x0000000080215390</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">SBFX</span><span class="w">     </span><span class="no">x16</span><span class="p">,</span><span class="no">x0</span><span class="p">,</span><span class="mi">#4</span><span class="p">,</span><span class="mi">#52</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x0000000080215394</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">4</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">LDRB</span><span class="w">     </span><span class="no">w16</span><span class="p">,[</span><span class="no">x9</span><span class="p">,</span><span class="no">x16</span><span class="p">]</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x0000000080215398</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">8</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">CMP</span><span class="w">      </span><span class="no">x16</span><span class="p">,</span><span class="no">x0</span><span class="p">,</span><span class="no">LSR</span><span class="w"> </span><span class="mi">#56</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x000000008021539C</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">12</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">B.NE</span><span class="w">     </span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">20</span><span class="w"> </span><span class="c1">; 0x802153A4</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153A0</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">16</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">RET</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153A4</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">20</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">LSR</span><span class="w">      </span><span class="no">x17</span><span class="p">,</span><span class="no">x0</span><span class="p">,</span><span class="mi">#56</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153A8</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">24</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">CMP</span><span class="w">      </span><span class="no">x17</span><span class="p">,</span><span class="mi">#0</span><span class="no">xff</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153AC</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">28</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">B.EQ</span><span class="w">     </span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">16</span><span class="w"> </span><span class="c1">; 0x802153A0</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153B0</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">32</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">STP</span><span class="w">      </span><span class="no">x0</span><span class="p">,</span><span class="no">x1</span><span class="p">,[</span><span class="no">sp</span><span class="p">,</span><span class="mi">#-0</span><span class="no">x100</span><span class="p">]!</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153B4</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">36</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">STP</span><span class="w">      </span><span class="no">x29</span><span class="p">,</span><span class="no">x30</span><span class="p">,[</span><span class="no">sp</span><span class="p">,</span><span class="mi">#0</span><span class="no">xe8</span><span class="p">]</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153B8</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">40</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">MOV</span><span class="w">      </span><span class="no">x1</span><span class="p">,</span><span class="mi">#0</span><span class="no">x22</span>
+<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153BC</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">44</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">B</span><span class="w">        </span><span class="no">__hwasan_tag_mismatch</span><span class="w"> </span><span class="c1">; 0x811C6608</span>
+</pre></div>
+<p>至于Hardware Tag-Based KASAN 时使用MTE的硬件机制来进行检测。 就没有额外检测代码。</p>
+<p>这也就是Hardware Tag-Based KASAN 基本不会增加kernel image 的大小，而Generic和Software Tag-Based KASAN会增加 kernel image 的大小。</p>
+<p>根据测试，大概Generic KASAN 会增加2-3倍大小，而Software Tag-Based KASAN 1.5-2倍大小。</p>
 </div>
 <div class="section" id="section-2">
-<h2>管理数据的创建</h2>
-<p>在执行完mm_core_init -&gt; mem_init -&gt; memblock_free_all 之后，buddy系统就已经准备好了，可以进行以page为单位的内存分配。</p>
-<p>mm_core_init -&gt; kmem_cache_init 就是创建struct kmem_cache  管理数据啦，在这之后就可以调用kmalloc来进行小块内存的分配和释放。</p>
-<p>系统有：</p>
-<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">kmem_cache</span><span class="p">;</span>
-<span class="k">static</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">kmem_cache_node</span><span class="p">;</span>
-</pre></div>
-<p>系统里面可能会有很多的struct kmem_cache 和struct kmem_cache_node ，所以也需要为他们准备一个pool。 这两个pool就是为他们准备的，它们的初始化稍微有一点点不一样，可以参考函数 kmem_cache_init：</p>
-<div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">kmem_cache_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<h2>测试例子</h2>
+<p>有如下函数：</p>
+<div class="highlight"><pre><span></span><span class="n">__attribute__</span><span class="p">((</span><span class="n">__noinline__</span><span class="p">))</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">kmalloc_test_err</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="n">__initdata</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="n">boot_kmem_cache</span><span class="p">,</span>
-<span class="w">                </span><span class="n">boot_kmem_cache_node</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="o">*</span><span class="n">kmem</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="o">*</span><span class="n">kmem1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;%s </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="w">    </span><span class="n">kmem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">kmem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="p">;</span>
 
-<span class="w">        </span><span class="c1">//不是很清楚为啥这里使用静态变量，感觉stack 变量应该也可以，后面在bootstrap的时候会copy到动态分配的变量里</span>
-<span class="w">        </span><span class="n">kmem_cache_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">boot_kmem_cache_node</span><span class="p">;</span>
-<span class="w">        </span><span class="n">kmem_cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">boot_kmem_cache</span><span class="p">;</span>
+<span class="w">    </span><span class="n">kmem1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span>
 
-<span class="w">        </span><span class="cm">/*</span>
-<span class="cm">         * Initialize the nodemask for which we will allocate per node</span>
-<span class="cm">         * structures. Here we don&#39;t need taking slab_mutex yet.</span>
-<span class="cm">         */</span>
-<span class="w">        </span><span class="n">for_each_node_state</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">N_NORMAL_MEMORY</span><span class="p">)</span>
-<span class="w">                </span><span class="n">node_set</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">slab_nodes</span><span class="p">);</span>
-
-<span class="w">        </span><span class="c1">//第一步就是创建struct kmem_cache_node的pool， 这个时候对应的struct kmem_cache-&gt;node就不能使用这个cache来分配，</span>
-<span class="w">        </span><span class="c1">//而是要使用early_kmem_cache_node_alloc来分配，参看函数：init_kmem_cache_nodes</span>
-<span class="w">        </span><span class="n">create_boot_cache</span><span class="p">(</span><span class="n">kmem_cache_node</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kmem_cache_node&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_node</span><span class="p">),</span><span class="w"> </span><span class="n">SLAB_HWCACHE_ALIGN</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-
-<span class="w">        </span><span class="n">hotplug_memory_notifier</span><span class="p">(</span><span class="n">slab_memory_callback</span><span class="p">,</span><span class="w"> </span><span class="n">SLAB_CALLBACK_PRI</span><span class="p">);</span>
-
-<span class="w">        </span><span class="cm">/* Able to allocate the per node structures */</span>
-<span class="w">        </span><span class="n">slab_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PARTIAL</span><span class="p">;</span>
-
-<span class="w">        </span><span class="c1">//第二步就是创建struct kmem_cache的pool，这个时候可以使用上面那个pool来分配这个对应的struct kmem_cache_node，这也就是上面那句slab_state = PARTIAL的原因</span>
-<span class="w">        </span><span class="c1">//这个大小就是根据系统有多少node就分配多少，不需要分配所有的node的指针</span>
-<span class="w">        </span><span class="n">create_boot_cache</span><span class="p">(</span><span class="n">kmem_cache</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kmem_cache&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="n">offsetof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
-<span class="w">                                </span><span class="n">nr_node_ids</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_node</span><span class="w"> </span><span class="o">*</span><span class="p">),</span>
-<span class="w">                       </span><span class="n">SLAB_HWCACHE_ALIGN</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-
-<span class="w">        </span><span class="c1">//前面不是使用静态变量来存放struct kmem_cache，这里重新在kmem_cache这个pool里面分配这个结构体，</span>
-<span class="w">        </span><span class="c1">//再把想对应的信息复制过去，然后 struct kmem_cache boot_kmem_cache, boot_kmem_cache_node; 使命就完成</span>
-<span class="w">        </span><span class="n">kmem_cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bootstrap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">boot_kmem_cache</span><span class="p">);</span>
-<span class="w">        </span><span class="n">kmem_cache_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bootstrap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">boot_kmem_cache_node</span><span class="p">);</span>
-
-<span class="w">        </span><span class="c1">//第三步，有了前面两步，那现在就可以直接使用上面两个pool来创建比的kmem_cache</span>
-<span class="w">        </span><span class="c1">//下面这里就是创建一下基本大小的pool，如8，16，32等等</span>
-<span class="w">        </span><span class="cm">/* Now we can use the kmem_cache to allocate kmalloc slabs */</span>
-<span class="w">        </span><span class="n">setup_kmalloc_cache_index_table</span><span class="p">();</span>
-<span class="w">        </span><span class="n">create_kmalloc_caches</span><span class="p">();</span>
-
-<span class="w">        </span><span class="c1">//到这里之后，就可以开始使用kmalloc来分配内存了</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">kmem</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
+<span class="w">        </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;kmem1 = %c </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">kmem</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">        </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;kmem2 = %c </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">kmem1</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
-<p>所有这些数据结构的创建过程，最终都是调用 __kmem_cache_create ，这个函数只是初始化一些管理的信息，而不会为这个创建的cache pool分配任何的slab。分配slab这个动作都是在分配内存的时候才会去做。</p>
-<p>但是因为这里需要用到struct kmem_cache 和struct kmem_cache_node， 所有可能会在kmem_cache 和kmem_cache_node 这两个pool里面分配内存，这两个pool也就有可能会分配slab。这个上面那个原则不矛盾。 也就是使用pool来分配内存的时候才会分配对应的slab。</p>
-<p>在create_kmalloc_cache 中会分配结构struct kmem_cache， 在init_kmem_cache_nodes 中分分配结构struct kmem_cache_node。 所以这两个函数都会为这两个pool分配slab</p>
+<p>运行时会出现如下错误：</p>
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="w">  </span><span class="m">807</span>.832972<span class="o">]</span><span class="w"> </span><span class="o">==================================================================</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.838615<span class="o">]</span><span class="w"> </span>BUG:<span class="w"> </span>KASAN:<span class="w"> </span>invalid-access<span class="w"> </span><span class="k">in</span><span class="w"> </span>kmalloc_test_err+0x5c/0x94<span class="w"> </span><span class="o">[</span>kasan_my_test<span class="o">]</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.838844<span class="o">]</span><span class="w"> </span>Read<span class="w"> </span>at<span class="w"> </span>addr<span class="w"> </span>fcffff880000ff34<span class="w"> </span>by<span class="w"> </span>task<span class="w"> </span>modprobe/149
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.838937<span class="o">]</span><span class="w"> </span>Pointer<span class="w"> </span>tag:<span class="w"> </span><span class="o">[</span>fc<span class="o">]</span>,<span class="w"> </span>memory<span class="w"> </span>tag:<span class="w"> </span><span class="o">[</span>fe<span class="o">]</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839009<span class="o">]</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839055<span class="o">]</span><span class="w"> </span>CPU:<span class="w"> </span><span class="m">0</span><span class="w"> </span>PID:<span class="w"> </span><span class="m">149</span><span class="w"> </span>Comm:<span class="w"> </span>modprobe<span class="w"> </span>Not<span class="w"> </span>tainted<span class="w"> </span><span class="m">6</span>.6.0-dirty<span class="w"> </span><span class="c1">#74</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839170<span class="o">]</span><span class="w"> </span>Hardware<span class="w"> </span>name:<span class="w"> </span>FVP<span class="w"> </span>Base<span class="w"> </span>RevC<span class="w"> </span><span class="o">(</span>DT<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839238<span class="o">]</span><span class="w"> </span>Call<span class="w"> </span>trace:
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839291<span class="o">]</span><span class="w">  </span>dump_backtrace+0xf0/0x128
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839428<span class="o">]</span><span class="w">  </span>show_stack+0x18/0x24
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839561<span class="o">]</span><span class="w">  </span>dump_stack_lvl+0x50/0x68
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839667<span class="o">]</span><span class="w">  </span>print_report+0x1bc/0x724
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839770<span class="o">]</span><span class="w">  </span>kasan_report+0xa8/0x100
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839874<span class="o">]</span><span class="w">  </span>__do_kernel_fault+0xb0/0x1dc
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839997<span class="o">]</span><span class="w">  </span>do_bad_area+0x30/0xdc
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840115<span class="o">]</span><span class="w">  </span>do_tag_check_fault+0x20/0x30
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840238<span class="o">]</span><span class="w">  </span>do_mem_abort+0x40/0xec
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840355<span class="o">]</span><span class="w">  </span>el1_abort+0x3c/0x5c
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840458<span class="o">]</span><span class="w">  </span>el1h_64_sync_handler+0x80/0xcc
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840571<span class="o">]</span><span class="w">  </span>el1h_64_sync+0x64/0x68
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840670<span class="o">]</span><span class="w">  </span>kmalloc_test_err+0x5c/0x94<span class="w"> </span><span class="o">[</span>kasan_my_test<span class="o">]</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840885<span class="o">]</span><span class="w">  </span>init_module+0x5c/0x1000<span class="w"> </span><span class="o">[</span>kasan_my_test<span class="o">]</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841099<span class="o">]</span><span class="w">  </span>do_one_initcall+0xdc/0x250
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841203<span class="o">]</span><span class="w">  </span>do_init_module+0x58/0x27c
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841312<span class="o">]</span><span class="w">  </span>load_module+0x15c8/0x186c
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841420<span class="o">]</span><span class="w">  </span>__arm64_sys_finit_module+0x214/0x2c0
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841533<span class="o">]</span><span class="w">  </span>invoke_syscall+0x40/0x100
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841663<span class="o">]</span><span class="w">  </span>el0_svc_common+0xa8/0xd8
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841793<span class="o">]</span><span class="w">  </span>do_el0_svc+0x1c/0x28
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841920<span class="o">]</span><span class="w">  </span>el0_svc+0x38/0x68
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842024<span class="o">]</span><span class="w">  </span>el0t_64_sync_handler+0x90/0xfc
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842138<span class="o">]</span><span class="w">  </span>el0t_64_sync+0x19c/0x1a0
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842239<span class="o">]</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842281<span class="o">]</span><span class="w"> </span>The<span class="w"> </span>buggy<span class="w"> </span>address<span class="w"> </span>belongs<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>ffffff880000ff20
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842281<span class="o">]</span><span class="w">  </span>which<span class="w"> </span>belongs<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>cache<span class="w"> </span>kmalloc-32<span class="w"> </span>of<span class="w"> </span>size<span class="w"> </span><span class="m">32</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842399<span class="o">]</span><span class="w"> </span>The<span class="w"> </span>buggy<span class="w"> </span>address<span class="w"> </span>is<span class="w"> </span>located<span class="w"> </span><span class="m">20</span><span class="w"> </span>bytes<span class="w"> </span>inside<span class="w"> </span>of
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842399<span class="o">]</span><span class="w">  </span><span class="m">32</span>-byte<span class="w"> </span>region<span class="w"> </span><span class="o">[</span>ffffff880000ff20,<span class="w"> </span>ffffff880000ff40<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842531<span class="o">]</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842575<span class="o">]</span><span class="w"> </span>The<span class="w"> </span>buggy<span class="w"> </span>address<span class="w"> </span>belongs<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>physical<span class="w"> </span>page:
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842639<span class="o">]</span><span class="w"> </span>page:<span class="o">(</span>____ptrval____<span class="o">)</span><span class="w"> </span>refcount:1<span class="w"> </span>mapcount:0<span class="w"> </span>mapping:0000000000000000<span class="w"> </span>index:0xf6ffff880000faa0<span class="w"> </span>pfn:0x88000f
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842769<span class="o">]</span><span class="w"> </span>flags:<span class="w"> </span>0xbfffe0000000800<span class="o">(</span>slab<span class="p">|</span><span class="nv">node</span><span class="o">=</span><span class="m">0</span><span class="p">|</span><span class="nv">zone</span><span class="o">=</span><span class="m">2</span><span class="p">|</span><span class="nv">lastcpupid</span><span class="o">=</span>0x1ffff<span class="p">|</span><span class="nv">kasantag</span><span class="o">=</span>0x0<span class="o">)</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842881<span class="o">]</span><span class="w"> </span>page_type:<span class="w"> </span>0xffffffff<span class="o">()</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842978<span class="o">]</span><span class="w"> </span>raw:<span class="w"> </span>0bfffe0000000800<span class="w"> </span>fcffff8800002300<span class="w"> </span>dead000000000122<span class="w"> </span><span class="m">0000000000000000</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843099<span class="o">]</span><span class="w"> </span>raw:<span class="w"> </span>f6ffff880000faa0<span class="w"> </span><span class="m">0000000080800075</span><span class="w"> </span>00000001ffffffff<span class="w"> </span><span class="m">0000000000000000</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843188<span class="o">]</span><span class="w"> </span>page<span class="w"> </span>dumped<span class="w"> </span>because:<span class="w"> </span>kasan:<span class="w"> </span>bad<span class="w"> </span>access<span class="w"> </span>detected
+
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843302<span class="o">]</span><span class="w"> </span>Memory<span class="w"> </span>state<span class="w"> </span>around<span class="w"> </span>the<span class="w"> </span>buggy<span class="w"> </span>address:
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843375<span class="o">]</span><span class="w">  </span>ffffff880000fd00:<span class="w"> </span>f7<span class="w"> </span>f7<span class="w"> </span>fb<span class="w"> </span>fb<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>fd<span class="w"> </span>fd<span class="w"> </span>fb<span class="w"> </span>fb<span class="w"> </span>f8<span class="w"> </span>f8<span class="w"> </span>f8<span class="w"> </span>f8
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843476<span class="o">]</span><span class="w">  </span>ffffff880000fe00:<span class="w"> </span>f1<span class="w"> </span>f1<span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span><span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>fb<span class="w"> </span>fb<span class="w"> </span>fd<span class="w"> </span>fd<span class="w"> </span>fd<span class="w"> </span>fd<span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span>
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843577<span class="o">]</span><span class="w"> </span>&gt;ffffff880000ff00:<span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span><span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843663<span class="o">]</span><span class="w">                             </span>^
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843742<span class="o">]</span><span class="w">  </span>ffffff8800010000:<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843843<span class="o">]</span><span class="w">  </span>ffffff8800010100:<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9
+<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843930<span class="o">]</span><span class="w"> </span><span class="o">==================================================================</span>
+</pre></div>
 </div>
 <div class="section" id="section-3">
-<h2>分配</h2>
-<p>最终的分配都要到函数slab_alloc_node -&gt; __slab_alloc_node:</p>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">__slab_alloc_node</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span>
-<span class="w">                </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">orig_size</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="p">;</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">slab</span><span class="w"> </span><span class="o">*</span><span class="n">slab</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span>
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">object</span><span class="p">;</span>
-
-<span class="nl">redo</span><span class="p">:</span>
-<span class="w">        </span><span class="cm">/*</span>
-<span class="cm">         * Must read kmem_cache cpu data via this cpu ptr. Preemption is</span>
-<span class="cm">         * enabled. We may switch back and forth between cpus while</span>
-<span class="cm">         * reading from one cpu area. That does not matter as long</span>
-<span class="cm">         * as we end up on the original cpu again when doing the cmpxchg.</span>
-<span class="cm">         *</span>
-<span class="cm">         * We must guarantee that tid and kmem_cache_cpu are retrieved on the</span>
-<span class="cm">         * same cpu. We read first the kmem_cache_cpu pointer and use it to read</span>
-<span class="cm">         * the tid. If we are preempted and switched to another cpu between the</span>
-<span class="cm">         * two reads, it&#39;s OK as the two are still associated with the same cpu</span>
-<span class="cm">         * and cmpxchg later will validate the cpu.</span>
-<span class="cm">         */</span>
-<span class="w">        </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span>
-<span class="w">        </span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">READ_ONCE</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">);</span>
-
-<span class="w">        </span><span class="cm">/*</span>
-<span class="cm">         * Irqless object alloc/free algorithm used here depends on sequence</span>
-<span class="cm">         * of fetching cpu_slab&#39;s data. tid should be fetched before anything</span>
-<span class="cm">         * on c to guarantee that object and slab associated with previous tid</span>
-<span class="cm">         * won&#39;t be used with current tid. If we fetch tid first, object and</span>
-<span class="cm">         * slab could be one associated with next tid and our alloc/free</span>
-<span class="cm">         * request will be failed. In this case, we will retry. So, no problem.</span>
-<span class="cm">         */</span>
-<span class="w">        </span><span class="n">barrier</span><span class="p">();</span>
-
-<span class="w">        </span><span class="cm">/*</span>
-<span class="cm">         * The transaction ids are globally unique per cpu and per operation on</span>
-<span class="cm">         * a per cpu queue. Thus they can be guarantee that the cmpxchg_double</span>
-<span class="cm">         * occurs on the right processor and that there was no operation on the</span>
-<span class="cm">         * linked list in between.</span>
-<span class="cm">         */</span>
-
-<span class="w">        </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="p">;</span>
-<span class="w">        </span><span class="n">slab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="o">-&gt;</span><span class="n">slab</span><span class="p">;</span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">USE_LOCKLESS_FAST_PATH</span><span class="p">()</span><span class="w"> </span><span class="o">||</span>
-<span class="w">            </span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">object</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">slab</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">node_match</span><span class="p">(</span><span class="n">slab</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__slab_alloc</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">orig_size</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">next_object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_freepointer_safe</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">);</span>
-
-<span class="w">                </span><span class="cm">/*</span>
-<span class="cm">                 * The cmpxchg will only match if there was no additional</span>
-<span class="cm">                 * operation and if we are on the right processor.</span>
-<span class="cm">                 *</span>
-<span class="cm">                 * The cmpxchg does the following atomically (without lock</span>
-<span class="cm">                 * semantics!)</span>
-<span class="cm">                 * 1. Relocate first pointer to the current per cpu area.</span>
-<span class="cm">                 * 2. Verify that tid and freelist have not been changed</span>
-<span class="cm">                 * 3. If they were not changed replace tid and freelist</span>
-<span class="cm">                 *</span>
-<span class="cm">                 * Since this is without lock semantics the protection is only</span>
-<span class="cm">                 * against code executing on this cpu *not* from access by</span>
-<span class="cm">                 * other cpus.</span>
-<span class="cm">                 */</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">__update_cpu_freelist_fast</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="n">next_object</span><span class="p">,</span><span class="w"> </span><span class="n">tid</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="n">note_cmpxchg_failure</span><span class="p">(</span><span class="s">&quot;slab_alloc&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">tid</span><span class="p">);</span>
-<span class="w">                        </span><span class="k">goto</span><span class="w"> </span><span class="n">redo</span><span class="p">;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">                </span><span class="n">prefetch_freepointer</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">next_object</span><span class="p">);</span>
-<span class="w">                </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">ALLOC_FASTPATH</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">object</span><span class="p">;</span>
-<span class="p">}</span>
+<h2>注意事项</h2>
+<ol class="arabic simple">
+<li>并不是所有的越界都能被检测出来，这三个KASAN模式都一样。</li>
+</ol>
+<p>Generic KASAN是依赖于redzone和shadow memory 里面的值，如果指针恰好越界到 shadow memory 里面的值正好是0，这个时候指针也是可以正常访问，而不会报错。 但是因为Generic KASAN在分配memory 两端加了一个REDZONE，所以比较小的越界是比较容易检测出来的。这也是大部分越界的情况。</p>
+<p>Software 和Hardware Tag-Based KASAN 因为使用了非常有限的tag，所以tag也会出现冲突，如果使用这个指针访问的内存，正好它的tag跟这个指针的tag一致，也是可以直接访问的，错误也是有可能检测不出来的。</p>
+<ol class="arabic simple" start="2">
+<li>如果要enable stack checking 的话，需要使用到clang来编译kernel，gcc 不会显示stack checking 的选项。</li>
+</ol>
+<div class="highlight"><pre><span></span>make<span class="w"> </span>-C<span class="w"> </span>src/linux<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span><span class="nv">CC</span><span class="o">=</span>tools/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04/bin/clang<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>tools/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-<span class="w"> </span>menuconfig
 </pre></div>
-<p>那个redo的原因，前面也解释过了，注释也是比较清楚的。 在slow path的时候，函数__slab_alloc 中会禁止把任务调度到别的CPU上去。</p>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">__slab_alloc</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfp_t</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span>
-<span class="w">                          </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">kmem_cache_cpu</span><span class="w"> </span><span class="o">*</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">orig_size</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
-
-<span class="cp">#ifdef CONFIG_PREEMPT_COUNT</span>
-<span class="w">        </span><span class="cm">/*</span>
-<span class="cm">         * We may have been preempted and rescheduled on a different</span>
-<span class="cm">         * cpu before disabling preemption. Need to reload cpu area</span>
-<span class="cm">         * pointer.</span>
-<span class="cm">         */</span>
-<span class="w">        </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slub_get_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span><span class="w"> </span><span class="c1">//禁止把任务调度到别的CPU上去</span>
-<span class="cp">#endif</span>
-
-<span class="w">        </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">___slab_alloc</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">gfpflags</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">orig_size</span><span class="p">);</span>
-<span class="cp">#ifdef CONFIG_PREEMPT_COUNT</span>
-<span class="w">        </span><span class="n">slub_put_cpu_ptr</span><span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">cpu_slab</span><span class="p">);</span>
-<span class="cp">#endif</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
-<span class="p">}</span>
+<ol class="arabic simple" start="3">
+<li>如果需要enable Hardware Tag-Based KASAN，在编译TF-A的时候需要打开如下选项：</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="nv">ENABLE_FEAT_MTE2</span><span class="o">=</span><span class="m">1</span>
 </pre></div>
-<p>在slow path的___slab_alloc里面，逻辑稍微复杂一点，其实就是什么时候在CPU slab里面直接分配，什么时候去CPU partial里面分配，什么时候去node里面分配，什么时候去buddy里面去分配。</p>
-</div>
-<div class="section" id="section-4">
-<h2>释放</h2>
-<p>释放最终都会调用到函数： slab_free -&gt; do_slab_free ,如果free 的object 是在当前CPU的slab上，则直接设置kmem_cache_cpu 的freelist,如果不在当前CPU的slab上，则调用__slab_free。</p>
-<p>第一步，更新当前slab的信息，就是把要free的object 放到slab的freelist 里来。</p>
-<div class="highlight"><pre><span></span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">list_lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
-<span class="w">                </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slab</span><span class="o">-&gt;</span><span class="n">freelist</span><span class="p">;</span>
-<span class="w">        </span><span class="n">counters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slab</span><span class="o">-&gt;</span><span class="n">counters</span><span class="p">;</span>
-<span class="w">        </span><span class="n">set_freepointer</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">tail</span><span class="p">,</span><span class="w"> </span><span class="n">prior</span><span class="p">);</span>
-<span class="w">        </span><span class="n">new</span><span class="p">.</span><span class="n">counters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">counters</span><span class="p">;</span>
-<span class="w">        </span><span class="n">was_frozen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="p">.</span><span class="n">frozen</span><span class="p">;</span>
-<span class="w">        </span><span class="n">new</span><span class="p">.</span><span class="n">inuse</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">cnt</span><span class="p">;</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="o">!</span><span class="n">new</span><span class="p">.</span><span class="n">inuse</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">prior</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">was_frozen</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="cm">/* Needs to be taken off a list */</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">kmem_cache_has_cpu_partial</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">prior</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-
-<span class="w">                        </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_node</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">slab_nid</span><span class="p">(</span><span class="n">slab</span><span class="p">));</span>
-<span class="w">                        </span><span class="cm">/*</span>
-<span class="cm">                         * Speculatively acquire the list_lock.</span>
-<span class="cm">                         * If the cmpxchg does not succeed then we may</span>
-<span class="cm">                         * drop the list_lock without any processing.</span>
-<span class="cm">                         *</span>
-<span class="cm">                         * Otherwise the list_lock will synchronize with</span>
-<span class="cm">                         * other processors updating the list of slabs.</span>
-<span class="cm">                         */</span>
-<span class="w">                        </span><span class="n">spin_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">list_lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
-
-<span class="w">                        </span><span class="n">on_node_partial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">slab_test_node_partial</span><span class="p">(</span><span class="n">slab</span><span class="p">);</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">slab_update_freelist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">slab</span><span class="p">,</span>
-<span class="w">        </span><span class="n">prior</span><span class="p">,</span><span class="w"> </span><span class="n">counters</span><span class="p">,</span>
-<span class="w">        </span><span class="n">head</span><span class="p">,</span><span class="w"> </span><span class="n">new</span><span class="p">.</span><span class="n">counters</span><span class="p">,</span>
-<span class="w">        </span><span class="s">&quot;__slab_free&quot;</span><span class="p">));</span>
-</pre></div>
-<p>第二步，如果free之前，这个slab是完整被分配出去的，就把这个slab 挂到CPU 的partial list 里来，就结束。</p>
-<div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">likely</span><span class="p">(</span><span class="o">!</span><span class="n">n</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">likely</span><span class="p">(</span><span class="n">was_frozen</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="cm">/*</span>
-<span class="cm">                 * The list lock was not taken therefore no list</span>
-<span class="cm">                 * activity can be necessary.</span>
-<span class="cm">                 */</span>
-<span class="w">                </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">FREE_FROZEN</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">kmem_cache_has_cpu_partial</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">prior</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="cm">/*</span>
-<span class="cm">                 * If we started with a full slab then put it onto the</span>
-<span class="cm">                 * per cpu partial list.</span>
-<span class="cm">                 */</span>
-<span class="w">                </span><span class="n">put_cpu_partial</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">slab</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">                </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">CPU_PARTIAL_FREE</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">        </span><span class="k">return</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-<p>第三步，如果free 之后，这个slab变成了所有objects都是free状态的情况，这个时候就考虑这个node 里面的partial slab 的数量是不是大于最小值，大于就调用discard_slab回收这个slab。</p>
-<div class="highlight"><pre><span></span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">new</span><span class="p">.</span><span class="n">inuse</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">n</span><span class="o">-&gt;</span><span class="n">nr_partial</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">s</span><span class="o">-&gt;</span><span class="n">min_partial</span><span class="p">))</span>
-<span class="w">                </span><span class="k">goto</span><span class="w"> </span><span class="n">slab_empty</span><span class="p">;</span>
-
-<span class="w">        </span><span class="c1">//...</span>
-
-<span class="nl">slab_empty</span><span class="p">:</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">prior</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="cm">/*</span>
-<span class="cm">                 * Slab on the partial list.</span>
-<span class="cm">                 */</span>
-<span class="w">                </span><span class="n">remove_partial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">slab</span><span class="p">);</span>
-<span class="w">                </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">FREE_REMOVE_PARTIAL</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">        </span><span class="n">spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">list_lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
-<span class="w">        </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">FREE_SLAB</span><span class="p">);</span>
-<span class="w">        </span><span class="n">discard_slab</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">slab</span><span class="p">);</span>
-</pre></div>
-<p>第四步，如果free之前，这个slab是完整被分配出去的，在free 一个object 之后，就可以把他加回node 的partial list：</p>
-<div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm"> * Objects left in the slab. If it was not on the partial list before</span>
-<span class="cm"> * then add it.</span>
-<span class="cm"> */</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">kmem_cache_has_cpu_partial</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">prior</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">add_partial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">slab</span><span class="p">,</span><span class="w"> </span><span class="n">DEACTIVATE_TO_TAIL</span><span class="p">);</span>
-<span class="w">        </span><span class="n">stat</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">FREE_ADD_PARTIAL</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="n">spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">list_lock</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
-<span class="k">return</span><span class="p">;</span>
+<ol class="arabic simple" start="4">
+<li>如果使用FVP_Base_RevC FVP平台来测试 Hardware Tag-Based KASAN，运行时还需要加如下选项：</li>
+</ol>
+<div class="highlight"><pre><span></span>-C<span class="w"> </span>cluster0.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
+-C<span class="w"> </span>cluster1.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
+-C<span class="w"> </span>bp.dram_metadata.is_enabled<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 </pre></div>
 </div>
-<p><a href="https://geesun.github.io/posts/2024/06/slub_alloc.html#disqus_thread">comments</a></p>                </article>
+<p><a href="https://geesun.github.io/posts/2024/07/02_kasan.html#disqus_thread">comments</a></p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -398,42 +246,48 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="./posts/2024/06/kmem_cache.html" rel="bookmark"
-                           title="Permalink to kmem_cache内存池使用">kmem_cache内存池使用</a></h1>
+                    <h1><a href="./posts/2024/06/vmalloc.html" rel="bookmark"
+                           title="Permalink to vmalloc的理解">vmalloc的理解</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <span>日 23 六月 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mmu.html">MMU</a><a href="./tag/slub.html">SLUB</a></span>
-</footer><!-- /.post-info -->                <p>kmem_cache 作为一个基本的 allocator 组件，这里可以把他理解为用于某个特定大小的内存对象池。</p>
-<p>Linux 系统中本身也存在很多这样的内存 …</p>
-                <a class="readmore" href="./posts/2024/06/kmem_cache.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/kmem_cache.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+        <span>四 27 六月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mmu.html">MMU</a><a href="./tag/vmalloc.html">vmalloc</a></span>
+</footer><!-- /.post-info -->                <p>kmalloc 是分配的物理地址是连续的，如果系统中需要分配大块的内存，这个时候使用kmalloc可能就不一定能分配到连续的物理内存，这个时候就需要使用vmalloc。</p>
+<blockquote>
+可以参考kmalloc的实现，如 …</blockquote>
+                <a class="readmore" href="./posts/2024/06/vmalloc.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/vmalloc.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="./posts/2024/06/01_kmemleak.html" rel="bookmark"
-                           title="Permalink to kmemleak的使用">kmemleak的使用</a></h1>
+                    <h1><a href="./posts/2024/06/slub_alloc.html" rel="bookmark"
+                           title="Permalink to slub分配器的理解">slub分配器的理解</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <span>三 19 六月 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/debug.html">Debug</a></span>
-</footer><!-- /.post-info -->                <p>kmemleak 是一个类似在kernel 里面的Valgrind， 可以检测kernel 模块的memory leak情况。</p>
-<p>至于如何使用，kernel 里面自己的文档就已经写的很清楚，可以参考：
-Documentation/dev-tools …</p>
-                <a class="readmore" href="./posts/2024/06/01_kmemleak.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/01_kmemleak.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+        <span>一 24 六月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mmu.html">MMU</a><a href="./tag/slub.html">SLUB</a></span>
+</footer><!-- /.post-info -->                <p>slub分配器的原理，<a class="reference external" href="http://www.wowotech.net/memory_management/426.html">这里</a> 已经分析的很清楚。</p>
+<p>这里主要记录我对这个的理解，怕以后忘记。</p>
+<div class="section" id="section-1">
+<h2>关键数据结构</h2>
+<ol class="arabic simple">
+<li>struct kmem_cache</li>
+</ol>
+<p>这个是slub分配器的总管，如果要针对特定大小 …</p></div>
+                <a class="readmore" href="./posts/2024/06/slub_alloc.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/slub_alloc.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>
   <ul>
-    <li>Page 1 / 5</li>
+    <li>Page 1 / 6</li>
         <li><a href="./index2.html">&rang;</a></li>
-        <li><a href="./index5.html">&Rang;</a></li>
+        <li><a href="./index6.html">&Rang;</a></li>
   </ul>
 </nav>
             </section><!-- /#content -->

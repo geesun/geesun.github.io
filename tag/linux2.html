@@ -23,6 +23,39 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="../posts/2024/06/kmem_cache.html" rel="bookmark"
+                           title="Permalink to kmem_cache内存池使用">kmem_cache内存池使用</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>日 23 六月 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a><a href="../tag/slub.html">SLUB</a></span>
+</footer><!-- /.post-info -->                <p>kmem_cache 作为一个基本的 allocator 组件，这里可以把他理解为用于某个特定大小的内存对象池。</p>
+<p>Linux 系统中本身也存在很多这样的内存 …</p>
+                <a class="readmore" href="../posts/2024/06/kmem_cache.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/kmem_cache.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../posts/2024/06/01_kmemleak.html" rel="bookmark"
+                           title="Permalink to kmemleak的使用">kmemleak的使用</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>三 19 六月 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info -->                <p>kmemleak 是一个类似在kernel 里面的Valgrind， 可以检测kernel 模块的memory leak情况。</p>
+<p>至于如何使用，kernel 里面自己的文档就已经写的很清楚，可以参考：
+Documentation/dev-tools …</p>
+                <a class="readmore" href="../posts/2024/06/01_kmemleak.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/01_kmemleak.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="../posts/2024/06/sparse.html" rel="bookmark"
                            title="Permalink to Sparse内存模型的理解">Sparse内存模型的理解</a></h1>
                 </header>
@@ -39,47 +72,14 @@
                 <a class="readmore" href="../posts/2024/06/sparse.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/06/sparse.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/device_tree_mapping.html" rel="bookmark"
-                           title="Permalink to Device Tree 地址映射过程">Device Tree 地址映射过程</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>二 04 六月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/boot.html">boot</a></span>
-</footer><!-- /.post-info -->                <p>在Linux 的boot 阶段，Devie tree 地址是通过bootloader 传给kernel， kernel 在函数preserve_boot_args 保存在 x21这个寄存器中。</p>
-<p>但是内存相关的信息是在Device Tree里面描述的，所以Device Tree的使用是在内存管理准备好之前。 所以Device Tree的映射过程相对来说有些特殊。</p>
-<p>在Arm64平台，它 …</p>
-                <a class="readmore" href="../posts/2024/06/device_tree_mapping.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/device_tree_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/earlycon_serial_port.html" rel="bookmark"
-                           title="Permalink to Linux booting 串口">Linux booting 串口</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>一 03 六月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/booting.html">booting</a><a href="../tag/serial.html">serial</a></span>
-</footer><!-- /.post-info -->                <p>在kernel booting的早期，肯定是希望尽快把一些信息输出的串口，能够尽早知道kernel boot 到什么阶段。 所以一般在u-boot中，在FVP平台上有如下bootargs</p>
-<div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1 …</pre></div>
-                <a class="readmore" href="../posts/2024/06/earlycon_serial_port.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/earlycon_serial_port.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
             </ol><!-- /#posts-list -->
 <nav>
   <ul>
         <li><a href="../tag/linux.html">&Lang;</a></li>
         <li><a href="../tag/linux.html">&lang;</a></li>
-    <li>Page 2 / 5</li>
+    <li>Page 2 / 6</li>
         <li><a href="../tag/linux3.html">&rang;</a></li>
-        <li><a href="../tag/linux5.html">&Rang;</a></li>
+        <li><a href="../tag/linux6.html">&Rang;</a></li>
   </ul>
 </nav>
             </section><!-- /#content -->

@@ -2,8 +2,8 @@
 <html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>Linux学习笔记 - Linux</title>
-        <link rel="stylesheet" href="../theme/css/main.css" />
+        <title>Kasan 使用</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
 
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,20 +12,25 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="../">Linux学习笔记 </a></h1>
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
                 <nav><ul>
-                    <li class="active"><a href="../category/linux.html">Linux</a></li>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/07/02_kasan.html" rel="bookmark"
+           title="Permalink to Kasan 使用">Kasan 使用</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="../posts/2024/07/02_kasan.html">Kasan 使用</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>一 22 七月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
-</footer><!-- /.post-info --><p>KASAN(Kernel Address Sanitizer)是一个在kernel里面检测内存越界访问的一个工具，可以检测</p>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a><a href="../../../tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info -->      <p>KASAN(Kernel Address Sanitizer)是一个在kernel里面检测内存越界访问的一个工具，可以检测</p>
 <ul class="simple">
 <li>全局变量越界 (仅Generic KASAN支持)</li>
 <li>栈变量的越界 (仅Generic KASAN和Software Tag-Based KASAN支持)</li>
@@ -65,7 +70,7 @@
 <p>但是32T的kasan shadow region 不可能都有物理地址和它对应。</p>
 <p>所以系统里面只给 kernel logical memory map里面已经online的memory bank 给它分配kasan shadow region里面的物理内存，还有就是vmalloc 里面的kernel image对应的部分VA对应的kasan shadow region分配物理内存。</p>
 <p>其他别的虚拟地址都把他们的 kasan shadow region 映射成一个共同的物理页kasan_early_shadow_page， 这样就不需要那么多kasan shadow 物理内存了。 参考如下：</p>
-<img alt="shadow_memory" class="align-center" src="../images/linux/debug/shadow_memory_layout.png" style="width: 600px;" />
+<img alt="shadow_memory" class="align-center" src="../../../images/linux/debug/shadow_memory_layout.png" style="width: 600px;" />
 <p>对于vmalloc区域，因为它的VA地址是动态分配的，所以系统boot起来是不会静态给它的kasan shadow region分配物理内存。 只有真正分配VA的时候才给映射kasan shadow region 的物理内存，可以参考如下函数：</p>
 <div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">kasan_populate_vmalloc</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">kasan_release_vmalloc</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="p">,</span>
@@ -238,59 +243,24 @@
 -C<span class="w"> </span>bp.dram_metadata.is_enabled<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 </pre></div>
 </div>
-<p><a href="https://geesun.github.io/posts/2024/07/02_kasan.html#disqus_thread">comments</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/vmalloc.html" rel="bookmark"
-                           title="Permalink to vmalloc的理解">vmalloc的理解</a></h1>
-                </header>
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/07/02_kasan.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/07/02_kasan.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <span>四 27 六月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a><a href="../tag/vmalloc.html">vmalloc</a></span>
-</footer><!-- /.post-info -->                <p>kmalloc 是分配的物理地址是连续的，如果系统中需要分配大块的内存，这个时候使用kmalloc可能就不一定能分配到连续的物理内存，这个时候就需要使用vmalloc。</p>
-<blockquote>
-可以参考kmalloc的实现，如 …</blockquote>
-                <a class="readmore" href="../posts/2024/06/vmalloc.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/vmalloc.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/slub_alloc.html" rel="bookmark"
-                           title="Permalink to slub分配器的理解">slub分配器的理解</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>一 24 六月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a><a href="../tag/slub.html">SLUB</a></span>
-</footer><!-- /.post-info -->                <p>slub分配器的原理，<a class="reference external" href="http://www.wowotech.net/memory_management/426.html">这里</a> 已经分析的很清楚。</p>
-<p>这里主要记录我对这个的理解，怕以后忘记。</p>
-<div class="section" id="section-1">
-<h2>关键数据结构</h2>
-<ol class="arabic simple">
-<li>struct kmem_cache</li>
-</ol>
-<p>这个是slub分配器的总管，如果要针对特定大小 …</p></div>
-                <a class="readmore" href="../posts/2024/06/slub_alloc.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/slub_alloc.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-<nav>
-  <ul>
-    <li>Page 1 / 6</li>
-        <li><a href="../category/linux2.html">&rang;</a></li>
-        <li><a href="../category/linux6.html">&Rang;</a></li>
-  </ul>
-</nav>
-            </section><!-- /#content -->
+  </article>
+</section>
 
         <footer id="contentinfo" class="body">
                 <p>&copy; 2024 Qixiang Xu</p>

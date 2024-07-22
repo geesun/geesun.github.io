@@ -23,6 +23,41 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="../posts/2024/05/setup_tf_a_u_boot_linux_fvp.html" rel="bookmark"
+                           title="Permalink to 设置tf-a u-boot 和Linux的开发和调试环境">设置tf-a u-boot 和Linux的开发和调试环境</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>三 29 五月 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/tf-a.html">tf-a</a><a href="../tag/u-boot.html">u-boot</a></span>
+</footer><!-- /.post-info -->                <p>在学习Linux的过程中，调试必不可少。下面的步骤就是一步一步如何使用Arm 的FVP平台来设置Linux的开发和调试环境。
+如下所有的步骤最终都汇聚在我的github <a class="reference external" href="https://github.com/geesun/boot-tf-a-u-boot-linux/">boot-tf-a-u-boot-linux</a>  ，如果仅仅是 …</p>
+                <a class="readmore" href="../posts/2024/05/setup_tf_a_u_boot_linux_fvp.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/setup_tf_a_u_boot_linux_fvp.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../posts/2024/05/idmap_pg_dir.html" rel="bookmark"
+                           title="Permalink to idmap_pg_dir页表">idmap_pg_dir页表</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>一 27 五月 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->                <p>当主CPU启动完成之后，已经把页表设置成了swapper_pg_dir， 到这里为止，kernel一般情况下是不再需要idmap这个页表的，但是还是有些特殊情况下需要idmap：</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>第二个CPU启动</dt>
+<dd>当第二个CPU启动的时候，MMU是关闭的。要设置TTBR1 到swapper_pg_dir 之 …</dd></dl></li></ul>
+                <a class="readmore" href="../posts/2024/05/idmap_pg_dir.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/idmap_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="../posts/2024/05/swapper_pg_dir.html" rel="bookmark"
                            title="Permalink to swapper_pg_dir页表">swapper_pg_dir页表</a></h1>
                 </header>
@@ -41,59 +76,14 @@
                 <a class="readmore" href="../posts/2024/05/swapper_pg_dir.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/swapper_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/05/debugfs.html" rel="bookmark"
-                           title="Permalink to linux debugfs 使用">linux debugfs 使用</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>四 23 五月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a></span>
-</footer><!-- /.post-info -->                <div class="section" id="section-1">
-<h2>内核配置</h2>
-<p>确保内核配置选项中启用了debugfs支持(CONFIG_DEBUG_FS=y)并重新编译内核</p>
-</div>
-<div class="section" id="debugfs">
-<h2>挂载debugfs文件系统</h2>
-<div class="highlight"><pre><span></span>mount<span class="w"> </span>-t<span class="w"> </span>debugfs<span class="w"> </span>none<span class="w"> </span>/sys/kernel/debug
-</pre></div>
-</div>
-<div class="section" id="kernel-page-tables">
-<h2>kernel_page_tables</h2>
-<p>确保内核配置选项中启用了如 …</p></div>
-                <a class="readmore" href="../posts/2024/05/debugfs.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/debugfs.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/05/init_pg_dir.html" rel="bookmark"
-                           title="Permalink to init_pg_dir页表">init_pg_dir页表</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>四 23 五月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a></span>
-</footer><!-- /.post-info -->                <div class="section" id="section-1">
-<h2>页表分配和释放</h2>
-<p>init_pg_dir页表的主要的作用就是在boot阶段，能够把kernel image的编译时VA(也就是0xffffxxxxxxxxxxxx,但是在使能了CONFIG_RANDOMIZE_BASE会加一个offset)映射成u-boot加载时的PA。
-所以这个页表的大小就是根据kernel image所占用空间来决定。</p>
-<div class="highlight"><pre><span></span><span class="cp">#define EARLY_PAGES(vstart, vend, add) ( 1                      </span><span class="cm">/* PGDIR …</span></pre></div></div>
-                <a class="readmore" href="../posts/2024/05/init_pg_dir.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/init_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
             </ol><!-- /#posts-list -->
 <nav>
   <ul>
         <li><a href="../category/linux.html">&Lang;</a></li>
         <li><a href="../category/linux3.html">&lang;</a></li>
-    <li>Page 4 / 5</li>
+    <li>Page 4 / 6</li>
         <li><a href="../category/linux5.html">&rang;</a></li>
-        <li><a href="../category/linux5.html">&Rang;</a></li>
+        <li><a href="../category/linux6.html">&Rang;</a></li>
   </ul>
 </nav>
             </section><!-- /#content -->
