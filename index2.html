@@ -23,6 +23,28 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="./posts/2024/06/slub_alloc.html" rel="bookmark"
+                           title="Permalink to slub分配器的理解">slub分配器的理解</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>一 24 六月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mmu.html">MMU</a><a href="./tag/slub.html">SLUB</a></span>
+</footer><!-- /.post-info -->                <p>slub分配器的原理，<a class="reference external" href="http://www.wowotech.net/memory_management/426.html">这里</a> 已经分析的很清楚。</p>
+<p>这里主要记录我对这个的理解，怕以后忘记。</p>
+<div class="section" id="section-1">
+<h2>关键数据结构</h2>
+<ol class="arabic simple">
+<li>struct kmem_cache</li>
+</ol>
+<p>这个是slub分配器的总管，如果要针对特定大小 …</p></div>
+                <a class="readmore" href="./posts/2024/06/slub_alloc.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/slub_alloc.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="./posts/2024/06/kmem_cache.html" rel="bookmark"
                            title="Permalink to kmem_cache内存池使用">kmem_cache内存池使用</a></h1>
                 </header>
@@ -52,25 +74,6 @@
 Documentation/dev-tools …</p>
                 <a class="readmore" href="./posts/2024/06/01_kmemleak.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/06/01_kmemleak.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="./posts/2024/06/sparse.html" rel="bookmark"
-                           title="Permalink to Sparse内存模型的理解">Sparse内存模型的理解</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>三 05 六月 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mmu.html">MMU</a></span>
-</footer><!-- /.post-info -->                <div class="section" id="section-1">
-<h2>解决什么问题？</h2>
-<p>内存管理以page为单位进行管理。 所以会把物理内存逻辑上切成很多的page。</p>
-<p>而每个page 都需要有一个struct page的结构来管理这个page的使用情况。而这些struct page本身也是需要占用内存空间的。</p>
-<p>如果物理 …</p></div>
-                <a class="readmore" href="./posts/2024/06/sparse.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/sparse.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>

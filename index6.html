@@ -23,6 +23,28 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="./posts/2024/05/fdt_mapping.html" rel="bookmark"
+                           title="Permalink to FDT的区域的Map过程">FDT的区域的Map过程</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>三 22 五月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->                <p>u-boot或者uefi启动Linux的时候，会把device tree 所在的地址通过x0寄存器传给Linux。
+kernel在boot阶段会使用到x0寄存器，所以在primary_entry -&gt; preserve_boot_args 会把device tree的地址保存到x21寄存器：</p>
+<div class="highlight"><pre><span></span><span class="nf">SYM_CODE_START_LOCAL</span><span class="p">(</span><span class="no">preserve_boot_args</span><span class="p">)</span>
+<span class="w">        </span><span class="nf">mov</span><span class="w">     </span><span class="no">x21</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="w">                         </span><span class="c1">// x21=FDT</span>
+</pre></div>
+<div class="section" id="mapping">
+<h2>1:1 mapping阶段</h2>
+<p>在init_idmap_pg_dir阶段，会把这个x21地址所对应的物理地址mapping到kernel结尾之后2M对的的地方，这个地方其实不是1:1的映射 …</p></div>
+                <a class="readmore" href="./posts/2024/05/fdt_mapping.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/fdt_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="./posts/2024/05/init_idmap_pg_dir.html" rel="bookmark"
                            title="Permalink to Arm64 Linux 下页表 init_idmap_pg_dir的使用">Arm64 Linux 下页表 init_idmap_pg_dir的使用</a></h1>
                 </header>

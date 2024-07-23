@@ -23,6 +23,25 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="./posts/2024/06/sparse.html" rel="bookmark"
+                           title="Permalink to Sparse内存模型的理解">Sparse内存模型的理解</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>三 05 六月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mmu.html">MMU</a></span>
+</footer><!-- /.post-info -->                <div class="section" id="section-1">
+<h2>解决什么问题？</h2>
+<p>内存管理以page为单位进行管理。 所以会把物理内存逻辑上切成很多的page。</p>
+<p>而每个page 都需要有一个struct page的结构来管理这个page的使用情况。而这些struct page本身也是需要占用内存空间的。</p>
+<p>如果物理 …</p></div>
+                <a class="readmore" href="./posts/2024/06/sparse.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/sparse.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="./posts/2024/06/device_tree_mapping.html" rel="bookmark"
                            title="Permalink to Device Tree 地址映射过程">Device Tree 地址映射过程</a></h1>
                 </header>
@@ -52,32 +71,6 @@
 <div class="highlight"><pre><span></span><span class="nv">bootargs</span><span class="o">=</span><span class="nv">console</span><span class="o">=</span>ttyAMA0<span class="w"> </span><span class="nv">earlycon</span><span class="o">=</span>pl011,0x1c090000<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda1 …</pre></div>
                 <a class="readmore" href="./posts/2024/06/earlycon_serial_port.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/06/earlycon_serial_port.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="./posts/2024/05/met_enable.html" rel="bookmark"
-                           title="Permalink to Arm64 Linux MTE 使能">Arm64 Linux MTE 使能</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>四 30 五月 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/mte.html">MTE</a></span>
-</footer><!-- /.post-info -->                <p>在Arm Base FVP平台上，linux的默认配置是打开了MTE的，也就是：</p>
-<div class="highlight"><pre><span></span><span class="n">CONFIG_ARM64_AS_HAS_MTE</span><span class="o">=</span><span class="n">y</span>
-<span class="n">CONFIG_ARM64_MTE</span><span class="o">=</span><span class="n">y</span>
-</pre></div>
-<p>当运行Base FVP的时候加上如下参数：</p>
-<div class="highlight"><pre><span></span>-C<span class="w"> </span>cluster0.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
--C<span class="w"> </span>cluster1.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
-</pre></div>
-<p>这个时候运行Linux kernel的时候会出现如下错误：</p>
-<div class="highlight"><pre><span></span><span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU<span class="w"> </span>features:<span class="w"> </span>detected:<span class="w"> </span>Virtualization<span class="w"> </span>Host<span class="w"> </span>Extensions
-<span class="o">[</span><span class="w">    </span><span class="m">0</span>.000000<span class="o">]</span><span class="w"> </span>CPU<span class="w"> </span>features:<span class="w"> </span>detected:<span class="w"> </span>Memory<span class="w"> </span>Tagging<span class="w"> </span>Extension
-<span class="o">[</span><span class="w">    </span><span class="m">0 …</span></pre></div>
-                <a class="readmore" href="./posts/2024/05/met_enable.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/met_enable.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>

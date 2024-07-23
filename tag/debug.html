@@ -21,228 +21,320 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="../posts/2024/07/02_kasan.html">Kasan 使用</a></h1>
+                    <h1 class="entry-title"><a href="../posts/2024/07/03_debug_kernel_module.html">如何使用ArmDS调试动态加载的Linux kernel模块</a></h1>
+<footer class="post-info">
+        <span>二 23 七月 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info --><p>根据Arm Development Studio User Guide的 <a class="reference external" href="https://developer.arm.com/documentation/101470/2024-0/Debugging-Embedded-Systems/About-OS-awareness/About-debugging-Linux-kernel-modules">About debugging Linux kernel modules</a> ,ArmDS是可以调试动态加载的Linux kernel 模块。 但是需要ArmDS支持你所使用的kernel版本，ArmDS支持的版本可以参考Arm Development Studio User Guide的 <a class="reference external" href="https://developer.arm.com/documentation/101470/2024-0/Debugging-Embedded-Systems/About-OS-awareness">About OS awareness</a></p>
+<p>可以看到这里支持的版本非常有限，如果使用的kernel不在上面的列表里面，那就没有办法用上面的方法调试了。</p>
+<p>ArmDS的实现的原理我猜估计也是使用linux kernel里面提供的模块加载信息，然后再把模块的符号表加载到对应的位置。</p>
+<p>下面的步骤就是介绍如何在不使用ArmDS提供的OS信息的情况下如何调试动态加载的kernel的模块。</p>
+<div class="section" id="kernel">
+<h2>1. 准备要调试的kernel模块</h2>
+<p>假设这里有如下模块的代码 mod_debug_test.c：</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/module.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/printk.h&gt;</span>
+
+<span class="cp">#define MODULE_NAME &quot;mod_debug_test&quot;</span>
+
+<span class="n">__attribute__</span><span class="p">((</span><span class="n">__noinline__</span><span class="p">))</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">mod_debug_test_func</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">)</span>
+<span class="p">{</span>
+
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;%s </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="n">mod_debug_test_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;%s </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="w">    </span><span class="n">mod_debug_test_func</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__exit</span><span class="w"> </span><span class="n">mod_debug_test_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;%s </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">__FUNCTION__</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">module_init</span><span class="p">(</span><span class="n">mod_debug_test_init</span><span class="p">);</span>
+<span class="n">module_exit</span><span class="p">(</span><span class="n">mod_debug_test_exit</span><span class="p">);</span>
+<span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&quot;GPL&quot;</span><span class="p">);</span>
+</pre></div>
+<p>在同样目录下面，有Makefile：</p>
+<div class="highlight"><pre><span></span>obj-m<span class="w"> </span>+<span class="o">=</span><span class="w"> </span>mod_debug_test.o
+<span class="nv">DEBUG_CFLAGS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>-g
+<span class="nv">CC</span><span class="o">=</span>/workspace/tools/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04/bin/clang
+<span class="nv">CROSS_COMPILE</span><span class="o">=</span>/workspace/tools/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+<span class="nv">LINUX_DIR</span><span class="o">=</span>/workspace/src/linux
+all:
+<span class="w">        </span>make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>LINUX_DIR<span class="k">)</span><span class="w">  </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span><span class="nv">CC</span><span class="o">=</span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w">  </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w"> </span>modules<span class="w">  </span><span class="nv">EXTRA_CFLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>DEBUG_CFLAGS<span class="k">)</span><span class="s2">&quot;</span>
+
+clean:
+<span class="w">        </span>make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>LINUX_DIR<span class="k">)</span><span class="w">  </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span><span class="nv">CC</span><span class="o">=</span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w">  </span><span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span><span class="w">  </span><span class="nv">EXTRA_CFLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>DEBUG_CFLAGS<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>clean
+</pre></div>
+<p>这里为了能够在ko里面带有debug符号表信息，所以就需要有 -g 选项。</p>
+</div>
+<div class="section" id="kernel-modulesection">
+<h2>2. kernel module相关的section</h2>
+<p>这里可以通过objdump来查看要调试的kernel module 有多少的section，我们要调试的代码处在哪个section中。如下：</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="err">~/</span><span class="nf">workspace</span><span class="err">/</span><span class="no">src</span><span class="err">/</span><span class="no">testmod$</span><span class="w"> </span><span class="no">aarch64-none-linux-gnu-objdump</span><span class="w">  </span><span class="p">-</span><span class="no">S</span><span class="w"> </span><span class="no">mod_debug_test.ko</span>
+
+<span class="nl">mod_debug_test.ko:</span><span class="w">     </span><span class="nf">file</span><span class="w"> </span><span class="no">format</span><span class="w"> </span><span class="no">elf64-littleaarch64</span>
+
+
+<span class="nf">Disassembly</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">section</span><span class="w"> </span><span class="no">.text</span><span class="p">:</span>
+
+<span class="err">0000000000000000</span><span class="w"> </span><span class="err">&lt;</span><span class="nf">mod_debug_test_func</span><span class="err">&gt;</span><span class="p">:</span>
+<span class="c1">#include &lt;linux/printk.h&gt;</span>
+
+<span class="c1">#define MODULE_NAME &quot;mod_debug_test&quot;</span>
+
+<span class="nf">__attribute__</span><span class="p">((</span><span class="no">__noinline__</span><span class="p">))</span><span class="w"> </span><span class="no">static</span><span class="w"> </span><span class="no">void</span><span class="w"> </span><span class="no">mod_debug_test_func</span><span class="p">(</span><span class="no">void</span><span class="w"> </span><span class="p">)</span>
+<span class="err">{</span>
+<span class="w">   </span><span class="err">0:</span><span class="w">   </span><span class="nf">d503233f</span><span class="w">        </span><span class="no">paciasp</span>
+<span class="w">   </span><span class="err">4:</span><span class="w">   </span><span class="nf">a9bf7bfd</span><span class="w">        </span><span class="no">stp</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="mi">#-16</span><span class="p">]!</span>
+<span class="w">   </span><span class="err">8:</span><span class="w">   </span><span class="err">910003</span><span class="nf">fd</span><span class="w">        </span><span class="no">mov</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">sp</span>
+
+<span class="w">    </span><span class="nf">pr_info</span><span class="p">(</span><span class="err">&quot;</span><span class="nv">%s</span><span class="w"> </span><span class="err">\</span><span class="no">n</span><span class="err">&quot;</span><span class="p">,</span><span class="no">__FUNCTION__</span><span class="p">)</span><span class="c1">;</span>
+<span class="w">   </span><span class="nl">c:</span><span class="w">   </span><span class="err">90000000</span><span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">mod_debug_test_func</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="err">10:</span><span class="w">   </span><span class="err">91000000</span><span class="w">        </span><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
+<span class="w">  </span><span class="err">14:</span><span class="w">   </span><span class="err">90000001</span><span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">mod_debug_test_func</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="err">18:</span><span class="w">   </span><span class="err">91000021</span><span class="w">        </span><span class="nf">add</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
+<span class="w">  </span><span class="err">1</span><span class="nl">c:</span><span class="w">   </span><span class="err">94000000</span><span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">_printk</span><span class="p">&gt;</span>
+<span class="err">}</span>
+<span class="w">  </span><span class="err">20:</span><span class="w">   </span><span class="nf">a8c17bfd</span><span class="w">        </span><span class="no">ldp</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">],</span><span class="w"> </span><span class="mi">#16</span>
+<span class="w">  </span><span class="err">24:</span><span class="w">   </span><span class="nf">d50323bf</span><span class="w">        </span><span class="no">autiasp</span>
+<span class="w">  </span><span class="err">28:</span><span class="w">   </span><span class="nf">d65f03c0</span><span class="w">        </span><span class="no">ret</span>
+
+<span class="nf">Disassembly</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">section</span><span class="w"> </span><span class="no">.init.text</span><span class="p">:</span>
+
+<span class="err">0000000000000000</span><span class="w"> </span><span class="err">&lt;</span><span class="nf">init_module</span><span class="err">&gt;</span><span class="p">:</span>
+<span class="nf">static</span><span class="w"> </span><span class="no">int</span><span class="w"> </span><span class="no">__init</span><span class="w"> </span><span class="no">mod_debug_test_init</span><span class="p">(</span><span class="no">void</span><span class="p">)</span>
+<span class="err">{</span>
+<span class="w">   </span><span class="err">0:</span><span class="w">   </span><span class="nf">d503233f</span><span class="w">        </span><span class="no">paciasp</span>
+<span class="w">   </span><span class="err">4:</span><span class="w">   </span><span class="nf">a9bf7bfd</span><span class="w">        </span><span class="no">stp</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="mi">#-16</span><span class="p">]!</span>
+<span class="w">   </span><span class="err">8:</span><span class="w">   </span><span class="err">910003</span><span class="nf">fd</span><span class="w">        </span><span class="no">mov</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">sp</span>
+<span class="w">    </span><span class="nf">pr_info</span><span class="p">(</span><span class="err">&quot;</span><span class="nv">%s</span><span class="w"> </span><span class="err">\</span><span class="no">n</span><span class="err">&quot;</span><span class="p">,</span><span class="no">__FUNCTION__</span><span class="p">)</span><span class="c1">;</span>
+<span class="w">   </span><span class="nl">c:</span><span class="w">   </span><span class="err">90000000</span><span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">init_module</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="err">10:</span><span class="w">   </span><span class="err">91000000</span><span class="w">        </span><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
+<span class="w">  </span><span class="err">14:</span><span class="w">   </span><span class="err">90000001</span><span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">init_module</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="err">18:</span><span class="w">   </span><span class="err">91000021</span><span class="w">        </span><span class="nf">add</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
+<span class="w">  </span><span class="err">1</span><span class="nl">c:</span><span class="w">   </span><span class="err">94000000</span><span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">_printk</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="nf">mod_debug_test_func</span><span class="p">()</span><span class="c1">;</span>
+<span class="w">  </span><span class="err">20:</span><span class="w">   </span><span class="err">94000000</span><span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">init_module</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="nf">return</span><span class="w"> </span><span class="mi">0</span><span class="c1">;</span>
+<span class="w">  </span><span class="err">24:</span><span class="w">   </span><span class="err">2</span><span class="nf">a1f03e0</span><span class="w">        </span><span class="no">mov</span><span class="w">     </span><span class="no">w0</span><span class="p">,</span><span class="w"> </span><span class="no">wzr</span>
+<span class="w">  </span><span class="err">28:</span><span class="w">   </span><span class="nf">a8c17bfd</span><span class="w">        </span><span class="no">ldp</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">],</span><span class="w"> </span><span class="mi">#16</span>
+<span class="w">  </span><span class="err">2</span><span class="nl">c:</span><span class="w">   </span><span class="nf">d50323bf</span><span class="w">        </span><span class="no">autiasp</span>
+<span class="w">  </span><span class="err">30:</span><span class="w">   </span><span class="nf">d65f03c0</span><span class="w">        </span><span class="no">ret</span>
+
+<span class="nf">Disassembly</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">section</span><span class="w"> </span><span class="no">.exit.text</span><span class="p">:</span>
+
+<span class="err">0000000000000000</span><span class="w"> </span><span class="err">&lt;</span><span class="nf">cleanup_module</span><span class="err">&gt;</span><span class="p">:</span>
+<span class="err">}</span>
+
+<span class="nf">static</span><span class="w"> </span><span class="no">void</span><span class="w"> </span><span class="no">__exit</span><span class="w"> </span><span class="no">mod_debug_test_exit</span><span class="p">(</span><span class="no">void</span><span class="p">)</span>
+<span class="err">{</span>
+<span class="w">   </span><span class="err">0:</span><span class="w">   </span><span class="nf">d503233f</span><span class="w">        </span><span class="no">paciasp</span>
+<span class="w">   </span><span class="err">4:</span><span class="w">   </span><span class="nf">a9bf7bfd</span><span class="w">        </span><span class="no">stp</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="mi">#-16</span><span class="p">]!</span>
+<span class="w">   </span><span class="err">8:</span><span class="w">   </span><span class="err">910003</span><span class="nf">fd</span><span class="w">        </span><span class="no">mov</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">sp</span>
+<span class="w">    </span><span class="nf">pr_info</span><span class="p">(</span><span class="err">&quot;</span><span class="nv">%s</span><span class="w"> </span><span class="err">\</span><span class="no">n</span><span class="err">&quot;</span><span class="p">,</span><span class="no">__FUNCTION__</span><span class="p">)</span><span class="c1">;</span>
+<span class="w">   </span><span class="nl">c:</span><span class="w">   </span><span class="err">90000000</span><span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">cleanup_module</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="err">10:</span><span class="w">   </span><span class="err">91000000</span><span class="w">        </span><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
+<span class="w">  </span><span class="err">14:</span><span class="w">   </span><span class="err">90000001</span><span class="w">        </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">cleanup_module</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="err">18:</span><span class="w">   </span><span class="err">91000021</span><span class="w">        </span><span class="nf">add</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
+<span class="w">  </span><span class="err">1</span><span class="nl">c:</span><span class="w">   </span><span class="err">94000000</span><span class="w">        </span><span class="nf">bl</span><span class="w">      </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">_printk</span><span class="p">&gt;</span>
+<span class="err">}</span>
+<span class="w">  </span><span class="err">20:</span><span class="w">   </span><span class="nf">a8c17bfd</span><span class="w">        </span><span class="no">ldp</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">],</span><span class="w"> </span><span class="mi">#16</span>
+<span class="w">  </span><span class="err">24:</span><span class="w">   </span><span class="nf">d50323bf</span><span class="w">        </span><span class="no">autiasp</span>
+<span class="w">  </span><span class="err">28:</span><span class="w">   </span><span class="nf">d65f03c0</span><span class="w">        </span><span class="no">ret</span>
+
+<span class="nf">Disassembly</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">section</span><span class="w"> </span><span class="no">.plt</span><span class="p">:</span>
+
+<span class="err">0000000000000000</span><span class="w"> </span><span class="err">&lt;</span><span class="na">.plt</span><span class="err">&gt;</span><span class="p">:</span>
+<span class="w">        </span><span class="na">...</span>
+
+<span class="nf">Disassembly</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">section</span><span class="w"> </span><span class="no">.text.ftrace_trampoline</span><span class="p">:</span>
+
+<span class="err">0000000000000000</span><span class="w"> </span><span class="err">&lt;</span><span class="na">.text.ftrace_trampoline</span><span class="err">&gt;</span><span class="p">:</span>
+<span class="na">...</span>
+</pre></div>
+</blockquote>
+<p>通过观察，text section主要分成三个， .text  .init.text 和 .exit.text， 其他的section跟这里的调试关系不大，暂时可以忽略。</p>
+<p>而每个section的地址都是在insmod的时候，通过 module_memory_alloc-&gt; module_alloc -&gt; __vmalloc_node_range 来分配。</p>
+<p>所以每次分配的VA地址是根据系统使用的情况来决定，每次可能分配VA的地址可能是不一样的。</p>
+</div>
+<div class="section" id="kernel-module-section">
+<h2>3. kernel module section 加载地址</h2>
+<p>在kernel module加载到系统之后，可以通过查看/sys/module/&lt;mod_name&gt;/sections 下面module加载的信息知道每个section的VA地址，如下：</p>
+<div class="highlight"><pre><span></span><span class="c1"># cat /sys/module/mod_debug_test/sections/.text</span>
+0xffff80007ab40000
+<span class="c1"># cat /sys/module/mod_debug_test/sections/.init.text</span>
+0xffff80007ab46000
+<span class="c1"># cat /sys/module/mod_debug_test/sections/.exit.text</span>
+0xffff80007ab4002c
+</pre></div>
+<p>但是这样的方式找section的加载地址，是有些限制的，就是必须的等到module加载到系统之后才能找到这些section的地址。 可是module init相关的代码，是在module 加载完成之前就已经运行完成了。</p>
+<p>如果想要调试module init相关代码，可能需要在module加载完成之前找到它对应的 .init.text section的加载地址。</p>
+<p>在do_init_module 函数的时候，系统已经调用了vmalloc的接口给每个section分配了对应的VA。</p>
+<p>这样就可以分析struct module的的信息找到对应的section地址。</p>
+<div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">module</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="cm">/* Unique handle for this module */</span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">name</span><span class="p">[</span><span class="n">MODULE_NAME_LEN</span><span class="p">];</span>
+
+<span class="w">        </span><span class="cm">/* Startup function. */</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">init</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">module_memory</span><span class="w"> </span><span class="n">mem</span><span class="p">[</span><span class="n">MOD_MEM_NUM_TYPES</span><span class="p">]</span><span class="w"> </span><span class="n">__module_memory_align</span><span class="p">;</span>
+
+
+<span class="k">enum</span><span class="w"> </span><span class="n">mod_mem_type</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">MOD_TEXT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="n">MOD_DATA</span><span class="p">,</span>
+<span class="w">        </span><span class="n">MOD_RODATA</span><span class="p">,</span>
+<span class="w">        </span><span class="n">MOD_RO_AFTER_INIT</span><span class="p">,</span>
+<span class="w">        </span><span class="n">MOD_INIT_TEXT</span><span class="p">,</span>
+<span class="w">        </span><span class="n">MOD_INIT_DATA</span><span class="p">,</span>
+<span class="w">        </span><span class="n">MOD_INIT_RODATA</span><span class="p">,</span>
+
+<span class="w">        </span><span class="n">MOD_MEM_NUM_TYPES</span><span class="p">,</span>
+<span class="w">        </span><span class="n">MOD_INVALID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+<p>这个时候需要先把断点设在do_init_module 函数，来查看module-&gt;mem[x].base找到对应的section 加载的地址。 如下：</p>
+<div class="highlight"><pre><span></span>&gt;bt
+<span class="c1">#0 do_init_module(mod = (struct module*) 0xFFFF80007AB42040) at main.c:2510</span>
+<span class="c1">#1 load_module(info = &lt;Value currently has no location&gt;, uargs = 0xAAAADAF0F2A0 &quot;&quot;, flags = 0) at main.c:3001</span>
+<span class="c1">#2 init_module_from_file(f = (struct file*) 0xFFFF00080017B200, uargs = 0xAAAADAF0F2A0 &quot;&quot;, flags = 0) at main.c:3168</span>
+<span class="c1">#3 hash_64_generic(val = &lt;Value currently has no location&gt;, bits = &lt;Value currently has no location&gt;) at hash.h:78</span>
+<span class="c1">#4 __do_sys_finit_module(fd = &lt;Value currently has no location&gt;, uargs = &lt;Value currently has no location&gt;, flags = &lt;Value currently has no location&gt;) at spinlock.h:0</span>
+<span class="c1">#5 __arm64_sys_finit_module(regs ERROR(CMD367-IMG96):</span>
+!<span class="w"> </span>Error<span class="w"> </span>computing<span class="w"> </span>the<span class="w"> </span>variable<span class="w"> </span><span class="s2">&quot;regs&quot;</span>
+!<span class="w"> </span>Unimplemented<span class="w"> </span>DWARF<span class="w"> </span>opcode<span class="w"> </span>0xa3
+<span class="o">)</span><span class="w"> </span>at<span class="w"> </span>file.h:0
+<span class="c1">#6 __invoke_syscall(regs = (struct pt_regs*) 0xFFFF8000834FBEB0, syscall_fn = &lt;Value currently has no location&gt;) at syscall.c:0</span>
+<span class="c1">#7 __kern_my_cpu_offset() at percpu.h:40</span>
+<span class="c1">#8 read_ti_thread_flags(ti = &lt;Value optimised away by compiler&gt;) at thread_info.h:127</span>
+<span class="c1">#9 el0_svc_common(regs = (struct pt_regs*) 0xFFFF8000834FBEB0, scno = &lt;Value currently has no location&gt;, sc_nr = 462, syscall_table ERROR(CMD367-IMG96):</span>
+!<span class="w"> </span>Error<span class="w"> </span>computing<span class="w"> </span>the<span class="w"> </span>variable<span class="w"> </span><span class="s2">&quot;syscall_table&quot;</span>
+!<span class="w"> </span>Unimplemented<span class="w"> </span>DWARF<span class="w"> </span>opcode<span class="w"> </span>0xa3
+<span class="o">)</span><span class="w"> </span>at<span class="w"> </span>syscall.c:142
+<span class="c1">#10 do_el0_svc(regs ERROR(CMD367-IMG96):</span>
+!<span class="w"> </span>Error<span class="w"> </span>computing<span class="w"> </span>the<span class="w"> </span>variable<span class="w"> </span><span class="s2">&quot;regs&quot;</span>
+!<span class="w"> </span>Unimplemented<span class="w"> </span>DWARF<span class="w"> </span>opcode<span class="w"> </span>0xa3
+<span class="o">)</span><span class="w"> </span>at<span class="w"> </span>syscall.c:153
+<span class="c1">#11 exit_to_user_mode_prepare(regs = (struct pt_regs*) 0xFFFF8000834FBEB0) at entry-common.c:165</span>
+<span class="c1">#12 el0_da(regs = &lt;Value not available : Undefined value in stack frame for register X0&gt;, esr = &lt;Value not available : Undefined value in stack frame for register X1&gt;) at entry-common.c:575</span>
+<span class="c1">#13 el0t_64_sync_handler(regs ERROR(CMD367-IMG96):</span>
+!<span class="w"> </span>Error<span class="w"> </span>computing<span class="w"> </span>the<span class="w"> </span>variable<span class="w"> </span><span class="s2">&quot;regs&quot;</span>
+!<span class="w"> </span>Unimplemented<span class="w"> </span>DWARF<span class="w"> </span>opcode<span class="w"> </span>0xa3
+<span class="o">)</span><span class="w"> </span>at<span class="w"> </span>entry-common.c:0
+&gt;p/x<span class="w"> </span>mod-&gt;mem<span class="o">[</span><span class="m">0</span><span class="o">]</span>.base
+<span class="nv">$11</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>void*<span class="o">)</span><span class="w"> </span>0xFFFF80007AB40000
+&gt;p/x<span class="w"> </span>mod-&gt;mem<span class="o">[</span><span class="m">4</span><span class="o">]</span>.base
+<span class="nv">$12</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>void*<span class="o">)</span><span class="w"> </span>0xFFFF80007AB46000
+</pre></div>
+<p>这样的方式也可以找到.text 和.init.text section 加载的地址。</p>
+</div>
+<div class="section" id="armdskernel-module">
+<h2>4. 在ArmDS中加载kernel module符号表</h2>
+<p>如果把ko文件直接加载到ArmDS中的话，会出现如下错误：</p>
+<div class="highlight"><pre><span></span>&gt;add-symbol-file<span class="w"> </span>src/testmod/mod_debug_test.ko
+ERROR<span class="o">(</span>CMD685-COR11-COR236<span class="o">)</span>:
+!<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>load<span class="w"> </span>symbols<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s2">&quot;mod_debug_test.ko&quot;</span>
+!<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span>the<span class="w"> </span>symbols<span class="w"> </span>from<span class="w"> </span>src/testmod/mod_debug_test.ko
+!<span class="w"> </span>Unable<span class="w"> </span>to<span class="w"> </span><span class="nb">read</span><span class="w"> </span>OS<span class="w"> </span>module<span class="w"> </span>symbols,<span class="w"> </span>OS<span class="w"> </span>support<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>yet<span class="w"> </span>active.
+</pre></div>
+<p>这是因为ArmDS检测到是ko的时候，会走一个特殊的路径来加载KO的符号表。所以不能用简单的命令来加载，这里需要把单独的section加载到它对应的地址，命令如下：</p>
+<div class="highlight"><pre><span></span>&gt;add-symbol-file<span class="w"> </span>src/testmod/mod_debug_test.ko<span class="w">  </span>-s<span class="w"> </span>.init.text<span class="w">  </span>0xFFFF80007AB46000<span class="w"> </span>-s<span class="w"> </span>.text<span class="w"> </span>0xFFFF80007AB40000<span class="w"> </span>-s<span class="w"> </span>.exit.text<span class="w"> </span>0xffff80007ab4002c
+</pre></div>
+<p>或者你只需要加载一个section的符号表，可以使用下面的命令：</p>
+<div class="highlight"><pre><span></span>&gt;add-symbol-file<span class="w"> </span>src/testmod/mod_debug_test.ko<span class="w">  </span>-s<span class="w"> </span>.init.text<span class="w">  </span>0xFFFF80007AB46000
+</pre></div>
+<p>解下来就可以正常设置断点，开始调试了。</p>
+<div class="highlight"><pre><span></span>&gt;break<span class="w"> </span>mod_debug_test_init
+Breakpoint<span class="w"> </span><span class="m">4</span><span class="w"> </span>at<span class="w"> </span>EL2N:0xFFFF80007AB46000
+<span class="w">    </span>on<span class="w"> </span>file<span class="w"> </span>mod_debug_test.c,<span class="w"> </span>line<span class="w"> </span><span class="m">12</span>
+&gt;break<span class="w"> </span>mod_debug_test_func
+Breakpoint<span class="w"> </span><span class="m">5</span><span class="w"> </span>at<span class="w"> </span>EL2N:0xFFFF80007AB40000
+<span class="w">    </span>on<span class="w"> </span>file<span class="w"> </span>mod_debug_test.c,<span class="w"> </span>line<span class="w"> </span><span class="m">7</span>
+&gt;break<span class="w"> </span>mod_debug_test_exit
+Breakpoint<span class="w"> </span><span class="m">6</span><span class="w"> </span>at<span class="w"> </span>EL2N:0xFFFF80007AB4002C
+<span class="w">    </span>on<span class="w"> </span>file<span class="w"> </span>mod_debug_test.c,<span class="w"> </span>line<span class="w"> </span><span class="m">19</span>
+&gt;c
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">4</span>:<span class="w"> </span>EL2N:0xFFFF80007AB46000
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_0<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+In<span class="w"> </span>mod_debug_test.c
+EL2N:0xFFFF80007AB46000<span class="w">   </span><span class="m">12</span>,0<span class="w">   </span><span class="o">{</span>
+&gt;l
+<span class="w">  </span><span class="m">007</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="m">008</span>:
+<span class="w">  </span><span class="m">009</span>:<span class="w">     </span>pr_info<span class="o">(</span><span class="s2">&quot;%s \n&quot;</span>,__FUNCTION__<span class="o">)</span><span class="p">;</span>
+<span class="w">  </span><span class="m">010</span>:<span class="w"> </span><span class="o">}</span>
+<span class="w">  </span><span class="m">011</span>:<span class="w"> </span>static<span class="w"> </span>int<span class="w"> </span>__init<span class="w"> </span>mod_debug_test_init<span class="o">(</span>void<span class="o">)</span>
+*<span class="w"> </span><span class="m">012</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="m">013</span>:<span class="w">     </span>pr_info<span class="o">(</span><span class="s2">&quot;%s \n&quot;</span>,__FUNCTION__<span class="o">)</span><span class="p">;</span>
+<span class="w">  </span><span class="m">014</span>:<span class="w">     </span>mod_debug_test_func<span class="o">()</span><span class="p">;</span>
+<span class="w">  </span><span class="m">015</span>:<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">  </span><span class="m">016</span>:<span class="w"> </span><span class="o">}</span>
+&gt;c
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">5</span>:<span class="w"> </span>EL2N:0xFFFF80007AB40000
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_0<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+EL2N:0xFFFF80007AB40000<span class="w">   </span><span class="m">7</span>,0<span class="w">   </span><span class="o">{</span>
+&gt;l
+<span class="w">  </span><span class="m">002</span>:<span class="w"> </span><span class="c1">#include &lt;linux/printk.h&gt;</span>
+<span class="w">  </span><span class="m">003</span>:
+<span class="w">  </span><span class="m">004</span>:<span class="w"> </span><span class="c1">#define MODULE_NAME &quot;mod_debug_test&quot;</span>
+<span class="w">  </span><span class="m">005</span>:
+<span class="w">  </span><span class="m">006</span>:<span class="w"> </span>__attribute__<span class="o">((</span>__noinline__<span class="o">))</span><span class="w"> </span>static<span class="w"> </span>void<span class="w"> </span>mod_debug_test_func<span class="o">(</span>void<span class="w"> </span><span class="o">)</span>
+*<span class="w"> </span><span class="m">007</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="m">008</span>:
+<span class="w">  </span><span class="m">009</span>:<span class="w">     </span>pr_info<span class="o">(</span><span class="s2">&quot;%s \n&quot;</span>,__FUNCTION__<span class="o">)</span><span class="p">;</span>
+<span class="w">  </span><span class="m">010</span>:<span class="w"> </span><span class="o">}</span>
+<span class="w">  </span><span class="m">011</span>:<span class="w"> </span>static<span class="w"> </span>int<span class="w"> </span>__init<span class="w"> </span>mod_debug_test_init<span class="o">(</span>void<span class="o">)</span>
+&gt;c
+Execution<span class="w"> </span>stopped<span class="w"> </span><span class="k">in</span><span class="w"> </span>EL2h<span class="w"> </span>mode<span class="w"> </span>at<span class="w"> </span>breakpoint<span class="w"> </span><span class="m">6</span>:<span class="w"> </span>EL2N:0xFFFF80007AB4002C
+On<span class="w"> </span>core<span class="w"> </span>ARM_AEM-A_MP_2<span class="w"> </span><span class="o">(</span>ID<span class="w"> </span><span class="m">2</span><span class="o">)</span>
+EL2N:0xFFFF80007AB4002C<span class="w">   </span><span class="m">19</span>,0<span class="w">   </span><span class="o">{</span>
+&gt;l
+<span class="w">  </span><span class="m">014</span>:<span class="w">     </span>mod_debug_test_func<span class="o">()</span><span class="p">;</span>
+<span class="w">  </span><span class="m">015</span>:<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">  </span><span class="m">016</span>:<span class="w"> </span><span class="o">}</span>
+<span class="w">  </span><span class="m">017</span>:
+<span class="w">  </span><span class="m">018</span>:<span class="w"> </span>static<span class="w"> </span>void<span class="w"> </span>__exit<span class="w"> </span>mod_debug_test_exit<span class="o">(</span>void<span class="o">)</span>
+*<span class="w"> </span><span class="m">019</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="m">020</span>:<span class="w">     </span>pr_info<span class="o">(</span><span class="s2">&quot;%s \n&quot;</span>,__FUNCTION__<span class="o">)</span><span class="p">;</span>
+<span class="w">  </span><span class="m">021</span>:<span class="w"> </span><span class="o">}</span>
+<span class="w">  </span><span class="m">022</span>:<span class="w"> </span>module_init<span class="o">(</span>mod_debug_test_init<span class="o">)</span><span class="p">;</span>
+<span class="w">  </span><span class="m">023</span>:<span class="w"> </span>module_exit<span class="o">(</span>mod_debug_test_exit<span class="o">)</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><a href="https://geesun.github.io/posts/2024/07/03_debug_kernel_module.html#disqus_thread">comments</a></p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="../posts/2024/07/02_kasan.html" rel="bookmark"
+                           title="Permalink to Kasan 使用">Kasan 使用</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <span>一 22 七月 2024</span>
 <span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
-</footer><!-- /.post-info --><p>KASAN(Kernel Address Sanitizer)是一个在kernel里面检测内存越界访问的一个工具，可以检测</p>
+</footer><!-- /.post-info -->                <p>KASAN(Kernel Address Sanitizer)是一个在kernel里面检测内存越界访问的一个工具，可以检测</p>
 <ul class="simple">
 <li>全局变量越界 (仅Generic KASAN支持)</li>
 <li>栈变量的越界 (仅Generic KASAN和Software Tag-Based KASAN支持)</li>
 <li>SLAB 分配器分配的object</li>
 <li>PAGE 分配器分配的Page</li>
-<li>Vmalloc 分配器分配的内存</li>
-</ul>
-<p>当然，use-after-free也是可以检测到的。</p>
-<p>Generic KASAN是不需要硬件支持的， Software Tag-Based KASAN和Hardware Tag-Based KASAN 是需要硬件提供支持。</p>
-<p>Software Tag-Based KASAN和Hardware Tag-Based KASAN 目前支持arm64的系统，需要地址支持TBI（top byte ignore),因为它的tag是放在地址的高位，所以TBI的支持。</p>
-<p>Hardware Tag-Based KASAN是在Arm64 MTE（Memory Tagging Extension）硬件支持。</p>
-<div class="section" id="shadow-memory">
-<h2>Shadow memory</h2>
-<p>为了检测内存的越界访问，Generic和Software Tag-Based KASAN是需要提供影子内存的，Hardware Tag-Based KASAN因为有MTE的支持，硬件已经有存放Tag的地方，就不需要软件来支持。</p>
-<p>参考如下虚拟内存布局：</p>
-<div class="highlight"><pre><span></span>Start<span class="w"> </span>End<span class="w"> </span>Size<span class="w"> </span>Use
-<span class="w"> </span>-----------------------------------------------------------------------
-<span class="w"> </span><span class="m">0000000000000000</span><span class="w"> </span>0000ffffffffffff<span class="w"> </span>256TB<span class="w"> </span>user
-<span class="w"> </span>ffff000000000000<span class="w"> </span>ffff7fffffffffff<span class="w"> </span>128TB<span class="w"> </span>kernel<span class="w"> </span>logical<span class="w"> </span>memory<span class="w"> </span>map
-<span class="w"> </span><span class="o">[</span>ffff600000000000<span class="w"> </span>ffff7fffffffffff<span class="o">]</span><span class="w">   </span>32TB<span class="w"> </span><span class="o">[</span>kasan<span class="w"> </span>shadow<span class="w"> </span>region<span class="o">]</span>
-<span class="w"> </span>ffff800000000000<span class="w"> </span>ffff80007fffffff<span class="w">   </span>2GB<span class="w"> </span>modules
-<span class="w"> </span>ffff800080000000<span class="w"> </span>fffffbffefffffff<span class="w"> </span>124TB<span class="w"> </span>vmalloc
-<span class="w"> </span>fffffbfff0000000<span class="w"> </span>fffffbfffdffffff<span class="w"> </span>224MB<span class="w"> </span>fixed<span class="w"> </span>mappings<span class="w"> </span><span class="o">(</span>top<span class="w"> </span>down<span class="o">)</span>
-<span class="w"> </span>fffffbfffe000000<span class="w"> </span>fffffbfffe7fffff<span class="w">   </span>8MB<span class="w"> </span><span class="o">[</span>guard<span class="w"> </span>region<span class="o">]</span>
-<span class="w"> </span>fffffbfffe800000<span class="w"> </span>fffffbffff7fffff<span class="w">   </span>16MB<span class="w"> </span>PCI<span class="w"> </span>I/O<span class="w"> </span>space
-<span class="w"> </span>fffffbffff800000<span class="w"> </span>fffffbffffffffff<span class="w">   </span>8MB<span class="w"> </span><span class="o">[</span>guard<span class="w"> </span>region<span class="o">]</span>
-<span class="w"> </span>fffffc0000000000<span class="w"> </span>fffffdffffffffff<span class="w">   </span>2TB<span class="w"> </span>vmemmap
-<span class="w"> </span>fffffe0000000000<span class="w"> </span>ffffffffffffffff<span class="w">   </span>2TB<span class="w"> </span><span class="o">[</span>guard<span class="w"> </span>region<span class="o">]</span>
-</pre></div>
-<p>Kernel系统里面所有的虚拟地址，都可以在kasan shadow region 找到对应的地址和它一一对应。一个VA可以通过下面的函数找到它对应的 kasan shadow的地址：</p>
-<div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">kasan_mem_to_shadow</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">addr</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)((</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">addr</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">KASAN_SHADOW_SCALE_SHIFT</span><span class="p">)</span>
-<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">KASAN_SHADOW_OFFSET</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-<p>但是32T的kasan shadow region 不可能都有物理地址和它对应。</p>
-<p>所以系统里面只给 kernel logical memory map里面已经online的memory bank 给它分配kasan shadow region里面的物理内存，还有就是vmalloc 里面的kernel image对应的部分VA对应的kasan shadow region分配物理内存。</p>
-<p>其他别的虚拟地址都把他们的 kasan shadow region 映射成一个共同的物理页kasan_early_shadow_page， 这样就不需要那么多kasan shadow 物理内存了。 参考如下：</p>
-<img alt="shadow_memory" class="align-center" src="../images/linux/debug/shadow_memory_layout.png" style="width: 600px;" />
-<p>对于vmalloc区域，因为它的VA地址是动态分配的，所以系统boot起来是不会静态给它的kasan shadow region分配物理内存。 只有真正分配VA的时候才给映射kasan shadow region 的物理内存，可以参考如下函数：</p>
-<div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">kasan_populate_vmalloc</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
-<span class="kt">void</span><span class="w"> </span><span class="n">kasan_release_vmalloc</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="p">,</span>
-<span class="w">                   </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">free_region_start</span><span class="p">,</span>
-<span class="w">                   </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">free_region_end</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="section" id="section-1">
-<h2>非法访问检查</h2>
-<p>KASAN是在使用指针访问内存的时候，提前检测这个指针的状态是不是合法。</p>
-<p>对于Generic和Software Tag-Based KASAN， 就依赖编译器在在访问内存的时候插入相对应的代码去检查这个指针对应的kasan shadow memory里面的值是不是合法，如我们有如下代码：</p>
-<div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
-<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;test = %d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">test</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
-<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;test2 = %d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">test</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
-<span class="p">}</span>
-</pre></div>
-<p>Generic KASAN 编译器会产生如下代码：</p>
-<div class="highlight"><pre><span></span><span class="err">40:</span><span class="w">   </span><span class="nf">aa1303e0</span><span class="w">    </span><span class="no">mov</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x19</span>
-<span class="err">44:</span><span class="w">   </span><span class="err">94000000</span><span class="w">    </span><span class="nf">bl</span><span class="w">  </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">__asan_load4_noabort</span><span class="p">&gt;</span>
-<span class="err">48:</span><span class="w">   </span><span class="nf">b9400261</span><span class="w">    </span><span class="no">ldr</span><span class="w"> </span><span class="no">w1</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x19</span><span class="p">]</span>
-<span class="err">4</span><span class="nl">c:</span><span class="w">   </span><span class="err">35000081</span><span class="w">    </span><span class="nf">cbnz</span><span class="w">    </span><span class="no">w1</span><span class="p">,</span><span class="w"> </span><span class="mh">5c</span> <span class="p">&lt;</span><span class="no">global_test</span><span class="p">+</span><span class="mi">0x5c</span><span class="p">&gt;</span>
-<span class="err">50:</span><span class="w">   </span><span class="err">90000000</span><span class="w">    </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">global_test</span><span class="p">&gt;</span>
-<span class="err">54:</span><span class="w">   </span><span class="err">91000000</span><span class="w">    </span><span class="nf">add</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
-<span class="err">58:</span><span class="w">   </span><span class="err">14000003</span><span class="w">    </span><span class="nf">b</span><span class="w">   </span><span class="mh">64</span> <span class="p">&lt;</span><span class="no">global_test</span><span class="p">+</span><span class="mi">0x64</span><span class="p">&gt;</span>
-<span class="err">5</span><span class="nl">c:</span><span class="w">   </span><span class="err">90000000</span><span class="w">    </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">global_test</span><span class="p">&gt;</span>
-<span class="err">60:</span><span class="w">   </span><span class="err">91000000</span><span class="w">    </span><span class="nf">add</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x0</span>
-<span class="err">64:</span><span class="w">   </span><span class="err">94000000</span><span class="w">    </span><span class="nf">bl</span><span class="w">  </span><span class="mh">0</span> <span class="p">&lt;</span><span class="no">_printk</span><span class="p">&gt;</span>
-</pre></div>
-<p>Software Tag-Based KASAN 编译器会产生如下代码：</p>
-<div class="highlight"><pre><span></span><span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FA0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">LSR</span><span class="w">      </span><span class="no">x9</span><span class="p">,</span><span class="no">x8</span><span class="p">,</span><span class="mi">#4</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FA4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">LSR</span><span class="w">      </span><span class="no">x8</span><span class="p">,</span><span class="no">x0</span><span class="p">,</span><span class="mi">#56</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FA8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">LDRB</span><span class="w">     </span><span class="no">w9</span><span class="p">,[</span><span class="no">x19</span><span class="p">,</span><span class="no">x9</span><span class="p">]</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FAC</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">CMP</span><span class="w">      </span><span class="no">w8</span><span class="p">,</span><span class="no">w9</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FB0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B.EQ</span><span class="w">     </span><span class="no">global_test</span><span class="err">+</span><span class="mi">152</span><span class="w"> </span><span class="c1">; 0x840E3FBC</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FB4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">CMP</span><span class="w">      </span><span class="no">w8</span><span class="p">,</span><span class="mi">#0</span><span class="no">xff</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FB8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B.NE</span><span class="w">     </span><span class="no">global_test</span><span class="err">+</span><span class="mi">400</span><span class="w"> </span><span class="c1">; 0x840E40B4 /// check first</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FBC</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">ADRP</span><span class="w">     </span><span class="no">x8</span><span class="p">,{</span><span class="no">pc</span><span class="p">}</span><span class="err">+</span><span class="mi">0xf51000</span><span class="w"> </span><span class="c1">; 0x85034FBC</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E3FC0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">LDR</span><span class="w">      </span><span class="no">w8</span><span class="p">,[</span><span class="no">x8</span><span class="p">,</span><span class="mi">#0</span><span class="no">x7e0</span><span class="p">]</span>
-
-<span class="c1">//....</span>
-
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40B4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MOV</span><span class="w">      </span><span class="no">x9</span><span class="p">,</span><span class="no">x19</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40B8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">BL</span><span class="w">       </span><span class="no">__hwasan_check_x0_67043362</span><span class="w"> </span><span class="c1">; 0x80215390</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40BC</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B</span><span class="w">        </span><span class="no">global_test</span><span class="err">+</span><span class="mi">152</span><span class="w"> </span><span class="c1">; 0x840E3FBC</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40C0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MOV</span><span class="w">      </span><span class="no">x9</span><span class="p">,</span><span class="no">x19</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40C4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">BL</span><span class="w">       </span><span class="no">__hwasan_check_x0_67043378</span><span class="w"> </span><span class="c1">; 0x80215420</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40C8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B</span><span class="w">        </span><span class="no">global_test</span><span class="err">+</span><span class="mi">196</span><span class="w"> </span><span class="c1">; 0x840E3FE8</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40CC</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">MOV</span><span class="w">      </span><span class="no">x9</span><span class="p">,</span><span class="no">x19</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40D0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">BL</span><span class="w">       </span><span class="no">__hwasan_check_x1_67043360</span><span class="w"> </span><span class="c1">; 0x80215960</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40D4</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">B</span><span class="w">        </span><span class="no">global_test</span><span class="err">+</span><span class="mi">244</span><span class="w"> </span><span class="c1">; 0x840E4018</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000840E40D8</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">BL</span><span class="w">       </span><span class="no">__stack_chk_fail</span><span class="w"> </span><span class="c1">; 0x835A6A4C</span>
-
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x0000000080215390</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">SBFX</span><span class="w">     </span><span class="no">x16</span><span class="p">,</span><span class="no">x0</span><span class="p">,</span><span class="mi">#4</span><span class="p">,</span><span class="mi">#52</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x0000000080215394</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">4</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">LDRB</span><span class="w">     </span><span class="no">w16</span><span class="p">,[</span><span class="no">x9</span><span class="p">,</span><span class="no">x16</span><span class="p">]</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x0000000080215398</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">8</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">CMP</span><span class="w">      </span><span class="no">x16</span><span class="p">,</span><span class="no">x0</span><span class="p">,</span><span class="no">LSR</span><span class="w"> </span><span class="mi">#56</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x000000008021539C</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">12</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">B.NE</span><span class="w">     </span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">20</span><span class="w"> </span><span class="c1">; 0x802153A4</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153A0</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">16</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">RET</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153A4</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">20</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">LSR</span><span class="w">      </span><span class="no">x17</span><span class="p">,</span><span class="no">x0</span><span class="p">,</span><span class="mi">#56</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153A8</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">24</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">CMP</span><span class="w">      </span><span class="no">x17</span><span class="p">,</span><span class="mi">#0</span><span class="no">xff</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153AC</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">28</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">B.EQ</span><span class="w">     </span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">16</span><span class="w"> </span><span class="c1">; 0x802153A0</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153B0</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">32</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">STP</span><span class="w">      </span><span class="no">x0</span><span class="p">,</span><span class="no">x1</span><span class="p">,[</span><span class="no">sp</span><span class="p">,</span><span class="mi">#-0</span><span class="no">x100</span><span class="p">]!</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153B4</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">36</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">STP</span><span class="w">      </span><span class="no">x29</span><span class="p">,</span><span class="no">x30</span><span class="p">,[</span><span class="no">sp</span><span class="p">,</span><span class="mi">#0</span><span class="no">xe8</span><span class="p">]</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153B8</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">40</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">MOV</span><span class="w">      </span><span class="no">x1</span><span class="p">,</span><span class="mi">#0</span><span class="no">x22</span>
-<span class="nl">EL2N:</span><span class="err">0</span><span class="nf">x00000000802153BC</span><span class="w"> </span><span class="err">&lt;</span><span class="no">__hwasan_check_x0_67043362</span><span class="err">+</span><span class="mi">44</span><span class="err">&gt;</span><span class="p">:</span><span class="w"> </span><span class="no">B</span><span class="w">        </span><span class="no">__hwasan_tag_mismatch</span><span class="w"> </span><span class="c1">; 0x811C6608</span>
-</pre></div>
-<p>至于Hardware Tag-Based KASAN 时使用MTE的硬件机制来进行检测。 就没有额外检测代码。</p>
-<p>这也就是Hardware Tag-Based KASAN 基本不会增加kernel image 的大小，而Generic和Software Tag-Based KASAN会增加 kernel image 的大小。</p>
-<p>根据测试，大概Generic KASAN 会增加2-3倍大小，而Software Tag-Based KASAN 1.5-2倍大小。</p>
-</div>
-<div class="section" id="section-2">
-<h2>测试例子</h2>
-<p>有如下函数：</p>
-<div class="highlight"><pre><span></span><span class="n">__attribute__</span><span class="p">((</span><span class="n">__noinline__</span><span class="p">))</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">kmalloc_test_err</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="o">*</span><span class="n">kmem</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="o">*</span><span class="n">kmem1</span><span class="p">;</span>
-<span class="w">    </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;%s </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">__FUNCTION__</span><span class="p">);</span>
-<span class="w">    </span><span class="n">kmem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span>
-<span class="w">    </span><span class="n">kmem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">kmem1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kmalloc</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">GFP_KERNEL</span><span class="p">);</span>
-
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">kmem</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
-<span class="w">        </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;kmem1 = %c </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">kmem</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
-<span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
-<span class="w">        </span><span class="n">pr_info</span><span class="p">(</span><span class="s">&quot;kmem2 = %c </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">kmem1</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-<p>运行时会出现如下错误：</p>
-<div class="highlight"><pre><span></span><span class="o">[</span><span class="w">  </span><span class="m">807</span>.832972<span class="o">]</span><span class="w"> </span><span class="o">==================================================================</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.838615<span class="o">]</span><span class="w"> </span>BUG:<span class="w"> </span>KASAN:<span class="w"> </span>invalid-access<span class="w"> </span><span class="k">in</span><span class="w"> </span>kmalloc_test_err+0x5c/0x94<span class="w"> </span><span class="o">[</span>kasan_my_test<span class="o">]</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.838844<span class="o">]</span><span class="w"> </span>Read<span class="w"> </span>at<span class="w"> </span>addr<span class="w"> </span>fcffff880000ff34<span class="w"> </span>by<span class="w"> </span>task<span class="w"> </span>modprobe/149
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.838937<span class="o">]</span><span class="w"> </span>Pointer<span class="w"> </span>tag:<span class="w"> </span><span class="o">[</span>fc<span class="o">]</span>,<span class="w"> </span>memory<span class="w"> </span>tag:<span class="w"> </span><span class="o">[</span>fe<span class="o">]</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839009<span class="o">]</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839055<span class="o">]</span><span class="w"> </span>CPU:<span class="w"> </span><span class="m">0</span><span class="w"> </span>PID:<span class="w"> </span><span class="m">149</span><span class="w"> </span>Comm:<span class="w"> </span>modprobe<span class="w"> </span>Not<span class="w"> </span>tainted<span class="w"> </span><span class="m">6</span>.6.0-dirty<span class="w"> </span><span class="c1">#74</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839170<span class="o">]</span><span class="w"> </span>Hardware<span class="w"> </span>name:<span class="w"> </span>FVP<span class="w"> </span>Base<span class="w"> </span>RevC<span class="w"> </span><span class="o">(</span>DT<span class="o">)</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839238<span class="o">]</span><span class="w"> </span>Call<span class="w"> </span>trace:
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839291<span class="o">]</span><span class="w">  </span>dump_backtrace+0xf0/0x128
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839428<span class="o">]</span><span class="w">  </span>show_stack+0x18/0x24
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839561<span class="o">]</span><span class="w">  </span>dump_stack_lvl+0x50/0x68
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839667<span class="o">]</span><span class="w">  </span>print_report+0x1bc/0x724
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839770<span class="o">]</span><span class="w">  </span>kasan_report+0xa8/0x100
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839874<span class="o">]</span><span class="w">  </span>__do_kernel_fault+0xb0/0x1dc
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.839997<span class="o">]</span><span class="w">  </span>do_bad_area+0x30/0xdc
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840115<span class="o">]</span><span class="w">  </span>do_tag_check_fault+0x20/0x30
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840238<span class="o">]</span><span class="w">  </span>do_mem_abort+0x40/0xec
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840355<span class="o">]</span><span class="w">  </span>el1_abort+0x3c/0x5c
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840458<span class="o">]</span><span class="w">  </span>el1h_64_sync_handler+0x80/0xcc
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840571<span class="o">]</span><span class="w">  </span>el1h_64_sync+0x64/0x68
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840670<span class="o">]</span><span class="w">  </span>kmalloc_test_err+0x5c/0x94<span class="w"> </span><span class="o">[</span>kasan_my_test<span class="o">]</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.840885<span class="o">]</span><span class="w">  </span>init_module+0x5c/0x1000<span class="w"> </span><span class="o">[</span>kasan_my_test<span class="o">]</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841099<span class="o">]</span><span class="w">  </span>do_one_initcall+0xdc/0x250
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841203<span class="o">]</span><span class="w">  </span>do_init_module+0x58/0x27c
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841312<span class="o">]</span><span class="w">  </span>load_module+0x15c8/0x186c
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841420<span class="o">]</span><span class="w">  </span>__arm64_sys_finit_module+0x214/0x2c0
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841533<span class="o">]</span><span class="w">  </span>invoke_syscall+0x40/0x100
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841663<span class="o">]</span><span class="w">  </span>el0_svc_common+0xa8/0xd8
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841793<span class="o">]</span><span class="w">  </span>do_el0_svc+0x1c/0x28
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.841920<span class="o">]</span><span class="w">  </span>el0_svc+0x38/0x68
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842024<span class="o">]</span><span class="w">  </span>el0t_64_sync_handler+0x90/0xfc
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842138<span class="o">]</span><span class="w">  </span>el0t_64_sync+0x19c/0x1a0
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842239<span class="o">]</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842281<span class="o">]</span><span class="w"> </span>The<span class="w"> </span>buggy<span class="w"> </span>address<span class="w"> </span>belongs<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>ffffff880000ff20
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842281<span class="o">]</span><span class="w">  </span>which<span class="w"> </span>belongs<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>cache<span class="w"> </span>kmalloc-32<span class="w"> </span>of<span class="w"> </span>size<span class="w"> </span><span class="m">32</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842399<span class="o">]</span><span class="w"> </span>The<span class="w"> </span>buggy<span class="w"> </span>address<span class="w"> </span>is<span class="w"> </span>located<span class="w"> </span><span class="m">20</span><span class="w"> </span>bytes<span class="w"> </span>inside<span class="w"> </span>of
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842399<span class="o">]</span><span class="w">  </span><span class="m">32</span>-byte<span class="w"> </span>region<span class="w"> </span><span class="o">[</span>ffffff880000ff20,<span class="w"> </span>ffffff880000ff40<span class="o">)</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842531<span class="o">]</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842575<span class="o">]</span><span class="w"> </span>The<span class="w"> </span>buggy<span class="w"> </span>address<span class="w"> </span>belongs<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>physical<span class="w"> </span>page:
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842639<span class="o">]</span><span class="w"> </span>page:<span class="o">(</span>____ptrval____<span class="o">)</span><span class="w"> </span>refcount:1<span class="w"> </span>mapcount:0<span class="w"> </span>mapping:0000000000000000<span class="w"> </span>index:0xf6ffff880000faa0<span class="w"> </span>pfn:0x88000f
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842769<span class="o">]</span><span class="w"> </span>flags:<span class="w"> </span>0xbfffe0000000800<span class="o">(</span>slab<span class="p">|</span><span class="nv">node</span><span class="o">=</span><span class="m">0</span><span class="p">|</span><span class="nv">zone</span><span class="o">=</span><span class="m">2</span><span class="p">|</span><span class="nv">lastcpupid</span><span class="o">=</span>0x1ffff<span class="p">|</span><span class="nv">kasantag</span><span class="o">=</span>0x0<span class="o">)</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842881<span class="o">]</span><span class="w"> </span>page_type:<span class="w"> </span>0xffffffff<span class="o">()</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.842978<span class="o">]</span><span class="w"> </span>raw:<span class="w"> </span>0bfffe0000000800<span class="w"> </span>fcffff8800002300<span class="w"> </span>dead000000000122<span class="w"> </span><span class="m">0000000000000000</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843099<span class="o">]</span><span class="w"> </span>raw:<span class="w"> </span>f6ffff880000faa0<span class="w"> </span><span class="m">0000000080800075</span><span class="w"> </span>00000001ffffffff<span class="w"> </span><span class="m">0000000000000000</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843188<span class="o">]</span><span class="w"> </span>page<span class="w"> </span>dumped<span class="w"> </span>because:<span class="w"> </span>kasan:<span class="w"> </span>bad<span class="w"> </span>access<span class="w"> </span>detected
-
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843302<span class="o">]</span><span class="w"> </span>Memory<span class="w"> </span>state<span class="w"> </span>around<span class="w"> </span>the<span class="w"> </span>buggy<span class="w"> </span>address:
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843375<span class="o">]</span><span class="w">  </span>ffffff880000fd00:<span class="w"> </span>f7<span class="w"> </span>f7<span class="w"> </span>fb<span class="w"> </span>fb<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>fd<span class="w"> </span>fd<span class="w"> </span>fb<span class="w"> </span>fb<span class="w"> </span>f8<span class="w"> </span>f8<span class="w"> </span>f8<span class="w"> </span>f8
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843476<span class="o">]</span><span class="w">  </span>ffffff880000fe00:<span class="w"> </span>f1<span class="w"> </span>f1<span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span><span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>fb<span class="w"> </span>fb<span class="w"> </span>fd<span class="w"> </span>fd<span class="w"> </span>fd<span class="w"> </span>fd<span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span>
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843577<span class="o">]</span><span class="w"> </span>&gt;ffffff880000ff00:<span class="w"> </span><span class="nb">fc</span><span class="w"> </span><span class="nb">fc</span><span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843663<span class="o">]</span><span class="w">                             </span>^
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843742<span class="o">]</span><span class="w">  </span>ffffff8800010000:<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>f0<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>fe<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843843<span class="o">]</span><span class="w">  </span>ffffff8800010100:<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f4<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9<span class="w"> </span>f9
-<span class="o">[</span><span class="w">  </span><span class="m">807</span>.843930<span class="o">]</span><span class="w"> </span><span class="o">==================================================================</span>
-</pre></div>
-</div>
-<div class="section" id="section-3">
-<h2>注意事项</h2>
-<ol class="arabic simple">
-<li>并不是所有的越界都能被检测出来，这三个KASAN模式都一样。</li>
-</ol>
-<p>Generic KASAN是依赖于redzone和shadow memory 里面的值，如果指针恰好越界到 shadow memory 里面的值正好是0，这个时候指针也是可以正常访问，而不会报错。 但是因为Generic KASAN在分配memory 两端加了一个REDZONE，所以比较小的越界是比较容易检测出来的。这也是大部分越界的情况。</p>
-<p>Software 和Hardware Tag-Based KASAN 因为使用了非常有限的tag，所以tag也会出现冲突，如果使用这个指针访问的内存，正好它的tag跟这个指针的tag一致，也是可以直接访问的，错误也是有可能检测不出来的。</p>
-<ol class="arabic simple" start="2">
-<li>如果要enable stack checking 的话，需要使用到clang来编译kernel，gcc 不会显示stack checking 的选项。</li>
-</ol>
-<div class="highlight"><pre><span></span>make<span class="w"> </span>-C<span class="w"> </span>src/linux<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span><span class="nv">CC</span><span class="o">=</span>tools/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04/bin/clang<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>tools/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-<span class="w"> </span>menuconfig
-</pre></div>
-<ol class="arabic simple" start="3">
-<li>如果需要enable Hardware Tag-Based KASAN，在编译TF-A的时候需要打开如下选项：</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="nv">ENABLE_FEAT_MTE2</span><span class="o">=</span><span class="m">1</span>
-</pre></div>
-<ol class="arabic simple" start="4">
-<li>如果使用FVP_Base_RevC FVP平台来测试 Hardware Tag-Based KASAN，运行时还需要加如下选项：</li>
-</ol>
-<div class="highlight"><pre><span></span>-C<span class="w"> </span>cluster0.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
--C<span class="w"> </span>cluster1.memory_tagging_support_level<span class="o">=</span><span class="m">4</span><span class="w">   </span><span class="se">\</span>
--C<span class="w"> </span>bp.dram_metadata.is_enabled<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-</pre></div>
-</div>
-<p><a href="https://geesun.github.io/posts/2024/07/02_kasan.html#disqus_thread">comments</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+<li>Vmalloc …</li></ul>
+                <a class="readmore" href="../posts/2024/07/02_kasan.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/07/02_kasan.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
