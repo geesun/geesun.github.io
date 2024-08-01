@@ -2,8 +2,8 @@
 <html lang="cn">
 <head>
         <meta charset="utf-8" />
-        <title>Linux学习笔记 - Debug</title>
-        <link rel="stylesheet" href="../theme/css/main.css" />
+        <title>如何使用Kdump来分析crash kernel</title>
+        <link rel="stylesheet" href="../../../theme/css/main.css" />
 
         <!--[if IE]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,20 +12,25 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="../">Linux学习笔记 </a></h1>
+                <h1><a href="../../../">Linux学习笔记 </a></h1>
                 <nav><ul>
-                    <li><a href="../category/linux.html">Linux</a></li>
+                    <li class="active"><a href="../../../category/linux.html">Linux</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="../../../posts/2024/08/04_kdump_crash_kernel.html" rel="bookmark"
+           title="Permalink to 如何使用Kdump来分析crash kernel">如何使用Kdump来分析crash kernel</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="../posts/2024/08/04_kdump_crash_kernel.html">如何使用Kdump来分析crash kernel</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>四 01 八月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
-</footer><!-- /.post-info --><p>根据Linux Kernel <a class="reference external" href="https://www.kernel.org/doc/Documentation/kdump/kdump.txt">Kdump</a> 文档，可以使用如下工具在Host上分析kernel crash的现场</p>
+<span>| tags: <a href="../../../tag/linux.html">Linux</a><a href="../../../tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info -->      <p>根据Linux Kernel <a class="reference external" href="https://www.kernel.org/doc/Documentation/kdump/kdump.txt">Kdump</a> 文档，可以使用如下工具在Host上分析kernel crash的现场</p>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/horms/kexec-tools">kexec-tools</a>  - 交叉编译在Target系统上，打包进正常rootfs里面</li>
 <li><a class="reference external" href="https://github.com/makedumpfile/makedumpfile">makedumpfile</a> - 交叉编译在Target系统上，打包进crash系统的rootfs里面</li>
@@ -383,57 +388,24 @@ crash&gt;<span class="w"> </span>log
 <li><a class="reference external" href="https://opensource.com/article/17/6/kdump-usage-and-internals">Using Kdump for examining Linux Kernel crashes</a></li>
 </ol>
 </div>
-<p><a href="https://geesun.github.io/posts/2024/08/04_kdump_crash_kernel.html#disqus_thread">comments</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/07/03_debug_kernel_module.html" rel="bookmark"
-                           title="Permalink to 如何使用ArmDS调试动态加载的Linux kernel模块">如何使用ArmDS调试动态加载的Linux kernel模块</a></h1>
-                </header>
+    </div><!-- /.entry-content -->
+    <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "posts/2024/08/04_kdump_crash_kernel.html";
+        var disqus_url = "https://geesun.github.io/posts/2024/08/04_kdump_crash_kernel.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//geesun.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
 
-                <div class="entry-content">
-<footer class="post-info">
-        <span>二 23 七月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
-</footer><!-- /.post-info -->                <p>根据Arm Development Studio User Guide的 <a class="reference external" href="https://developer.arm.com/documentation/101470/2024-0/Debugging-Embedded-Systems/About-OS-awareness/About-debugging-Linux-kernel-modules">About debugging Linux kernel modules</a> ,ArmDS是可以调试动态加载的Linux kernel 模块。 但是需要ArmDS支持你所使用的kernel版本，ArmDS支持的版本可以参考Arm Development Studio User Guide的 <a class="reference external" href="https://developer.arm.com/documentation/101470/2024-0/Debugging-Embedded-Systems/About-OS-awareness">About OS awareness</a></p>
-<p>可以看到这里支持的版本非常有限，如果使用的kernel不在上面的列表里面 …</p>
-                <a class="readmore" href="../posts/2024/07/03_debug_kernel_module.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/07/03_debug_kernel_module.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/07/02_kasan.html" rel="bookmark"
-                           title="Permalink to Kasan 使用">Kasan 使用</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>一 22 七月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
-</footer><!-- /.post-info -->                <p>KASAN(Kernel Address Sanitizer)是一个在kernel里面检测内存越界访问的一个工具，可以检测</p>
-<ul class="simple">
-<li>全局变量越界 (仅Generic KASAN支持)</li>
-<li>栈变量的越界 (仅Generic KASAN和Software Tag-Based KASAN支持)</li>
-<li>SLAB 分配器分配的object</li>
-<li>PAGE 分配器分配的Page</li>
-<li>Vmalloc …</li></ul>
-                <a class="readmore" href="../posts/2024/07/02_kasan.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/07/02_kasan.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-<nav>
-  <ul>
-    <li>Page 1 / 2</li>
-        <li><a href="../tag/debug2.html">&rang;</a></li>
-        <li><a href="../tag/debug2.html">&Rang;</a></li>
-  </ul>
-</nav>
-            </section><!-- /#content -->
+  </article>
+</section>
 
         <footer id="contentinfo" class="body">
                 <p>&copy; 2024 Qixiang Xu</p>
