@@ -23,6 +23,22 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="../posts/2024/05/setup_tf_a_u_boot_linux_fvp.html" rel="bookmark"
+                           title="Permalink to 设置tf-a u-boot 和Linux的开发和调试环境">设置tf-a u-boot 和Linux的开发和调试环境</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>三 29 五月 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/tf-a.html">tf-a</a><a href="../tag/u-boot.html">u-boot</a></span>
+</footer><!-- /.post-info -->                <p>在学习Linux的过程中，调试必不可少。下面的步骤就是一步一步如何使用Arm 的FVP平台来设置Linux的开发和调试环境。
+如下所有的步骤最终都汇聚在我的github <a class="reference external" href="https://github.com/geesun/boot-tf-a-u-boot-linux/">boot-tf-a-u-boot-linux</a>  ，如果仅仅是 …</p>
+                <a class="readmore" href="../posts/2024/05/setup_tf_a_u_boot_linux_fvp.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/setup_tf_a_u_boot_linux_fvp.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="../posts/2024/05/idmap_pg_dir.html" rel="bookmark"
                            title="Permalink to idmap_pg_dir页表">idmap_pg_dir页表</a></h1>
                 </header>
@@ -59,32 +75,6 @@
 <p>这里只分配了L0的页表，其他的页表要不使用memblock来分配，要不使用正常的逻辑来分配。 除了FIXADDR的页表是静态分配的 …</p></div>
                 <a class="readmore" href="../posts/2024/05/swapper_pg_dir.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/swapper_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/05/debugfs.html" rel="bookmark"
-                           title="Permalink to linux debugfs 使用">linux debugfs 使用</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>四 23 五月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a></span>
-</footer><!-- /.post-info -->                <div class="section" id="section-1">
-<h2>内核配置</h2>
-<p>确保内核配置选项中启用了debugfs支持(CONFIG_DEBUG_FS=y)并重新编译内核</p>
-</div>
-<div class="section" id="debugfs">
-<h2>挂载debugfs文件系统</h2>
-<div class="highlight"><pre><span></span>mount<span class="w"> </span>-t<span class="w"> </span>debugfs<span class="w"> </span>none<span class="w"> </span>/sys/kernel/debug
-</pre></div>
-</div>
-<div class="section" id="kernel-page-tables">
-<h2>kernel_page_tables</h2>
-<p>确保内核配置选项中启用了如 …</p></div>
-                <a class="readmore" href="../posts/2024/05/debugfs.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/debugfs.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>

@@ -23,6 +23,25 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="./posts/2024/05/init_idmap_pg_dir.html" rel="bookmark"
+                           title="Permalink to Arm64 Linux 下页表 init_idmap_pg_dir的使用">Arm64 Linux 下页表 init_idmap_pg_dir的使用</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>二 21 五月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a></span>
+</footer><!-- /.post-info -->                <p>u-boot或者uefi启动kernel的时候，默认MMU是关闭的，所以这个时候kernel实际运行的地址就是物理地址。
+为了前期尽早打开MMU和cache，kernel需要建立MMU的页表，这个时候的页表是1:1映射，即VA = PA。</p>
+<div class="section" id="section-1">
+<h2>分配</h2>
+<p>这个页表是在Link 脚本中进行分配 …</p></div>
+                <a class="readmore" href="./posts/2024/05/init_idmap_pg_dir.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/05/init_idmap_pg_dir.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="./posts/2024/05/SWAPPER_BLOCK_SIZE.html" rel="bookmark"
                            title="Permalink to SWAPPER_BLOCK_SIZE 的作用">SWAPPER_BLOCK_SIZE 的作用</a></h1>
                 </header>

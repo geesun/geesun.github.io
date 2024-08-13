@@ -23,6 +23,27 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="../posts/2024/07/02_kasan.html" rel="bookmark"
+                           title="Permalink to Kasan 使用">Kasan 使用</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>一 22 七月 2024</span>
+<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info -->                <p>KASAN(Kernel Address Sanitizer)是一个在kernel里面检测内存越界访问的一个工具，可以检测</p>
+<ul class="simple">
+<li>全局变量越界 (仅Generic KASAN支持)</li>
+<li>栈变量的越界 (仅Generic KASAN和Software Tag-Based KASAN支持)</li>
+<li>SLAB 分配器分配的object</li>
+<li>PAGE 分配器分配的Page</li>
+<li>Vmalloc …</li></ul>
+                <a class="readmore" href="../posts/2024/07/02_kasan.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/07/02_kasan.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="../posts/2024/06/vmalloc.html" rel="bookmark"
                            title="Permalink to vmalloc的理解">vmalloc的理解</a></h1>
                 </header>
@@ -58,22 +79,6 @@
 <p>这个是slub分配器的总管，如果要针对特定大小 …</p></div>
                 <a class="readmore" href="../posts/2024/06/slub_alloc.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/06/slub_alloc.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="../posts/2024/06/kmem_cache.html" rel="bookmark"
-                           title="Permalink to kmem_cache内存池使用">kmem_cache内存池使用</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>日 23 六月 2024</span>
-<span>| tags: <a href="../tag/linux.html">Linux</a><a href="../tag/mmu.html">MMU</a><a href="../tag/slub.html">SLUB</a></span>
-</footer><!-- /.post-info -->                <p>kmem_cache 作为一个基本的 allocator 组件，这里可以把他理解为用于某个特定大小的内存对象池。</p>
-<p>Linux 系统中本身也存在很多这样的内存 …</p>
-                <a class="readmore" href="../posts/2024/06/kmem_cache.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/06/kmem_cache.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>

@@ -23,6 +23,23 @@
                     <ol id="posts-list" class="hfeed" start="2">
             <li><article class="hentry">
                 <header>
+                    <h1><a href="./posts/2024/06/device_tree_mapping.html" rel="bookmark"
+                           title="Permalink to Device Tree 地址映射过程">Device Tree 地址映射过程</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>二 04 六月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/boot.html">boot</a></span>
+</footer><!-- /.post-info -->                <p>在Linux 的boot 阶段，Devie tree 地址是通过bootloader 传给kernel， kernel 在函数preserve_boot_args 保存在 x21这个寄存器中。</p>
+<p>但是内存相关的信息是在Device Tree里面描述的，所以Device Tree的使用是在内存管理准备好之前。 所以Device Tree的映射过程相对来说有些特殊。</p>
+<p>在Arm64平台，它 …</p>
+                <a class="readmore" href="./posts/2024/06/device_tree_mapping.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/06/device_tree_mapping.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
                     <h1><a href="./posts/2024/06/earlycon_serial_port.html" rel="bookmark"
                            title="Permalink to Linux booting 串口">Linux booting 串口</a></h1>
                 </header>
@@ -61,22 +78,6 @@
 <span class="o">[</span><span class="w">    </span><span class="m">0 …</span></pre></div>
                 <a class="readmore" href="./posts/2024/05/met_enable.html">read more</a>
 <p><a href="https://geesun.github.io/posts/2024/05/met_enable.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="./posts/2024/05/setup_tf_a_u_boot_linux_fvp.html" rel="bookmark"
-                           title="Permalink to 设置tf-a u-boot 和Linux的开发和调试环境">设置tf-a u-boot 和Linux的开发和调试环境</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>三 29 五月 2024</span>
-<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/tf-a.html">tf-a</a><a href="./tag/u-boot.html">u-boot</a></span>
-</footer><!-- /.post-info -->                <p>在学习Linux的过程中，调试必不可少。下面的步骤就是一步一步如何使用Arm 的FVP平台来设置Linux的开发和调试环境。
-如下所有的步骤最终都汇聚在我的github <a class="reference external" href="https://github.com/geesun/boot-tf-a-u-boot-linux/">boot-tf-a-u-boot-linux</a>  ，如果仅仅是 …</p>
-                <a class="readmore" href="./posts/2024/05/setup_tf_a_u_boot_linux_fvp.html">read more</a>
-<p><a href="https://geesun.github.io/posts/2024/05/setup_tf_a_u_boot_linux_fvp.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
             </article></li>
             </ol><!-- /#posts-list -->
 <nav>
