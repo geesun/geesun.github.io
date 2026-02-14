@@ -535,7 +535,8 @@
             
             const scale = 0.85;
             // 使用当前位置 d.y 和 d.x，而不是旧位置 d.y0 和 d.x0
-            const x = -source.y * scale + 150;
+            // 水平方向居中：使用 width / 2
+            const x = -source.y * scale + width / 2;
             const y = -source.x * scale + height / 2;
             
             const transform = d3.zoomIdentity.translate(x, y).scale(scale);
