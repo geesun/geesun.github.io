@@ -716,8 +716,14 @@
             if (data.note) html += `${data.note}<br>`;
             if (data.father) html += `父: ${data.father.name}<br>`;
             if (data.children.length > 0) html += `子女: ${data.children.length}人<br>`;
-            html += `<em>Shift+点击查看详情</em>`;
-            
+            // 根据设备类型显示不同的操作提示
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                html += `<em>长按查看详情</em>`;
+            } else {
+                html += `<em>右键查看详情</em>`;
+            }
+
             tooltip.innerHTML = html;
             tooltip.style.left = (event.pageX + 10) + 'px';
             tooltip.style.top = (event.pageY + 10) + 'px';
