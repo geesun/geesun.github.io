@@ -119,6 +119,24 @@
             background: #2980b9;
         }
 
+        #generation-select,
+        #person-select {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 12px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        #generation-select {
+            width: 100px;
+        }
+        
+        #person-select {
+            width: 120px;
+        }
+
         #search-box {
             padding: 6px 10px;
             border: 1px solid #ddd;
@@ -211,6 +229,7 @@
             
             #header h1 {
                 font-size: 14px;
+                text-align: center;
             }
             
             #header .stats {
@@ -225,21 +244,47 @@
             }
             
             #controls {
-                padding: 6px 10px;
-                gap: 6px;
+                padding: 8px 10px;
+                gap: 8px;
                 flex-wrap: wrap;
                 justify-content: center;
             }
             
             #controls button {
-                padding: 4px 8px;
+                padding: 6px 10px;
                 font-size: 11px;
+                flex: 0 0 auto;
+            }
+            
+            #generation-select,
+            #person-select {
+                font-size: 11px;
+                padding: 6px 8px;
+                flex: 1 1 calc(50% - 4px);
+                min-width: 100px;
             }
             
             #search-box {
                 font-size: 11px;
-                width: 140px;
-                padding: 4px 8px;
+                width: 100%;
+                padding: 6px 8px;
+                flex: 1 1 100%;
+            }
+            
+            #search-result {
+                flex: 1 1 100%;
+                text-align: center;
+                font-size: 11px;
+            }
+            
+            #fullscreen-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            #tree-container {
+                height: calc(100vh - 140px);
             }
             
             #detail-card {
@@ -259,6 +304,12 @@
             
             #detail-card .info-row {
                 font-size: 13px;
+            }
+            
+            .tooltip {
+                font-size: 12px;
+                max-width: 200px;
+                padding: 8px 12px;
             }
         }
 
@@ -409,6 +460,8 @@
     <div id="controls">
         <button onclick="resetView()">🏠 重置视图</button>
         <button onclick="expandAll()">➕ 展开全部</button>
+        <select id="generation-select" onchange="updatePersonSelect()"></select>
+        <select id="person-select" onchange="applyRootChange()"></select>
         <input type="text" id="search-box" placeholder="搜索姓名..." oninput="searchPerson(this.value)">
         <span id="search-result"></span>
     </div>
@@ -435,6 +488,7 @@
         let tree = null;
         let selectedNode = null;
         let zoom = null;  // 全局zoom实例
+        let currentRootNid = null;  // 当前根节点的nid
 
         // 加载数据
         async function loadData() {
@@ -450,8 +504,50 @@
                 const maxGen = Math.max(...generations);
                 document.getElementById('generation-range').textContent = `${minGen}-${maxGen}世`;
                 
-                // 构建树形结构
-                buildTree(data);
+                // 查找"伯贞"作为默认根节点（第13世）
+                const bozhen = data.find(p => p.name === '伯贞' && p.generation === 13);
+                let defaultRootNid = null;
+                let defaultGen = 13;
+                let defaultPerson = null;
+                
+                if (bozhen) {
+                    defaultRootNid = bozhen.nid;
+                    defaultGen = bozhen.generation;
+                    defaultPerson = bozhen;
+                    console.log('使用伯贞作为默认根节点, 第' + defaultGen + '世');
+                } else {
+                    // 如果找不到伯贞，使用第13世的第一个人
+                    const defaultGenPeople = data.filter(p => p.generation === 13);
+                    if (defaultGenPeople.length > 0) {
+                        defaultRootNid = defaultGenPeople[0].nid;
+                        defaultPerson = defaultGenPeople[0];
+                        defaultGen = 13;
+                    } else {
+                        // 如果没有第13世，使用最大世代
+                        defaultGen = maxGen;
+                        const fallbackPeople = data.filter(p => p.generation === defaultGen);
+                        if (fallbackPeople.length > 0) {
+                            defaultRootNid = fallbackPeople[0].nid;
+                            defaultPerson = fallbackPeople[0];
+                        }
+                    }
+                    console.log('未找到伯贞，使用第' + defaultGen + '世的第一个人');
+                }
+                
+                // 初始化世代选择器
+                initGenerationSelector(minGen, maxGen, defaultGen);
+                
+                if (defaultPerson) {
+                    console.log('默认根节点:', defaultPerson.name, '第' + defaultPerson.generation + '世');
+                }
+                
+                buildTree(data, defaultRootNid);
+                
+                if (!treeData) {
+                    console.error('buildTree 失败，treeData 为空');
+                    return;
+                }
+                
                 initTree();
             } catch (error) {
                 console.error('加载数据失败:', error);
@@ -459,42 +555,134 @@
             }
         }
 
-        // 构建树形结构
-        function buildTree(people) {
-            const peopleMap = {};
-            people.forEach(p => peopleMap[p.nid] = {...p, children: []});
+        // 初始化世代选择器
+        function initGenerationSelector(minGen, maxGen, defaultGen) {
+            const genSelect = document.getElementById('generation-select');
+            genSelect.innerHTML = '<option value="">选择世代</option>';
             
-            // 找到根节点：优先选择第1世的人，忽略其father字段（可能有循环引用）
-            let roots = [];
-            
-            // 首先查找第1世的所有人
-            const generation1 = people.filter(p => p.generation === 1);
-            if (generation1.length > 0) {
-                roots = generation1;
-            } else {
-                // 如果没有第1世，则查找没有父亲或父亲指向自己的人
-                people.forEach(person => {
-                    if (!person.father || 
-                        !peopleMap[person.father.nid] || 
-                        person.father.nid === person.nid) {
-                        roots.push(person);
-                    }
-                });
+            for (let gen = maxGen; gen >= minGen; gen--) {
+                const option = document.createElement('option');
+                option.value = gen;
+                option.textContent = `第${gen}世`;
+                if (gen === defaultGen) {
+                    option.selected = true;
+                }
+                genSelect.appendChild(option);
             }
             
-            if (roots.length === 0) {
-                alert('错误：无法构建族谱树，未找到根节点或第1世的人');
+            // 初始化时更新人员选择器（传入默认世代）
+            updatePersonSelect(defaultGen);
+        }
+        
+        // 更新人员选择器
+        function updatePersonSelect(generation = null) {
+            const genSelect = document.getElementById('generation-select');
+            const personSelect = document.getElementById('person-select');
+            const selectedGen = generation !== null ? generation : parseInt(genSelect.value);
+            
+            personSelect.innerHTML = '<option value="">选择人员</option>';
+            
+            if (!selectedGen) return;
+            
+            const genPeople = allPeople.filter(p => p.generation === selectedGen);
+            
+            // 如果是第13世，查找"伯贞"
+            const bozhen = selectedGen === 13 ? genPeople.find(p => p.name === '伯贞') : null;
+            
+            genPeople.forEach(person => {
+                const option = document.createElement('option');
+                option.value = person.nid;
+                option.textContent = person.name;
+                personSelect.appendChild(option);
+            });
+            
+            // 如果是第13世且有伯贞，默认选择伯贞，否则选择第一个人
+            if (bozhen) {
+                personSelect.value = bozhen.nid;
+            } else if (genPeople.length > 0) {
+                personSelect.value = genPeople[0].nid;
+            }
+            
+            // 如果选中了人员，主动触发更新（解决只有一个人时不触发onchange的问题）
+            if (personSelect.value && personSelect.value !== '') {
+                // 延迟执行，确保DOM已更新
+                setTimeout(() => applyRootChange(), 50);
+            }
+        }
+        
+        // 应用根节点变更
+        function applyRootChange() {
+            const personSelect = document.getElementById('person-select');
+            const selectedNid = personSelect.value;
+            
+            if (!selectedNid) {
+                alert('请先选择世代和人员');
                 return;
             }
             
-            // 按世代排序，取最早的作为根
-            roots.sort((a, b) => (a.generation || 999) - (b.generation || 999));
-            const rootPerson = roots[0];
+            // 重新构建树
+            buildTree(allPeople, selectedNid);
             
-            // 构建父子关系（对于第1世的人，忽略其father字段）
+            // 清除旧的SVG
+            d3.select('#tree-container').select('svg').remove();
+            
+            // 重新初始化树
+            initTree();
+        }
+
+        // 构建树形结构
+        function buildTree(people, rootNid = null) {
+            console.log('buildTree 开始, rootNid:', rootNid);
+            
+            const peopleMap = {};
+            people.forEach(p => peopleMap[p.nid] = {...p, children: []});
+            
+            // 找到根节点
+            let rootPerson;
+            
+            if (rootNid && peopleMap[rootNid]) {
+                // 如果指定了根节点，使用指定的节点
+                rootPerson = peopleMap[rootNid];
+                currentRootNid = rootNid;
+                console.log('使用指定根节点:', rootPerson.name, '第' + rootPerson.generation + '世');
+            } else {
+                // 否则使用默认逻辑：优先选择第1世的人
+                let roots = [];
+                
+                const generation1 = people.filter(p => p.generation === 1);
+                if (generation1.length > 0) {
+                    roots = generation1;
+                } else {
+                    people.forEach(person => {
+                        if (!person.father || 
+                            !peopleMap[person.father.nid] || 
+                            person.father.nid === person.nid) {
+                            roots.push(person);
+                        }
+                    });
+                }
+                
+                if (roots.length === 0) {
+                    console.error('未找到根节点');
+                    alert('错误：无法构建族谱树，未找到根节点或第1世的人');
+                    return;
+                }
+                
+                roots.sort((a, b) => (a.generation || 999) - (b.generation || 999));
+                rootPerson = roots[0];
+                currentRootNid = rootPerson.nid;
+                console.log('使用默认根节点:', rootPerson.name, '第' + rootPerson.generation + '世');
+            }
+            
+            // 构建父子关系
             people.forEach(person => {
-                // 如果这个人是第1世，跳过（不添加到任何人的children中）
-                if (person.generation === 1) {
+                // 如果这个人是根节点，跳过（不添加到任何人的children中）
+                if (person.nid === rootPerson.nid) {
+                    return;
+                }
+                
+                // 如果这个人是第1世且根节点也是第1世，跳过
+                if (person.generation === 1 && rootPerson.generation === 1) {
                     return;
                 }
                 
@@ -552,7 +740,9 @@
             root.y0 = 0;
             
             // 默认折叠深度大于2的节点
-            root.children.forEach(collapse);
+            if (root.children) {
+                root.children.forEach(collapse);
+            }
             
             // 先更新显示节点
             update(root);
