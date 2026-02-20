@@ -1,1008 +1,460 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="cn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>南州乌石徐氏族谱 - 贞房琼支郭家垅支系</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        <meta charset="utf-8" />
+        <title>Linux学习笔记</title>
+        <link rel="stylesheet" href="./theme/css/main.css" />
 
-        body {
-            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            overflow: hidden;
-        }
-
-        #header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 100;
-            max-height: 500px;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-        }
-        
-        #header.hidden {
-            max-height: 0;
-            padding: 0 20px;
-        }
-
-        #header h1 {
-            font-size: 18px;
-            color: #2c3e50;
-            margin: 0;
-        }
-
-        #header .stats {
-            display: flex;
-            gap: 15px;
-            font-size: 12px;
-            color: #666;
-        }
-
-        #header .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #header .stat-value {
-            font-size: 16px;
-            font-weight: bold;
-            color: #3498db;
-        }
-
-        #controls {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 8px 15px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            max-height: 500px;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-        }
-        
-        #controls.hidden {
-            max-height: 0;
-            padding: 0 15px;
-        }
-        
-        #fullscreen-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(52, 152, 219, 0.9);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            z-index: 150;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        #fullscreen-btn:hover {
-            background: rgba(41, 128, 185, 0.95);
-            transform: scale(1.1);
-        }
-
-        #controls button {
-            padding: 6px 12px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background 0.3s;
-        }
-
-        #controls button:hover {
-            background: #2980b9;
-        }
-
-        #search-box {
-            padding: 6px 10px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            font-size: 12px;
-            width: 180px;
-        }
-
-        #tree-container {
-            width: 100%;
-            height: calc(100vh - 95px);
-            position: relative;
-            overflow: hidden;
-            transition: height 0.3s ease-out;
-        }
-        
-        #tree-container.expanded {
-            height: 100vh;
-        }
-
-        .node rect {
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .node rect:hover {
-            fill: #e8f4f8 !important;
-            stroke: #2980b9 !important;
-            stroke-width: 3px !important;
-        }
-
-        .node.selected circle {
-            fill: #e74c3c;
-            stroke: #c0392b;
-        }
-
-        .node text {
-            font-size: 13px;
-            font-weight: bold;
-            pointer-events: none;
-        }
-
-        .node .name-text {
-            fill: #2c3e50;
-            font-size: 14px;
-        }
-
-        .node .gen-text {
-            fill: #7f8c8d;
-            font-size: 11px;
-            font-weight: normal;
-        }
-
-        .node .note-text {
-            fill: #95a5a6;
-            font-size: 10px;
-            font-weight: normal;
-            font-style: italic;
-        }
-
-        .link {
-            fill: none;
-            stroke: #95a5a6;
-            stroke-width: 2px;
-        }
-
-        #detail-card {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            padding: 25px;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            display: none;
-            z-index: 1000;
-        }
-        
-        /* 移动端样式 */
-        @media (max-width: 768px) {
-            #header {
-                padding: 8px 10px;
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            #header h1 {
-                font-size: 14px;
-            }
-            
-            #header .stats {
-                gap: 10px;
-                font-size: 10px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            #header .stat-value {
-                font-size: 13px;
-            }
-            
-            #controls {
-                padding: 6px 10px;
-                gap: 6px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            #controls button {
-                padding: 4px 8px;
-                font-size: 11px;
-            }
-            
-            #search-box {
-                font-size: 11px;
-                width: 140px;
-                padding: 4px 8px;
-            }
-            
-            #detail-card {
-                width: 90vw;
-                max-width: 90vw;
-                max-height: 85vh;
-                padding: 20px;
-            }
-            
-            #detail-card h2 {
-                font-size: 18px;
-            }
-            
-            #detail-card .section-title {
-                font-size: 14px;
-            }
-            
-            #detail-card .info-row {
-                font-size: 13px;
-            }
-        }
-
-        #detail-card.show {
-            display: block;
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translate(-50%, -45%); }
-            to { opacity: 1; transform: translate(-50%, -50%); }
-        }
-
-        #detail-card .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            font-size: 18px;
-            line-height: 1;
-        }
-
-        #detail-card .close-btn:hover {
-            background: #c0392b;
-        }
-
-        #detail-card h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #3498db;
-        }
-
-        #detail-card .section {
-            margin: 20px 0;
-        }
-
-        #detail-card .section-title {
-            font-weight: bold;
-            color: #3498db;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        #detail-card .info-row {
-            margin: 8px 0;
-            padding: 8px;
-            background: #f8f9fa;
-            border-radius: 4px;
-            line-height: 1.6;
-        }
-
-        #detail-card .label {
-            color: #7f8c8d;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        #detail-card .children-list,
-        #detail-card .siblings-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 8px;
-        }
-
-        #detail-card .person-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            background: #ecf0f1;
-            border-radius: 12px;
-            font-size: 13px;
-            color: #2c3e50;
-            border: 1px solid #bdc3c7;
-        }
-
-        #detail-card .person-tag.current {
-            background: #e74c3c;
-            color: white;
-            border-color: #c0392b;
-        }
-
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            z-index: 999;
-        }
-
-        #overlay.show {
-            display: block;
-        }
-
-        .loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 20px;
-            color: #3498db;
-        }
-
-        .tooltip {
-            position: absolute;
-            background: rgba(44, 62, 80, 0.95);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-size: 13px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 100;
-            max-width: 250px;
-            line-height: 1.6;
-        }
-
-        .tooltip.show {
-            opacity: 1;
-        }
-    </style>
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 </head>
-<body>
-    <div id="header">
-        <h1>🌳南州乌石徐氏族谱 - 贞房琼支郭家垅支系</h1>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value" id="total-people">-</div>
-                <div>总人数</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value" id="generation-range">-</div>
-                <div>世代范围</div>
-            </div>
-        </div>
-    </div>
 
-    <div id="controls">
-        <button onclick="resetView()">🏠 重置视图</button>
-        <button onclick="expandAll()">➕ 展开全部</button>
-        <input type="text" id="search-box" placeholder="搜索姓名..." oninput="searchPerson(this.value)">
-        <span id="search-result"></span>
-    </div>
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="./">Linux学习笔记 </a></h1>
+                <nav><ul>
+                    <li><a href="./category/linux.html">Linux</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
 
-    <div id="tree-container"></div>
-    
-    <button id="fullscreen-btn" onclick="toggleFullscreen()" title="全屏/退出全屏">⛶</button>
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="./posts/2024/08/setup_tf_a_u_boot_linux_qemu.html">设置tf-a u-boot 和Linux的开发和调试环境 - QEMU</a></h1>
+<footer class="post-info">
+        <span>二 13 八月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/tf-a.html">tf-a</a><a href="./tag/u-boot.html">u-boot</a><a href="./tag/qemu.html">qemu</a></span>
+</footer><!-- /.post-info --><p>在学习Linux的过程中，调试必不可少。之前有写了一篇 <a class="reference external" href="./posts/2024/05/setup_tf_a_u_boot_linux_fvp.html">在Arm FVP上使用Arm DS开发和调试</a> 。
+虽然Arm的Base FVP已经可以免费使用，但是Arm DS还是需要收费的。没有Arm DS license的话，搭建起来就不是那么容易。</p>
+<p>这里就重新在开源的QEMU平台上搭建一个Trusted Firmware-A + U-boot + Linux kernel的开发环境，
+如下所有的步骤最终都汇聚在我的github <a class="reference external" href="https://github.com/geesun/boot-aarch64-linux-qemu/">boot-aarch64-linux-qemu</a>  ，如果仅仅是使用，不需要知道它的具体细节的，建议直接使用github仓库提供的Makefile。</p>
+<div class="section" id="section-1">
+<h2>开发环境准备</h2>
+<ol class="arabic simple">
+<li>在Ububtu上安装必要的包</li>
+</ol>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>make<span class="w"> </span>autoconf<span class="w"> </span>build-essential<span class="w"> </span>git<span class="w"> </span>wget<span class="w"> </span>fuseext2<span class="w"> </span>tmux
+</pre></div>
+<ol class="arabic simple" start="2">
+<li>下载交叉编译工具</li>
+</ol>
+<p>Arm gcc 可以在 <a class="reference external" href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">arm-gnu-toolchain-downloads</a>, 这里可以根据自己的系统来选择下载对应的gcc.</p>
+<p>一般我们使用的是x86_64 Linux host， 所以下载 <a class="reference external" href="https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz">AArch64 GNU/Linux target for x86_64 Linux host</a></p>
+<p>可以在Ubuntu 终端中，使用如下命令：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/tools
+wget<span class="w"> </span>https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
+tar<span class="w"> </span>-xvf<span class="w"> </span>arm-gnu-toolchain-13.2.rel1-x86_64-aarch64-none-linux-gnu.tar.xz
+</pre></div>
+</div>
+<div class="section" id="section-2">
+<h2>下载代码</h2>
+<ol class="arabic simple">
+<li>下载 Qemu, TF-A，u-boot, Linux 和 buildroot</li>
+</ol>
+<p>要把linux boot起来，这里需要使用到Qemu, TF-A，u-boot,Linux和buildroot，这里使用的都是最新的代码，如果在使用过程中发现问题，可能需要使用某个比较稳定的版本。</p>
+<p>这里使用如下命令来下载代码：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src
+git<span class="w"> </span>clone<span class="w"> </span>https://git.denx.de/u-boot
+git<span class="w"> </span>clone<span class="w"> </span>https://git.trustedfirmware.org/TF-A/trusted-firmware-a<span class="w"> </span>tf-a
+git<span class="w"> </span>clone<span class="w"> </span>git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.com/buildroot.org/buildroot.git
+git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.com/qemu-project/qemu.git<span class="w"> </span>-b<span class="w"> </span>v9.0.2
+</pre></div>
+<p>经测试，在Ubuntu 20.04上，qemu最好使用v9.0.2。</p>
+</div>
+<div class="section" id="section-3">
+<h2>编译代码</h2>
+<ol class="arabic simple">
+<li>编译qemu代码</li>
+</ol>
+<p>编译qemu代码要使用到python virtualenv的环境，这里首先使用如下命令创建python的环境：</p>
+<!-- code-block::sh
 
-    <div id="overlay" onclick="closeDetailCard()"></div>
-    
-    <div id="detail-card">
-        <button class="close-btn" onclick="closeDetailCard()">×</button>
-        <div id="detail-content"></div>
-    </div>
+python3 -m venv $(workspace)/tools/venv -->
+<p>接下来就可以使用如下命令来配置和编译qemu：</p>
+<div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/tools/venv/bin/activate<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w">  </span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/qemu/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./configure<span class="w"> </span>--target-list<span class="o">=</span>aarch64-softmmu<span class="w"> </span>--enable-virtfs
+<span class="nb">source</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/tools/venv/bin/activate<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w">  </span>make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/qemu
+</pre></div>
+<p>这里还有几个关键的信息，在后面编译u-boot的时候需要使用到，准备好所有的image之后，会使用如下命令来运行qemu，当然参数可以根据自己的情况进行调整：</p>
+<div class="highlight"><pre><span></span>src/qemu/build/qemu-system-aarch64<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-M<span class="w"> </span>virt,gic-version<span class="o">=</span><span class="m">3</span>,virtualization<span class="o">=</span>on,type<span class="o">=</span>virt,mte<span class="o">=</span>on,secure<span class="o">=</span>on<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-nographic<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>-cpu<span class="w"> </span>max<span class="w"> </span>-nographic<span class="w"> </span>-m<span class="w"> </span>16G<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-smp<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-bios<span class="w"> </span>src/tf-a/build/qemu/debug/flash.bin<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>-device<span class="w"> </span>loader,file<span class="o">=</span>src/linux/arch/arm64/boot/Image,addr<span class="o">=</span>0x40400000<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-drive<span class="w"> </span><span class="nv">file</span><span class="o">=</span>rootfs/rootfs.img,if<span class="o">=</span>virtio,format<span class="o">=</span>raw<span class="w">  </span><span class="se">\</span>
+</pre></div>
+<p>所以在qemu平台上，有</p>
+<ul>
+<li><p class="first">PL011串口的基地址：0x9000000</p>
+</li>
+<li><p class="first">Kernel image加载地址：0x40400000</p>
+</li>
+<li><p class="first">Device tree加载地址：0x40000000</p>
+<blockquote>
+<p>Qemu平台会根据运行给的参数，会自动生成device tree放在0x40000000地址。</p>
+</blockquote>
+</li>
+</ul>
+<ol class="arabic simple" start="2">
+<li>编译u-boot代码</li>
+</ol>
+<p>在编译u-boot代码之前，需要根据Linux kernel和rootfs的信息来配置u-boot的BOOTARGS和BOOTCOMMAND。 这里有几个比较关键的参数：</p>
+<ul class="simple">
+<li>BOOTARGS中的root参数</li>
+</ul>
+<p>这里使用了 root=/dev/vda1, 这是因为后面做rootfs的时候，使用了qemu的virtio这个参数：</p>
+<div class="highlight"><pre><span></span>-drive<span class="w"> </span><span class="nv">file</span><span class="o">=</span>rootfs/grub-busybox.img,if<span class="o">=</span>virtio,format<span class="o">=</span>raw
+</pre></div>
+<p>而制作rootfs 的时候，rootfs会放到第一个分区，所以就是vda1。</p>
+<ul class="simple">
+<li>BOOTCOMMAND中kernel Image 和device tree的地址</li>
+</ul>
+<p>这里使用了 booti 0x40400000 - 0x40000000，这个是因为在启动qemu的时候，有如下参数：</p>
+<div class="highlight"><pre><span></span>-device<span class="w"> </span>loader,file<span class="o">=</span>src/linux/arch/arm64/boot/Image,addr<span class="o">=</span>0x40400000
+</pre></div>
+<p>根据上面的描述，使用如下命令来配置u-boot：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/u-boot
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CONFIG_USE_BOOTARGS=y&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>qemu.cfg
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CONFIG_BOOTARGS=\&quot;console=ttyAMA0 earlycon=pl011,0x9000000 root=/dev/vda1 rw debug user_debug=31 nokaslr loglevel=9\&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>qemu.cfg
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CONFIG_BOOTCOMMAND=\&quot;booti 0x40400000 - 0x40000000\&quot;&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>qemu.cfg
+<span class="nb">export</span><span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>aarch64<span class="w"> </span><span class="p">;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w"> </span><span class="p">;</span>
+make<span class="w"> </span>qemu_arm64_defconfig<span class="p">;</span>
+scripts/kconfig/merge_config.sh<span class="w"> </span>-m<span class="w"> </span>-O<span class="w"> </span>./<span class="w"> </span>.config<span class="w"> </span>qemu.cfg<span class="w"> </span><span class="p">;</span>
+</pre></div>
+<p>这里的CROSS_COMPILE 可以根据前面下载的gcc来决定，这里可以把他设置成：</p>
+<div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/tools/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-
+</pre></div>
+<p>配置完成之后，可以打开u-boot目录下的.config 来确保CONFIG_USE_BOOTARGS,CONFIG_BOOTARGS 和 CONFIG_BOOTCOMMAND已经设置成期望的值。</p>
+<div class="highlight"><pre><span></span><span class="nv">CONFIG_BOOTARGS</span><span class="o">=</span><span class="s2">&quot;console=ttyAMA0 earlycon=pl011,0x9000000 root=/dev/vda1 rw debug user_debug=31 nokaslr loglevel=9&quot;</span>
+<span class="nv">CONFIG_BOOTCOMMAND</span><span class="o">=</span><span class="s2">&quot;booti 0x40400000 - 0x40000000&quot;</span>
+</pre></div>
+<p>接下来使用如下命令来编译u-boot：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/u-boot
+<span class="nb">export</span><span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>aarch64<span class="w"> </span><span class="p">;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w"> </span><span class="p">;</span>
+make
+</pre></div>
+<p>这一步做完，最终生成 src/u-boot/u-boot.bin.</p>
+<ol class="arabic simple" start="2">
+<li>编译tf-a代码</li>
+</ol>
+<p>编译在tf-a的过程中，u-boot是作为tf-a的BL33的image，所以需要先编译前面的u-boot后，才能编译tf-a，使用如下命令：</p>
+<div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span>
+<span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/tf-a
+make<span class="w"> </span><span class="nv">PLAT</span><span class="o">=</span>qemu<span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">BL33</span><span class="o">=</span><span class="k">$(</span>workspace<span class="k">)</span>/src/u-boot/u-boot.bin<span class="w"> </span>all<span class="w"> </span>fip<span class="w"> </span><span class="nv">V</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">ENABLE_FEAT_MTE2</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">QEMU_USE_GIC_DRIVER</span><span class="o">=</span>QEMU_GICV3
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>build/qemu/debug/bl1.bin<span class="w"> </span><span class="nv">of</span><span class="o">=</span>build/qemu/debug/flash.bin<span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="m">4096</span><span class="w"> </span><span class="nv">conv</span><span class="o">=</span>notrunc
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>build/qemu/debug/fip.bin<span class="w"> </span><span class="nv">of</span><span class="o">=</span>build/qemu/debug/flash.bin<span class="w"> </span><span class="nv">seek</span><span class="o">=</span><span class="m">64</span><span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="m">4096</span><span class="w"> </span><span class="nv">conv</span><span class="o">=</span>notrunc
+</pre></div>
+<p>这里面仅仅是使用了tf-a的默认配置，如TTBR等feature 都有没有使能。 如果需要使能更多feature，可以根据自己的需求添加。</p>
+<p>从上面的命令可以看出, u-boot 是被打包到flash.bin里面，所以如果更改了u-boot，必须重新运行tf-a的编译过程，把u-boot重新打包到flash.bin里面。</p>
+<p>更多关于QEMU的TF-A， 参考 <a class="reference external" href="https://trustedfirmware-a.readthedocs.io/en/latest/plat/qemu.html">QEMU virt Armv8-A</a> .</p>
+<ol class="arabic simple" start="3">
+<li>编译Linux kernel代码</li>
+</ol>
+<p>编译Linux kernel，这里使用kernel中的默认配置，即defconfig。即使用如下命令来配置kernel：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/linux
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/linux<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span>defconfig<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span>
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/linux<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span>olddefconfig<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span>
+</pre></div>
+<p>如果想要对kernel 进行额外的配置，使用如下命令：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/linux
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/linux<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span>menuconfig<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span>
+</pre></div>
+<p>配置完成之后，如下命令可以用来进行编译：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/linux
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/linux<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>arm64<span class="w"> </span>Image<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="k">$(</span>CROSS_COMPILE<span class="k">)</span><span class="w"> </span>Image<span class="w"> </span>dtbs<span class="w"> </span>scripts_gdb
+</pre></div>
+</div>
+<div class="section" id="buildroot">
+<h2>编译buildroot</h2>
+<p>第一步要配置buildroot，这里根据toolchain的情况，在buildroot目录下面的configs建立如下配置文件 configs/arm_qemu_defconfig：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/buildroot
+<span class="nv">$cat</span><span class="w"> </span>configs/arm_qemu_defconfig
+<span class="w">        </span><span class="nv">BR2_aarch64</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_TOOLCHAIN_EXTERNAL</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_TOOLCHAIN_EXTERNAL_PREINSTALLED</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_TOOLCHAIN_EXTERNAL_PATH</span><span class="o">=</span><span class="s2">&quot;../../tools/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-linux-gnu/&quot;</span>
+<span class="w">        </span><span class="c1"># BR2_STRIP_strip is not set</span>
+<span class="w">        </span><span class="nv">BR2_OPTIMIZE_0</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_TARGET_GENERIC_HOSTNAME</span><span class="o">=</span><span class="s2">&quot;Qemu&quot;</span>
+<span class="w">        </span><span class="nv">BR2_TARGET_GENERIC_ISSUE</span><span class="o">=</span><span class="s2">&quot;Welcome to Qemu&quot;</span>
+<span class="w">        </span><span class="nv">BR2_PACKAGE_GDB</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_GDB_SERVER</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_GDB_DEBUGGER</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_KEXEC</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_KEXEC_ZLIB</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_BINUTILS</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_BINUTILS_TARGET</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_TREE</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_E2FSPROGS</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_E2FSPROGS_DEBUGFS</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_KVMTOOL</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_PACKAGE_MAKEDUMPFILE</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_TARGET_ROOTFS_EXT2</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_TARGET_ROOTFS_EXT2_3</span><span class="o">=</span>y
+<span class="w">        </span><span class="nv">BR2_TARGET_ROOTFS_EXT2_SIZE</span><span class="o">=</span><span class="s2">&quot;256M&quot;</span>
+</pre></div>
+<p>第二步根据需求修改buildroot的配置，如下命令：</p>
+<div class="highlight"><pre><span></span>make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/buildroot<span class="w"> </span>arm_qemu_defconfig
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/buildroot<span class="w"> </span>menuconfig<span class="w">  </span><span class="c1"># 这步可以修改配置文件</span>
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/buildroot<span class="w"> </span>savedefconfig<span class="w">  </span><span class="c1"># 这步会把.config 复制到configs/arm_qemu_defconfig里面</span>
+</pre></div>
+<p>第三步编译buildroot，如下命令：</p>
+<div class="highlight"><pre><span></span>make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/buildroot<span class="w"> </span>arm_qemu_defconfig
+make<span class="w"> </span>-C<span class="w"> </span><span class="k">$(</span>SRC_DIR<span class="k">)</span>/buildroot
+</pre></div>
+<p>最终buildroot会生成$(workspace)/src/buildroot/output/images/rootfs.tar</p>
+</div>
+<div class="section" id="rootfs">
+<h2>重制rootfs</h2>
+<p>buildroot本身其实会生成ext2/3的rootfs格式，参考文件 $(workspace)/src/buildroot/output/images/，QEMU也是可以直接使用这些格式的。</p>
+<p>但是有些时候可能需要往文件系统里面加一些文件来进行调试，所以下面的步骤就记录一下如何把rootfs重新打包成gdisk文件。</p>
+<ol class="arabic simple">
+<li>解压rootfs.tar</li>
+</ol>
+<div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/rootfs/tmp/rootfs/<span class="w"> </span>-p
+<span class="nb">cd</span><span class="w"> </span>rootfs/tmp/rootfs
+tar<span class="w"> </span>-xvf<span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/buildroot/output/images/rootfs.tar
+</pre></div>
+<ol class="arabic simple" start="2">
+<li>修改rootfs</li>
+</ol>
+<p>在目录 $(workspace)/src/rootfs/tmp/rootfs ，可以根据自己的需求来增加或者删减文件。</p>
+<p>这一步不是必须的，是根据需求来决定的，如果没有改动需求，这一步可以跳过。</p>
+<ol class="arabic simple" start="3">
+<li>生成rootfs的partition文件</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/rootfs/tmp
 
-    <div class="tooltip" id="tooltip"></div>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="m">512</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEC_PER_MB</span><span class="o">=</span><span class="k">$((</span><span class="m">1024</span><span class="o">*</span><span class="m">2</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EXT3_SIZE_MB</span><span class="o">=</span><span class="m">512</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PART_START</span><span class="o">=</span><span class="k">$((</span><span class="m">1</span><span class="o">*</span><span class="nv">SEC_PER_MB</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EXT3_SIZE</span><span class="o">=</span><span class="k">$((</span><span class="nv">EXT3_SIZE_MB</span><span class="o">*</span><span class="nv">SEC_PER_MB</span><span class="k">))</span>
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>ext3_part<span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="nv">$BLOCK_SIZE</span><span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="nv">$EXT3_SIZE</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>mnt
+mkfs.ext3<span class="w"> </span>-F<span class="w"> </span>ext3_part
+fuse-ext2<span class="w"> </span>ext3_part<span class="w"> </span>mnt<span class="w"> </span>-o<span class="w"> </span>rw+
+cp<span class="w"> </span>-rf<span class="w"> </span>rootfs/*<span class="w"> </span>mnt/
+sync
+fusermount<span class="w"> </span>-u<span class="w"> </span>mnt
+rm<span class="w"> </span>-rf<span class="w"> </span>mnt
+</pre></div>
+<p>这里rootfs的最大大小是512M，如果需要调整大小，可以调整EXT3_SIZE_MB=512的值。</p>
+<p>完成这一步，就生成了一个ext3的rootfs partition文件ext3_part，下一步会把这个分区文件放在磁盘映像文件的第一个分区。</p>
+<ol class="arabic simple" start="4">
+<li>使用gdisk生成rootfs的磁盘映像文件</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>/src/rootfs/tmp
 
-    <script>
-        let treeData = null;
-        let allPeople = [];
-        let root = null;
-        let svg = null;
-        let g = null;
-        let tree = null;
-        let selectedNode = null;
-        let zoom = null;  // 全局zoom实例
+<span class="nb">export</span><span class="w"> </span><span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="m">512</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SEC_PER_MB</span><span class="o">=</span><span class="k">$((</span><span class="m">1024</span><span class="o">*</span><span class="m">2</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EXT3_SIZE_MB</span><span class="o">=</span><span class="m">512</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PART_START</span><span class="o">=</span><span class="k">$((</span><span class="m">1</span><span class="o">*</span><span class="nv">SEC_PER_MB</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EXT3_SIZE</span><span class="o">=</span><span class="k">$((</span><span class="nv">EXT3_SIZE_MB</span><span class="o">*</span><span class="nv">SEC_PER_MB</span><span class="k">))</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">IMG_BB</span><span class="o">=</span>../rootfs.img
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>part_table<span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="nv">$BLOCK_SIZE</span><span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="nv">$PART_START</span>
 
-        // 加载数据
-        async function loadData() {
-            try {
-                const response = await fetch('family_tree_full.json');
-                const data = await response.json();
-                allPeople = data;
-                
-                // 更新统计信息
-                document.getElementById('total-people').textContent = data.length;
-                const generations = data.map(p => p.generation).filter(g => g);
-                const minGen = Math.min(...generations);
-                const maxGen = Math.max(...generations);
-                document.getElementById('generation-range').textContent = `${minGen}-${maxGen}世`;
-                
-                // 构建树形结构
-                buildTree(data);
-                initTree();
-            } catch (error) {
-                console.error('加载数据失败:', error);
-                alert('加载族谱数据失败，请确保 family_tree_full.json 文件存在');
-            }
-        }
+cat<span class="w"> </span>part_table<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$IMG_BB</span>
+cat<span class="w"> </span>ext3_part<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$IMG_BB</span>
+cat<span class="w"> </span>part_table<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$IMG_BB</span>
+<span class="o">(</span><span class="nb">echo</span><span class="w"> </span>n<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PART_START</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>+<span class="k">$((</span><span class="nv">EXT3_SIZE</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">8300</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>w<span class="p">;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>y<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>gdisk<span class="w"> </span><span class="nv">$IMG_BB</span>
+</pre></div>
+<p>这里就完成了把上一步生成的ext3_part放在$(workspace)/src/rootfs/rootfs.img 的第一个分区。</p>
+<p>文件$(workspace)/src/rootfs/rootfs.img就是最终的要传给QEMU的rootfs。</p>
+</div>
+<div class="section" id="qemulinux">
+<h2>在QEMU上运行Linux</h2>
+<p>确保前面几节已经准备了如下的images：</p>
+<div class="highlight"><pre><span></span><span class="k">$(</span>workspace<span class="k">)</span>/src/tf-a/build/fvp/debug/flash.bin
+<span class="k">$(</span>workspace<span class="k">)</span>/src/linux/arch/arm64/boot/Image
+<span class="k">$(</span>workspace<span class="k">)</span>/rootfs/rootfs.img
+</pre></div>
+<p>接下来就可以使用下面的命令来运行Linux：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>
+src/qemu/build/qemu-system-aarch64<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-M<span class="w"> </span>virt,gic-version<span class="o">=</span><span class="m">3</span>,virtualization<span class="o">=</span>on,type<span class="o">=</span>virt,mte<span class="o">=</span>on,secure<span class="o">=</span>on<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-nographic<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>-cpu<span class="w"> </span>max<span class="w"> </span>-nographic<span class="w"> </span>-m<span class="w"> </span>16G<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-smp<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-bios<span class="w"> </span>src/tf-a/build/qemu/debug/flash.bin<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>-device<span class="w"> </span>loader,file<span class="o">=</span>src/linux/arch/arm64/boot/Image,addr<span class="o">=</span>0x40400000<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-drive<span class="w"> </span><span class="nv">file</span><span class="o">=</span>rootfs/rootfs.img,if<span class="o">=</span>virtio,format<span class="o">=</span>raw<span class="w">  </span><span class="se">\</span>
+</pre></div>
+</div>
+<div class="section" id="gdblinux">
+<h2>在GDB上调试Linux</h2>
+<p>如果要启动GDB调试整个software stack，在启动QEMU的时候需要加上： -S -s 这些参数，这样QEMU就会停在那里等待GDB开始调试。</p>
+<p>启动脚本：</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>workspace<span class="k">)</span>
+src/qemu/build/qemu-system-aarch64<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-M<span class="w"> </span>virt,gic-version<span class="o">=</span><span class="m">3</span>,virtualization<span class="o">=</span>on,type<span class="o">=</span>virt,mte<span class="o">=</span>on,secure<span class="o">=</span>on<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-nographic<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>-cpu<span class="w"> </span>max<span class="w"> </span>-nographic<span class="w"> </span>-m<span class="w"> </span>16G<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-smp<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-bios<span class="w"> </span>src/tf-a/build/qemu/debug/flash.bin<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>-device<span class="w"> </span>loader,file<span class="o">=</span>src/linux/arch/arm64/boot/Image,addr<span class="o">=</span>0x40400000<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>-drive<span class="w"> </span><span class="nv">file</span><span class="o">=</span>rootfs/rootfs.img,if<span class="o">=</span>virtio,format<span class="o">=</span>raw<span class="w">  </span><span class="se">\</span>
+<span class="w">        </span>-S<span class="w"> </span>-s
+</pre></div>
+<p>新开一个窗口，使用aarch64-linux-gdb 或者gdb-multiarch 就可以开始调试啦：</p>
+<div class="highlight"><pre><span></span>src/linux$<span class="w"> </span>cat<span class="w"> </span>gdb.ds
+target<span class="w"> </span>remote<span class="w"> </span>:1234
+add-symbol-file<span class="w"> </span>../../src/tf-a/build/qemu/debug/bl1/bl1.elf
+add-symbol-file<span class="w"> </span>../../src/tf-a/build/qemu/debug/bl2/bl2.elf
+add-symbol-file<span class="w"> </span>../../src/tf-a/build/qemu/debug/bl31/bl31.elf
 
-        // 构建树形结构
-        function buildTree(people) {
-            const peopleMap = {};
-            people.forEach(p => peopleMap[p.nid] = {...p, children: []});
-            
-            // 找到根节点（没有父亲的最早世代）
-            let roots = [];
-            people.forEach(person => {
-                if (!person.father || !peopleMap[person.father.nid]) {
-                    roots.push(person);
-                }
-            });
-            
-            // 按世代排序，取最早的作为根
-            roots.sort((a, b) => (a.generation || 999) - (b.generation || 999));
-            const rootPerson = roots[0];
-            
-            // 构建父子关系
-            people.forEach(person => {
-                if (person.father && peopleMap[person.father.nid]) {
-                    peopleMap[person.father.nid].children.push(peopleMap[person.nid]);
-                }
-            });
-            
-            // 按照siblings.rank对每个父节点的children进行排序
-            Object.values(peopleMap).forEach(parent => {
-                if (parent.children && parent.children.length > 0) {
-                    parent.children.sort((a, b) => {
-                        const rankA = a.siblings?.rank || 999;
-                        const rankB = b.siblings?.rank || 999;
-                        return rankA - rankB;
-                    });
-                }
-            });
-            
-            treeData = peopleMap[rootPerson.nid];
-        }
+add-symbol-file<span class="w"> </span>vmlinux<span class="w"> </span>-o<span class="w">  </span>0x7fffc0400000
+add-symbol-file<span class="w"> </span>vmlinux
 
-        // 初始化树形图
-        function initTree() {
-            const container = document.getElementById('tree-container');
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            
-            svg = d3.select('#tree-container')
-                .append('svg')
-                .attr('width', width)
-                .attr('height', height);
-            
-            g = svg.append('g');
-            
-            // 添加缩放和拖拽
-            zoom = d3.zoom()
-                .scaleExtent([0.1, 3])
-                .on('zoom', (event) => {
-                    g.attr('transform', event.transform);
-                });
-            
-            svg.call(zoom);
-            
-            // 使用 nodeSize 而不是 size，确保每个节点有固定空间
-            // 左右布局: [垂直间距, 水平间距]
-            tree = d3.tree()
-                .nodeSize([100, 180]);
-            
-            root = d3.hierarchy(treeData);
-            root.x0 = 0;
-            root.y0 = 0;
-            
-            // 默认折叠深度大于2的节点
-            root.children.forEach(collapse);
-            
-            // 先更新显示节点
-            update(root);
-            
-            // 等待DOM更新后居中显示
-            setTimeout(() => centerNode(root), 300);
-        }
 
-        // 居中显示指定节点
-        function centerNode(source) {
-            const container = document.getElementById('tree-container');
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            
-            const scale = 0.85;
-            // 使用当前位置 d.y 和 d.x，而不是旧位置 d.y0 和 d.x0
-            // 水平方向居中：使用 width / 2
-            const x = -source.y * scale + width / 2;
-            const y = -source.x * scale + height / 2;
-            
-            const transform = d3.zoomIdentity.translate(x, y).scale(scale);
-            svg.transition().duration(750).call(zoom.transform, transform);
-        }
+src/linux$<span class="w"> </span>gdb-multiarch<span class="w">  </span>vmlinux
+GNU<span class="w"> </span>gdb<span class="w"> </span><span class="o">(</span>Ubuntu<span class="w"> </span><span class="m">9</span>.2-0ubuntu1~20.04.2<span class="o">)</span><span class="w"> </span><span class="m">9</span>.2
+Copyright<span class="w"> </span><span class="o">(</span>C<span class="o">)</span><span class="w"> </span><span class="m">2020</span><span class="w"> </span>Free<span class="w"> </span>Software<span class="w"> </span>Foundation,<span class="w"> </span>Inc.
+License<span class="w"> </span>GPLv3+:<span class="w"> </span>GNU<span class="w"> </span>GPL<span class="w"> </span>version<span class="w"> </span><span class="m">3</span><span class="w"> </span>or<span class="w"> </span>later<span class="w"> </span>&lt;http://gnu.org/licenses/gpl.html&gt;
+This<span class="w"> </span>is<span class="w"> </span>free<span class="w"> </span>software:<span class="w"> </span>you<span class="w"> </span>are<span class="w"> </span>free<span class="w"> </span>to<span class="w"> </span>change<span class="w"> </span>and<span class="w"> </span>redistribute<span class="w"> </span>it.
+There<span class="w"> </span>is<span class="w"> </span>NO<span class="w"> </span>WARRANTY,<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>extent<span class="w"> </span>permitted<span class="w"> </span>by<span class="w"> </span>law.
+Type<span class="w"> </span><span class="s2">&quot;show copying&quot;</span><span class="w"> </span>and<span class="w"> </span><span class="s2">&quot;show warranty&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>details.
+This<span class="w"> </span>GDB<span class="w"> </span>was<span class="w"> </span>configured<span class="w"> </span>as<span class="w"> </span><span class="s2">&quot;x86_64-linux-gnu&quot;</span>.
+Type<span class="w"> </span><span class="s2">&quot;show configuration&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>configuration<span class="w"> </span>details.
+For<span class="w"> </span>bug<span class="w"> </span>reporting<span class="w"> </span>instructions,<span class="w"> </span>please<span class="w"> </span>see:
+&lt;http://www.gnu.org/software/gdb/bugs/&gt;.
+Find<span class="w"> </span>the<span class="w"> </span>GDB<span class="w"> </span>manual<span class="w"> </span>and<span class="w"> </span>other<span class="w"> </span>documentation<span class="w"> </span>resources<span class="w"> </span>online<span class="w"> </span>at:
+<span class="w">    </span>&lt;http://www.gnu.org/software/gdb/documentation/&gt;.
 
-        // 折叠节点
-        function collapse(d) {
-            if (d.children) {
-                d._children = d.children;
-                d._children.forEach(collapse);
-                d.children = null;
-            }
-        }
+For<span class="w"> </span>help,<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="s2">&quot;help&quot;</span>.
+Type<span class="w"> </span><span class="s2">&quot;apropos word&quot;</span><span class="w"> </span>to<span class="w"> </span>search<span class="w"> </span><span class="k">for</span><span class="w"> </span>commands<span class="w"> </span>related<span class="w"> </span>to<span class="w"> </span><span class="s2">&quot;word&quot;</span>...
+Reading<span class="w"> </span>symbols<span class="w"> </span>from<span class="w"> </span>vmlinux...
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>gdb.ds
+0x0000000000000000<span class="w"> </span><span class="k">in</span><span class="w"> </span>??<span class="w"> </span><span class="o">()</span>
+add<span class="w"> </span>symbol<span class="w"> </span>table<span class="w"> </span>from<span class="w"> </span>file<span class="w"> </span><span class="s2">&quot;../../src/tf-a/build/qemu/debug/bl1/bl1.elf&quot;</span>
+add<span class="w"> </span>symbol<span class="w"> </span>table<span class="w"> </span>from<span class="w"> </span>file<span class="w"> </span><span class="s2">&quot;../../src/tf-a/build/qemu/debug/bl2/bl2.elf&quot;</span>
+add<span class="w"> </span>symbol<span class="w"> </span>table<span class="w"> </span>from<span class="w"> </span>file<span class="w"> </span><span class="s2">&quot;../../src/tf-a/build/qemu/debug/bl31/bl31.elf&quot;</span>
+add<span class="w"> </span>symbol<span class="w"> </span>table<span class="w"> </span>from<span class="w"> </span>file<span class="w"> </span><span class="s2">&quot;vmlinux&quot;</span><span class="w"> </span>with<span class="w"> </span>all<span class="w"> </span>sections<span class="w"> </span>offset<span class="w"> </span>by<span class="w"> </span>0x7fffc0400000
+add<span class="w"> </span>symbol<span class="w"> </span>table<span class="w"> </span>from<span class="w"> </span>file<span class="w"> </span><span class="s2">&quot;vmlinux&quot;</span>
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span><span class="k">break</span><span class="w"> </span>bl31_main
+Breakpoint<span class="w"> </span><span class="m">1</span><span class="w"> </span>at<span class="w"> </span>0xe0a23d0:<span class="w"> </span>file<span class="w"> </span>bl31/bl31_main.c,<span class="w"> </span>line<span class="w"> </span><span class="m">130</span>.
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span><span class="k">break</span><span class="w"> </span>_text
+Breakpoint<span class="w"> </span><span class="m">2</span><span class="w"> </span>at<span class="w"> </span>0x40400000:<span class="w"> </span>_text.<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>locations<span class="o">)</span>
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span><span class="k">break</span><span class="w"> </span>start_kernel
+Breakpoint<span class="w"> </span><span class="m">3</span><span class="w"> </span>at<span class="w"> </span>0x42010928:<span class="w"> </span>start_kernel.<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>locations<span class="o">)</span>
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>c
+Continuing.
 
-        // 更新树形图
-        function update(source) {
-            const duration = 300;
-            const treeLayout = tree(root);
-            const nodes = treeLayout.descendants();
-            const links = treeLayout.links();
-            
-            // nodeSize 会自动计算位置，不需要手动设置 y
-            
-            // 更新节点
-            const node = g.selectAll('.node')
-                .data(nodes, d => d.data.nid);
-            
-            // 新节点
-            const nodeEnter = node.enter().append('g')
-                .attr('class', 'node')
-                .attr('transform', d => `translate(${source.y0},${source.x0})`)
-                .on('click', (event, d) => {
-                    if (event.shiftKey) {
-                        showDetailCard(d.data);
-                    } else {
-                        // 先居中该节点
-                        centerNode(d);
-                        // 延迟一点再展开，让居中动画先完成
-                        setTimeout(() => {
-                            toggle(d);
-                            update(d);
-                        }, 400);
-                    }
-                })
-                .on('contextmenu', (event, d) => {
-                    // 右键点击显示详细信息（移动端长按会触发）
-                    event.preventDefault();
-                    showDetailCard(d.data);
-                })
-                .on('touchstart', (event, d) => {
-                    // 移动端长按检测
-                    const touchTimer = setTimeout(() => {
-                        showDetailCard(d.data);
-                    }, 500);
-                    d3.select(event.currentTarget).attr('data-touch-timer', touchTimer);
-                })
-                .on('touchend', (event, d) => {
-                    // 取消长按计时器
-                    const touchTimer = d3.select(event.currentTarget).attr('data-touch-timer');
-                    if (touchTimer) {
-                        clearTimeout(touchTimer);
-                    }
-                })
-                .on('touchmove', (event, d) => {
-                    // 移动时取消长按
-                    const touchTimer = d3.select(event.currentTarget).attr('data-touch-timer');
-                    if (touchTimer) {
-                        clearTimeout(touchTimer);
-                    }
-                })
-                .on('mouseover', (event, d) => showTooltip(event, d.data))
-                .on('mouseout', hideTooltip);
-            
-            // 圆角矩形
-            nodeEnter.append('rect')
-                .attr('width', 60)
-                .attr('height', 30)
-                .attr('x', -30)
-                .attr('y', -15)
-                .attr('rx', 5)
-                .attr('ry', 5)
-                .style('fill', '#fff')
-                .style('stroke', '#3498db')
-                .style('stroke-width', '2px');
-            
-            // 姓名（在方框内）
-            nodeEnter.append('text')
-                .attr('class', 'name-text')
-                .attr('dy', 5)
-                .style('text-anchor', 'middle')
-                .text(d => d.data.name);
-            
-            // 世代（在方框上方）
-            nodeEnter.append('text')
-                .attr('class', 'gen-text')
-                .attr('dy', -20)
-                .style('text-anchor', 'middle')
-                .text(d => d.data.generation ? `第${d.data.generation}世` : '');
-            
-            // 备注（在方框下方，小字体）
-            nodeEnter.append('text')
-                .attr('class', 'note-text')
-                .attr('dy', 30)
-                .style('text-anchor', 'middle')
-                .text(d => {
-                    if (!d.data.note) return '';
-                    return d.data.note.length > 8 ? d.data.note.substring(0, 8) + '...' : d.data.note;
-                });
-            
-            // 更新节点位置（水平布局：y是水平，x是垂直）
-            const nodeUpdate = nodeEnter.merge(node);
-            nodeUpdate.transition()
-                .duration(duration)
-                .attr('transform', d => `translate(${d.y},${d.x})`);
-            
-            // 移除旧节点
-            node.exit().transition()
-                .duration(duration)
-                .attr('transform', d => `translate(${source.y},${source.x})`)
-                .remove();
-            
-            // 更新连线
-            const link = g.selectAll('.link')
-                .data(links, d => d.target.data.nid);
-            
-            const linkEnter = link.enter().insert('path', 'g')
-                .attr('class', 'link')
-                .attr('d', d => {
-                    const o = {x: source.x0, y: source.y0};
-                    return diagonal(o, o);
-                });
-            
-            linkEnter.merge(link).transition()
-                .duration(duration)
-                .attr('d', d => diagonal(d.source, d.target));
-            
-            link.exit().transition()
-                .duration(duration)
-                .attr('d', d => {
-                    const o = {x: source.x, y: source.y};
-                    return diagonal(o, o);
-                })
-                .remove();
-            
-            // 保存旧位置
-            nodes.forEach(d => {
-                d.x0 = d.x;
-                d.y0 = d.y;
-            });
-        }
+Thread<span class="w"> </span><span class="m">1</span><span class="w"> </span>hit<span class="w"> </span>Breakpoint<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>bl31_main<span class="w"> </span><span class="o">()</span><span class="w"> </span>at<span class="w"> </span>bl31/bl31_main.c:130
+<span class="m">130</span><span class="w">             </span>cm_manage_extensions_el3<span class="o">()</span><span class="p">;</span>
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>bt
+<span class="c1">#0  bl31_main () at bl31/bl31_main.c:130</span>
+<span class="c1">#1  0x000000000e0a00c0 in bl31_entrypoint () at bl31/aarch64/bl31_entrypoint.S:93</span>
+Backtrace<span class="w"> </span>stopped:<span class="w"> </span>previous<span class="w"> </span>frame<span class="w"> </span>identical<span class="w"> </span>to<span class="w"> </span>this<span class="w"> </span>frame<span class="w"> </span><span class="o">(</span>corrupt<span class="w"> </span>stack?<span class="o">)</span>
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>c
+Continuing.
 
-        // 对角线连接（水平方向）
-        function diagonal(s, d) {
-            return `M ${s.y} ${s.x}
-                    C ${(s.y + d.y) / 2} ${s.x},
-                      ${(s.y + d.y) / 2} ${d.x},
-                      ${d.y} ${d.x}`;
-        }
+Thread<span class="w"> </span><span class="m">1</span><span class="w"> </span>hit<span class="w"> </span>Breakpoint<span class="w"> </span><span class="m">2</span>,<span class="w"> </span>_text<span class="w"> </span><span class="o">()</span><span class="w"> </span>at<span class="w"> </span>arch/arm64/kernel/head.S:60
+<span class="m">60</span><span class="w">              </span>efi_signature_nop<span class="w">                       </span>//<span class="w"> </span>special<span class="w"> </span>NOP<span class="w"> </span>to<span class="w"> </span>identity<span class="w"> </span>as<span class="w"> </span>PE/COFF<span class="w"> </span>executable
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>x/4i<span class="w"> </span><span class="nv">$pc</span>
+<span class="o">=</span>&gt;<span class="w"> </span>0x40400000<span class="w"> </span>&lt;_text&gt;:<span class="w">  </span>ccmp<span class="w">    </span>x18,<span class="w"> </span><span class="c1">#0x0, #0xd, pl  // pl = nfrst</span>
+<span class="w">   </span>0x40400004<span class="w"> </span>&lt;_text+4&gt;:<span class="w">        </span>b<span class="w">       </span>0x420000e0<span class="w"> </span>&lt;primary_entry&gt;
+<span class="w">   </span>0x40400008<span class="w"> </span>&lt;_text+8&gt;:<span class="w">        </span>.inst<span class="w">   </span>0x00000000<span class="w"> </span><span class="p">;</span><span class="w"> </span>undefined
+<span class="w">   </span>0x4040000c<span class="w"> </span>&lt;_text+12&gt;:<span class="w">       </span>.inst<span class="w">   </span>0x00000000<span class="w"> </span><span class="p">;</span><span class="w"> </span>undefined
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>c
+Continuing.
 
-        // 切换节点展开/折叠
-        function toggle(d) {
-            if (d.children) {
-                d._children = d.children;
-                d.children = null;
-            } else {
-                d.children = d._children;
-                d._children = null;
-            }
-        }
+Thread<span class="w"> </span><span class="m">1</span><span class="w"> </span>hit<span class="w"> </span>Breakpoint<span class="w"> </span><span class="m">3</span>,<span class="w"> </span>start_kernel<span class="w"> </span><span class="o">()</span><span class="w"> </span>at<span class="w"> </span>init/main.c:908
+<span class="m">908</span><span class="w">             </span>set_task_stack_end_magic<span class="o">(</span><span class="p">&amp;</span>init_task<span class="o">)</span><span class="p">;</span>
+<span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>l
+<span class="m">903</span><span class="w">     </span>void<span class="w"> </span>start_kernel<span class="o">(</span>void<span class="o">)</span>
+<span class="m">904</span><span class="w">     </span><span class="o">{</span>
+<span class="m">905</span><span class="w">             </span>char<span class="w"> </span>*command_line<span class="p">;</span>
+<span class="m">906</span><span class="w">             </span>char<span class="w"> </span>*after_dashes<span class="p">;</span>
+<span class="m">907</span>
+<span class="m">908</span><span class="w">             </span>set_task_stack_end_magic<span class="o">(</span><span class="p">&amp;</span>init_task<span class="o">)</span><span class="p">;</span>
+<span class="m">909</span><span class="w">             </span>smp_setup_processor_id<span class="o">()</span><span class="p">;</span>
+<span class="m">910</span><span class="w">             </span>debug_objects_early_init<span class="o">()</span><span class="p">;</span>
+<span class="m">911</span><span class="w">             </span>init_vmlinux_build_id<span class="o">()</span><span class="p">;</span>
+</pre></div>
+<p>至于为什么vmlinux 要被加两遍符号表，因为如果要调试在MMU没有enable的代码，就需要加：</p>
+<div class="highlight"><pre><span></span>add-symbol-file<span class="w"> </span>vmlinux<span class="w"> </span>-o<span class="w">  </span>0x7fffc0400000
+</pre></div>
+<p>计算方法：</p>
+<div class="highlight"><pre><span></span>0x40400000<span class="w"> </span>-<span class="w"> </span><span class="nv">0xffff800080000000</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>0x7fffc0400000
+</pre></div>
+<p>0x40400000 为u-boot kernel加载的地址，而0xffff800080000000 是 _text在linux kernel符号表的位置：</p>
+<div class="highlight"><pre><span></span>grep<span class="w"> </span><span class="s2">&quot; _text&quot;</span><span class="w">  </span>src/linux/System.map
+ffff800080000000<span class="w"> </span>T<span class="w"> </span>_text
+</pre></div>
+<p>更多可以参考</p>
+<ul class="simple">
+<li><a class="reference external" href="https://cdn.kernel.org/pub/linux/kernel/people/will/docs/qemu/qemu-arm64-howto.html">Running a full arm64 system stack under QEMU</a> .</li>
+<li><a class="reference external" href="https://docs.kernel.org/dev-tools/gdb-kernel-debugging.html#examples-of-using-the-linux-provided-gdb-helpers">Debugging kernel and modules via gdb</a> .</li>
+</ul>
+</div>
+<p><a href="https://geesun.github.io/posts/2024/08/setup_tf_a_u_boot_linux_qemu.html#disqus_thread">comments</a></p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
 
-        // 显示提示框
-        function showTooltip(event, data) {
-            const tooltip = document.getElementById('tooltip');
-            let html = `<strong>${data.name}</strong><br>`;
-            if (data.generation) html += `第${data.generation}世<br>`;
-            if (data.note) html += `${data.note}<br>`;
-            if (data.father) html += `父: ${data.father.name}<br>`;
-            if (data.children.length > 0) html += `子女: ${data.children.length}人<br>`;
-            // 根据设备类型显示不同的操作提示
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            if (isMobile) {
-                html += `<em>长按查看详情</em>`;
-            } else {
-                html += `<em>右键查看详情</em>`;
-            }
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="./posts/2024/08/04_kdump_crash_kernel.html" rel="bookmark"
+                           title="Permalink to 如何使用Kdump来分析crash kernel">如何使用Kdump来分析crash kernel</a></h1>
+                </header>
 
-            tooltip.innerHTML = html;
-            tooltip.style.left = (event.pageX + 10) + 'px';
-            tooltip.style.top = (event.pageY + 10) + 'px';
-            tooltip.classList.add('show');
-        }
+                <div class="entry-content">
+<footer class="post-info">
+        <span>四 01 八月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info -->                <p>根据Linux Kernel <a class="reference external" href="https://www.kernel.org/doc/Documentation/kdump/kdump.txt">Kdump</a> 文档，可以使用如下工具在Host上分析kernel crash的现场</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/horms/kexec-tools">kexec-tools</a>  - 交叉编译在Target系统上，打包进正常rootfs里面</li>
+<li><a class="reference external" href="https://github.com/makedumpfile/makedumpfile">makedumpfile</a> - 交叉编译在Target系统上，打包进crash系统的rootfs里面</li>
+<li><a class="reference external" href="https://github.com/crash-utility/crash">crash-utility</a> - 使用Host编译，target=ARM64，在Host里面使用 …</li></ul>
+                <a class="readmore" href="./posts/2024/08/04_kdump_crash_kernel.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/08/04_kdump_crash_kernel.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
 
-        function hideTooltip() {
-            document.getElementById('tooltip').classList.remove('show');
-        }
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="./posts/2024/07/03_debug_kernel_module.html" rel="bookmark"
+                           title="Permalink to 如何使用ArmDS调试动态加载的Linux kernel模块">如何使用ArmDS调试动态加载的Linux kernel模块</a></h1>
+                </header>
 
-        // 显示详细信息卡片
-        function showDetailCard(person) {
-            const card = document.getElementById('detail-card');
-            const content = document.getElementById('detail-content');
-            
-            let html = `<h2>${person.name} ${person.generation ? `(第${person.generation}世)` : ''}</h2>`;
-            
-            // 基本信息
-            html += `<div class="section">`;
-            html += `<div class="section-title">📋 基本信息</div>`;
-            if (person.note) html += `<div class="info-row"><span class="label">备注:</span>${person.note}</div>`;
-            if (person.relation_to_father) html += `<div class="info-row"><span class="label">排行:</span>${person.relation_to_father}</div>`;
-            html += `</div>`;
-            
-            // 父亲
-            if (person.father) {
-                html += `<div class="section">`;
-                html += `<div class="section-title">👨 父亲</div>`;
-                html += `<div class="info-row">${person.father.name}</div>`;
-                html += `</div>`;
-            }
-            
-            // 子女
-            if (person.children && person.children.length > 0) {
-                html += `<div class="section">`;
-                html += `<div class="section-title">👶 子女 (${person.children.length}人)</div>`;
-                html += `<div class="children-list">`;
-                // 按照siblings.rank排序子女
-                const sortedChildren = [...person.children].sort((a, b) => {
-                    const rankA = a.siblings?.rank || 999;
-                    const rankB = b.siblings?.rank || 999;
-                    return rankA - rankB;
-                });
-                sortedChildren.forEach(child => {
-                    html += `<span class="person-tag">${child.relation || ''} ${child.name}</span>`;
-                });
-                html += `</div></div>`;
-            }
-            
-            // 兄弟姐妹
-            if (person.siblings && person.siblings.list) {
-                html += `<div class="section">`;
-                html += `<div class="section-title">👥 兄弟姐妹 (${person.siblings.total_count}人)</div>`;
-                html += `<div class="siblings-list">`;
-                person.siblings.list.forEach(sibling => {
-                    const isCurrent = sibling.includes(person.name);
-                    html += `<span class="person-tag ${isCurrent ? 'current' : ''}">${sibling}</span>`;
-                });
-                html += `</div></div>`;
-            }
-            
-            // 详细描述
-            if (person.detail_info && person.detail_info.raw_text) {
-                html += `<div class="section">`;
-                html += `<div class="section-title">📜 详细信息</div>`;
-                html += `<div class="info-row" style="white-space: pre-wrap;">${person.detail_info.raw_text}</div>`;
-                html += `</div>`;
-            }
-            
-            // 讳号
-            if (person.detail_info && (person.detail_info.aliases.hui || person.detail_info.aliases.hao)) {
-                html += `<div class="section">`;
-                html += `<div class="section-title">🏷️ 讳号</div>`;
-                if (person.detail_info.aliases.hui) {
-                    html += `<div class="info-row"><span class="label">讳:</span>${person.detail_info.aliases.hui}</div>`;
-                }
-                if (person.detail_info.aliases.hao) {
-                    html += `<div class="info-row"><span class="label">号:</span>${person.detail_info.aliases.hao}</div>`;
-                }
-                html += `</div>`;
-            }
-            
-            // 生卒信息
-            if (person.detail_info && (person.detail_info.birth || person.detail_info.death)) {
-                html += `<div class="section">`;
-                html += `<div class="section-title">⏳ 生卒信息</div>`;
-                if (person.detail_info.birth) {
-                    html += `<div class="info-row"><span class="label">生:</span>${person.detail_info.birth}</div>`;
-                }
-                if (person.detail_info.death) {
-                    html += `<div class="info-row"><span class="label">殁:</span>${person.detail_info.death}</div>`;
-                }
-                if (person.detail_info.burial) {
-                    html += `<div class="info-row"><span class="label">葬:</span>${person.detail_info.burial}</div>`;
-                }
-                html += `</div>`;
-            }
-            
-            content.innerHTML = html;
-            card.classList.add('show');
-            document.getElementById('overlay').classList.add('show');
-        }
+                <div class="entry-content">
+<footer class="post-info">
+        <span>二 23 七月 2024</span>
+<span>| tags: <a href="./tag/linux.html">Linux</a><a href="./tag/debug.html">Debug</a></span>
+</footer><!-- /.post-info -->                <p>根据Arm Development Studio User Guide的 <a class="reference external" href="https://developer.arm.com/documentation/101470/2024-0/Debugging-Embedded-Systems/About-OS-awareness/About-debugging-Linux-kernel-modules">About debugging Linux kernel modules</a> ,ArmDS是可以调试动态加载的Linux kernel 模块。 但是需要ArmDS支持你所使用的kernel版本，ArmDS支持的版本可以参考Arm Development Studio User Guide的 <a class="reference external" href="https://developer.arm.com/documentation/101470/2024-0/Debugging-Embedded-Systems/About-OS-awareness">About OS awareness</a></p>
+<p>可以看到这里支持的版本非常有限，如果使用的kernel不在上面的列表里面 …</p>
+                <a class="readmore" href="./posts/2024/07/03_debug_kernel_module.html">read more</a>
+<p><a href="https://geesun.github.io/posts/2024/07/03_debug_kernel_module.html#disqus_thread">comments</a></p>                </div><!-- /.entry-content -->
+            </article></li>
+            </ol><!-- /#posts-list -->
+<nav>
+  <ul>
+    <li>Page 1 / 7</li>
+        <li><a href="./index2.html">&rang;</a></li>
+        <li><a href="./index7.html">&Rang;</a></li>
+  </ul>
+</nav>
+            </section><!-- /#content -->
 
-        function closeDetailCard() {
-            document.getElementById('detail-card').classList.remove('show');
-            document.getElementById('overlay').classList.remove('show');
-        }
+        <footer id="contentinfo" class="body">
+                <p>&copy; 2024 Qixiang Xu</p>
+        </footer><!-- /#contentinfo -->
 
-        // 重置视图
-        function resetView() {
-            // 重新展开所有节点
-            root.each(d => {
-                if (d._children) {
-                    d.children = d._children;
-                    d._children = null;
-                }
-            });
-            
-            // 然后折叠深度大于2的节点（恢复到初始状态）
-            if (root.children) {
-                root.children.forEach(collapse);
-            }
-            
-            // 更新显示
-            update(root);
-            
-            // 延迟后居中
-            setTimeout(() => centerNode(root), 300);
-        }
-        
-        // 完全折叠节点及其所有子节点
-        function collapseAll(d) {
-            if (d.children) {
-                d._children = d.children;
-                d._children.forEach(collapseAll);
-                d.children = null;
-            }
-        }
-
-        // 展开全部
-        function expandAll() {
-            root.each(d => {
-                if (d._children) {
-                    d.children = d._children;
-                    d._children = null;
-                }
-            });
-            update(root);
-        }
-
-        // 搜索人员
-        function searchPerson(query) {
-            const result = document.getElementById('search-result');
-            if (!query) {
-                result.textContent = '';
-                return;
-            }
-            
-            const matches = allPeople.filter(p => p.name.includes(query));
-            result.textContent = matches.length > 0 ? `找到 ${matches.length} 人` : '未找到';
-            
-            if (matches.length > 0) {
-                // 找到第一个匹配的人在树中的节点
-                const person = matches[0];
-                const found = findNodeByNid(root, person.nid);
-                
-                if (found) {
-                    // 展开从根节点到目标节点的路径
-                    expandPathToNode(found);
-                    // 更新视图
-                    update(root);
-                    // 居中显示目标节点
-                    centerNode(found);
-                    // 高亮显示
-                    highlightPerson(person.nid);
-                }
-            }
-        }
-        
-        // 根据nid查找节点
-        function findNodeByNid(current, nid) {
-            if (current.data.nid === nid) {
-                return current;
-            }
-            
-            const children = current.children || current._children;
-            if (children) {
-                for (let child of children) {
-                    const found = findNodeByNid(child, nid);
-                    if (found) return found;
-                }
-            }
-            
-            return null;
-        }
-        
-        // 展开从根节点到目标节点的路径
-        function expandPathToNode(target) {
-            // 找到从根到目标的路径
-            const path = [];
-            findPath(root, target, path);
-            
-            // 展开路径上的所有节点
-            path.forEach(node => {
-                if (node._children) {
-                    node.children = node._children;
-                    node._children = null;
-                }
-            });
-        }
-        
-        // 查找从根节点到目标节点的路径
-        function findPath(current, target, path) {
-            path.push(current);
-            
-            if (current === target) {
-                return true;
-            }
-            
-            const children = current.children || current._children;
-            if (children) {
-                for (let child of children) {
-                    if (findPath(child, target, path)) {
-                        return true;
-                    }
-                }
-            }
-            
-            path.pop();
-            return false;
-        }
-
-        // 高亮显示指定人员
-        function highlightPerson(nid) {
-            d3.selectAll('.node').classed('selected', false);
-            d3.selectAll('.node').filter(d => d.data.nid === nid).classed('selected', true);
-        }
-
-        // 切换全屏模式
-        function toggleFullscreen() {
-            const header = document.getElementById('header');
-            const controls = document.getElementById('controls');
-            const treeContainer = document.getElementById('tree-container');
-            const btn = document.getElementById('fullscreen-btn');
-            
-            header.classList.toggle('hidden');
-            controls.classList.toggle('hidden');
-            treeContainer.classList.toggle('expanded');
-            
-            // 改变按钮图标
-            if (header.classList.contains('hidden')) {
-                btn.textContent = '✖';  // 退出全屏
-            } else {
-                btn.textContent = '⛶';  // 全屏
-            }
-            
-            // 调整SVG大小以适应新的容器尺寸
-            setTimeout(() => {
-                const width = treeContainer.clientWidth;
-                const height = treeContainer.clientHeight;
-                if (svg) {
-                    svg.attr('width', width).attr('height', height);
-                }
-            }, 350);
-        }
-
-        // 页面加载时初始化
-        window.addEventListener('load', loadData);
-    </script>
+<script type="text/javascript">
+    var disqus_shortname = 'geesun';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
 </body>
 </html>
