@@ -1,0 +1,883 @@
+{
+  "results": [
+    {
+      "nid": "a5db8d9c-8384-422b-b8ae-fca7343e8f40",
+      "name": "甫宽",
+      "generation": 18,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "4d3f7553-ef94-4341-bcd8-dba2e2a762d6",
+        "name": "一福",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4d3f7553-ef94-4341-bcd8-dba2e2a762d6&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "ee6ec6f7-108c-426a-becb-5e4ee3cddb03",
+          "name": "长子明德",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ee6ec6f7-108c-426a-becb-5e4ee3cddb03&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "e375a370-5fe2-45ab-babd-cd6dc5cc197d",
+          "name": "次子明旌",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e375a370-5fe2-45ab-babd-cd6dc5cc197d&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "3ade0377-1b22-404b-ab3d-6408981fbbd0",
+          "name": "三子明阵",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3ade0377-1b22-404b-ab3d-6408981fbbd0&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 2,
+        "rank": 1,
+        "list": [
+          "长子 甫宽",
+          "次子 甫宙"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第18世 一福 长子 甫宽 居铜铿 生娶殁葬未详 生子三 明德 明旌 明阵。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "4d3f7553-ef94-4341-bcd8-dba2e2a762d6",
+      "name": "一福",
+      "generation": 17,
+      "url": null,
+      "note": "铜铿支下边",
+      "father": {
+        "nid": "c62b85fc-d525-4254-bba7-333eeeb3bade",
+        "name": "朝佑",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c62b85fc-d525-4254-bba7-333eeeb3bade&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "a5db8d9c-8384-422b-b8ae-fca7343e8f40",
+          "name": "长子甫宽",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a5db8d9c-8384-422b-b8ae-fca7343e8f40&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "c38fda66-4136-492b-8634-fda1b49c63be",
+          "name": "次子甫宙",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c38fda66-4136-492b-8634-fda1b49c63be&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 9,
+        "rank": 1,
+        "list": [
+          "长子 一福",
+          "次子 一慎",
+          "三子 一赋",
+          "四子 一鳌",
+          "五子 一鸾",
+          "六子 一时",
+          "七子 一疏",
+          "八子 一统",
+          "九子 一新"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第17世 朝佑 长子 一福 居铜铿 生娶殁葬未详 生子二 甫宽 甫宙。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "c38fda66-4136-492b-8634-fda1b49c63be",
+      "name": "甫宙",
+      "generation": 18,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "4d3f7553-ef94-4341-bcd8-dba2e2a762d6",
+        "name": "一福",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4d3f7553-ef94-4341-bcd8-dba2e2a762d6&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [],
+      "siblings": {
+        "total_count": 2,
+        "rank": 2,
+        "list": [
+          "长子 甫宽",
+          "次子 甫宙"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第18世 一福 次子 甫宙 居铜铿 生娶殁葬未详。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "e375a370-5fe2-45ab-babd-cd6dc5cc197d",
+      "name": "明旌",
+      "generation": 19,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "a5db8d9c-8384-422b-b8ae-fca7343e8f40",
+        "name": "甫宽",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a5db8d9c-8384-422b-b8ae-fca7343e8f40&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "79bb64ca-cd5a-4539-a22f-d08455fd4335",
+          "name": "之子曰绍",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=79bb64ca-cd5a-4539-a22f-d08455fd4335&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 3,
+        "rank": 2,
+        "list": [
+          "长子 明德",
+          "次子 明旌",
+          "三子 明阵"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第19世 甫宽 次子 明旌 居铜铿 生娶殁葬未详 生子一 曰绍。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "79bb64ca-cd5a-4539-a22f-d08455fd4335",
+      "name": "曰绍",
+      "generation": 20,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "e375a370-5fe2-45ab-babd-cd6dc5cc197d",
+        "name": "明旌",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e375a370-5fe2-45ab-babd-cd6dc5cc197d&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "之子",
+      "children": [
+        {
+          "nid": "7d2a0fd0-6e02-421b-80a6-c310096b1cef",
+          "name": "长子嘉翱",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7d2a0fd0-6e02-421b-80a6-c310096b1cef&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "788c06db-f097-45f0-a2db-fe4b923e2a52",
+          "name": "次子嘉翔",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=788c06db-f097-45f0-a2db-fe4b923e2a52&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "b0d5016c-6826-4f5d-812f-bf3b8b931bb7",
+          "name": "三子嘉翊",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b0d5016c-6826-4f5d-812f-bf3b8b931bb7&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "8e2c9f0b-7281-4c49-86a1-3ceb90954120",
+          "name": "四子嘉翘",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8e2c9f0b-7281-4c49-86a1-3ceb90954120&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "之子 曰绍"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第20世 明旌 之子 曰绍 居铜铿 生娶殁葬未详 生子四 嘉翱 嘉翔 嘉翊 嘉翘。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "b0d5016c-6826-4f5d-812f-bf3b8b931bb7",
+      "name": "嘉翊",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "79bb64ca-cd5a-4539-a22f-d08455fd4335",
+        "name": "曰绍",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=79bb64ca-cd5a-4539-a22f-d08455fd4335&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "三子",
+      "children": [],
+      "siblings": {
+        "total_count": 4,
+        "rank": 3,
+        "list": [
+          "长子 嘉翱",
+          "次子 嘉翔",
+          "三子 嘉翊",
+          "四子 嘉翘"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 曰绍 三子 嘉翊 居铜铿 生娶殁葬未详。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "ee6ec6f7-108c-426a-becb-5e4ee3cddb03",
+      "name": "明德",
+      "generation": 19,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "a5db8d9c-8384-422b-b8ae-fca7343e8f40",
+        "name": "甫宽",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a5db8d9c-8384-422b-b8ae-fca7343e8f40&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [],
+      "siblings": {
+        "total_count": 3,
+        "rank": 1,
+        "list": [
+          "长子 明德",
+          "次子 明旌",
+          "三子 明阵"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第19世 甫宽 长子 明德 居铜铿 生娶殁葬未详。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "788c06db-f097-45f0-a2db-fe4b923e2a52",
+      "name": "嘉翔",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "79bb64ca-cd5a-4539-a22f-d08455fd4335",
+        "name": "曰绍",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=79bb64ca-cd5a-4539-a22f-d08455fd4335&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "4b25f63f-9d8d-45d5-b694-25a65e903ef4",
+          "name": "长子隆熠",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4b25f63f-9d8d-45d5-b694-25a65e903ef4&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "ec7cb52a-9ea3-43f3-8407-0b0bc5e97af5",
+          "name": "长子隆耀",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ec7cb52a-9ea3-43f3-8407-0b0bc5e97af5&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 2,
+        "list": [
+          "长子 嘉翱",
+          "次子 嘉翔",
+          "三子 嘉翊",
+          "四子 嘉翘"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 曰绍 次子 嘉翔 居铜铿 生娶殁葬未详 生子二 隆燿 隆熠。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "8e2c9f0b-7281-4c49-86a1-3ceb90954120",
+      "name": "嘉翘",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "79bb64ca-cd5a-4539-a22f-d08455fd4335",
+        "name": "曰绍",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=79bb64ca-cd5a-4539-a22f-d08455fd4335&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "四子",
+      "children": [
+        {
+          "nid": "4341389d-09fb-4746-8385-389e2cd02100",
+          "name": "长子隆佐",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4341389d-09fb-4746-8385-389e2cd02100&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "ff8285a8-5c32-45a2-8edd-89be0190889f",
+          "name": "次子隆平",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ff8285a8-5c32-45a2-8edd-89be0190889f&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "49f9fedc-c2cb-4f21-b107-149f61030db1",
+          "name": "三子隆炳",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=49f9fedc-c2cb-4f21-b107-149f61030db1&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "b993989e-8dc5-4091-98c6-7679a1344333",
+          "name": "四子隆灼",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b993989e-8dc5-4091-98c6-7679a1344333&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "d94656cf-7f75-4ea7-a3aa-7f3ee2a8114d",
+          "name": "子隆火帝",
+          "relation": "五",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d94656cf-7f75-4ea7-a3aa-7f3ee2a8114d&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 4,
+        "list": [
+          "长子 嘉翱",
+          "次子 嘉翔",
+          "三子 嘉翊",
+          "四子 嘉翘"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 曰绍 四子 嘉翘 居铜铿 生娶殁葬未详 生子五 隆佐 隆平 隆炳 隆火帝。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "3ade0377-1b22-404b-ab3d-6408981fbbd0",
+      "name": "明阵",
+      "generation": 19,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "a5db8d9c-8384-422b-b8ae-fca7343e8f40",
+        "name": "甫宽",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a5db8d9c-8384-422b-b8ae-fca7343e8f40&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "三子",
+      "children": [],
+      "siblings": {
+        "total_count": 3,
+        "rank": 3,
+        "list": [
+          "长子 明德",
+          "次子 明旌",
+          "三子 明阵"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第19世 甫宽 三子 明阵 居铜铿 生娶殁葬未详。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "920154b4-1bfc-46f4-8107-492570db8913",
+      "name": "一慎",
+      "generation": 17,
+      "url": null,
+      "note": "徙居南邑祝家山",
+      "father": {
+        "nid": "c62b85fc-d525-4254-bba7-333eeeb3bade",
+        "name": "朝佑",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c62b85fc-d525-4254-bba7-333eeeb3bade&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "c74453e6-6667-463d-a8af-6831e0ded12f",
+          "name": "长子甫颖",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c74453e6-6667-463d-a8af-6831e0ded12f&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "5864b474-e29b-427a-8521-b2f5f6c5f3b3",
+          "name": "次子甫頊",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5864b474-e29b-427a-8521-b2f5f6c5f3b3&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 9,
+        "rank": 2,
+        "list": [
+          "长子 一福",
+          "次子 一慎",
+          "三子 一赋",
+          "四子 一鳌",
+          "五子 一鸾",
+          "六子 一时",
+          "七子 一疏",
+          "八子 一统",
+          "九子 一新"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第17世 朝佑 次子 一慎 居铜铿 生娶殁葬未详 徙居南邑祝家山。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详 徙居南邑祝家山。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "7d2a0fd0-6e02-421b-80a6-c310096b1cef",
+      "name": "嘉翱",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "79bb64ca-cd5a-4539-a22f-d08455fd4335",
+        "name": "曰绍",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=79bb64ca-cd5a-4539-a22f-d08455fd4335&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "4c078397-f0bd-43fa-a0a7-d654eef76202",
+          "name": "长子隆焕",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4c078397-f0bd-43fa-a0a7-d654eef76202&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "8330a75a-53bb-4c4c-ae2e-22ab4cf9a032",
+          "name": "次子隆轰",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8330a75a-53bb-4c4c-ae2e-22ab4cf9a032&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "f9878ef8-18c7-4a2b-99c9-79c42a9fde10",
+          "name": "三子隆忠",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f9878ef8-18c7-4a2b-99c9-79c42a9fde10&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 1,
+        "list": [
+          "长子 嘉翱",
+          "次子 嘉翔",
+          "三子 嘉翊",
+          "四子 嘉翘"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 曰绍 长子 嘉翱 居铜铿 生娶殁葬未详 生子三 隆焕 隆轰 隆忠。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "5864b474-e29b-427a-8521-b2f5f6c5f3b3",
+      "name": "甫頊",
+      "generation": 18,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "920154b4-1bfc-46f4-8107-492570db8913",
+        "name": "一慎",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=920154b4-1bfc-46f4-8107-492570db8913&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "f7a55894-c864-4b4c-a720-407d17d6b472",
+          "name": "长子明霞",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f7a55894-c864-4b4c-a720-407d17d6b472&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "d9b93d46-447f-4056-9615-e406b64ba1ed",
+          "name": "次子明电",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d9b93d46-447f-4056-9615-e406b64ba1ed&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "50849f1e-5aa2-4341-ad9c-43816fe17d57",
+          "name": "三子明霜",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50849f1e-5aa2-4341-ad9c-43816fe17d57&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 2,
+        "rank": 2,
+        "list": [
+          "长子 甫颖",
+          "次子 甫頊"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第18世 一慎 次子 甫頊 居铜铿 生娶殁葬未详 生子三明霞 明电 明霜。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "f7a55894-c864-4b4c-a720-407d17d6b472",
+      "name": "明霞",
+      "generation": 19,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "5864b474-e29b-427a-8521-b2f5f6c5f3b3",
+        "name": "甫頊",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5864b474-e29b-427a-8521-b2f5f6c5f3b3&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "fba4a6aa-269b-42fe-97d2-64b83751174a",
+          "name": "长子曰华",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fba4a6aa-269b-42fe-97d2-64b83751174a&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "0c201640-c64e-4783-8ac4-77c377868e8f",
+          "name": "次子曰美",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0c201640-c64e-4783-8ac4-77c377868e8f&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "0f6902dc-ebaa-43dd-92dc-7c5d3ec76d9c",
+          "name": "三子曰秦",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f6902dc-ebaa-43dd-92dc-7c5d3ec76d9c&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "acdf6318-fffd-4183-a6ea-8023e59a1f7f",
+          "name": "四子曰蕙",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=acdf6318-fffd-4183-a6ea-8023e59a1f7f&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 3,
+        "rank": 1,
+        "list": [
+          "长子 明霞",
+          "次子 明电",
+          "三子 明霜"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第19世 甫頊 长子 明霞 居铜铿 生娶殁葬未详 生子四曰华 曰美 曰秦 曰蕙。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "fba4a6aa-269b-42fe-97d2-64b83751174a",
+      "name": "曰华",
+      "generation": 20,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "f7a55894-c864-4b4c-a720-407d17d6b472",
+        "name": "明霞",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f7a55894-c864-4b4c-a720-407d17d6b472&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [],
+      "siblings": {
+        "total_count": 4,
+        "rank": 1,
+        "list": [
+          "长子 曰华",
+          "次子 曰美",
+          "三子 曰秦",
+          "四子 曰蕙"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第20世 明霞 长子 曰华 居铜铿 生娶殁葬未详。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "c74453e6-6667-463d-a8af-6831e0ded12f",
+      "name": "甫颖",
+      "generation": 18,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "920154b4-1bfc-46f4-8107-492570db8913",
+        "name": "一慎",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=920154b4-1bfc-46f4-8107-492570db8913&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [],
+      "siblings": {
+        "total_count": 2,
+        "rank": 1,
+        "list": [
+          "长子 甫颖",
+          "次子 甫頊"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第18世 一慎 长子 甫颖 居铜铿 生娶殁葬未详。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "7fb32a9e-50f6-4911-a8c3-64a687df7af4",
+      "name": "嘉紫",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "0f6902dc-ebaa-43dd-92dc-7c5d3ec76d9c",
+        "name": "曰秦",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f6902dc-ebaa-43dd-92dc-7c5d3ec76d9c&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [],
+      "siblings": {
+        "total_count": 3,
+        "rank": 1,
+        "list": [
+          "长子 嘉紫",
+          "次子 嘉萃",
+          "三子 嘉荪"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 曰秦 长子 嘉紫 居铜铿 生娶殁葬未详。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "b3ed8b90-d2a4-492d-a60c-115a0d355964",
+      "name": "嘉萃",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "0f6902dc-ebaa-43dd-92dc-7c5d3ec76d9c",
+        "name": "曰秦",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f6902dc-ebaa-43dd-92dc-7c5d3ec76d9c&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [],
+      "siblings": {
+        "total_count": 3,
+        "rank": 2,
+        "list": [
+          "长子 嘉紫",
+          "次子 嘉萃",
+          "三子 嘉荪"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 曰秦 次子 嘉萃 居铜铿 生娶殁葬未详。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "0c201640-c64e-4783-8ac4-77c377868e8f",
+      "name": "曰美",
+      "generation": 20,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "f7a55894-c864-4b4c-a720-407d17d6b472",
+        "name": "明霞",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f7a55894-c864-4b4c-a720-407d17d6b472&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [],
+      "siblings": {
+        "total_count": 4,
+        "rank": 2,
+        "list": [
+          "长子 曰华",
+          "次子 曰美",
+          "三子 曰秦",
+          "四子 曰蕙"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第20世 明霞 次子 曰美 居铜铿 生娶殁葬未详。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详。",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "0f6902dc-ebaa-43dd-92dc-7c5d3ec76d9c",
+      "name": "曰秦",
+      "generation": 20,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "f7a55894-c864-4b4c-a720-407d17d6b472",
+        "name": "明霞",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f7a55894-c864-4b4c-a720-407d17d6b472&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "三子",
+      "children": [
+        {
+          "nid": "7fb32a9e-50f6-4911-a8c3-64a687df7af4",
+          "name": "长子嘉紫",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7fb32a9e-50f6-4911-a8c3-64a687df7af4&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "b3ed8b90-d2a4-492d-a60c-115a0d355964",
+          "name": "次子嘉萃",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b3ed8b90-d2a4-492d-a60c-115a0d355964&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "d0af8375-5f30-4fe4-a49c-c6d80d25d9d1",
+          "name": "三子嘉荪",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d0af8375-5f30-4fe4-a49c-c6d80d25d9d1&TId=1&GId=6461&ZId=44523&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 3,
+        "list": [
+          "长子 曰华",
+          "次子 曰美",
+          "三子 曰秦",
+          "四子 曰蕙"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第20世 明霞 三子 曰秦 居铜铿 生娶殁葬未详 生子三嘉紫 嘉萃 嘉荪。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    }
+  ],
+  "timestamp": "2026-02-20 16:49:18",
+  "total": 563,
+  "processed": 20
+}
