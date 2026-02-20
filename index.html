@@ -483,6 +483,17 @@
                 }
             });
             
+            // 按照siblings.rank对每个父节点的children进行排序
+            Object.values(peopleMap).forEach(parent => {
+                if (parent.children && parent.children.length > 0) {
+                    parent.children.sort((a, b) => {
+                        const rankA = a.siblings?.rank || 999;
+                        const rankB = b.siblings?.rank || 999;
+                        return rankA - rankB;
+                    });
+                }
+            });
+            
             treeData = peopleMap[rootPerson.nid];
         }
 
@@ -761,7 +772,13 @@
                 html += `<div class="section">`;
                 html += `<div class="section-title">👶 子女 (${person.children.length}人)</div>`;
                 html += `<div class="children-list">`;
-                person.children.forEach(child => {
+                // 按照siblings.rank排序子女
+                const sortedChildren = [...person.children].sort((a, b) => {
+                    const rankA = a.siblings?.rank || 999;
+                    const rankB = b.siblings?.rank || 999;
+                    return rankA - rankB;
+                });
+                sortedChildren.forEach(child => {
                     html += `<span class="person-tag">${child.relation || ''} ${child.name}</span>`;
                 });
                 html += `</div></div>`;
