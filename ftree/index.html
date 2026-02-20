@@ -464,21 +464,44 @@
             const peopleMap = {};
             people.forEach(p => peopleMap[p.nid] = {...p, children: []});
             
-            // 找到根节点（没有父亲的最早世代）
+            // 找到根节点：优先选择第1世的人，忽略其father字段（可能有循环引用）
             let roots = [];
-            people.forEach(person => {
-                if (!person.father || !peopleMap[person.father.nid]) {
-                    roots.push(person);
-                }
-            });
+            
+            // 首先查找第1世的所有人
+            const generation1 = people.filter(p => p.generation === 1);
+            if (generation1.length > 0) {
+                roots = generation1;
+            } else {
+                // 如果没有第1世，则查找没有父亲或父亲指向自己的人
+                people.forEach(person => {
+                    if (!person.father || 
+                        !peopleMap[person.father.nid] || 
+                        person.father.nid === person.nid) {
+                        roots.push(person);
+                    }
+                });
+            }
+            
+            if (roots.length === 0) {
+                alert('错误：无法构建族谱树，未找到根节点或第1世的人');
+                return;
+            }
             
             // 按世代排序，取最早的作为根
             roots.sort((a, b) => (a.generation || 999) - (b.generation || 999));
             const rootPerson = roots[0];
             
-            // 构建父子关系
+            // 构建父子关系（对于第1世的人，忽略其father字段）
             people.forEach(person => {
-                if (person.father && peopleMap[person.father.nid]) {
+                // 如果这个人是第1世，跳过（不添加到任何人的children中）
+                if (person.generation === 1) {
+                    return;
+                }
+                
+                // 排除父亲指向自己的情况（循环引用）
+                if (person.father && 
+                    peopleMap[person.father.nid] && 
+                    person.father.nid !== person.nid) {
                     peopleMap[person.father.nid].children.push(peopleMap[person.nid]);
                 }
             });
