@@ -22233,5 +22233,37 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "c3891b46-0b32-48f0-adcc-aee5d8c85f4f",
+    "name": "其骞",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "6e5dfab3-b278-4753-a4e6-ba48bda50f05",
+      "name": "协勇",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6e5dfab3-b278-4753-a4e6-ba48bda50f05&TId=1&GId=6461&ZId=44466&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 其骞",
+        "次子 其宵"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协勇 长子 其骞 字章旭 居金谷庄 学历高中 生于 公元二零零五年农历乙酉年十一月十九日子时 。",
+      "aliases": {},
+      "birth": "公元二零零五年农历乙酉年十一月十九日子时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

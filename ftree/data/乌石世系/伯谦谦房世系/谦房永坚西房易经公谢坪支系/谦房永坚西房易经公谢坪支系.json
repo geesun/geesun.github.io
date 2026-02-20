@@ -20477,5 +20477,45 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "9176b419-a1c9-472f-bf04-b2676b27e066",
+    "name": "古铨",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "e4a40d3c-cd60-4eb0-b510-7d6f09fc5474",
+      "name": "今西",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e4a40d3c-cd60-4eb0-b510-7d6f09fc5474&TId=1&GId=6461&ZId=44666&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "dea05e37-bcfc-4d00-ada7-c11be44cc3fb",
+        "name": "长子家钰",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=dea05e37-bcfc-4d00-ada7-c11be44cc3fb&TId=1&GId=6461&ZId=44666&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 古铨"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今西 之子 古铨 行一六二号居谢坪 生于 公元一八五三年癸丑八月廿一日卯时 殁未详 娶熊氏生殁未详 生子一 家钰。",
+      "aliases": {
+        "hao": "居谢坪"
+      },
+      "birth": "公元一八五三年癸丑八月廿一日卯时 殁未详",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

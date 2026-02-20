@@ -25165,5 +25165,84 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "fb66f662-fdd1-4664-88d0-9ff91cb38080",
+    "name": "绵培",
+    "generation": 26,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "86a06c85-5077-4b4d-997a-41701c3b4d17",
+      "name": "系荣",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=86a06c85-5077-4b4d-997a-41701c3b4d17&TId=1&GId=6461&ZId=45187&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "139158c0-e137-4483-9d4f-53a7756ca9f5",
+        "name": "嗣子今述",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=139158c0-e137-4483-9d4f-53a7756ca9f5&TId=1&GId=6461&ZId=45187&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 3,
+      "list": [
+        "长子 绵墩",
+        "次子 绵坵",
+        "三子 绵培",
+        "四子 绵境"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 系荣 三子 绵培 行一七七 居上屋 生於 公元一八六二年同治壬戌九月初二日戌時 殁於 光緒丁亥三月初十日午時 葬鄧家嶺向南 娶孫氏 生殁葬未詳 生子一 今述。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "鄧家嶺向南",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "550d82da-45c6-401a-9a96-8073ee801598",
+    "name": "系梁",
+    "generation": 25,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "4f146004-9d57-4e42-85bf-6e998f06102d",
+      "name": "世春",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4f146004-9d57-4e42-85bf-6e998f06102d&TId=1&GId=6461&ZId=45187&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "ae423450-5d82-45a3-bbb4-2eecfd64b61c",
+        "name": "之子绵芳",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ae423450-5d82-45a3-bbb4-2eecfd64b61c&TId=1&GId=6461&ZId=45187&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 系梁"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第25世 世春 之子 系梁 居上屋 生娶殁葬未详 生子一绵芳。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

@@ -10819,5 +10819,51 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "98844e7e-d34d-4f8c-8f07-9943bbf74740",
+    "name": "绍浔",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "1685df56-a41b-4423-916b-72a35d22fc2e",
+      "name": "声禄",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1685df56-a41b-4423-916b-72a35d22fc2e&TId=1&GId=6461&ZId=44734&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "17eea387-1897-49d3-8b22-c68923f70df6",
+        "name": "长子汉军",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=17eea387-1897-49d3-8b22-c68923f70df6&TId=1&GId=6461&ZId=44734&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "1aed4166-a977-44be-9c64-092740f65181",
+        "name": "次子汉兵",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1aed4166-a977-44be-9c64-092740f65181&TId=1&GId=6461&ZId=44734&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 绍浔",
+        "次子 绍法",
+        "三子 绍海"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声禄 长子 绍浔 居八佾庄 生于 公元一九四八年戊子七月初十日辰时 娶大头岭熊起凤 生于 公元一九五零年岁次庚寅六月廿一日 殁于 公元一九七四甲寅年十二月十七日 葬官山坐南朝北有碑 生子一 汉军 生女一 汉连适咀头李 继娶尤口楼下胡金莲 生于 公元一九五五年岁次乙未十一月廿日亥时 生子一 汉兵。",
+      "aliases": {},
+      "birth": "公元一九四八年戊子七月初十日辰时",
+      "death": "公元一九七四甲寅年十二月十七日",
+      "burial": "官山坐南朝北有碑",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

@@ -9958,5 +9958,36 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "c6adce9a-b1b5-4053-a8e6-19358b2bfb0d",
+    "name": "家渠",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "1506d6ed-f824-4f88-bb66-4132f42b62ba",
+      "name": "古鑑",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1506d6ed-f824-4f88-bb66-4132f42b62ba&TId=1&GId=6461&ZId=45136&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 家渠"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古鑑 之子 家渠 字广川 中学 行六三零号 居西繁村 生于 公元一九二五年民国乙丑五月十日卯时殁葬未详。",
+      "aliases": {},
+      "birth": "公元一九二五年民国乙丑五月十日卯时殁",
+      "death": null,
+      "burial": "未详。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

@@ -12212,5 +12212,37 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "4195721d-d603-48a5-8602-b5f818310c40",
+    "name": "家晨",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "cd468229-528a-421b-bbc5-ff7bebc52d3b",
+      "name": "古俊",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=cd468229-528a-421b-bbc5-ff7bebc52d3b&TId=1&GId=6461&ZId=44458&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 家晃",
+        "次子 家晨"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古俊 次子 家晨 字亮先 行一二八号 居澎塘口 生于 公元一八六二年同治壬戌正月廿二午时殁葬未详。",
+      "aliases": {},
+      "birth": "公元一八六二年同治壬戌正月廿二午时殁",
+      "death": null,
+      "burial": "未详。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

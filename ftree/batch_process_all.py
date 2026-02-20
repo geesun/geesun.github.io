@@ -44,11 +44,11 @@ def fetch_person_page(url):
         }
         
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as response:
+        with urllib.request.urlopen(req, timeout=10) as response:
             html = response.read().decode('utf-8')
             return html
     except Exception as e:
-        return None
+        return None, str(e)
 
 def parse_person_details(html, nid, name_from_csv, note_from_csv=''):
     """解析个人详情页，提取所有信息"""
@@ -245,21 +245,24 @@ def process_single_record(record, index, total):
         return None, f"[{index}/{total}] {name} ⚠️ 跳过（无URL或NID）"
     
     # 获取详情页
-    html = fetch_person_page(url)
+    fetch_result = fetch_person_page(url)
+    if isinstance(fetch_result, tuple):
+        html, err = fetch_result
+        return None, f"[{index}/{total}] {name} ❌ 网络错误: {err}  URL: {url}"
+    html = fetch_result
     if not html:
-        return None, f"[{index}/{total}] {name} ❌"
+        return None, f"[{index}/{total}] {name} ❌ 返回空内容  URL: {url}"
     
     # 解析数据
     person_data = parse_person_details(html, nid, name, note)
     if person_data:
         return person_data, f"[{index}/{total}] {name} ✅"
     else:
-        return None, f"[{index}/{total}] {name} ❌"
+        return None, f"[{index}/{total}] {name} ❌ 解析失败（HTML长度:{len(html)}）  URL: {url}"
 
 def process_csv_to_json(csv_file, max_workers=10):
     """处理单个CSV文件，生成对应的JSON文件（使用多线程）"""
     json_file = csv_file.replace('.csv', '.json')
-    progress_file = csv_file.replace('.csv', '_progress.json')
     
     try:
         # 读取CSV文件
@@ -290,24 +293,23 @@ def process_csv_to_json(csv_file, max_workers=10):
             thread_print(f"  ❌ 创建JSON失败: {e}")
             return False
     
-    # 检查是否有进度文件
+    # 先加载已存在的JSON结果（用于续跑/补缺）
     results = []
     processed_nids = set()
-    start_index = 0
-    
-    if os.path.exists(progress_file):
+
+    if os.path.exists(json_file):
         try:
-            with open(progress_file, 'r', encoding='utf-8') as f:
-                progress_data = json.load(f)
-                results = progress_data.get('results', [])
-                processed_nids = set(r['nid'] for r in results if r.get('nid'))
-                thread_print(f"  ↻ 发现进度文件，已完成 {len(results)} 条记录，继续处理...")
+            with open(json_file, 'r', encoding='utf-8') as f:
+                existing_results = json.load(f)
+                if isinstance(existing_results, list):
+                    results.extend(existing_results)
+                    processed_nids.update(r.get('nid') for r in existing_results if r.get('nid'))
+                    thread_print(f"  ↻ 已加载现有JSON: {len(existing_results)} 条记录")
         except Exception as e:
-            thread_print(f"  ⚠️  进度文件损坏，从头开始: {e}")
-            results = []
-            processed_nids = set()
+            thread_print(f"  ⚠️  现有JSON读取失败，将重新生成: {e}")
+
     
-    # 过滤出未处理的记录
+    # 过滤出未处理的记录（以NID为准）
     pending_records = []
     for i, record in enumerate(all_records):
         nid = record.get('NID', '')
@@ -316,17 +318,8 @@ def process_csv_to_json(csv_file, max_workers=10):
         pending_records.append((i, record))
     
     if not pending_records:
-        thread_print(f"  ✅ 所有记录都已处理，保存最终结果...")
-        try:
-            with open(json_file, 'w', encoding='utf-8') as f:
-                json.dump(results, f, ensure_ascii=False, indent=2)
-            if os.path.exists(progress_file):
-                os.remove(progress_file)
-            thread_print(f"  ✅ 完成: {len(results)} 条记录 → {os.path.basename(json_file)}")
-            return True
-        except Exception as e:
-            thread_print(f"  ❌ 保存失败: {e}")
-            return False
+        thread_print(f"  ✅ CSV中所有NID均已在JSON中，无需更新")
+        return True
     
     thread_print(f"  🔄 使用 {max_workers} 个线程处理剩余 {len(pending_records)} 条记录...")
     
@@ -337,20 +330,6 @@ def process_csv_to_json(csv_file, max_workers=10):
     
     # 使用线程锁保护results列表
     results_lock = threading.Lock()
-    
-    def save_progress():
-        """保存进度文件（线程安全）"""
-        try:
-            with results_lock:
-                with open(progress_file, 'w', encoding='utf-8') as f:
-                    json.dump({
-                        'results': results,
-                        'timestamp': time.strftime('%Y-%m-%d %H:%M:%S'),
-                        'total': len(all_records),
-                        'processed': len(results) + fail_count + skip_count
-                    }, f, ensure_ascii=False, indent=2)
-        except Exception as e:
-            thread_print(f"    ⚠️  保存进度失败: {e}")
     
     try:
         # 使用线程池并发处理
@@ -363,9 +342,9 @@ def process_csv_to_json(csv_file, max_workers=10):
             
             # 收集结果
             completed = 0
-            for future in as_completed(future_to_record):
+            for future in as_completed(future_to_record, timeout=60):
                 try:
-                    person_data, msg = future.result()
+                    person_data, msg = future.result(timeout=15)
                     thread_print(f"    {msg}")
                     
                     # 线程安全地添加结果
@@ -381,12 +360,12 @@ def process_csv_to_json(csv_file, max_workers=10):
                     
                     completed += 1
                     
-                    # 每10条保存一次进度
-                    if completed % 10 == 0:
-                        save_progress()
-                    
                     # 小延迟避免请求过快
                     time.sleep(0.05)
+                except TimeoutError:
+                    thread_print(f"    ❌ 处理超时（将跳过，重新运行可补缺）")
+                    with results_lock:
+                        fail_count += 1
                 except Exception as e:
                     thread_print(f"    ❌ 处理异常: {e}")
                     with results_lock:
@@ -396,16 +375,12 @@ def process_csv_to_json(csv_file, max_workers=10):
     
     except KeyboardInterrupt:
         thread_print(f"\n  ⚠️  用户中断！等待正在处理的线程完成...")
-        
-        # 等待正在执行的任务完成（最多等待30秒）
+
+        # 等待正在执行的任务完成
         executor.shutdown(wait=True, cancel_futures=False)
-        
+
         thread_print(f"  ✓ 线程已停止，已处理 {new_success} 条新记录")
-        
-        # 保存进度
-        save_progress()
-        thread_print(f"  💾 进度已保存到: {os.path.basename(progress_file)}")
-        
+
         # 不要re-raise，继续保存当前结果到JSON
     except Exception as e:
         thread_print(f"  ❌ 线程池异常: {e}")
@@ -421,13 +396,8 @@ def process_csv_to_json(csv_file, max_workers=10):
         total_success = len(results)
         thread_print(f"  ✅ 已保存: {total_success} 条记录 → {os.path.basename(json_file)}")
         
-        # 只有全部完成才删除进度文件
-        if len(results) + fail_count + skip_count >= len(all_records):
-            if os.path.exists(progress_file):
-                os.remove(progress_file)
-                thread_print(f"  🗑️  进度文件已删除")
-        else:
-            thread_print(f"  💡 提示: 重新运行可继续处理此文件的剩余记录")
+        if len(results) + fail_count + skip_count < len(all_records):
+            thread_print(f"  💡 提示: 重新运行会基于现有JSON继续补缺")
         
         return True
     except Exception as e:
@@ -456,41 +426,14 @@ def main():
         print(f"\n⚠️  在 {base_dir} 中没有找到CSV文件")
         return
     
-    # 检查已完成的文件（既没有JSON也没有进度文件的才是待处理）
-    completed_files = []
-    pending_files = []
-    partial_files = []
-    
-    for csv_file in csv_files:
-        json_file = csv_file.replace('.csv', '.json')
-        progress_file = csv_file.replace('.csv', '_progress.json')
-        
-        if os.path.exists(json_file) and not os.path.exists(progress_file):
-            # 有JSON且没有进度文件，说明已完全完成
-            completed_files.append(csv_file)
-        elif os.path.exists(progress_file):
-            # 有进度文件，说明中断过，需要继续处理
-            partial_files.append(csv_file)
-        else:
-            # 既没有JSON也没有进度文件，是全新的
-            pending_files.append(csv_file)
-    
-    # 将部分完成的文件放到待处理列表前面
-    all_pending = partial_files + pending_files
-    
+    # 统计有/没有JSON的文件（仅用于显示，全部都需处理）
+    with_json = [f for f in csv_files if os.path.exists(f.replace('.csv', '.json'))]
+    without_json = [f for f in csv_files if not os.path.exists(f.replace('.csv', '.json'))]
+
     print(f"\n📊 找到 {len(csv_files)} 个CSV文件")
-    if completed_files:
-        print(f"✅ 已完成 {len(completed_files)} 个文件（将跳过）")
-    if partial_files:
-        print(f"⏸️  部分完成 {len(partial_files)} 个文件（将继续处理）")
-    if pending_files:
-        print(f"⏳ 待处理 {len(pending_files)} 个文件")
-    
-    if not all_pending:
-        print(f"\n🎉 所有文件都已处理完成！")
-        return
-    
-    print(f"⚡ 使用 {max_workers} 个线程并发处理每个文件")
+    print(f"  · 已有JSON（将检查补缺）: {len(with_json)} 个")
+    print(f"  · 无JSON（全新处理）: {len(without_json)} 个")
+    print(f"⚡ 使用 {max_workers} 个线程并发处理")
     print("="*80)
     
     # 顺序处理每个CSV文件（但文件内部使用多线程）
@@ -498,10 +441,10 @@ def main():
     fail_files = 0
     
     try:
-        for idx, csv_file in enumerate(all_pending, 1):
+        for idx, csv_file in enumerate(csv_files, 1):
             # 相对路径显示
             rel_path = os.path.relpath(csv_file, base_dir)
-            thread_print(f"\n[{idx}/{len(all_pending)}] {rel_path}")
+            thread_print(f"\n[{idx}/{len(csv_files)}] {rel_path}")
             
             try:
                 # 处理CSV（内部使用5个线程）
@@ -522,16 +465,15 @@ def main():
         print(f"\n\n⚠️  用户中断！")
         print(f"📊 本次成功: {success_files} 个文件")
         print(f"📊 本次失败: {fail_files} 个文件")
-        print(f"📊 剩余未处理: {len(all_pending) - success_files - fail_files} 个文件")
-        print(f"\n💡 提示: 重新运行此脚本将从中断处继续（支持文件内断点续传）")
+        print(f"📊 剩余未处理: {len(csv_files) - success_files - fail_files} 个文件")
+        print(f"\n💡 提示: 重新运行脚本将继续补缺未完成的文件")
         return
     
     print(f"\n{'='*80}")
     print(f"✅ 全部处理完成！")
-    print(f"📊 本次成功: {success_files}/{len(all_pending)} 个文件")
+    print(f"📊 成功: {success_files}/{len(csv_files)} 个文件")
     if fail_files > 0:
-        print(f"📊 本次失败: {fail_files}/{len(all_pending)} 个文件")
-    print(f"📊 总计完成: {len(completed_files) + success_files}/{len(csv_files)} 个文件")
+        print(f"📊 失败: {fail_files}/{len(csv_files)} 个文件")
     print(f"{'='*80}\n")
 
 if __name__ == '__main__':

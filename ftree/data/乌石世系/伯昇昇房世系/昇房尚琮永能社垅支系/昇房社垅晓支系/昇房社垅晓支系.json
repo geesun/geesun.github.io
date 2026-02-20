@@ -19312,5 +19312,69 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "609632a2-df9f-4e91-b13d-aa54eda14ec9",
+    "name": "唐滨",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "d0db4df0-f9b1-4c73-bbad-c8e839bd6c0b",
+      "name": "汉樟",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d0db4df0-f9b1-4c73-bbad-c8e839bd6c0b&TId=1&GId=6461&ZId=44956&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐滨",
+        "次子 唐浓"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉樟 长子 唐滨 行七一五号 居社垅晓支 生于 公元一九八七年农历丁卯七月廿三日未时 。",
+      "aliases": {},
+      "birth": "公元一九八七年农历丁卯七月廿三日未时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "4e9ed862-31f3-4af8-aed4-6c5ad2faaf10",
+    "name": "唐泽",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "4488c7ff-9c59-4716-b134-14df271cb165",
+      "name": "汉耀",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4488c7ff-9c59-4716-b134-14df271cb165&TId=1&GId=6461&ZId=44956&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐源",
+        "次子 唐泽"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉耀 次子 唐泽 字徐飞 居社垅晓支 生于 公元一九九九年农历己卯五月十六日巳时。",
+      "aliases": {},
+      "birth": "公元一九九九年农历己卯五月十六日巳时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

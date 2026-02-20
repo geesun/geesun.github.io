@@ -15216,5 +15216,43 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "99351a4e-7386-4747-9be2-99ef07467276",
+    "name": "昭鹏",
+    "generation": 26,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "197ecbe2-d3b2-458f-8ece-ca1386806090",
+      "name": "新惠",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=197ecbe2-d3b2-458f-8ece-ca1386806090&TId=1&GId=6461&ZId=44533&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "0040cd4b-cd27-4a8b-9b15-1134f7d8fa2a",
+        "name": "之子伟寿",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0040cd4b-cd27-4a8b-9b15-1134f7d8fa2a&TId=1&GId=6461&ZId=44533&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 昭鹏"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 新惠 之子 昭鹏 居伍墎 生娶殁葬未详 生子一伟寿。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

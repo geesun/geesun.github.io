@@ -6290,5 +6290,39 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "d79059b4-3ca5-4681-96d2-81c05062f269",
+    "name": "家枫",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "044623c0-4b90-4e97-a868-80583b5c404d",
+      "name": "浪古",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=044623c0-4b90-4e97-a868-80583b5c404d&TId=1&GId=6461&ZId=45241&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 4,
+      "rank": 2,
+      "list": [
+        "长子 家森",
+        "次子 家枫",
+        "三子 家和",
+        "四子 家程"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 浪古 次子 家枫 居南坪庄 生娶殁葬未详。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

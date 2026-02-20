@@ -40267,5 +40267,83 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "9f39f515-c835-4c85-abf0-c58978a7462c",
+    "name": "明㦸",
+    "generation": 19,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "2cb70ca8-2160-4289-914e-bc85c2bc60c1",
+      "name": "甫揆",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2cb70ca8-2160-4289-914e-bc85c2bc60c1&TId=1&GId=6461&ZId=44467&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "1a5f38c9-c4f7-45ac-83d4-4d42f2c3c760",
+        "name": "长子曰戈",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1a5f38c9-c4f7-45ac-83d4-4d42f2c3c760&TId=1&GId=6461&ZId=44467&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "2997be70-14b0-4067-8e9f-f4dd31d23fc7",
+        "name": "次子曰成",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2997be70-14b0-4067-8e9f-f4dd31d23fc7&TId=1&GId=6461&ZId=44467&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 明戢",
+        "次子 明戬",
+        "三子 明㦸"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第19世 甫揆 三子 明㦸",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "fe8d6d54-05f0-4b0a-b2db-314977ebb578",
+    "name": "协亮",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "ad0d477e-e590-479e-b97a-fe72be24e730",
+      "name": "美春",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ad0d477e-e590-479e-b97a-fe72be24e730&TId=1&GId=6461&ZId=44467&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "之子 协亮",
+        "次子 协刚"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 美春 之子 协亮 字小亮 居后屋 详前。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

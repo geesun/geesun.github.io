@@ -25820,5 +25820,129 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "0ef86e7b-a039-4e8f-a2ba-05df31bd096e",
+    "name": "伊古",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "8866f81c-d5b4-403b-a40c-a826caa9adda",
+      "name": "今愷",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8866f81c-d5b4-403b-a40c-a826caa9adda&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "b8519157-0361-4a0c-a908-a4037dec87f8",
+        "name": "长子家旺",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b8519157-0361-4a0c-a908-a4037dec87f8&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "18b6899e-9aec-4b67-a88b-4609a6d477d8",
+        "name": "次子家曜",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=18b6899e-9aec-4b67-a88b-4609a6d477d8&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 尹古",
+        "次子 伊古"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今愷 次子 伊古 字 行二七七号居河下 生于 公元一八八零年清光绪庚辰七月初五日巳时 殁于 公元一九四零年民国庚辰七月廿八日午时 葬杨梅冈坐东向西合墓 娶王氏 生于 公元一八八二年清光绪壬午五月十五日申时 殁于 公元一九三五年民国乙亥七月初一日 生子二 家旺 家曜。",
+      "aliases": {
+        "hao": "居河下"
+      },
+      "birth": "公元一八八零年清光绪庚辰七月初五日巳时",
+      "death": "公元一九四零年民国庚辰七月廿八日午时",
+      "burial": "杨梅冈坐东向西合墓",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "ceb65a9c-8b2c-488e-8860-032abafe951d",
+    "name": "绵墙",
+    "generation": 26,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "7fc34bc0-1ff2-4925-a1d6-b5950ac9d31b",
+      "name": "系嘉",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7fc34bc0-1ff2-4925-a1d6-b5950ac9d31b&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "db3241bb-996d-4d4e-bb49-34bf93556a50",
+        "name": "之子今儒",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=db3241bb-996d-4d4e-bb49-34bf93556a50&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 绵墙"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 系嘉 之子 绵墙 行一九六 居河下 生於 公元元一八八五年清光緒乙酉九月廿四日卯時 殁於 公元一九二二年民國壬戌子月初一日巳時 葬風車岡合墓 娶桐湖丁氏 生於 公元一八八九年清光緒己丑七月十一日申時 殁於 公元一九二二年民國壬戌十二月十一日亥時 葬風車岡合墓 入繼一子 今儒 生女二 長女銀適朱家鄧必貴 次女譜秀適界壇熊。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "風車岡合墓",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "736a44a1-6fbc-487c-a562-24070341c10d",
+    "name": "汉礼",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "83032c12-3139-4b88-add6-9e4a47a0c6b3",
+      "name": "绍狮",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=83032c12-3139-4b88-add6-9e4a47a0c6b3&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "d76e9173-75fe-4542-9086-d1f19ae0a477",
+        "name": "长子唐霓",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d76e9173-75fe-4542-9086-d1f19ae0a477&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 汉铭",
+        "次子 汉礼 "
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍狮 次子 汉礼 居河下徐 字康波 生于 公元一九九二年壬申八月廿七日辰时 娶溪霞柳家柳欣仪 生于 公元二零零三年癸未正月初五日午时 生子一唐霓 。",
+      "aliases": {},
+      "birth": "公元一九九二年壬申八月廿七日辰时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

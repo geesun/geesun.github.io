@@ -15588,5 +15588,38 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "7f30cc08-2159-47d9-bca3-64b8ec9f39a2",
+    "name": "绵德",
+    "generation": 26,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0c949ea5-d917-4c6f-bb4d-d64b58a369a6",
+      "name": "系长",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0c949ea5-d917-4c6f-bb4d-d64b58a369a6&TId=1&GId=6461&ZId=45242&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 系積",
+        "次子 绵善",
+        "三子 绵德"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 系长 三子 绵德",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

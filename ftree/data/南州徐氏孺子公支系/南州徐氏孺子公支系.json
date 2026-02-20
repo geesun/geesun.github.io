@@ -39500,5 +39500,124 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "d6ace4e2-4020-4113-8233-c796971b9af9",
+    "name": "贵",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "09a976a0-7ca0-4aca-ba3d-517cd78136b0",
+      "name": "富",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=09a976a0-7ca0-4aca-ba3d-517cd78136b0&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "b79996a5-dc2b-4f6d-91fa-fee16bfa4935",
+        "name": "长子钦裕",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b79996a5-dc2b-4f6d-91fa-fee16bfa4935&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "c2d38850-a43c-4ed9-8718-24e7fc591e36",
+        "name": "次子钦义",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c2d38850-a43c-4ed9-8718-24e7fc591e36&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 贵"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 富 之子 贵 字光宗仕宋饶州教谕 娶王氏 生子二钦裕 钦义。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "ac14390b-e991-4290-8331-38eeb523f57e",
+    "name": "光曙",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "e40424e3-d373-4f9c-9c5a-8d18604eddfb",
+      "name": "文贞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e40424e3-d373-4f9c-9c5a-8d18604eddfb&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "e8cde098-9613-4fbc-95af-a8e46293e2f0",
+        "name": "长子周",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e8cde098-9613-4fbc-95af-a8e46293e2f0&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "eda41179-fc2a-418d-91e1-107168bc61b2",
+        "name": "次子及",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=eda41179-fc2a-418d-91e1-107168bc61b2&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "2b55d537-fb4d-462e-934e-c0ca2546355e",
+        "name": "三子赏",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2b55d537-fb4d-462e-934e-c0ca2546355e&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "90e37b28-03a8-4e75-8834-6083a1afa567",
+        "name": "四子至",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90e37b28-03a8-4e75-8834-6083a1afa567&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "a9c68d16-a088-48f2-99bf-7611783715cd",
+        "name": "五子晝",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a9c68d16-a088-48f2-99bf-7611783715cd&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "9caef6ef-be6a-47ff-85e8-4ba0147c7d66",
+        "name": "六子骧",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9caef6ef-be6a-47ff-85e8-4ba0147c7d66&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "75a69663-5f7b-4615-a9bd-a9bb5ebfdb20",
+        "name": "七子溥",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=75a69663-5f7b-4615-a9bd-a9bb5ebfdb20&TId=1&GId=6461&ZId=45952&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 光著",
+        "次子 光曙"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 文贞 次子 光曙 行十八字耀卿一字辉耀子贵诰封承德郎以曾孙仪贵晋赠奉政大夫翰林院学士 娶胡氏 生子七 周 及 赏 至 晝 骧 溥。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

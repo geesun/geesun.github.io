@@ -23079,5 +23079,47 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "6e338b37-4774-44fd-aba8-c466ac7eb229",
+    "name": "古蓉",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "3cdac6df-5727-4c39-9e3b-3124679ddb82",
+      "name": "今宝",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3cdac6df-5727-4c39-9e3b-3124679ddb82&TId=1&GId=6461&ZId=44957&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "5c3e88e9-0049-43d6-9ebb-a699da574d97",
+        "name": "之子家鹏",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5c3e88e9-0049-43d6-9ebb-a699da574d97&TId=1&GId=6461&ZId=44957&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 古荟",
+        "次子 古蓉",
+        "三子 古芥"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今宝 次子 古蓉 字 行二一四号居社壠 生于 公元一九零七年光绪丁未十月十六日戌时 殁未详葬罗家园向东 娶乔西张氏 生于 公元一八七二年清同治壬申十月廿九日辰时 殁于 公元一九四零年民国庚辰二月十三日亥时 葬董家山向南 生子一 家鹏。",
+      "aliases": {
+        "hao": "居社壠"
+      },
+      "birth": "公元一九零七年光绪丁未十月十六日戌时 殁未详",
+      "death": "公元一九四零年民国庚辰二月十三日亥时",
+      "burial": "罗家园向东",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

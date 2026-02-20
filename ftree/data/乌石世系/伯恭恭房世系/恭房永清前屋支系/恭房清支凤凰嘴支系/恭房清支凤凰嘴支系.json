@@ -13390,5 +13390,45 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "f4d3dd64-7e19-43db-88a7-32cfe059ba3d",
+    "name": "维泗",
+    "generation": 24,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "681e5749-3d64-42b6-87cb-7fc84645dc2f",
+      "name": "盛旺",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=681e5749-3d64-42b6-87cb-7fc84645dc2f&TId=1&GId=6461&ZId=44549&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "884c52ba-29ab-4e98-a540-1c0f92521966",
+        "name": "之子新作",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=884c52ba-29ab-4e98-a540-1c0f92521966&TId=1&GId=6461&ZId=44549&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 维泗",
+        "次子 维湖",
+        "三子 维滨"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第24世 盛旺 长子 维泗 居凤嘴 生娶殁葬未详 生子一 新作。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

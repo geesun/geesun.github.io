@@ -26685,5 +26685,160 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "0b56b906-c12d-4c66-8617-bcf3f592ec10",
+    "name": "绵祥",
+    "generation": 26,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "b856d14f-6729-4464-b06f-6ffe2d6b0f94",
+      "name": "系商",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b856d14f-6729-4464-b06f-6ffe2d6b0f94&TId=1&GId=6461&ZId=45682&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "81ac9865-3924-4f46-8568-9abb9aa11d61",
+        "name": "长子今佑",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=81ac9865-3924-4f46-8568-9abb9aa11d61&TId=1&GId=6461&ZId=45682&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "ba1c909c-f3ef-4796-b529-c7b6f091c2e7",
+        "name": "次子今保",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ba1c909c-f3ef-4796-b529-c7b6f091c2e7&TId=1&GId=6461&ZId=45682&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "ed114d45-8080-4f25-873c-b384eea24fab",
+        "name": "三子今侒",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ed114d45-8080-4f25-873c-b384eea24fab&TId=1&GId=6461&ZId=45682&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "43277658-8af2-4e82-a40f-705be39b50c5",
+        "name": "四子今俍",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=43277658-8af2-4e82-a40f-705be39b50c5&TId=1&GId=6461&ZId=45682&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 2,
+      "list": [
+        "长子 绵吉",
+        "次子 绵祥",
+        "三子 绵广",
+        "四子 绵歴"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 系商 次子 绵祥 居上白港 生娶殁葬未详 生子四 今佑 今保 今侒 今俍。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "66dbca28-b419-4c4b-bb56-cc468ee596e9",
+    "name": "声玉",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "ff25b1c4-67ab-4ad4-9e7b-bd6b78fd3ed0",
+      "name": "家珍",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ff25b1c4-67ab-4ad4-9e7b-bd6b78fd3ed0&TId=1&GId=6461&ZId=45682&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [],
+    "siblings": {
+      "total_count": 4,
+      "rank": 4,
+      "list": [
+        "长子 声扬",
+        "次子 声振",
+        "三子 声集",
+        "四子 声玉"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家珍 四子 声玉 居上白港 生娶殁葬未详。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "43edcbc6-2380-4cc0-b824-ebbcffc413f1",
+    "name": "古坤",
+    "generation": 28,
+    "url": null,
+    "note": "承继胞弟今敏之长子",
+    "father": {
+      "nid": "34833e80-b721-4f03-b57b-f20f80c677aa",
+      "name": "今譲",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=34833e80-b721-4f03-b57b-f20f80c677aa&TId=1&GId=6461&ZId=45682&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 古坤"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今譲 嗣子 古坤 居上白港 生娶殁葬未详。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "c23ff4ab-c9eb-41dc-8b0c-9daf2ee3f84d",
+    "name": "高泽",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "52961d58-124e-462a-b199-fa04bccc1de2",
+      "name": "唐利",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=52961d58-124e-462a-b199-fa04bccc1de2&TId=1&GId=6461&ZId=45682&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 高泽"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐利 长子 高泽 字若泽 居上白港 学历大学 生于 公元一九九六年丙子八月吉日吉时。",
+      "aliases": {},
+      "birth": "公元一九九六年丙子八月吉日吉时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

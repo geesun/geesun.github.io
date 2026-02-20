@@ -5779,5 +5779,46 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "8afa1427-f6f0-4ad4-b294-f17df311b8f5",
+    "name": "古莒",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5c44058c-31e4-42b5-a7b6-5da90e3e3a36",
+      "name": "今腹",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5c44058c-31e4-42b5-a7b6-5da90e3e3a36&TId=1&GId=6461&ZId=45212&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "d301e071-d1a0-4654-a588-82a52145c081",
+        "name": "之子家友",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d301e071-d1a0-4654-a588-82a52145c081&TId=1&GId=6461&ZId=45212&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 3,
+      "list": [
+        "长子 古萱",
+        "次子 古芳",
+        "三子 古莒",
+        "四子 古蔚"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今腹 三子 古莒 字 行 居堯壠 生于 公元一九五九年共和国己亥七月十五丑时 娶金盤万氏 生于 公元一九六三年共和国癸卯二月初三戌时 生子一家友 生女一春香适桥东张其斌。",
+      "aliases": {},
+      "birth": "公元一九五九年共和国己亥七月十五丑时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

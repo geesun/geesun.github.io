@@ -16556,5 +16556,89 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "abe9d674-a256-477f-94ff-715616539e79",
+    "name": "今淮",
+    "generation": 27,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "c67990b5-9a15-4398-a62c-800695a531ad",
+      "name": "绵英",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c67990b5-9a15-4398-a62c-800695a531ad&TId=1&GId=6461&ZId=44649&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 4,
+      "rank": 1,
+      "list": [
+        "长子 今淮",
+        "次子 今河",
+        "三子 今汉",
+        "四子 今昞"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第27世 绵英 长子 今淮",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a930732f-5199-4426-8a01-84e794554321",
+    "name": "世汉",
+    "generation": 24,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "3c95abf0-f0f3-4c24-9396-4a91fd2e0ef1",
+      "name": "荣轼",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3c95abf0-f0f3-4c24-9396-4a91fd2e0ef1&TId=1&GId=6461&ZId=44649&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "1a97c8c3-512e-443b-87f0-786fadf85307",
+        "name": "长子系楙",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1a97c8c3-512e-443b-87f0-786fadf85307&TId=1&GId=6461&ZId=44649&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "20fc593b-bd31-4b9a-af32-a7917ce0ffb5",
+        "name": "次子系樸",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=20fc593b-bd31-4b9a-af32-a7917ce0ffb5&TId=1&GId=6461&ZId=44649&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "2ccb89ec-8977-4535-b2fd-dc87a9935822",
+        "name": "三子系楚",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2ccb89ec-8977-4535-b2fd-dc87a9935822&TId=1&GId=6461&ZId=44649&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 世汉"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第24世 荣轼 之子 世汉",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

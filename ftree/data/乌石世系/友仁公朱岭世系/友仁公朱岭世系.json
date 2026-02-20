@@ -37718,5 +37718,83 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "4c311124-7a58-4c5b-96d9-63a72707efbc",
+    "name": "烈奎",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "b69003b5-adfb-4ed6-969e-641a2f22455a",
+      "name": "伟议",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b69003b5-adfb-4ed6-969e-641a2f22455a&TId=1&GId=6461&ZId=44460&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "cdbddf61-7298-47f9-8ad2-a7aed68cf430",
+        "name": "长子济权",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=cdbddf61-7298-47f9-8ad2-a7aed68cf430&TId=1&GId=6461&ZId=44460&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "6069be59-aaed-41e7-bf3d-a3c29aa64e97",
+        "name": "次子济鹏",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6069be59-aaed-41e7-bf3d-a3c29aa64e97&TId=1&GId=6461&ZId=44460&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 烈才",
+        "次子 烈奎"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 伟议 次子 烈奎 字乾元 行 居朱岭 生于 公元一九六四年农历甲辰八月十二日丑时 娶招贤镇东源刘长妹 生于 公元一九六六年丙午二月廿五日辰时 生子二 济权 济鹏 生女一 小凤 生于公元一九九二年农历壬申七月十五日子时适南昌县塘南镇李家村。",
+      "aliases": {},
+      "birth": "公元一九六四年农历甲辰八月十二日丑时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "ec9753b4-d77b-42f5-91f2-7c13db150c56",
+    "name": "隆乾",
+    "generation": 22,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "3cbaaa05-283f-4504-ab48-e26c8f470e18",
+      "name": "嘉锦",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3cbaaa05-283f-4504-ab48-e26c8f470e18&TId=1&GId=6461&ZId=44460&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 隆和",
+        "次子 隆乾",
+        "三子 隆金"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第22世 嘉锦 次子 隆乾",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

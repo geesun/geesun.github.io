@@ -5705,5 +5705,45 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "6d9eb8e7-65ec-47b2-bfb5-235431276ff6",
+    "name": "汉样",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "2c2ef105-2b9d-42dd-8ed9-308d016389f8",
+      "name": "绍银",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2c2ef105-2b9d-42dd-8ed9-308d016389f8&TId=1&GId=6461&ZId=45609&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "64c661cb-21d0-40b7-91db-6a1ca6109086",
+        "name": "之子唐辉",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64c661cb-21d0-40b7-91db-6a1ca6109086&TId=1&GId=6461&ZId=45609&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 汉模",
+        "次子 汉柄",
+        "三子 汉样"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍银 三子 汉样 高二毕业 居夏家垄 生于 公元一九六六年共和国丙午七月初五日酉时 娶南京江宁县伍氏腊梅 生于 公元一九六九年己酉十二月十五日亥时 生子一唐辉 生女一紫云生于一九九一年岁次辛未正月十九日卯时已适离异。",
+      "aliases": {},
+      "birth": "公元一九六六年共和国丙午七月初五日酉时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

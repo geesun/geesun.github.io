@@ -14192,5 +14192,137 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "6b769dce-d572-4e57-b175-9a7ae3337cfe",
+    "name": "古钊",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "3ebb73d7-4d85-469a-aab0-ce4c73a9143c",
+      "name": "今楷",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3ebb73d7-4d85-469a-aab0-ce4c73a9143c&TId=1&GId=6461&ZId=44664&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "e2190b31-8000-48c1-97ee-cdfd1f767a0e",
+        "name": "长子家瑞",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e2190b31-8000-48c1-97ee-cdfd1f767a0e&TId=1&GId=6461&ZId=44664&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 1,
+      "list": [
+        "长子 古钊",
+        "次子 古金",
+        "三子 古鑑",
+        "四子 古银"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今楷 长子 古钊 字遂之行五号居常丰桂花 生于 公元一八零一年嘉庆辛酉十二月初六日丑时 殁于 公元一八七六年清光緒丙子六月十四日申时 葬本村塘下山坐西向東 娶餘氏 生于 公元一八零三年清嘉庆癸亥年三月初四日戌时 殁于 公元一八七五年清光緒乙亥五月十六日巳时 夫婦合墓 生子一 家瑞。",
+      "aliases": {
+        "hao": "居常丰桂花"
+      },
+      "birth": "公元一八零一年嘉庆辛酉十二月初六日丑时",
+      "death": "公元一八七六年清光緒丙子六月十四日申时",
+      "burial": "本村塘下山坐西向東",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "1d310b45-60bb-4224-84bb-2e636df4baee",
+    "name": "系秀",
+    "generation": 25,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "73373460-81d2-4f16-8b24-80c725add9c5",
+      "name": "世庭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=73373460-81d2-4f16-8b24-80c725add9c5&TId=1&GId=6461&ZId=44664&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "f737fa4a-0ff6-44a1-b028-21d4ccea3fe5",
+        "name": "长子绵华",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f737fa4a-0ff6-44a1-b028-21d4ccea3fe5&TId=1&GId=6461&ZId=44664&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "1bcfc99e-04d1-494c-999b-c4c934e9dd15",
+        "name": "次子绵英",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1bcfc99e-04d1-494c-999b-c4c934e9dd15&TId=1&GId=6461&ZId=44664&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "6b9325ba-dd38-45ac-bfb5-baf1652cc1b9",
+        "name": "三子绵竿",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6b9325ba-dd38-45ac-bfb5-baf1652cc1b9&TId=1&GId=6461&ZId=44664&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 系秀"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第25世 世庭 长子 系秀 字元拔，行十二 居常丰桂花树村 生于 公元一七四零年清乾隆庚申八月十五日未时 殁于 嘉庆庚辰年正月廿二日寅时 葬明裹山又名筲箕腦甲山庚向加地支二分金 娶邓氏 生于 清乾隆己未年二月初九日卯时 殁于 嘉庆庚午二月初六日酉时 葬于系秀公右侧夫妇合塋 附有墓园 生子三 绵华 绵英 绵芊。",
+      "aliases": {},
+      "birth": "公元一七四零年清乾隆庚申八月十五日未时",
+      "death": "嘉庆庚辰年正月廿二日寅时",
+      "burial": "明裹山又名筲箕腦甲山庚向加地支二分金",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d078929b-d7be-4902-af0a-2d543435e04b",
+    "name": "汉卫",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "aea389c1-d396-40e0-b7e6-76a9beb195ca",
+      "name": "绍许",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=aea389c1-d396-40e0-b7e6-76a9beb195ca&TId=1&GId=6461&ZId=44664&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "3810c63f-5d2c-4d38-9b01-78168861792a",
+        "name": "之子唐晶",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3810c63f-5d2c-4d38-9b01-78168861792a&TId=1&GId=6461&ZId=44664&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 汉卫",
+        "次子 汉峰"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍许 长子 汉卫 字卫平 行五九零号 居桂花树 生于 公元一九六六年共和国丙午二月初八日戌时 殁于 公元二零一六年农历丙申三月初二日亥时 葬本村塘下山扦作辛山乙向兼酉卯分针 娶西山熊海兰 生于 公元一九七一年辛亥七月初九日子时 生子一唐晶 生女一欣欣适石岗小岭夏。",
+      "aliases": {},
+      "birth": "公元一九六六年共和国丙午二月初八日戌时",
+      "death": "公元二零一六年农历丙申三月初二日亥时",
+      "burial": "本村塘下山扦作辛山乙向兼酉卯分针",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

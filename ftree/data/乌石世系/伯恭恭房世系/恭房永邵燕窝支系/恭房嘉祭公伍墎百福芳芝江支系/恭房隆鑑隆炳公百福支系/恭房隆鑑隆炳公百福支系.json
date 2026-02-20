@@ -10878,5 +10878,51 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "8ef8e7dc-ad36-440e-9983-61fc18a46803",
+    "name": "美録",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0eab0199-fb5c-4906-aa3c-35bfde996382",
+      "name": "济黎",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0eab0199-fb5c-4906-aa3c-35bfde996382&TId=1&GId=6461&ZId=44534&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "c78dadb9-d14d-4291-8d71-c3df483bd244",
+        "name": "长子协江",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c78dadb9-d14d-4291-8d71-c3df483bd244&TId=1&GId=6461&ZId=44534&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "ce7146a8-8563-4162-b30e-21976f3104bd",
+        "name": "次子协伟",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ce7146a8-8563-4162-b30e-21976f3104bd&TId=1&GId=6461&ZId=44534&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 美録",
+        "次子 美铉",
+        "三子 美红"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 济黎 长子 美録 字解放 行九六四 居百福 生于 公元一九五一年辛卯七月十二日午时 殁于 公元二零一三年农历癸巳年十一月廿日未时葬千马嘴山 娶永修三角仓下陈林香 生于 公元一九五三年癸巳七月十二日午时 生子二 协江 协伟 生女一 长女小凤生于公元一九七六年八月廿五日 适金桥园山聂家。",
+      "aliases": {},
+      "birth": "公元一九五一年辛卯七月十二日午时",
+      "death": "公元二零一三年农历癸巳年十一月廿日未时",
+      "burial": "千马嘴山",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]
