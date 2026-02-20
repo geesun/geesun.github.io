@@ -1,0 +1,269 @@
+[
+  {
+    "nid": "301e66a0-2532-485b-9e3a-ac11ab92e73b",
+    "name": "永贵",
+    "generation": 15,
+    "url": null,
+    "note": "迁蛟湖",
+    "father": {
+      "nid": "d6a1e2c1-cecc-4a37-ba57-0ee0caee0298",
+      "name": "尚顼",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d6a1e2c1-cecc-4a37-ba57-0ee0caee0298&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 永贵"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第15世 尚顼 长子 永贵 迁居郊湖基世祖 生于 明朝孝宗宏治元年戊申七月十四日午时 殁于 世宗嘉靖四十二年癸亥十月初七日丑时 娶范氏 生于 明朝孝宗宏治五年壬子六月廿九日子时 殁于 世宗嘉靖三十八年己未十月廿八日子时 生子一 朝友。",
+      "aliases": {},
+      "birth": "明朝孝宗宏治元年戊申七月十四日午时",
+      "death": "世宗嘉靖四十二年癸亥十月初七日丑时",
+      "burial": null,
+      "migration": "居郊湖基世祖",
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d6a1e2c1-cecc-4a37-ba57-0ee0caee0298",
+    "name": "尚顼",
+    "generation": 14,
+    "url": null,
+    "note": "郊湖基九老支祖",
+    "father": {
+      "nid": "97e90c36-6cac-405a-9884-8bf0090d3f7f",
+      "name": "伯贞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97e90c36-6cac-405a-9884-8bf0090d3f7f&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [
+      {
+        "nid": "301e66a0-2532-485b-9e3a-ac11ab92e73b",
+        "name": "长子永贵",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=301e66a0-2532-485b-9e3a-ac11ab92e73b&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 7,
+      "rank": 4,
+      "list": [
+        "长子 尚玘",
+        "次子 尚瑛",
+        "三子 尚琼",
+        "四子 尚顼",
+        "五子 尚珍",
+        "六子 尚瓛",
+        "幼子 尚瓛"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第14世 伯贞 四子 尚顼 讳容和号石林 迁居郊湖基九老支祖 生于 明朝英宗天顺五年辛巳四月十八日巳时 殁于 世宗嘉靖九年庚寅十月初八日辰时 葬未详 娶陶氏 生于明朝宪宗成化元年乙酉四月廿二日酉时 殁于世宗嘉靖十七年戊戌十月廿日卯时 葬未详 生子一 永贵。",
+      "aliases": {
+        "hui": "容和",
+        "hao": "石林"
+      },
+      "birth": "明朝英宗天顺五年辛巳四月十八日巳时",
+      "death": "世宗嘉靖九年庚寅十月初八日辰时",
+      "burial": "未详",
+      "migration": "居郊湖基九老支祖",
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d1be366b-8363-4dd6-9f50-effe094fea3b",
+    "name": "尚瑛",
+    "generation": 14,
+    "url": null,
+    "note": "祠堂 吉家桥 鲤溪支祖",
+    "father": {
+      "nid": "97e90c36-6cac-405a-9884-8bf0090d3f7f",
+      "name": "伯贞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97e90c36-6cac-405a-9884-8bf0090d3f7f&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 7,
+      "rank": 2,
+      "list": [
+        "长子 尚玘",
+        "次子 尚瑛",
+        "三子 尚琼",
+        "四子 尚顼",
+        "五子 尚珍",
+        "六子 尚瓛",
+        "幼子 尚瓛"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第14世 伯贞 次子 尚瑛 讳宁和号默庵 学官垅支祖 生于 明朝代宗景泰五年甲戌八月廿一日午时 殁于 世宗嘉靖四年乙酉六月十三日酉时 葬未详 娶陈氏 生于 明英宗天顺二年戊寅七月廿六日丑时 殁于孝宗弘治十年丁巳十月廿八日辰时 葬未详 继娶万氏 生于 明英宗天顺六年壬午二月十四日子时 殁于 明世宗嘉靖七年戊子十一月初一日午时 葬未详 生子一 永正。",
+      "aliases": {
+        "hui": "宁和",
+        "hao": "默庵"
+      },
+      "birth": "明朝代宗景泰五年甲戌八月廿一日午时",
+      "death": "世宗嘉靖四年乙酉六月十三日酉时",
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "ebbe33d7-e424-47e4-a23f-78f8766995fd",
+    "name": "尚珍",
+    "generation": 14,
+    "url": null,
+    "note": "九老支祖",
+    "father": {
+      "nid": "97e90c36-6cac-405a-9884-8bf0090d3f7f",
+      "name": "伯贞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97e90c36-6cac-405a-9884-8bf0090d3f7f&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "五子",
+    "children": [],
+    "siblings": {
+      "total_count": 7,
+      "rank": 5,
+      "list": [
+        "长子 尚玘",
+        "次子 尚瑛",
+        "三子 尚琼",
+        "四子 尚顼",
+        "五子 尚珍",
+        "六子 尚瓛",
+        "幼子 尚瓛"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第14世 伯贞 五子 尚珍 讳宝和号樵乐 九老支祖 生于 明朝英宗天顺六年壬午八月廿九日未时 殁葬未详。",
+      "aliases": {
+        "hui": "宝和",
+        "hao": "樵乐"
+      },
+      "birth": "明朝英宗天顺六年壬午八月廿九日未时 殁",
+      "death": null,
+      "burial": "未详。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "887f6af7-7eee-42b0-99cf-81a528c7341e",
+    "name": "尚瓛",
+    "generation": 14,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "97e90c36-6cac-405a-9884-8bf0090d3f7f",
+      "name": "伯贞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97e90c36-6cac-405a-9884-8bf0090d3f7f&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "六子",
+    "children": [],
+    "siblings": {
+      "total_count": 7,
+      "rank": 6,
+      "list": [
+        "长子 尚玘",
+        "次子 尚瑛",
+        "三子 尚琼",
+        "四子 尚顼",
+        "五子 尚珍",
+        "六子 尚瓛",
+        "幼子 尚瓛"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第14世 伯贞 六子 尚瓛",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "97e90c36-6cac-405a-9884-8bf0090d3f7f",
+    "name": "伯贞",
+    "generation": 13,
+    "url": null,
+    "note": "九脑支祖 娶金祝二位安人",
+    "father": {
+      "nid": "63ff3193-d341-43b3-986d-f463cc8a230b",
+      "name": "友恒",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=63ff3193-d341-43b3-986d-f463cc8a230b&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "2abf447b-47bd-4196-80cd-d1c2bfc25027",
+        "name": "长子尚玘",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2abf447b-47bd-4196-80cd-d1c2bfc25027&TId=1&GId=6461&ZId=44634&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d1be366b-8363-4dd6-9f50-effe094fea3b",
+        "name": "次子尚瑛",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d1be366b-8363-4dd6-9f50-effe094fea3b&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d23c2c17-09cc-443d-9cb8-3fb3d4f566ff",
+        "name": "三子尚琼",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d23c2c17-09cc-443d-9cb8-3fb3d4f566ff&TId=1&GId=6461&ZId=44638&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d6a1e2c1-cecc-4a37-ba57-0ee0caee0298",
+        "name": "四子尚顼",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d6a1e2c1-cecc-4a37-ba57-0ee0caee0298&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "ebbe33d7-e424-47e4-a23f-78f8766995fd",
+        "name": "五子尚珍",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ebbe33d7-e424-47e4-a23f-78f8766995fd&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "887f6af7-7eee-42b0-99cf-81a528c7341e",
+        "name": "六子尚瓛",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=887f6af7-7eee-42b0-99cf-81a528c7341e&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 伯恭",
+        "次子 伯贞"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第13世 友恒 次子 伯贞 讳文同号古愚 九脑支祖 生于 公元一四一零年明朝成祖永乐八年庚寅十月五日午时 殁于 公元一四八八年孝宗弘治元年戊申十一月廿六日未时 葬莲花地坐北向南 明景泰乙亥以税户人才开取赴京授姑苏太仓使 闽之沙县浮流巡宰有平寇功当进级自请退休 娶余氏 生于 公元一四一四年明朝成祖永乐十二年甲午正月廿日午时 殁于公元一四五六年代宗景泰七年丙子十月十八日未时 葬未详 继娶祝氏 生于公元一四三零年明朝宣宗宣德五年庚戌十二月初八日戌时 殁于 公元一四九六年孝宗弘治九年丙辰十月廿日戌时 葬未详 生子六 尚玘 尚瑛 尚琼 尚顼 尚珍 尚瓛。",
+      "aliases": {
+        "hui": "文同",
+        "hao": "古愚"
+      },
+      "birth": "公元一四一零年明朝成祖永乐八年庚寅十月五日午时",
+      "death": "公元一四八八年孝宗弘治元年戊申十一月廿六日未时",
+      "burial": "莲花地坐北向南 明景泰乙亥以税户人才开取赴京授姑苏太仓使 闽之沙县浮流巡宰有平寇功当进级自请退休",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  }
+]

@@ -1,0 +1,2398 @@
+{
+  "results": [
+    {
+      "nid": "42825156-e663-4fde-bd7e-d17af9cc9ce5",
+      "name": "大用",
+      "generation": 5,
+      "url": null,
+      "note": "迁河下祖",
+      "father": {
+        "nid": "5251bc53-8661-40a1-9044-53790028ee1b",
+        "name": "安榮",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5251bc53-8661-40a1-9044-53790028ee1b&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "5ae17fea-b9ff-4745-be0c-aa0f0cd41a70",
+          "name": "长子德济",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5ae17fea-b9ff-4745-be0c-aa0f0cd41a70&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "8d7cfe4b-5b47-4017-b68b-8af8f7c79233",
+          "name": "次子德美",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8d7cfe4b-5b47-4017-b68b-8af8f7c79233&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 5,
+        "rank": 1,
+        "list": [
+          "长子 大用",
+          "次子 大椿",
+          "三子 大㲈",
+          "四子 大经",
+          "五子 大卿"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第5世 安榮 长子 大用 讳彦国 行五 河下支祖 離享省祠 公生于 公元一一三一年北宋高宗绍兴元年辛亥正月初四日亥时 殁于 公元一二零九年南宋宁宗嘉定三年己巳十月二十日巳时 葬未详 娶王氏 生于 公元一一三五年北宋高宗绍兴五年乙卯四月廿一日日子时 殁于 公元一二一三年南宋宁宗嘉定六年癸酉六月廿九日酉时 葬未详 生子二 德美 德济。",
+        "aliases": {
+          "hui": "彦国"
+        },
+        "birth": "公元一一三一年北宋高宗绍兴元年辛亥正月初四日亥时",
+        "death": "公元一二零九年南宋宁宗嘉定三年己巳十月二十日巳时",
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "e33e3bb1-ae66-4e3a-ac65-361e3cc744dc",
+      "name": "叔惠",
+      "generation": 8,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "58f1a89e-ad5b-4e9f-b428-a588c2824180",
+        "name": "思德",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=58f1a89e-ad5b-4e9f-b428-a588c2824180&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "1db708be-84ff-4eb5-b5f4-120f3c51d5e5",
+          "name": "长子季一",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1db708be-84ff-4eb5-b5f4-120f3c51d5e5&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "648b9e65-0dbe-4795-885b-05490aecf150",
+          "name": "次子季十",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=648b9e65-0dbe-4795-885b-05490aecf150&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 叔惠"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第8世 思德 长子 叔惠 行十四 居河下 生殁未详 卜葬长岡山 娶下车李氏 生殁未详 卜葬长岡山 生子二 季一 季十。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "长岡山",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "5ae17fea-b9ff-4745-be0c-aa0f0cd41a70",
+      "name": "德济",
+      "generation": 6,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "42825156-e663-4fde-bd7e-d17af9cc9ce5",
+        "name": "大用",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=42825156-e663-4fde-bd7e-d17af9cc9ce5&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [],
+      "siblings": {
+        "total_count": 2,
+        "rank": 1,
+        "list": [
+          "长子 德济",
+          "次子 德美"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第6世 大用 长子 德济 行八居河下 娶双港裘氏 夫妇卜葬茶磨山 生子二 思德 思道 迁武宁登高山。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "茶磨山",
+        "migration": "武宁登高山",
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "1db708be-84ff-4eb5-b5f4-120f3c51d5e5",
+      "name": "季一",
+      "generation": 9,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "e33e3bb1-ae66-4e3a-ac65-361e3cc744dc",
+        "name": "叔惠",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e33e3bb1-ae66-4e3a-ac65-361e3cc744dc&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "0b07d41c-be11-469b-9632-1b3a59a2afc9",
+          "name": "长子乙富",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0b07d41c-be11-469b-9632-1b3a59a2afc9&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 2,
+        "rank": 1,
+        "list": [
+          "长子 季一",
+          "次子 季十"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第9世 叔惠 长子 季一 行十七 居河下 生殁未详 卜葬太子岡 娶车头胡氏 生殁未详 葬太子岡 生子一 乙富。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "太子岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "648b9e65-0dbe-4795-885b-05490aecf150",
+      "name": "季十",
+      "generation": 9,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "e33e3bb1-ae66-4e3a-ac65-361e3cc744dc",
+        "name": "叔惠",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e33e3bb1-ae66-4e3a-ac65-361e3cc744dc&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "40fa6356-6429-4520-a025-f215a87d1a1b",
+          "name": "长子乙贵",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=40fa6356-6429-4520-a025-f215a87d1a1b&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 2,
+        "rank": 2,
+        "list": [
+          "长子 季一",
+          "次子 季十"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第9世 叔惠 次子 季十 行十八 居河下 生殁未详 葬川菇里 娶溪下柳氏 生殁未详 葬川菇里 生子一 一贵。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "川菇里",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "b2426ef6-eb22-46d2-ab7e-bff3c77f8d78",
+      "name": "思道",
+      "generation": 7,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "8d7cfe4b-5b47-4017-b68b-8af8f7c79233",
+        "name": "德美",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8d7cfe4b-5b47-4017-b68b-8af8f7c79233&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [],
+      "siblings": {
+        "total_count": 2,
+        "rank": 2,
+        "list": [
+          "长子 思德",
+          "次子 思道"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第7世 德美 次子 思道 行十二 生娶殁葬未详 迁武宁县高山。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详 迁武宁县高山。",
+        "migration": "武宁县高山",
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "0b07d41c-be11-469b-9632-1b3a59a2afc9",
+      "name": "乙富",
+      "generation": 10,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "1db708be-84ff-4eb5-b5f4-120f3c51d5e5",
+        "name": "季一",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1db708be-84ff-4eb5-b5f4-120f3c51d5e5&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "3422476c-8292-4050-9ae6-896769358bf4",
+          "name": "长子天文",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3422476c-8292-4050-9ae6-896769358bf4&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 乙富"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第10世 季一 长子 乙富 行廿一 居河下 生殁未详 葬十里长岡向南 娶岭背胡氏 生殁未详 葬十里长岡向南 生子一 天文。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "十里长岡向南",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "3422476c-8292-4050-9ae6-896769358bf4",
+      "name": "天文",
+      "generation": 11,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "0b07d41c-be11-469b-9632-1b3a59a2afc9",
+        "name": "乙富",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0b07d41c-be11-469b-9632-1b3a59a2afc9&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "28e456ee-0396-4590-b22e-74a017c8b39d",
+          "name": "长子友忠",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=28e456ee-0396-4590-b22e-74a017c8b39d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 天文"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第11世 乙富 长子 天文 行廿七 居河下 生殁未详 葬太子岡向东北 娶港田周氏 生殁未详 葬太子岡向东北 生子一 友忠。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "太子岡向东北",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "28e456ee-0396-4590-b22e-74a017c8b39d",
+      "name": "友忠",
+      "generation": 12,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "3422476c-8292-4050-9ae6-896769358bf4",
+        "name": "天文",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3422476c-8292-4050-9ae6-896769358bf4&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "bf7dac1c-e60f-4b3a-a77c-c835e796f1db",
+          "name": "长子伯达",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bf7dac1c-e60f-4b3a-a77c-c835e796f1db&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 友忠"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第12世 天文 长子 友忠 行三十一 居河下 生殁未详 葬东坡岡 娶黄墩黄氏 生殁未详 葬东坡岡 生子一 伯达。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "东坡岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "8d7cfe4b-5b47-4017-b68b-8af8f7c79233",
+      "name": "德美",
+      "generation": 6,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "42825156-e663-4fde-bd7e-d17af9cc9ce5",
+        "name": "大用",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=42825156-e663-4fde-bd7e-d17af9cc9ce5&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "58f1a89e-ad5b-4e9f-b428-a588c2824180",
+          "name": "长子思德",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=58f1a89e-ad5b-4e9f-b428-a588c2824180&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "b2426ef6-eb22-46d2-ab7e-bff3c77f8d78",
+          "name": "次子思道",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b2426ef6-eb22-46d2-ab7e-bff3c77f8d78&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 2,
+        "rank": 2,
+        "list": [
+          "长子 德济",
+          "次子 德美"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第6世 大用 次子 德美 行九 生娶殁葬未详 迁抚州 生子二 思德 思道。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详 迁抚州",
+        "migration": "抚州",
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "914f2845-5c37-46af-a83b-91b39072bf82",
+      "name": "尚安",
+      "generation": 14,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "bf7dac1c-e60f-4b3a-a77c-c835e796f1db",
+        "name": "伯达",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bf7dac1c-e60f-4b3a-a77c-c835e796f1db&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "28368604-9c2d-45c0-9807-abc6ee962c36",
+          "name": "之子永文",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=28368604-9c2d-45c0-9807-abc6ee962c36&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 尚安"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第14世 伯达 长子 尚安 生娶殁葬未详 生子一 永文。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "40fa6356-6429-4520-a025-f215a87d1a1b",
+      "name": "乙贵",
+      "generation": 10,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "648b9e65-0dbe-4795-885b-05490aecf150",
+        "name": "季十",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=648b9e65-0dbe-4795-885b-05490aecf150&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "ed9dfdc0-e5f5-47d7-8be8-de973302fe6c",
+          "name": "长子天理",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ed9dfdc0-e5f5-47d7-8be8-de973302fe6c&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 乙贵"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第10世 季十 长子 乙贵 行廿二 居河下 生殁未详 葬杨枚岡 娶阳司陈氏 生殁未详 葬杨梅岡 生子一 天理。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "杨枚岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "ed9dfdc0-e5f5-47d7-8be8-de973302fe6c",
+      "name": "天理",
+      "generation": 11,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "40fa6356-6429-4520-a025-f215a87d1a1b",
+        "name": "乙贵",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=40fa6356-6429-4520-a025-f215a87d1a1b&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "852f5f49-dba8-43c0-a150-2983ff1f8be9",
+          "name": "长子友孝",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=852f5f49-dba8-43c0-a150-2983ff1f8be9&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 天理"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第11世 乙贵 长子 天理 行廿六 居河下 生殁未详 葬野鸡尾向东 娶古城申氏 生殁未详 葬野鸡尾向东 生子一 友孝。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "野鸡尾向东",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "852f5f49-dba8-43c0-a150-2983ff1f8be9",
+      "name": "友孝",
+      "generation": 12,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "ed9dfdc0-e5f5-47d7-8be8-de973302fe6c",
+        "name": "天理",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ed9dfdc0-e5f5-47d7-8be8-de973302fe6c&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "cf153ed1-fe97-4e91-8d54-b17d95ff1183",
+          "name": "长子伯通",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=cf153ed1-fe97-4e91-8d54-b17d95ff1183&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 友孝"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第12世 天理 长子 友孝 行三十二 居河下 生殁未详 葬白石脑 娶黄墩黄氏 生殁未详 葬白石脑 生子一 伯通。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "白石脑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "cf153ed1-fe97-4e91-8d54-b17d95ff1183",
+      "name": "伯通",
+      "generation": 13,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "852f5f49-dba8-43c0-a150-2983ff1f8be9",
+        "name": "友孝",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=852f5f49-dba8-43c0-a150-2983ff1f8be9&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "1fbeec03-e296-4651-b29d-ab01eb8464ad",
+          "name": "长子尚定",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1fbeec03-e296-4651-b29d-ab01eb8464ad&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 伯通"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第13世 友孝 长子 伯通 生娶殁葬未详 生子一 尚定。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "1fbeec03-e296-4651-b29d-ab01eb8464ad",
+      "name": "尚定",
+      "generation": 14,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "cf153ed1-fe97-4e91-8d54-b17d95ff1183",
+        "name": "伯通",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=cf153ed1-fe97-4e91-8d54-b17d95ff1183&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "c3e35d1a-6b58-4b0f-baa7-d41f5699e18d",
+          "name": "之子永贤",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c3e35d1a-6b58-4b0f-baa7-d41f5699e18d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 尚定"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第14世 伯通 长子 尚定 生娶殁葬未详 生子一 永贤。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "28368604-9c2d-45c0-9807-abc6ee962c36",
+      "name": "永文",
+      "generation": 15,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "914f2845-5c37-46af-a83b-91b39072bf82",
+        "name": "尚安",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=914f2845-5c37-46af-a83b-91b39072bf82&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "之子",
+      "children": [
+        {
+          "nid": "411ea119-92bb-48aa-9a2b-f12197785ea8",
+          "name": "之子易福",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=411ea119-92bb-48aa-9a2b-f12197785ea8&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "之子 永文"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第15世 尚安 之子 永文 生娶殁葬未详 生子一 易福。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "411ea119-92bb-48aa-9a2b-f12197785ea8",
+      "name": "易福",
+      "generation": 16,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "28368604-9c2d-45c0-9807-abc6ee962c36",
+        "name": "永文",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=28368604-9c2d-45c0-9807-abc6ee962c36&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "之子",
+      "children": [
+        {
+          "nid": "e2e60a0f-b8c1-4b21-9b01-40026586cd35",
+          "name": "长子花观",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e2e60a0f-b8c1-4b21-9b01-40026586cd35&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "之子 易福"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第16世 永文 之子 易福 生娶殁葬未详 生子一 花观。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "e2e60a0f-b8c1-4b21-9b01-40026586cd35",
+      "name": "花观",
+      "generation": 17,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "411ea119-92bb-48aa-9a2b-f12197785ea8",
+        "name": "易福",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=411ea119-92bb-48aa-9a2b-f12197785ea8&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "bd3788d6-4596-4c58-9c94-78f3cbf3ab2c",
+          "name": "长子公义",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bd3788d6-4596-4c58-9c94-78f3cbf3ab2c&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 花观"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第17世 易福 长子 花观 生娶殁葬未详 生子一 公义。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "bd3788d6-4596-4c58-9c94-78f3cbf3ab2c",
+      "name": "公义",
+      "generation": 18,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "e2e60a0f-b8c1-4b21-9b01-40026586cd35",
+        "name": "花观",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e2e60a0f-b8c1-4b21-9b01-40026586cd35&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "544e9b2e-15d9-45d0-81b5-5ff5d284a19f",
+          "name": "长子光荣",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=544e9b2e-15d9-45d0-81b5-5ff5d284a19f&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 公义"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第18世 花观 长子 公义 生娶殁葬未详 生子一 光荣。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "544e9b2e-15d9-45d0-81b5-5ff5d284a19f",
+      "name": "光荣",
+      "generation": 19,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "bd3788d6-4596-4c58-9c94-78f3cbf3ab2c",
+        "name": "公义",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bd3788d6-4596-4c58-9c94-78f3cbf3ab2c&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "0942bc98-fca8-4278-9236-403144def043",
+          "name": "长子懋清",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0942bc98-fca8-4278-9236-403144def043&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 光荣"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第19世 公义 长子 光荣 行五 居河下 生于 公元一六二七年丁卯二月初二日辰时 殁于 公元一六九三年癸酉三月十五日未时 葬杨枚岡 娶金盤万氏 生于 公元一六二八年戊辰五月二十日申时 殁于 公元一六九三年癸酉十月初八日酉时 葬杨枚岡 生子一 懋清。",
+        "aliases": {},
+        "birth": "公元一六二七年丁卯二月初二日辰时",
+        "death": "公元一六九三年癸酉三月十五日未时",
+        "burial": "杨枚岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "c3e35d1a-6b58-4b0f-baa7-d41f5699e18d",
+      "name": "永贤",
+      "generation": 15,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "1fbeec03-e296-4651-b29d-ab01eb8464ad",
+        "name": "尚定",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1fbeec03-e296-4651-b29d-ab01eb8464ad&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "之子",
+      "children": [
+        {
+          "nid": "6c2c469d-8bf2-47d0-9d08-09e5acbdb30c",
+          "name": "之子易禄",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6c2c469d-8bf2-47d0-9d08-09e5acbdb30c&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "之子 永贤"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第15世 尚定 之子 永贤 生娶殁葬未详 生子一 易禄。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "6c2c469d-8bf2-47d0-9d08-09e5acbdb30c",
+      "name": "易禄",
+      "generation": 16,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "c3e35d1a-6b58-4b0f-baa7-d41f5699e18d",
+        "name": "永贤",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c3e35d1a-6b58-4b0f-baa7-d41f5699e18d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "之子",
+      "children": [
+        {
+          "nid": "f4721643-b1c8-4b29-9d87-db0075b7cb73",
+          "name": "长子柳观",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f4721643-b1c8-4b29-9d87-db0075b7cb73&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "之子 易禄"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第16世 永贤 之子 易禄 生娶殁葬未详 生子一 柳观。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "f4721643-b1c8-4b29-9d87-db0075b7cb73",
+      "name": "柳观",
+      "generation": 17,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "6c2c469d-8bf2-47d0-9d08-09e5acbdb30c",
+        "name": "易禄",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6c2c469d-8bf2-47d0-9d08-09e5acbdb30c&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "32763fa1-5922-4c6a-8c56-fbb9c6717f13",
+          "name": "长子公仁",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=32763fa1-5922-4c6a-8c56-fbb9c6717f13&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 柳观"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第17世 易禄 长子 柳观 生娶殁葬未详 生子一 公仁。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "32763fa1-5922-4c6a-8c56-fbb9c6717f13",
+      "name": "公仁",
+      "generation": 18,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "f4721643-b1c8-4b29-9d87-db0075b7cb73",
+        "name": "柳观",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f4721643-b1c8-4b29-9d87-db0075b7cb73&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "26788ce2-2758-4b44-a1bb-c6075b848bbd",
+          "name": "长子光棋",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=26788ce2-2758-4b44-a1bb-c6075b848bbd&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "d2969c7e-4aa2-4d8f-88bb-051cd234a4fb",
+          "name": "次子光梧",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2969c7e-4aa2-4d8f-88bb-051cd234a4fb&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "58dedf37-3bab-43be-9d4d-ad0b1904ae57",
+          "name": "三子光柄",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=58dedf37-3bab-43be-9d4d-ad0b1904ae57&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "86f3517d-73d7-4d84-b6b4-024757d63c77",
+          "name": "四子光杞",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=86f3517d-73d7-4d84-b6b4-024757d63c77&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 公仁"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第18世 柳观 长子 公仁 生娶殁葬未详 生子四 光棋 光梧 光柄 光杞。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "26788ce2-2758-4b44-a1bb-c6075b848bbd",
+      "name": "光棋",
+      "generation": 19,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "32763fa1-5922-4c6a-8c56-fbb9c6717f13",
+        "name": "公仁",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=32763fa1-5922-4c6a-8c56-fbb9c6717f13&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "01d41cc5-5a2d-4f0c-be46-f1535d236a99",
+          "name": "长子懋英",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=01d41cc5-5a2d-4f0c-be46-f1535d236a99&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 1,
+        "list": [
+          "长子 光棋",
+          "次子 光梧",
+          "三子 光柄",
+          "四子 光杞"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第19世 公仁 长子 光棋 行二 居河下 生于 公元一五九七年丙申七月十八日亥时 享寿六十旬 殁于 公元一六五七年冬月四月十四日丑时 葬杉树兠 娶上河戴氏 生于 公元一六零一年庚子八月十九日辰时 享寿五十八 殁于 公元一六五九年己亥子月廿日酉时 葬杉树兠 生子一 懋英。",
+        "aliases": {},
+        "birth": "公元一五九七年丙申七月十八日亥时 享寿六十旬",
+        "death": "公元一六五七年冬月四月十四日丑时",
+        "burial": "杉树兠",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "58f1a89e-ad5b-4e9f-b428-a588c2824180",
+      "name": "思德",
+      "generation": 7,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "8d7cfe4b-5b47-4017-b68b-8af8f7c79233",
+        "name": "德美",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8d7cfe4b-5b47-4017-b68b-8af8f7c79233&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "e33e3bb1-ae66-4e3a-ac65-361e3cc744dc",
+          "name": "长子叔惠",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e33e3bb1-ae66-4e3a-ac65-361e3cc744dc&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 2,
+        "rank": 1,
+        "list": [
+          "长子 思德",
+          "次子 思道"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第7世 德美 长子 思德 行十一 居河下 生殁未详 卜葬风车岡 娶柏山黄氏 生殁未详 卜葬风车岡 生子一 叔惠。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "风车岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "bf7dac1c-e60f-4b3a-a77c-c835e796f1db",
+      "name": "伯达",
+      "generation": 13,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "28e456ee-0396-4590-b22e-74a017c8b39d",
+        "name": "友忠",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=28e456ee-0396-4590-b22e-74a017c8b39d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "914f2845-5c37-46af-a83b-91b39072bf82",
+          "name": "长子尚安",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=914f2845-5c37-46af-a83b-91b39072bf82&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 伯达"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第13世 友忠 长子 伯达 生娶殁葬未详 生子一 尚安。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": "未详",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "86f3517d-73d7-4d84-b6b4-024757d63c77",
+      "name": "光杞",
+      "generation": 19,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "32763fa1-5922-4c6a-8c56-fbb9c6717f13",
+        "name": "公仁",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=32763fa1-5922-4c6a-8c56-fbb9c6717f13&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "四子",
+      "children": [
+        {
+          "nid": "bc7f6fd9-bec0-4e6f-8d1b-f8fc43735853",
+          "name": "长子懋炜",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bc7f6fd9-bec0-4e6f-8d1b-f8fc43735853&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 4,
+        "list": [
+          "长子 光棋",
+          "次子 光梧",
+          "三子 光柄",
+          "四子 光杞"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第19世 公仁 四子 光杞 行七 居河下 生于 公元一六三零年三月初八日未时 殁于 公元一六九零年己巳六月初九日申时 葬东坡岡 娶老屋万氏 生于 公元一六三一年己巳六月十一日丑时 殁于 公元一六九二年辛未四月初五日寅时 葬东坡岡 生子一 懋炜。",
+        "aliases": {},
+        "birth": "公元一六三零年三月初八日未时",
+        "death": "公元一六九零年己巳六月初九日申时",
+        "burial": "东坡岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "01d41cc5-5a2d-4f0c-be46-f1535d236a99",
+      "name": "懋英",
+      "generation": 20,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "26788ce2-2758-4b44-a1bb-c6075b848bbd",
+        "name": "光棋",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=26788ce2-2758-4b44-a1bb-c6075b848bbd&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "b70e0c40-59ce-403b-92fc-2a50a5d8d25a",
+          "name": "长子崇荣",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b70e0c40-59ce-403b-92fc-2a50a5d8d25a&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 懋英"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第20世 光棋 长子 懋英 居河下 生于 公元一六一七年丁巳子月初九日亥时 殁于 公元一六七七年丁巳梅月初四日申时 葬杉树兠向西立碑 娶港田周氏 生于 公元一六一九年己未四月十二日辰时 殁于 公元一六八一年辛酉十月初十日亥时 葬茶磨山向西立碑 生子一 崇墀。",
+        "aliases": {},
+        "birth": "公元一六一七年丁巳子月初九日亥时",
+        "death": "公元一六七七年丁巳梅月初四日申时",
+        "burial": "杉树兠向西立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "b70e0c40-59ce-403b-92fc-2a50a5d8d25a",
+      "name": "崇荣",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "01d41cc5-5a2d-4f0c-be46-f1535d236a99",
+        "name": "懋英",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=01d41cc5-5a2d-4f0c-be46-f1535d236a99&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "2b6f716f-266f-481d-91e8-9e4095b587e5",
+          "name": "长子显鑽",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2b6f716f-266f-481d-91e8-9e4095b587e5&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 崇荣"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 懋英 长子 崇荣 又名崇墀 行五 居河下 生于 公元一六四八年戊子二月廿三日子时 殁于 公元一七一零年庚寅七月初四日午时 葬茶磨山向西立碑 娶石路施氏 生于 公元一六四九年己丑三月初五日午时 殁于 公元一七一零年庚寅十二月初六日申时 葬茶磨山向西立碑 生子一 显鑽。",
+        "aliases": {},
+        "birth": "公元一六四八年戊子二月廿三日子时",
+        "death": "公元一七一零年庚寅七月初四日午时",
+        "burial": "茶磨山向西立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "2b6f716f-266f-481d-91e8-9e4095b587e5",
+      "name": "显鑽",
+      "generation": 22,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "b70e0c40-59ce-403b-92fc-2a50a5d8d25a",
+        "name": "崇荣",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b70e0c40-59ce-403b-92fc-2a50a5d8d25a&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "98aa1104-2dec-47f2-9896-e9f69aac2e69",
+          "name": "长子荣洪",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=98aa1104-2dec-47f2-9896-e9f69aac2e69&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 显鑽"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第22世 崇荣 长子 显鑽 行五 居河下 生于 公元一六七八年丁巳八月廿二日午时 殁于 公元一七三八年丁巳四月初六日卯时 葬徐门首山向南立碑 娶湖北岳氏 生于 公元一六七九年戊午二月十二日申时 殁于 公元一七四零年己未十月十八日子时 葬徐门首山向南立碑 生子一 荣洪。",
+        "aliases": {},
+        "birth": "公元一六七八年丁巳八月廿二日午时",
+        "death": "公元一七三八年丁巳四月初六日卯时",
+        "burial": "徐门首山向南立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "98aa1104-2dec-47f2-9896-e9f69aac2e69",
+      "name": "荣洪",
+      "generation": 23,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "2b6f716f-266f-481d-91e8-9e4095b587e5",
+        "name": "显鑽",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2b6f716f-266f-481d-91e8-9e4095b587e5&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "e550908b-4aae-461f-a95d-366b4693766f",
+          "name": "长子世栋",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e550908b-4aae-461f-a95d-366b4693766f&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 荣洪"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第23世 显鑽 长子 荣洪 行九 居河下 生于 公元一七零八年己丑二月初四日辰时 殁于 公元一七六八年丙寅二月初四日午时 葬徐门首山向南立碑 娶港田周氏 生于 公元一七一零年辛卯三月十二日寅时 殁于 公元一七七零年戊辰四月廿八日亥时 葬徐门首山向南立碑 生子一 世栋。",
+        "aliases": {},
+        "birth": "公元一七零八年己丑二月初四日辰时",
+        "death": "公元一七六八年丙寅二月初四日午时",
+        "burial": "徐门首山向南立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "e550908b-4aae-461f-a95d-366b4693766f",
+      "name": "世栋",
+      "generation": 24,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "98aa1104-2dec-47f2-9896-e9f69aac2e69",
+        "name": "荣洪",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=98aa1104-2dec-47f2-9896-e9f69aac2e69&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "bb8747a6-c015-424d-8cb4-24b3fa9afcb2",
+          "name": "长子系煇",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bb8747a6-c015-424d-8cb4-24b3fa9afcb2&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 世栋"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第24世 荣洪 长子 世栋 行十六 居河下 生于 公元一七四零年戊午四月十三日未时 殁于 公元一七九九年戊午二月初五日寅时 葬茶磨山向西南立碑 娶天沅王氏 生于 公元一七四二年庚申十二月初四日午时 殁于 公元一八零四年癸亥三月十八日申时 葬茶磨山向西南立碑 生子一 系煇。",
+        "aliases": {},
+        "birth": "公元一七四零年戊午四月十三日未时",
+        "death": "公元一七九九年戊午二月初五日寅时",
+        "burial": "茶磨山向西南立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "d2969c7e-4aa2-4d8f-88bb-051cd234a4fb",
+      "name": "光梧",
+      "generation": 19,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "32763fa1-5922-4c6a-8c56-fbb9c6717f13",
+        "name": "公仁",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=32763fa1-5922-4c6a-8c56-fbb9c6717f13&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "8d164990-d093-44ff-99d0-57437ade048d",
+          "name": "长子懋灼",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8d164990-d093-44ff-99d0-57437ade048d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 2,
+        "list": [
+          "长子 光棋",
+          "次子 光梧",
+          "三子 光柄",
+          "四子 光杞"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第19世 公仁 次子 光梧 行四 居河下 生于 公元一六一四年未详五月十一日丑时 殁于 公元一六六九年己酉九月十三日亥时 葬野鸡尾 娶老屋裘氏 生于 公元一六一五年癸亥九月初九日酉时 殁于 公元一六一七年辛亥三月十八日丑时 葬野鸡尾 生子一 懋灼。",
+        "aliases": {},
+        "birth": "公元一六一四年未详五月十一日丑时",
+        "death": "公元一六六九年己酉九月十三日亥时",
+        "burial": "野鸡尾",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "58dedf37-3bab-43be-9d4d-ad0b1904ae57",
+      "name": "光柄",
+      "generation": 19,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "32763fa1-5922-4c6a-8c56-fbb9c6717f13",
+        "name": "公仁",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=32763fa1-5922-4c6a-8c56-fbb9c6717f13&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "三子",
+      "children": [
+        {
+          "nid": "f2f199a3-4e5a-4433-bee0-1f5fb7e87b21",
+          "name": "长子懋燻",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f2f199a3-4e5a-4433-bee0-1f5fb7e87b21&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 3,
+        "list": [
+          "长子 光棋",
+          "次子 光梧",
+          "三子 光柄",
+          "四子 光杞"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第19世 公仁 三子 光柄 行六 居河下 生于 公元一六二七年丁卯正月十四日午时 殁于 公元一六五二年辛未子月廿一日戌时 葬茶山磨下脑向西立碑 娶港田范氏 生于 公元一六二八年戊辰四月初九日戌时 殁于 公元一六五三年庚午十月十八日亥时 葬茶磨山下脑向西立碑 生子一 懋燻。",
+        "aliases": {},
+        "birth": "公元一六二七年丁卯正月十四日午时",
+        "death": "公元一六五二年辛未子月廿一日戌时",
+        "burial": "茶山磨下脑向西立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "0d1b1c46-22cb-40f0-abe5-7a23183654d5",
+      "name": "显钢",
+      "generation": 22,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "910a8e9a-ba89-4755-ac78-c1794229062d",
+        "name": "崇圭",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=910a8e9a-ba89-4755-ac78-c1794229062d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "2be723e5-6a6b-407e-a774-25912bd92861",
+          "name": "长子荣溪",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2be723e5-6a6b-407e-a774-25912bd92861&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 2,
+        "rank": 1,
+        "list": [
+          "长子 显钢",
+          "次子 隆均"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第22世 崇圭 长子 显钢 行十 居河下 生于 公元一七二零年乙巳九月十七日未时 殁于 公元一七九三年辛亥四月十九日未时 葬风车岡 娶老屋万氏 生于 公元一七一二年戊午十一月初八日酉时 殁于 公元一七九五年癸丑八月十七日酉时 葬风车岡 生子一 荣溪。",
+        "aliases": {},
+        "birth": "公元一七二零年乙巳九月十七日未时",
+        "death": "公元一七九三年辛亥四月十九日未时",
+        "burial": "风车岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "8d164990-d093-44ff-99d0-57437ade048d",
+      "name": "懋灼",
+      "generation": 20,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "d2969c7e-4aa2-4d8f-88bb-051cd234a4fb",
+        "name": "光梧",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2969c7e-4aa2-4d8f-88bb-051cd234a4fb&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "910a8e9a-ba89-4755-ac78-c1794229062d",
+          "name": "长子崇圭",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=910a8e9a-ba89-4755-ac78-c1794229062d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 懋灼"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第20世 光梧 长子 懋灼 行四 居河下 生于 公元一六五二年壬辰三月十五日辰时 殁于 公元一七一二年壬辰十月廿一日午时 葬杨枚岡 娶大塘蔡氏 生于 公元一六五三年癸巳十月十一日卯时 殁于 公元一七一四年甲午二月十七日辰时 葬杨枚岡 生子一 崇圭。",
+        "aliases": {},
+        "birth": "公元一六五二年壬辰三月十五日辰时",
+        "death": "公元一七一二年壬辰十月廿一日午时",
+        "burial": "杨枚岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "910a8e9a-ba89-4755-ac78-c1794229062d",
+      "name": "崇圭",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "8d164990-d093-44ff-99d0-57437ade048d",
+        "name": "懋灼",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8d164990-d093-44ff-99d0-57437ade048d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "0d1b1c46-22cb-40f0-abe5-7a23183654d5",
+          "name": "长子显钢",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0d1b1c46-22cb-40f0-abe5-7a23183654d5&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "a8b8b938-2c05-4a64-9465-47bf4ac614d7",
+          "name": "次子隆均",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a8b8b938-2c05-4a64-9465-47bf4ac614d7&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 崇圭"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 懋灼 长子 崇圭 行九 居河下 生于 公元一六八八年戊辰九月十二日申时 殁于 公元一七四零年己未十月廿一日未时 葬东坡岡 娶档上赵氏 生于 公元一六八九年己巳五月初八日寅时 殁于 公元一七四二年辛酉九月十六日寅时 葬东坡岡 生子一 显钢。",
+        "aliases": {},
+        "birth": "公元一六八八年戊辰九月十二日申时",
+        "death": "公元一七四零年己未十月廿一日未时",
+        "burial": "东坡岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "a8b8b938-2c05-4a64-9465-47bf4ac614d7",
+      "name": "隆均",
+      "generation": 22,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "910a8e9a-ba89-4755-ac78-c1794229062d",
+        "name": "崇圭",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=910a8e9a-ba89-4755-ac78-c1794229062d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [],
+      "siblings": {
+        "total_count": 2,
+        "rank": 2,
+        "list": [
+          "长子 显钢",
+          "次子 隆均"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第22世 崇圭 次子 隆均 生子 盛海。",
+        "aliases": {},
+        "birth": null,
+        "death": null,
+        "burial": null,
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "0942bc98-fca8-4278-9236-403144def043",
+      "name": "懋清",
+      "generation": 20,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "544e9b2e-15d9-45d0-81b5-5ff5d284a19f",
+        "name": "光荣",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=544e9b2e-15d9-45d0-81b5-5ff5d284a19f&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "2520c28f-6d79-44dc-adc9-930648ae0899",
+          "name": "长子崇学",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2520c28f-6d79-44dc-adc9-930648ae0899&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "f3539a69-ed26-430e-9ad6-40388c8de461",
+          "name": "次子崇勋",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f3539a69-ed26-430e-9ad6-40388c8de461&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 懋清"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第20世 光荣 长子 懋清 行五 居河下 生于 公元一六五三癸巳八月初八日午时 殁于 公元一七一二年壬辰九月廿八日申时 葬野鸡尾向东 娶双塘胡氏 生于 公元一六五五年乙未十月廿一日酉时 殁于 公元一七一四年甲午子曰初三日亥时 葬野鸡尾向东 生子二 崇学 崇勋。",
+        "aliases": {},
+        "birth": "公元一六五三癸巳八月初八日午时",
+        "death": "公元一七一二年壬辰九月廿八日申时",
+        "burial": "野鸡尾向东",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "dc6a2f4e-582b-425a-984c-9f35073c2cc0",
+      "name": "世轩",
+      "generation": 24,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "2be723e5-6a6b-407e-a774-25912bd92861",
+        "name": "荣溪",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2be723e5-6a6b-407e-a774-25912bd92861&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "ae1ec754-0059-4ceb-8759-ee4ba9505639",
+          "name": "长子系炦",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ae1ec754-0059-4ceb-8759-ee4ba9505639&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 世轩"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第24世 荣溪 长子 世轩 行五九 居河下 生于 公元一八一零年清嘉庆庚午三月廿日未时 殁于 公元一八七二年清同治壬申十二月十二日申时 葬毛园判向南立碑 娶榮化汪氏 生于 公元一八一五年清嘉庆己丑九月十八日未时 殁于 公元一八八二年清同治丙戌二月初五日辰时 葬风车冈 生子一 系炦。",
+        "aliases": {},
+        "birth": "公元一八一零年清嘉庆庚午三月廿日未时",
+        "death": "公元一八七二年清同治壬申十二月十二日申时",
+        "burial": "毛园判向南立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "e2cc4b7a-85f7-43ee-bcb1-3910384b58b4",
+      "name": "显简",
+      "generation": 22,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "2520c28f-6d79-44dc-adc9-930648ae0899",
+        "name": "崇学",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2520c28f-6d79-44dc-adc9-930648ae0899&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "c43c4d81-cc6f-4e0b-85cc-7e1852db3084",
+          "name": "长子荣河",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c43c4d81-cc6f-4e0b-85cc-7e1852db3084&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 显简"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第22世 崇学 长子 显简 行七 居河下 生于 公元一七零三年壬申九月十一日辰时 殁于 公元一七六四年壬申十月初二日亥时 葬茶磨山 娶岭里袁氏 生于 公元一七一三年戊戌二月十三日亥时 殁于 公元一七七四年甲申十月初二日子时 葬王家园立碑 生子一 荣河。",
+        "aliases": {},
+        "birth": "公元一七零三年壬申九月十一日辰时",
+        "death": "公元一七六四年壬申十月初二日亥时",
+        "burial": "茶磨山",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "2be723e5-6a6b-407e-a774-25912bd92861",
+      "name": "荣溪",
+      "generation": 23,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "0d1b1c46-22cb-40f0-abe5-7a23183654d5",
+        "name": "显钢",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0d1b1c46-22cb-40f0-abe5-7a23183654d5&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "dc6a2f4e-582b-425a-984c-9f35073c2cc0",
+          "name": "长子世轩",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=dc6a2f4e-582b-425a-984c-9f35073c2cc0&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 荣溪"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第23世 显钢 长子 荣溪 行十六 居河下 生于 公元一七五二年辛酉五月初五日亥时 殁于 公元一八一二年壬申十二月廿九日亥时 葬白石脑向西 娶港田周氏 生于 公元一七五六年丙子八月十七日酉时 殁于 公元一八二零年辛未十月十一日戌时 葬白石脑合墓 生子一 世杆。",
+        "aliases": {},
+        "birth": "公元一七五二年辛酉五月初五日亥时",
+        "death": "公元一八一二年壬申十二月廿九日亥时",
+        "burial": "白石脑向西",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "845d2e72-1be6-4c80-8d5c-47a8e1d5f5f6",
+      "name": "世模",
+      "generation": 24,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "c43c4d81-cc6f-4e0b-85cc-7e1852db3084",
+        "name": "荣河",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c43c4d81-cc6f-4e0b-85cc-7e1852db3084&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "128a49e3-77c6-46b4-85c2-ce46989c706b",
+          "name": "长子系爕",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=128a49e3-77c6-46b4-85c2-ce46989c706b&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 3,
+        "rank": 1,
+        "list": [
+          "长子 世模",
+          "次子 世彬",
+          "三子 世禄"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第24世 荣河 长子 世模 行三三 居河下 生于 公元一七六九年丙辰七月十六日酉时 殁于 公元一八二八年戊子正月十九日未时 葬金星脑立碑 娶瓜州郭氏 生于 公元一七七九年甲午三月十二日丑时 殁于 公元一八三八年庚午正月十九日辰时 葬风车岗 生子一 系燮。",
+        "aliases": {},
+        "birth": "公元一七六九年丙辰七月十六日酉时",
+        "death": "公元一八二八年戊子正月十九日未时",
+        "burial": "金星脑立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "52b94c06-4753-4778-8e30-37628caa17b9",
+      "name": "世彬",
+      "generation": 24,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "c43c4d81-cc6f-4e0b-85cc-7e1852db3084",
+        "name": "荣河",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c43c4d81-cc6f-4e0b-85cc-7e1852db3084&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "9cb8cfa2-4953-4d7f-82eb-e597cb239673",
+          "name": "长子系熠",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9cb8cfa2-4953-4d7f-82eb-e597cb239673&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 3,
+        "rank": 2,
+        "list": [
+          "长子 世模",
+          "次子 世彬",
+          "三子 世禄"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第24世 荣河 次子 世彬 行三九 居河下 生于 公元一七七五年戊戌六月廿日卯时 殁于 公元一八三二年壬辰九月十一日亥时 葬来龙山背 娶西港李氏 生于 公元一七七九年丙寅二月初四日丑时 殁于 公元一八四二年辛丑十二月十四日辰时 葬来龙山背 生子一 系熠。",
+        "aliases": {},
+        "birth": "公元一七七五年戊戌六月廿日卯时",
+        "death": "公元一八三二年壬辰九月十一日亥时",
+        "burial": "来龙山背",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "c6d5520f-7331-43d6-8f9b-b3a637faef9f",
+      "name": "世禄",
+      "generation": 24,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "c43c4d81-cc6f-4e0b-85cc-7e1852db3084",
+        "name": "荣河",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c43c4d81-cc6f-4e0b-85cc-7e1852db3084&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "三子",
+      "children": [
+        {
+          "nid": "818d3199-5dde-419b-b513-7fa5019fa9c6",
+          "name": "长子系炜",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=818d3199-5dde-419b-b513-7fa5019fa9c6&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 3,
+        "rank": 3,
+        "list": [
+          "长子 世模",
+          "次子 世彬",
+          "三子 世禄"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第24世 荣河 三子 世禄 行四八 居河下 生于 公元一七九六年丙辰七月廿七日丑时 殁于 公元一八四八年戊申二月初三日亥时 葬茶磨山 娶厚石裘氏 生于 公元一八零四年甲子三月十九日子时 殁于 公元一八六二年壬戌十月十三日辰时 葬茶磨山 生子一 系炜。",
+        "aliases": {},
+        "birth": "公元一七九六年丙辰七月廿七日丑时",
+        "death": "公元一八四八年戊申二月初三日亥时",
+        "burial": "茶磨山",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "f3539a69-ed26-430e-9ad6-40388c8de461",
+      "name": "崇勋",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "0942bc98-fca8-4278-9236-403144def043",
+        "name": "懋清",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0942bc98-fca8-4278-9236-403144def043&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "68e965a5-86d9-42c3-976d-ed85a45f6c32",
+          "name": "长子显簇",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=68e965a5-86d9-42c3-976d-ed85a45f6c32&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 2,
+        "rank": 2,
+        "list": [
+          "长子 崇学",
+          "次子 崇勋"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 懋清 次子 崇勋 行六 居河下 生于 公元一六七九年己未五月初八日午时 殁于 公元一七五二年辛未九月初九日未时 葬东坡岡 娶大塘胡氏 生于 公元一六八零年庚申四月十四日未时 殁于 公元一七五五年甲戌十月廿八日申时 葬东坡岡 生子一 显簇。",
+        "aliases": {},
+        "birth": "公元一六七九年己未五月初八日午时",
+        "death": "公元一七五二年辛未九月初九日未时",
+        "burial": "东坡岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "c43c4d81-cc6f-4e0b-85cc-7e1852db3084",
+      "name": "荣河",
+      "generation": 23,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "e2cc4b7a-85f7-43ee-bcb1-3910384b58b4",
+        "name": "显简",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e2cc4b7a-85f7-43ee-bcb1-3910384b58b4&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "845d2e72-1be6-4c80-8d5c-47a8e1d5f5f6",
+          "name": "长子世模",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=845d2e72-1be6-4c80-8d5c-47a8e1d5f5f6&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "52b94c06-4753-4778-8e30-37628caa17b9",
+          "name": "次子世彬",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=52b94c06-4753-4778-8e30-37628caa17b9&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "c6d5520f-7331-43d6-8f9b-b3a637faef9f",
+          "name": "三子世禄",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c6d5520f-7331-43d6-8f9b-b3a637faef9f&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 荣河"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第23世 显简 长子 荣河 行十 居河下 生于 公元一七二八年丁未八月初四日巳时 殁于 公元一七八九年丙午四月初二日申时 葬野鸡尾 娶四房邓氏 生于 公元一七三五年戊子四月初八日丑时 殁于 公元一七九九年丁巳十二月廿一日午时 葬野鸡尾 生子三 世模 世彬 世禄。",
+        "aliases": {},
+        "birth": "公元一七二八年丁未八月初四日巳时",
+        "death": "公元一七八九年丙午四月初二日申时",
+        "burial": "野鸡尾",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "4bd42807-43a5-45dd-a05a-bbbbe1615539",
+      "name": "荣敬",
+      "generation": 23,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "68e965a5-86d9-42c3-976d-ed85a45f6c32",
+        "name": "显簇",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=68e965a5-86d9-42c3-976d-ed85a45f6c32&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "7d546a4e-57a3-4143-9a48-52f56dd4ad82",
+          "name": "长子世樟",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7d546a4e-57a3-4143-9a48-52f56dd4ad82&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 荣敬"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第23世 显簇 长子 荣敬 行十一 居河下 生于 公元一七三一年庚戌二月十三日申时 殁于 公元一七九一年庚戌三月廿三日酉时 葬王家园向西 娶大塘程氏 生于 公元一七三二年辛亥四月初八日辰时 殁于 公元一七九五年甲寅五月廿九日亥时 葬茶磨山 生子一 世樟。",
+        "aliases": {},
+        "birth": "公元一七三一年庚戌二月十三日申时",
+        "death": "公元一七九一年庚戌三月廿三日酉时",
+        "burial": "王家园向西",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "7d546a4e-57a3-4143-9a48-52f56dd4ad82",
+      "name": "世樟",
+      "generation": 24,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "4bd42807-43a5-45dd-a05a-bbbbe1615539",
+        "name": "荣敬",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4bd42807-43a5-45dd-a05a-bbbbe1615539&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "61654878-1f0b-4b8e-acfb-8412ec993ea8",
+          "name": "长子系焕",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=61654878-1f0b-4b8e-acfb-8412ec993ea8&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "fe154bbf-d700-4606-b00b-c4fca2b79f4e",
+          "name": "次子系畑",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fe154bbf-d700-4606-b00b-c4fca2b79f4e&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "417a3c35-c6c3-49ff-9b04-29caf008ce89",
+          "name": "三子系烺",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=417a3c35-c6c3-49ff-9b04-29caf008ce89&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 世樟"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第24世 荣敬 长子 世樟 行二三 居河下 生于 公元一七五七年丙子二月初三日卯时 殁于 公元一八零零年庚申八月十五日巳时 娶高堂熊氏 生于 公元一七五五年甲戌三月十二日子时 殁于 公元一八零一年辛酉五月十五日亥时 生子三 系焕 系烺 系烟。",
+        "aliases": {},
+        "birth": "公元一七五七年丙子二月初三日卯时",
+        "death": "公元一八零零年庚申八月十五日巳时",
+        "burial": null,
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "f2f199a3-4e5a-4433-bee0-1f5fb7e87b21",
+      "name": "懋燻",
+      "generation": 20,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "58dedf37-3bab-43be-9d4d-ad0b1904ae57",
+        "name": "光柄",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=58dedf37-3bab-43be-9d4d-ad0b1904ae57&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "1bac4826-58fd-41d4-8852-c22283fef294",
+          "name": "长子崇真",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1bac4826-58fd-41d4-8852-c22283fef294&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 懋燻"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第20世 光柄 长子 懋燻 行七 居河下 生于 公元一六六二年壬寅二月初六日巳时 殁于 公元一七三六年乙卯九月廿六日巳时 葬茶磨山下脑向西立碑 娶上港田陈氏 生于 公元一六六四年己丑五月十九日子时 殁于 公元一七三六年乙卯正月廿七日亥时 葬茶磨山下脑向西立碑 生子一 崇真。",
+        "aliases": {},
+        "birth": "公元一六六二年壬寅二月初六日巳时",
+        "death": "公元一七三六年乙卯九月廿六日巳时",
+        "burial": "茶磨山下脑向西立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "1bac4826-58fd-41d4-8852-c22283fef294",
+      "name": "崇真",
+      "generation": 21,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "f2f199a3-4e5a-4433-bee0-1f5fb7e87b21",
+        "name": "懋燻",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f2f199a3-4e5a-4433-bee0-1f5fb7e87b21&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "e960e73b-94ca-45d2-84ef-1bff62a0798d",
+          "name": "长子显铨",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e960e73b-94ca-45d2-84ef-1bff62a0798d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 崇真"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第21世 懋燻 长子 崇真 行十 居河下 生于 公元一六九一年辛未四月初七日午时 殁于 公元一七六五年甲申十二月廿一日辰时 葬查磨山螺丝地向南立碑 娶甲武江氏 生于 公元一六九四年壬申八月十五日亥时 殁于 公元一七六四年癸未十月廿八日申时 葬茶磨螺丝地向南立碑 生子一 显铨 生女一 适陶家洲。",
+        "aliases": {},
+        "birth": "公元一六九一年辛未四月初七日午时",
+        "death": "公元一七六五年甲申十二月廿一日辰时",
+        "burial": "查磨山螺丝地向南立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "e960e73b-94ca-45d2-84ef-1bff62a0798d",
+      "name": "显铨",
+      "generation": 22,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "1bac4826-58fd-41d4-8852-c22283fef294",
+        "name": "崇真",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1bac4826-58fd-41d4-8852-c22283fef294&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "29804305-e67b-45e2-9ab7-77bf7291b60e",
+          "name": "长子荣俊",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=29804305-e67b-45e2-9ab7-77bf7291b60e&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "d292552a-789a-4904-b652-5cfca5344459",
+          "name": "次子荣侦",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d292552a-789a-4904-b652-5cfca5344459&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "32656eb8-38b4-4465-abb8-31051e22d36c",
+          "name": "三子荣作",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=32656eb8-38b4-4465-abb8-31051e22d36c&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        },
+        {
+          "nid": "5d41f325-8b38-4ac9-95ea-10ad3252b7ad",
+          "name": "四子荣傑",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5d41f325-8b38-4ac9-95ea-10ad3252b7ad&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 显铨"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第22世 崇真 长子 显铨 行十一 居河下 生于 公元一七二三年壬寅二月初九日午时 殁于 公元一七九六年甲寅十月廿八日亥时 葬茶磨山螺丝地向南 娶双港裘氏 生于 公元一七二四年癸卯正月十九日子时 殁于 公元一七九四年癸丑十月廿四日戌时 葬茶磨山螺丝地向南 生子四 荣俊 荣侦 荣作 荣傑。",
+        "aliases": {},
+        "birth": "公元一七二三年壬寅二月初九日午时",
+        "death": "公元一七九六年甲寅十月廿八日亥时",
+        "burial": "茶磨山螺丝地向南",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "29804305-e67b-45e2-9ab7-77bf7291b60e",
+      "name": "荣俊",
+      "generation": 23,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "e960e73b-94ca-45d2-84ef-1bff62a0798d",
+        "name": "显铨",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e960e73b-94ca-45d2-84ef-1bff62a0798d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "0075bc0b-637f-4ef5-ab19-2f94c537d78d",
+          "name": "长子世松",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0075bc0b-637f-4ef5-ab19-2f94c537d78d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 1,
+        "list": [
+          "长子 荣俊",
+          "次子 荣侦",
+          "三子 荣作",
+          "四子 荣傑"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第23世 显铨 长子 荣俊 行十七 居河下 生于 公元一七五七年丙子九月初九日亥时 殁于 公元一八二四年乙酉十月廿三日申时 葬茶磨山下脑中向南立碑 娶界壇熊氏 生于 公元一七二八年丁丑四月初八日子时 殁于 公元一八二四年十二月廿六日申时 葬茶磨山下脑中向西南立碑 生子一 世松 。",
+        "aliases": {},
+        "birth": "公元一七五七年丙子九月初九日亥时",
+        "death": "公元一八二四年乙酉十月廿三日申时",
+        "burial": "茶磨山下脑中向南立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "68e965a5-86d9-42c3-976d-ed85a45f6c32",
+      "name": "显簇",
+      "generation": 22,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "f3539a69-ed26-430e-9ad6-40388c8de461",
+        "name": "崇勋",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f3539a69-ed26-430e-9ad6-40388c8de461&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "4bd42807-43a5-45dd-a05a-bbbbe1615539",
+          "name": "长子荣敬",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4bd42807-43a5-45dd-a05a-bbbbe1615539&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 显簇"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第22世 崇勋 长子 显簇 行八 居河下 生于 公元一七零五年乙酉五月初二日辰时 殁于 公元一七六六年乙酉十月廿四日酉时 葬东坡岡 娶大塘蔡氏 生于 公元一七零七年丁亥四月十四日巳时 殁于 公元一七六八年丁亥子月十三日亥时 葬东坡岡 生子一 荣敬。",
+        "aliases": {},
+        "birth": "公元一七零五年乙酉五月初二日辰时",
+        "death": "公元一七六六年乙酉十月廿四日酉时",
+        "burial": "东坡岡",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "d292552a-789a-4904-b652-5cfca5344459",
+      "name": "荣侦",
+      "generation": 23,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "e960e73b-94ca-45d2-84ef-1bff62a0798d",
+        "name": "显铨",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e960e73b-94ca-45d2-84ef-1bff62a0798d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "次子",
+      "children": [
+        {
+          "nid": "4a82258c-f5ae-42dc-b8d9-fae21091f27d",
+          "name": "长子世柏",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4a82258c-f5ae-42dc-b8d9-fae21091f27d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 2,
+        "list": [
+          "长子 荣俊",
+          "次子 荣侦",
+          "三子 荣作",
+          "四子 荣傑"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第23世 显铨 次子 荣侦 行十八 居河下 生于 公元一七五九年戊寅八月十九日申时 殁于 公元一八二九年己丑十二月初四日亥时 葬茶磨山上脑向西北无碑 娶济陽江氏 生于 公元一七六零年己卯五月初九日卯时 殁于 公元一八二八年戊子十月廿五日未时 葬茶磨山上脑向西北无碑 生子一 世柏。",
+        "aliases": {},
+        "birth": "公元一七五九年戊寅八月十九日申时",
+        "death": "公元一八二九年己丑十二月初四日亥时",
+        "burial": "茶磨山上脑向西北无碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "4a82258c-f5ae-42dc-b8d9-fae21091f27d",
+      "name": "世柏",
+      "generation": 24,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "d292552a-789a-4904-b652-5cfca5344459",
+        "name": "荣侦",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d292552a-789a-4904-b652-5cfca5344459&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "f8f144bf-b4d6-4a2c-830f-f361125e94e6",
+          "name": "长子系焬",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f8f144bf-b4d6-4a2c-830f-f361125e94e6&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 世柏"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第24世 荣侦 长子 世柏 行五八 居河下 生于 公元一八零八年戊辰十月廿一日申时 殁于 公元一八六二年壬戌十二月廿八日亥时 葬茶磨山上脑向西南 娶黄墩黄氏 生于 公元一八一零年庚午五月十八日辰时 殁于 公元一八六三年清同治癸亥八月三十日亥时 葬茶磨山上脑向西 生子一 系焬 生女一 适黄墩雷。",
+        "aliases": {},
+        "birth": "公元一八零八年戊辰十月廿一日申时",
+        "death": "公元一八六二年壬戌十二月廿八日亥时",
+        "burial": "茶磨山上脑向西南",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "32656eb8-38b4-4465-abb8-31051e22d36c",
+      "name": "荣作",
+      "generation": 23,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "e960e73b-94ca-45d2-84ef-1bff62a0798d",
+        "name": "显铨",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e960e73b-94ca-45d2-84ef-1bff62a0798d&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "三子",
+      "children": [
+        {
+          "nid": "2fd8b1b3-8982-4980-8725-8bdd9e0d531a",
+          "name": "长子世任",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2fd8b1b3-8982-4980-8725-8bdd9e0d531a&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 4,
+        "rank": 3,
+        "list": [
+          "长子 荣俊",
+          "次子 荣侦",
+          "三子 荣作",
+          "四子 荣傑"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第23世 显铨 三子 荣作 行十九 居河下 生于 公元一七六三年壬午五月初九日巳时 殁于 公元一八三三年癸巳十月廿三日亥时 葬茶磨山下脑向西立碑 娶青岚雷氏 生于 公元一七六四年癸未九月廿二日辰时 殁于 公元一八三二年壬辰二月初五日亥时 葬茶磨山下脑向西立碑 生子一 世任。",
+        "aliases": {},
+        "birth": "公元一七六三年壬午五月初九日巳时",
+        "death": "公元一八三三年癸巳十月廿三日亥时",
+        "burial": "茶磨山下脑向西立碑",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    },
+    {
+      "nid": "2fd8b1b3-8982-4980-8725-8bdd9e0d531a",
+      "name": "世任",
+      "generation": 24,
+      "url": null,
+      "note": null,
+      "father": {
+        "nid": "32656eb8-38b4-4465-abb8-31051e22d36c",
+        "name": "荣作",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=32656eb8-38b4-4465-abb8-31051e22d36c&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      "relation_to_father": "长子",
+      "children": [
+        {
+          "nid": "8a89aeb2-73a7-490d-9297-cad192b0c7ac",
+          "name": "长子系万",
+          "relation": "",
+          "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8a89aeb2-73a7-490d-9297-cad192b0c7ac&TId=1&GId=6461&ZId=45233&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        }
+      ],
+      "siblings": {
+        "total_count": 1,
+        "rank": 1,
+        "list": [
+          "长子 世任"
+        ]
+      },
+      "detail_info": {
+        "raw_text": "第24世 荣作 长子 世任 行六六 居河下 生于 公元一八五一年清咸丰辛亥正月廿八日未时 殁于 公元一九零九年宣统己酉四月十三日亥时 葬茶磨山向西 娶赤海李氏 生于 公元一八五一年辛亥十月十五日子时 殁于 公元一九零七年丁未十二月初九日亥时 葬白石腦向西 生子一 系万 生女一 适杨子洲陶。",
+        "aliases": {},
+        "birth": "公元一八五一年清咸丰辛亥正月廿八日未时",
+        "death": "公元一九零九年宣统己酉四月十三日亥时",
+        "burial": "茶磨山向西",
+        "migration": null,
+        "description": null
+      },
+      "spouse": null
+    }
+  ],
+  "timestamp": "2026-02-20 16:21:37",
+  "total": 667,
+  "processed": 60
+}
