@@ -1,0 +1,5608 @@
+[
+  {
+    "nid": "c6d0a4be-88c1-4f15-b65c-90c0abb1570f",
+    "name": "云观",
+    "generation": 17,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "a0469f08-4554-4e64-b205-dc7383fdd7c2",
+      "name": "易鼎",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a0469f08-4554-4e64-b205-dc7383fdd7c2&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "74c697a5-09ce-4e03-adfb-fd465da300d3",
+        "name": "长子公纎",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=74c697a5-09ce-4e03-adfb-fd465da300d3&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 云观"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第17世 易鼎 长子 云观 生娶殁葬未详 生子一 公纎。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "911d6948-24f3-4ffe-b1d9-2cde2feb5a6e",
+    "name": "光昂",
+    "generation": 19,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "74c697a5-09ce-4e03-adfb-fd465da300d3",
+      "name": "公纎",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=74c697a5-09ce-4e03-adfb-fd465da300d3&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "9b97a4ff-1fbe-4aec-bfb6-c3af98905aaf",
+        "name": "长子懋倚",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9b97a4ff-1fbe-4aec-bfb6-c3af98905aaf&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "5ffec7b2-fc86-429d-93ec-3c702f06983e",
+        "name": "次子懋偲",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5ffec7b2-fc86-429d-93ec-3c702f06983e&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 光昂"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第19世 公纎 长子 光昂 居墨城 生娶殁葬未详 生子二 懋倚 懋偲。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "74c697a5-09ce-4e03-adfb-fd465da300d3",
+    "name": "公纎",
+    "generation": 18,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "c6d0a4be-88c1-4f15-b65c-90c0abb1570f",
+      "name": "云观",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c6d0a4be-88c1-4f15-b65c-90c0abb1570f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "911d6948-24f3-4ffe-b1d9-2cde2feb5a6e",
+        "name": "长子光昂",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=911d6948-24f3-4ffe-b1d9-2cde2feb5a6e&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 公纎"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第18世 云观 长子 公纎 生娶殁葬未详 生子一 光昂。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "9b97a4ff-1fbe-4aec-bfb6-c3af98905aaf",
+    "name": "懋倚",
+    "generation": 20,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "911d6948-24f3-4ffe-b1d9-2cde2feb5a6e",
+      "name": "光昂",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=911d6948-24f3-4ffe-b1d9-2cde2feb5a6e&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "9bab66bd-7e07-4318-bec7-85ad30bc18a0",
+        "name": "长子崇岳",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9bab66bd-7e07-4318-bec7-85ad30bc18a0&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "500819a0-0890-4c86-acd5-49ffaae5011b",
+        "name": "次子崇伦",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=500819a0-0890-4c86-acd5-49ffaae5011b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 懋倚",
+        "次子 懋偲"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第20世 光昂 长子 懋倚 居墨城 生娶殁葬未详 生子二 崇岳 崇伦。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "317b2ffd-e4f4-4f97-8465-5a0c19f08c84",
+    "name": "崇美",
+    "generation": 21,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5ffec7b2-fc86-429d-93ec-3c702f06983e",
+      "name": "懋偲",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5ffec7b2-fc86-429d-93ec-3c702f06983e&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 崇美"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第21世 懋偲 之子 崇美",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5ffec7b2-fc86-429d-93ec-3c702f06983e",
+    "name": "懋偲",
+    "generation": 20,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "911d6948-24f3-4ffe-b1d9-2cde2feb5a6e",
+      "name": "光昂",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=911d6948-24f3-4ffe-b1d9-2cde2feb5a6e&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "317b2ffd-e4f4-4f97-8465-5a0c19f08c84",
+        "name": "之子崇美",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=317b2ffd-e4f4-4f97-8465-5a0c19f08c84&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 懋倚",
+        "次子 懋偲"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第20世 光昂 次子 懋偲",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a0469f08-4554-4e64-b205-dc7383fdd7c2",
+    "name": "易鼎",
+    "generation": 16,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0e99f6b7-11c4-4cf5-b6a4-ba86fce2a53d",
+      "name": "永坚",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0e99f6b7-11c4-4cf5-b6a4-ba86fce2a53d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [
+      {
+        "nid": "c6d0a4be-88c1-4f15-b65c-90c0abb1570f",
+        "name": "长子云观",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c6d0a4be-88c1-4f15-b65c-90c0abb1570f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 5,
+      "rank": 4,
+      "list": [
+        "长子 易晋",
+        "次子 易丰",
+        "三子 易济",
+        "四子 易鼎",
+        "六子 易经"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第16世 永坚 四子 易鼎 生娶殁葬未详 生子一 云观。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "64815707-56b8-4fd7-9d84-f6857ab8cea8",
+    "name": "显植",
+    "generation": 22,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "9bab66bd-7e07-4318-bec7-85ad30bc18a0",
+      "name": "崇岳",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9bab66bd-7e07-4318-bec7-85ad30bc18a0&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "b5018c1f-af62-4506-9d07-ce951217bdad",
+        "name": "长子荣烨",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b5018c1f-af62-4506-9d07-ce951217bdad&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "41227564-aebd-4182-b906-aeb9de8b9a6f",
+        "name": "次子荣熿",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=41227564-aebd-4182-b906-aeb9de8b9a6f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 显植"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第22世 崇岳 长子 显植 居墨城 生娶殁葬未详 生子二 荣烨 荣熿。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "41227564-aebd-4182-b906-aeb9de8b9a6f",
+    "name": "荣熿",
+    "generation": 23,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "64815707-56b8-4fd7-9d84-f6857ab8cea8",
+      "name": "显植",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64815707-56b8-4fd7-9d84-f6857ab8cea8&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "6472d190-1210-4dd3-a93f-3d01b7900b3b",
+        "name": "之子世辰",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6472d190-1210-4dd3-a93f-3d01b7900b3b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 荣烨",
+        "次子 荣熿"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第23世 显植 次子 荣熿",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "6472d190-1210-4dd3-a93f-3d01b7900b3b",
+    "name": "世辰",
+    "generation": 24,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "41227564-aebd-4182-b906-aeb9de8b9a6f",
+      "name": "荣熿",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=41227564-aebd-4182-b906-aeb9de8b9a6f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "3af98c15-90e2-4113-9eb3-c3b0aa77d249",
+        "name": "长子系道",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3af98c15-90e2-4113-9eb3-c3b0aa77d249&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 世辰"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第24世 荣熿 之子 世辰",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "3af98c15-90e2-4113-9eb3-c3b0aa77d249",
+    "name": "系道",
+    "generation": 25,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "6472d190-1210-4dd3-a93f-3d01b7900b3b",
+      "name": "世辰",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6472d190-1210-4dd3-a93f-3d01b7900b3b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "518cfbe2-9160-44c7-a5b3-6aaa8f0ed183",
+        "name": "之子绵英",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=518cfbe2-9160-44c7-a5b3-6aaa8f0ed183&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 系道"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第25世 世辰 长子 系道",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "b5018c1f-af62-4506-9d07-ce951217bdad",
+    "name": "荣烨",
+    "generation": 23,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "64815707-56b8-4fd7-9d84-f6857ab8cea8",
+      "name": "显植",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64815707-56b8-4fd7-9d84-f6857ab8cea8&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "5adcbce8-fde9-4222-ab96-22c55637ffff",
+        "name": "之子世第",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5adcbce8-fde9-4222-ab96-22c55637ffff&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 荣烨",
+        "次子 荣熿"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第23世 显植 长子 荣烨 居墨城 生娶殁葬未详 生子一 世第。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "500819a0-0890-4c86-acd5-49ffaae5011b",
+    "name": "崇伦",
+    "generation": 21,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "9b97a4ff-1fbe-4aec-bfb6-c3af98905aaf",
+      "name": "懋倚",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9b97a4ff-1fbe-4aec-bfb6-c3af98905aaf&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 崇岳",
+        "次子 崇伦"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第21世 懋倚 次子 崇伦",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "9bab66bd-7e07-4318-bec7-85ad30bc18a0",
+    "name": "崇岳",
+    "generation": 21,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "9b97a4ff-1fbe-4aec-bfb6-c3af98905aaf",
+      "name": "懋倚",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9b97a4ff-1fbe-4aec-bfb6-c3af98905aaf&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "64815707-56b8-4fd7-9d84-f6857ab8cea8",
+        "name": "长子显植",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64815707-56b8-4fd7-9d84-f6857ab8cea8&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 崇岳",
+        "次子 崇伦"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第21世 懋倚 长子 崇岳 居墨城 生娶殁葬未详 生子一 显植。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "70f83f1a-900b-47e8-bd9f-570dbc0f54da",
+    "name": "系官",
+    "generation": 25,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5adcbce8-fde9-4222-ab96-22c55637ffff",
+      "name": "世第",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5adcbce8-fde9-4222-ab96-22c55637ffff&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "da8a8e53-c69e-4cb3-ab08-4ec7059b89d5",
+        "name": "长子绵通",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da8a8e53-c69e-4cb3-ab08-4ec7059b89d5&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "852893ba-762f-4c79-bbb4-0b6f4e8c240f",
+        "name": "次子绵达",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=852893ba-762f-4c79-bbb4-0b6f4e8c240f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 系官"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第25世 世第 长子 系官 居墨城 生娶殁葬未详 生子二 绵通 绵达。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5916e9fa-b372-4197-bf6b-2aa31ffb9b12",
+    "name": "今福",
+    "generation": 27,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "518cfbe2-9160-44c7-a5b3-6aaa8f0ed183",
+      "name": "绵英",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=518cfbe2-9160-44c7-a5b3-6aaa8f0ed183&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "61b46de1-03a0-4de8-bfe4-a6c7c19ee3d4",
+        "name": "长子古玉",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=61b46de1-03a0-4de8-bfe4-a6c7c19ee3d4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "e633d4f6-36a4-4df8-a4fc-615c79fead92",
+        "name": "次子古壁",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e633d4f6-36a4-4df8-a4fc-615c79fead92&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 今福"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第27世 绵英 之子 今福",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "e633d4f6-36a4-4df8-a4fc-615c79fead92",
+    "name": "古壁",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5916e9fa-b372-4197-bf6b-2aa31ffb9b12",
+      "name": "今福",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5916e9fa-b372-4197-bf6b-2aa31ffb9b12&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "37cf26c6-4c3d-498d-af03-1c73471daea9",
+        "name": "长子家元",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=37cf26c6-4c3d-498d-af03-1c73471daea9&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 古玉",
+        "次子 古壁"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今福 次子 古壁",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "37cf26c6-4c3d-498d-af03-1c73471daea9",
+    "name": "家元",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "e633d4f6-36a4-4df8-a4fc-615c79fead92",
+      "name": "古壁",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e633d4f6-36a4-4df8-a4fc-615c79fead92&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "217c96ec-603f-461f-a96e-57ba737fd2b0",
+        "name": "长子声长",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=217c96ec-603f-461f-a96e-57ba737fd2b0&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 家元"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古壁 长子 家元 字贡元 行四六号 居墨城村 生于 公元一八五零年道光庚戌七月十六日巳时 殁葬未详 娶陈氏 生殁葬未详 生子一 声长。",
+      "aliases": {},
+      "birth": "公元一八五零年道光庚戌七月十六日巳时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "217c96ec-603f-461f-a96e-57ba737fd2b0",
+    "name": "声长",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "37cf26c6-4c3d-498d-af03-1c73471daea9",
+      "name": "家元",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=37cf26c6-4c3d-498d-af03-1c73471daea9&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "34b1ab18-62ed-4a29-9f7e-118816e6b872",
+        "name": "长子绍铭",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=34b1ab18-62ed-4a29-9f7e-118816e6b872&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 声长"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家元 长子 声长 行九三号 居墨城村 生于 公元一九七八年清光绪戊寅七月十七日卯时 殁葬未详 娶虎陈氏 生殁葬未详 生子一 绍明 生女一 适樟坪余。",
+      "aliases": {},
+      "birth": "公元一九七八年清光绪戊寅七月十七日卯时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "61b46de1-03a0-4de8-bfe4-a6c7c19ee3d4",
+    "name": "古玉",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5916e9fa-b372-4197-bf6b-2aa31ffb9b12",
+      "name": "今福",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5916e9fa-b372-4197-bf6b-2aa31ffb9b12&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "334f3375-3602-4f85-9196-9e7d5d08e5ac",
+        "name": "长子家富",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=334f3375-3602-4f85-9196-9e7d5d08e5ac&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 古玉",
+        "次子 古壁"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今福 长子 古玉",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5adcbce8-fde9-4222-ab96-22c55637ffff",
+    "name": "世第",
+    "generation": 24,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "b5018c1f-af62-4506-9d07-ce951217bdad",
+      "name": "荣烨",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b5018c1f-af62-4506-9d07-ce951217bdad&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "70f83f1a-900b-47e8-bd9f-570dbc0f54da",
+        "name": "长子系官",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=70f83f1a-900b-47e8-bd9f-570dbc0f54da&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 世第"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第24世 荣烨 之子 世第 居墨城 生娶殁葬未详 生子一 系官。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "77fa074b-2aca-478d-b03d-cc6c185d1592",
+    "name": "声高",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "334f3375-3602-4f85-9196-9e7d5d08e5ac",
+      "name": "家富",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=334f3375-3602-4f85-9196-9e7d5d08e5ac&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "fce5805b-6291-4275-b08f-35cbd5940bc4",
+        "name": "嗣子绍钊",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fce5805b-6291-4275-b08f-35cbd5940bc4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 1,
+      "list": [
+        "长子 声高",
+        "次子 声凤",
+        "三子 声凰",
+        "四子 声仪"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家富 长子 声高 行一七八号 居墨城 生于 公元一八八七年光绪丁亥五月廿五巳时 殁葬未详 生子一 绍钊系继立声仪长子为嗣。",
+      "aliases": {},
+      "birth": "公元一八八七年光绪丁亥五月廿五巳时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "72872477-db1e-4992-9b14-162be30c5c1a",
+    "name": "声凤",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "334f3375-3602-4f85-9196-9e7d5d08e5ac",
+      "name": "家富",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=334f3375-3602-4f85-9196-9e7d5d08e5ac&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "d06c7073-018c-4339-beb5-a2f09a47cfae",
+        "name": "嗣子绍钱",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d06c7073-018c-4339-beb5-a2f09a47cfae&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 2,
+      "list": [
+        "长子 声高",
+        "次子 声凤",
+        "三子 声凰",
+        "四子 声仪"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家富 次子 声凤 行一九五号 居墨城 生于 公元一八八九光绪己丑七月十七日丑时 殁葬未详 生子一 绍钱系入继声仪次子。",
+      "aliases": {},
+      "birth": "公元一八八九光绪己丑七月十七日丑时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "218cbe5f-c507-4645-ac73-beac0628d80b",
+    "name": "声凰",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "334f3375-3602-4f85-9196-9e7d5d08e5ac",
+      "name": "家富",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=334f3375-3602-4f85-9196-9e7d5d08e5ac&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "f296819d-173c-4ac7-b869-9fd8b2365c53",
+        "name": "祧子绍银",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f296819d-173c-4ac7-b869-9fd8b2365c53&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 3,
+      "list": [
+        "长子 声高",
+        "次子 声凤",
+        "三子 声凰",
+        "四子 声仪"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家富 三子 声凰 行二一一号 居墨城 生于 公元一八九一年光绪辛卯二月廿三日申时 殁葬未详 生子一 绍银 双祧声仪三子为嗣。",
+      "aliases": {},
+      "birth": "公元一八九一年光绪辛卯二月廿三日申时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "c786d66f-0bf2-4497-a960-f366b75c204d",
+    "name": "声仪",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "334f3375-3602-4f85-9196-9e7d5d08e5ac",
+      "name": "家富",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=334f3375-3602-4f85-9196-9e7d5d08e5ac&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [
+      {
+        "nid": "a6fccb79-0277-4fd4-a45d-6b5f488f5395",
+        "name": "长子绍钊",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a6fccb79-0277-4fd4-a45d-6b5f488f5395&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "95b44f9b-3b4a-4775-983f-a682619c9a87",
+        "name": "次子绍钱",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=95b44f9b-3b4a-4775-983f-a682619c9a87&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "408cb3cf-3daa-4b23-a405-38f52cdd01b9",
+        "name": "三子绍银",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=408cb3cf-3daa-4b23-a405-38f52cdd01b9&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 4,
+      "list": [
+        "长子 声高",
+        "次子 声凤",
+        "三子 声凰",
+        "四子 声仪"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家富 四子 声仪 行二二九号 居墨城 生于 公元一八九三年清光绪癸巳正月二十日亥时 殁于 民国戊寅正月十二卯时 葬未详 娶麦城周氏 生于 清光绪乙未十二月廿七日申时 殁于 农历己卯十月廿五日寅时 葬未详 生子三 绍钊出继声高为嗣 绍钱出继声凤为嗣 绍银出继声凰双祧为嗣。",
+      "aliases": {},
+      "birth": "公元一八九三年清光绪癸巳正月二十日亥时",
+      "death": "民国戊寅正月十二卯时",
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "da8a8e53-c69e-4cb3-ab08-4ec7059b89d5",
+    "name": "绵通",
+    "generation": 26,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "70f83f1a-900b-47e8-bd9f-570dbc0f54da",
+      "name": "系官",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=70f83f1a-900b-47e8-bd9f-570dbc0f54da&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "732708c3-2c20-44cb-b3cd-7ed22e7f3828",
+        "name": "长子今贤",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=732708c3-2c20-44cb-b3cd-7ed22e7f3828&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 绵通",
+        "次子 绵达"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 系官 长子 绵通 居墨城 生娶殁葬未详 生子一 今贤。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "732708c3-2c20-44cb-b3cd-7ed22e7f3828",
+    "name": "今贤",
+    "generation": 27,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "da8a8e53-c69e-4cb3-ab08-4ec7059b89d5",
+      "name": "绵通",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da8a8e53-c69e-4cb3-ab08-4ec7059b89d5&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "f76a4f85-415c-45a8-9347-9a9c857d8703",
+        "name": "长子古潮",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f76a4f85-415c-45a8-9347-9a9c857d8703&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "49befde8-b013-40b5-93f1-f500695121fa",
+        "name": "次子古礼",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=49befde8-b013-40b5-93f1-f500695121fa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 今贤"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第27世 绵通 长子 今贤 居墨城 生娶殁葬未详 生子二 古潮 古礼。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "f76a4f85-415c-45a8-9347-9a9c857d8703",
+    "name": "古潮",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "732708c3-2c20-44cb-b3cd-7ed22e7f3828",
+      "name": "今贤",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=732708c3-2c20-44cb-b3cd-7ed22e7f3828&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "7aab3abe-0374-484f-9fdc-b8b54a54773c",
+        "name": "长子家球",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7aab3abe-0374-484f-9fdc-b8b54a54773c&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "1b748e5c-afae-4c6f-a339-1d2522d660dd",
+        "name": "次子家绪",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1b748e5c-afae-4c6f-a339-1d2522d660dd&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "c0b5e95f-4d82-4275-8337-ba92488b3078",
+        "name": "三子家宝",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c0b5e95f-4d82-4275-8337-ba92488b3078&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 古潮",
+        "次子 古礼"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今贤 长子 古潮 行七九号居墨城 生于 公元一八三六年清道光丙申正月廿五日本时 殁未详 葬罗卜园 娶熊家嘴熊氏生殁未详 葬邓家山 生子三 家球 家绪 家宝。",
+      "aliases": {
+        "hao": "居墨城"
+      },
+      "birth": "公元一八三六年清道光丙申正月廿五日本时 殁未详",
+      "death": null,
+      "burial": "罗卜园",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "7aab3abe-0374-484f-9fdc-b8b54a54773c",
+    "name": "家球",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "f76a4f85-415c-45a8-9347-9a9c857d8703",
+      "name": "古潮",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f76a4f85-415c-45a8-9347-9a9c857d8703&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "5958920e-6eb3-4e70-a908-ea4f82852107",
+        "name": "长子声祖",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5958920e-6eb3-4e70-a908-ea4f82852107&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 家球",
+        "次子 家绪",
+        "三子 家宝"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古潮 长子 家球 行一九八号 居墨城 生于 公元一八七三年清同治癸酉九月初二日辰时 殁未详葬横山 娶包山江氏 生于 清同治戊辰十二月十九日辰时 殁未详葬罗卜园 子一 声祖出祧胞弟家宝 生女二 长适万美傅 次适麦城周。",
+      "aliases": {},
+      "birth": "公元一八七三年清同治癸酉九月初二日辰时 殁未详",
+      "death": null,
+      "burial": "横山",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5958920e-6eb3-4e70-a908-ea4f82852107",
+    "name": "声祖",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "7aab3abe-0374-484f-9fdc-b8b54a54773c",
+      "name": "家球",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7aab3abe-0374-484f-9fdc-b8b54a54773c&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "84cbea47-579b-44e0-b12e-9ce7aaa177aa",
+        "name": "长子绍仁",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=84cbea47-579b-44e0-b12e-9ce7aaa177aa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "5d358db9-76d6-4415-845e-23356c9e724b",
+        "name": "次子绍意",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5d358db9-76d6-4415-845e-23356c9e724b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 声祖"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家球 长子 声祖 行二四号居墨城 生于 公元一八五八年咸丰戊午十二月廿三戌时 殁日未详 葬罗卜园 娶竹林巷熊氏 生殁葬未详 生子二 绍仁 绍意。",
+      "aliases": {
+        "hao": "居墨城"
+      },
+      "birth": "公元一八五八年咸丰戊午十二月廿三戌时 殁日未详",
+      "death": null,
+      "burial": "罗卜园",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "334f3375-3602-4f85-9196-9e7d5d08e5ac",
+    "name": "家富",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "61b46de1-03a0-4de8-bfe4-a6c7c19ee3d4",
+      "name": "古玉",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=61b46de1-03a0-4de8-bfe4-a6c7c19ee3d4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "77fa074b-2aca-478d-b03d-cc6c185d1592",
+        "name": "长子声高",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=77fa074b-2aca-478d-b03d-cc6c185d1592&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "72872477-db1e-4992-9b14-162be30c5c1a",
+        "name": "次子声凤",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=72872477-db1e-4992-9b14-162be30c5c1a&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "218cbe5f-c507-4645-ac73-beac0628d80b",
+        "name": "三子声凰",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=218cbe5f-c507-4645-ac73-beac0628d80b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "c786d66f-0bf2-4497-a960-f366b75c204d",
+        "name": "四子声仪",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c786d66f-0bf2-4497-a960-f366b75c204d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 家富"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古玉 长子 家富 行五零号 居墨城 生于 公元一八五一年清咸丰辛亥十二月十九日午时 殁于 清光绪甲午年十二月十三日午时 葬茶园 娶港南刘氏 生于 同治甲戌年七月十五日丑时 殁于 民国戊寅十二月十五日丑时 生子四 声高 声凤 声凰 声仪。",
+      "aliases": {},
+      "birth": "公元一八五一年清咸丰辛亥十二月十九日午时",
+      "death": "清光绪甲午年十二月十三日午时",
+      "burial": "茶园",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "bdf53456-d895-410c-8e54-24aae5d05a77",
+    "name": "声福",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "1b748e5c-afae-4c6f-a339-1d2522d660dd",
+      "name": "家绪",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1b748e5c-afae-4c6f-a339-1d2522d660dd&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "db2ace3a-e3d7-45e2-8adc-ab3c6efb5323",
+        "name": "嗣子绍先",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=db2ace3a-e3d7-45e2-8adc-ab3c6efb5323&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 声福",
+        "次子 声禄"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家绪 长子 声福 行四一一号 居墨城 生于 公元一九一一年清宣统辛亥八月初十日未时 殁未详 葬莲花地 娶大塘彭氏 生殁葬未详 子一 绍先承继声禄之子双祧为嗣。",
+      "aliases": {},
+      "birth": "公元一九一一年清宣统辛亥八月初十日未时 殁未详",
+      "death": null,
+      "burial": "莲花地",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "518cfbe2-9160-44c7-a5b3-6aaa8f0ed183",
+    "name": "绵英",
+    "generation": 26,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "3af98c15-90e2-4113-9eb3-c3b0aa77d249",
+      "name": "系道",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3af98c15-90e2-4113-9eb3-c3b0aa77d249&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "5916e9fa-b372-4197-bf6b-2aa31ffb9b12",
+        "name": "之子今福",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5916e9fa-b372-4197-bf6b-2aa31ffb9b12&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 绵英"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 系道 之子 绵英",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "c0b5e95f-4d82-4275-8337-ba92488b3078",
+    "name": "家宝",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "f76a4f85-415c-45a8-9347-9a9c857d8703",
+      "name": "古潮",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f76a4f85-415c-45a8-9347-9a9c857d8703&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "a0171567-10be-4430-a72a-0720f669ebfa",
+        "name": "长子声祖",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a0171567-10be-4430-a72a-0720f669ebfa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 家球",
+        "次子 家绪",
+        "三子 家宝"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古潮 三子 家宝 字 行三一四号 居墨城 生于 公元一八九零年清光绪庚寅五月廿五丑时 殁未详葬漫山窪 娶傅珑勒氏 生殁未详 葬横山 生子一 声祖家求之子双祧为嗣。",
+      "aliases": {},
+      "birth": "公元一八九零年清光绪庚寅五月廿五丑时 殁未详",
+      "death": null,
+      "burial": "漫山窪",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a0171567-10be-4430-a72a-0720f669ebfa",
+    "name": "声祖",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "c0b5e95f-4d82-4275-8337-ba92488b3078",
+      "name": "家宝",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c0b5e95f-4d82-4275-8337-ba92488b3078&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 声祖"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家宝 长子 声祖 行二三号居墨城 生于 公元一八五八年清咸丰戊午十二月廿三日戌时 殁未详 葬罗卜园 娶竹林港熊氏生殁未详 生子二 绍仁 绍意。",
+      "aliases": {
+        "hao": "居墨城"
+      },
+      "birth": "公元一八五八年清咸丰戊午十二月廿三日戌时 殁未详",
+      "death": null,
+      "burial": "罗卜园",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "49befde8-b013-40b5-93f1-f500695121fa",
+    "name": "古礼",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "732708c3-2c20-44cb-b3cd-7ed22e7f3828",
+      "name": "今贤",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=732708c3-2c20-44cb-b3cd-7ed22e7f3828&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "b452f745-3aed-4cc4-9ea4-60319a4e6fe7",
+        "name": "长子家璦",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b452f745-3aed-4cc4-9ea4-60319a4e6fe7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "a232426a-7840-4afe-8d6a-f39f4b5707eb",
+        "name": "次子家璞",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a232426a-7840-4afe-8d6a-f39f4b5707eb&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "6c56d0cd-eaf6-4ca4-9459-dbe251f6686c",
+        "name": "三子家环",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6c56d0cd-eaf6-4ca4-9459-dbe251f6686c&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "6cf81169-cb5f-4ae5-abd9-a01c40e88ff4",
+        "name": "四子家𤧞",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6cf81169-cb5f-4ae5-abd9-a01c40e88ff4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 古潮",
+        "次子 古礼"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今贤 次子 古礼 字行一七九号居墨城 生于 公元一八五八年清咸丰戊午正月十八日午时 殁葬未详 娶西岸熊氏 生殁葬未详 生子三 家爱 家环 家美 生女一 适傅壠勒。",
+      "aliases": {
+        "hao": "居墨城"
+      },
+      "birth": "公元一八五八年清咸丰戊午正月十八日午时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "b452f745-3aed-4cc4-9ea4-60319a4e6fe7",
+    "name": "家璦",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "49befde8-b013-40b5-93f1-f500695121fa",
+      "name": "古礼",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=49befde8-b013-40b5-93f1-f500695121fa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "64da3ec3-a3c0-46aa-9711-0da55b891476",
+        "name": "长子声祥",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64da3ec3-a3c0-46aa-9711-0da55b891476&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 1,
+      "list": [
+        "长子 家璦",
+        "次子 家璞",
+        "三子 家环",
+        "四子 家𤧞"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古礼 长子 家璦 字 行三零八号 居墨城 生于 公元一八八九年清道光己丑十月初一日亥时 殁未详 葬漫山窪 娶九坊熊氏生殁未详 葬蔓山窪 生子一 声祥 生女一 适鸦雀垅刘。",
+      "aliases": {},
+      "birth": "公元一八八九年清道光己丑十月初一日亥时 殁未详",
+      "death": null,
+      "burial": "漫山窪",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "64da3ec3-a3c0-46aa-9711-0da55b891476",
+    "name": "声祥",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "b452f745-3aed-4cc4-9ea4-60319a4e6fe7",
+      "name": "家璦",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b452f745-3aed-4cc4-9ea4-60319a4e6fe7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "495b1701-bc2a-4c42-ae57-ba281002279a",
+        "name": "嗣子绍庭",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=495b1701-bc2a-4c42-ae57-ba281002279a&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 声祥"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家璦 长子 声祥 行四九五号 居麦麦城 生于 公元一九一六年民国丙辰十二月廿七日丑时 殁未详 葬罗卜园 娶鸦鹊垅邢氏改嫁 生子一 绍庭系继承声祯之长子为嗣 生女一 适蔷薇张。",
+      "aliases": {},
+      "birth": "公元一九一六年民国丙辰十二月廿七日丑时 殁未详",
+      "death": null,
+      "burial": "罗卜园",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a232426a-7840-4afe-8d6a-f39f4b5707eb",
+    "name": "家璞",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "49befde8-b013-40b5-93f1-f500695121fa",
+      "name": "古礼",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=49befde8-b013-40b5-93f1-f500695121fa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 4,
+      "rank": 2,
+      "list": [
+        "长子 家璦",
+        "次子 家璞",
+        "三子 家环",
+        "四子 家𤧞"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古礼 次子 家璞 字 行三六二号 居墨城 生于 公元一八九六年清光绪丙申二月廿四亥时 殁未详 葬莲花地 娶八角勒氏 生于 公元一九零一年辛丑十月廿七辰时 殁未详葬道院山 生子二 声祉出继胞兄家环为嗣 声祯 生女三 长适招家潘 次适傅垅勒 三适金桥杜。",
+      "aliases": {},
+      "birth": "公元一八九六年清光绪丙申二月廿四亥时 殁未详",
+      "death": null,
+      "burial": "莲花地",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "1b748e5c-afae-4c6f-a339-1d2522d660dd",
+    "name": "家绪",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "f76a4f85-415c-45a8-9347-9a9c857d8703",
+      "name": "古潮",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f76a4f85-415c-45a8-9347-9a9c857d8703&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "bdf53456-d895-410c-8e54-24aae5d05a77",
+        "name": "长子声福",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bdf53456-d895-410c-8e54-24aae5d05a77&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "95a85147-e997-4bcd-b3a1-d5cfbadf3917",
+        "name": "次子声禄",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=95a85147-e997-4bcd-b3a1-d5cfbadf3917&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 家球",
+        "次子 家绪",
+        "三子 家宝"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古潮 次子 家绪 行二二三号 居墨城 生于 公元一八七六年清光绪丙子十月初十日申时 殁于 民国十二年癸亥二月十九日寅时 葬漫山窪 娶蔷薇张氏 生于 清光绪壬午正月廿四日戌时 殁于 民国庚辰十月十六亥时 葬莲花地 生子二 声福 声禄。",
+      "aliases": {},
+      "birth": "公元一八七六年清光绪丙子十月初十日申时",
+      "death": "民国十二年癸亥二月十九日寅时",
+      "burial": "漫山窪",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "95a85147-e997-4bcd-b3a1-d5cfbadf3917",
+    "name": "声禄",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "1b748e5c-afae-4c6f-a339-1d2522d660dd",
+      "name": "家绪",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1b748e5c-afae-4c6f-a339-1d2522d660dd&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "e309fdb2-cbce-4bcb-9081-b4792e12ecc1",
+        "name": "长子绍先",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e309fdb2-cbce-4bcb-9081-b4792e12ecc1&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 声福",
+        "次子 声禄"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家绪 次子 声禄 行四二七号 居墨城 生于 公元一九一二年民国壬子十月初三日寅时 殁于民国庚辰八月初一日辰时 娶双堂胡氏 生于 民国乙卯九月廿五丑时殁葬未详 子一 绍先出祧胞兄声福为嗣 生女二 长适黄淇熊 次适麦城章。",
+      "aliases": {},
+      "birth": "公元一九一二年民国壬子十月初三日寅时",
+      "death": "民国庚辰八月初一日辰时",
+      "burial": "未详 子一 绍先出祧胞兄声福为嗣 生女二 长适黄淇熊 次适麦城章。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "6cf81169-cb5f-4ae5-abd9-a01c40e88ff4",
+    "name": "家𤧞",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "49befde8-b013-40b5-93f1-f500695121fa",
+      "name": "古礼",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=49befde8-b013-40b5-93f1-f500695121fa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [
+      {
+        "nid": "d2974652-591e-4503-ad3b-1291ee3f3cdc",
+        "name": "长子声祉",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2974652-591e-4503-ad3b-1291ee3f3cdc&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "59ad8afd-1885-4c42-916d-e3e86b6368e6",
+        "name": "次子声祯",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=59ad8afd-1885-4c42-916d-e3e86b6368e6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 4,
+      "list": [
+        "长子 家璦",
+        "次子 家璞",
+        "三子 家环",
+        "四子 家𤧞"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古礼 四子 家𤧞",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d2974652-591e-4503-ad3b-1291ee3f3cdc",
+    "name": "声祉",
+    "generation": 30,
+    "url": null,
+    "note": "出继家环名下为嗣",
+    "father": {
+      "nid": "6cf81169-cb5f-4ae5-abd9-a01c40e88ff4",
+      "name": "家𤧞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6cf81169-cb5f-4ae5-abd9-a01c40e88ff4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 声祉",
+        "次子 声祯"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家𤧞 长子 声祉 出继家环名下为嗣 详前。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "59ad8afd-1885-4c42-916d-e3e86b6368e6",
+    "name": "声祯",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "6cf81169-cb5f-4ae5-abd9-a01c40e88ff4",
+      "name": "家𤧞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6cf81169-cb5f-4ae5-abd9-a01c40e88ff4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "19169a5a-e505-4c74-aca3-bcaaac7904e3",
+        "name": "长子绍庭",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=19169a5a-e505-4c74-aca3-bcaaac7904e3&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "5e637f2b-db0f-4300-9ad7-14951987264f",
+        "name": "次子绍庆",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5e637f2b-db0f-4300-9ad7-14951987264f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "0385a549-ac84-4278-8a60-9f7b9ede02fa",
+        "name": "三子绍贵",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0385a549-ac84-4278-8a60-9f7b9ede02fa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "61fe0ed9-e7b1-4478-b558-dd6ca42aad09",
+        "name": "四子绍迟",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=61fe0ed9-e7b1-4478-b558-dd6ca42aad09&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 声祉",
+        "次子 声祯"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家𤧞 次子 声祯 行五九一号 居墨城 生于 公元一九二四年民国甲子九月初六日巳时 殁于 公元一九九三年六月初九日 葬玉兔山 娶蔷薇张氏芙英 生于 公元一九三一年民国辛未三月十四日子时 生子四 绍庭 绍庆 绍贵 绍遲 生女一 水菊适傅垅勒。",
+      "aliases": {},
+      "birth": "公元一九二四年民国甲子九月初六日巳时",
+      "death": "公元一九九三年六月初九日",
+      "burial": "玉兔山",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "6c56d0cd-eaf6-4ca4-9459-dbe251f6686c",
+    "name": "家环",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "49befde8-b013-40b5-93f1-f500695121fa",
+      "name": "古礼",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=49befde8-b013-40b5-93f1-f500695121fa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "f8e9a661-03ea-45fe-8bb7-4d218abe1547",
+        "name": "继子声祉",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f8e9a661-03ea-45fe-8bb7-4d218abe1547&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 3,
+      "list": [
+        "长子 家璦",
+        "次子 家璞",
+        "三子 家环",
+        "四子 家𤧞"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古礼 三子 家环 字 行三三六号 居墨城 生于 公元一八九二年光绪壬辰十二月初十戌时 殁未详葬罗卜园 娶伍氏生殁未详 葬门前园 继子 声祉。",
+      "aliases": {},
+      "birth": "公元一八九二年光绪壬辰十二月初十戌时 殁未详",
+      "death": null,
+      "burial": "罗卜园",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "f8e9a661-03ea-45fe-8bb7-4d218abe1547",
+    "name": "声祉",
+    "generation": 30,
+    "url": null,
+    "note": "承继家𤧞长子为嗣",
+    "father": {
+      "nid": "6c56d0cd-eaf6-4ca4-9459-dbe251f6686c",
+      "name": "家环",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6c56d0cd-eaf6-4ca4-9459-dbe251f6686c&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "继子",
+    "children": [
+      {
+        "nid": "524652e5-0190-48bb-95b3-29ab75a15554",
+        "name": "嗣子绍庆",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=524652e5-0190-48bb-95b3-29ab75a15554&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "继子 声祉"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家环 继子 声祉 行五六零号 居墨城 生于 公元一九二一年民国辛酉九月十九日卯时 殁未详 葬岡家场向东南 娶岡家坪赵氏 生殁未详 葬温山窪 子一 绍庆系承继声祯之次子为嗣。",
+      "aliases": {},
+      "birth": "公元一九二一年民国辛酉九月十九日卯时 殁未详",
+      "death": null,
+      "burial": "岡家场向东南",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "571de838-931b-47d8-842a-ae476e1f5198",
+    "name": "古耀",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "1f892760-dc2a-408a-be6a-12c37c8b3acf",
+      "name": "今概",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1f892760-dc2a-408a-be6a-12c37c8b3acf&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "e06ce624-391b-46f9-9318-aeddbe47b9db",
+        "name": "长子家圭",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e06ce624-391b-46f9-9318-aeddbe47b9db&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 古耀"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 今概 长子 古耀 字行二三七号居墨城 生于 公元一八七三年同治癸酉二月廿日卯时 殁未祥 葬吴城吉山 娶昌邑陶氏 生于 公元一八七四年同治甲戌 月 日 时 殁未详 葬罗卜园 生子一 家圭。",
+      "aliases": {
+        "hao": "居墨城"
+      },
+      "birth": "公元一八七三年同治癸酉二月廿日卯时 殁未祥",
+      "death": null,
+      "burial": "吴城吉山",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "e06ce624-391b-46f9-9318-aeddbe47b9db",
+    "name": "家圭",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "571de838-931b-47d8-842a-ae476e1f5198",
+      "name": "古耀",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=571de838-931b-47d8-842a-ae476e1f5198&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "9039e59b-125e-4cdd-ad7e-034d9395b530",
+        "name": "长子声远",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9039e59b-125e-4cdd-ad7e-034d9395b530&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "86aa119d-8f5d-41b4-adc0-481e6a308d58",
+        "name": "次子声选",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=86aa119d-8f5d-41b4-adc0-481e6a308d58&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "eca580b5-42d8-43c7-9e00-56e7b3e80fa7",
+        "name": "三子声达",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=eca580b5-42d8-43c7-9e00-56e7b3e80fa7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "0d6e21a7-9b9f-4103-8b9f-f23306dc8e72",
+        "name": "四子声通",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0d6e21a7-9b9f-4103-8b9f-f23306dc8e72&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 家圭"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 古耀 长子 家圭 字 行十号 居墨城村 生于 公元一八二六年丙戌五月二十日子时 殁未详 葬茶园山 娶肖家张氏 生殁未详葬玉兔山 生子四 声远 声选 声通 声达 生女一 适进贤菊。",
+      "aliases": {},
+      "birth": "公元一八二六年丙戌五月二十日子时 殁未详",
+      "death": null,
+      "burial": "茶园山",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "86aa119d-8f5d-41b4-adc0-481e6a308d58",
+    "name": "声选",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "e06ce624-391b-46f9-9318-aeddbe47b9db",
+      "name": "家圭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e06ce624-391b-46f9-9318-aeddbe47b9db&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "495302e0-5e13-4fd8-a426-2d18a70f3a30",
+        "name": "嗣子绍桃",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=495302e0-5e13-4fd8-a426-2d18a70f3a30&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 2,
+      "list": [
+        "长子 声远",
+        "次子 声选",
+        "三子 声达",
+        "四子 声通"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家圭 次子 声选 行五零七号 居墨城 生于 公元一九一七年民国丁巳十月初十日辰时 殁未详 葬罗卜园限吴家坊氏 生子一 绍桃系继入声之次子 生女一 适排头熊。",
+      "aliases": {},
+      "birth": "公元一九一七年民国丁巳十月初十日辰时 殁未详",
+      "death": null,
+      "burial": "罗卜园限吴家坊氏",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "9039e59b-125e-4cdd-ad7e-034d9395b530",
+    "name": "声远",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "e06ce624-391b-46f9-9318-aeddbe47b9db",
+      "name": "家圭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e06ce624-391b-46f9-9318-aeddbe47b9db&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "4343d9d1-a9db-4420-962e-54cf5524f2bc",
+        "name": "长子绍英",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4343d9d1-a9db-4420-962e-54cf5524f2bc&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 1,
+      "list": [
+        "长子 声远",
+        "次子 声选",
+        "三子 声达",
+        "四子 声通"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家圭 长子 声远 行四三七号 居墨城 生于 公元一九一三年癸丑八月初十日午时 殁未详葬玉兔山 娶大塘程氏改嫁 生子一绍英 生女一适随庄杜。",
+      "aliases": {},
+      "birth": "公元一九一三年癸丑八月初十日午时 殁未详",
+      "death": null,
+      "burial": "玉兔山",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "eca580b5-42d8-43c7-9e00-56e7b3e80fa7",
+    "name": "声达",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "e06ce624-391b-46f9-9318-aeddbe47b9db",
+      "name": "家圭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e06ce624-391b-46f9-9318-aeddbe47b9db&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "adf12abc-8da2-4987-ad82-76248e9f9024",
+        "name": "长子绍忆",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=adf12abc-8da2-4987-ad82-76248e9f9024&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "fd65994b-4bc0-46d4-85d6-effa6be384e2",
+        "name": "次子绍桃",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fd65994b-4bc0-46d4-85d6-effa6be384e2&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "7628621f-27ef-47a8-8367-a33010b81844",
+        "name": "三子绍林",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7628621f-27ef-47a8-8367-a33010b81844&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 3,
+      "list": [
+        "长子 声远",
+        "次子 声选",
+        "三子 声达",
+        "四子 声通"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家圭 三子 声达 行六一七号 居墨城 生于 公元一九二六年民国丙寅二月初十日辰时殁葬未详 娶大塘蔡氏水招 生于 公元一九二六年民国丙寅二月廿八日子时 殁于 公元二零零一年岁次农历辛巳 生子三 绍意 绍桃出继胞兄声选为嗣 绍林 生女三 长适蔷薇张 次适美里勒 三适岭下余。",
+      "aliases": {},
+      "birth": "公元一九二六年民国丙寅二月初十日辰时殁",
+      "death": "公元二零零一年岁次农历辛巳",
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "0d6e21a7-9b9f-4103-8b9f-f23306dc8e72",
+    "name": "声通",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "e06ce624-391b-46f9-9318-aeddbe47b9db",
+      "name": "家圭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e06ce624-391b-46f9-9318-aeddbe47b9db&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [
+      {
+        "nid": "a08c3da4-cbdc-495c-ba4b-b9508a44aab6",
+        "name": "长子绍菊",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a08c3da4-cbdc-495c-ba4b-b9508a44aab6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 4,
+      "list": [
+        "长子 声远",
+        "次子 声选",
+        "三子 声达",
+        "四子 声通"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 家圭 四子 声通 行八一六号 居墨城村 生于 公元一九四二年民国壬午十月十一日辰时 殁葬未详 娶八角勒氏生年月日未详改嫁 生子一 绍菊 生女二 长适墙薇张 次适江家坪赵。",
+      "aliases": {},
+      "birth": "公元一九四二年民国壬午十月十一日辰时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "1f892760-dc2a-408a-be6a-12c37c8b3acf",
+    "name": "今概",
+    "generation": 27,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "852893ba-762f-4c79-bbb4-0b6f4e8c240f",
+      "name": "绵达",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=852893ba-762f-4c79-bbb4-0b6f4e8c240f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "571de838-931b-47d8-842a-ae476e1f5198",
+        "name": "长子古耀",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=571de838-931b-47d8-842a-ae476e1f5198&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 今概"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第27世 绵达 长子 今概 居墨城 生娶殁葬未详 生子一 古耀 。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "8dcaa4ea-fe25-4bf0-a390-949981a4081e",
+    "name": "汉云",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "84cbea47-579b-44e0-b12e-9ce7aaa177aa",
+      "name": "绍仁",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=84cbea47-579b-44e0-b12e-9ce7aaa177aa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [
+      {
+        "nid": "861d7998-a456-492d-becf-6356d7e1a597",
+        "name": "之子唐华",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=861d7998-a456-492d-becf-6356d7e1a597&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 汉云"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍仁 嗣子 汉云 居墨城 生于 公元一九五七年农历丁酉三月初九日寅时 娶美里勒家勒凌英 生于 公元一九五七年丁酉七月十六日亥时 生子一 唐华 生女一 徐征生于公元一九七八年戊午九月十九日未时适大塘八房蔡红卫 。",
+      "aliases": {},
+      "birth": "公元一九五七年农历丁酉三月初九日寅时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "861d7998-a456-492d-becf-6356d7e1a597",
+    "name": "唐华",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "8dcaa4ea-fe25-4bf0-a390-949981a4081e",
+      "name": "汉云",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8dcaa4ea-fe25-4bf0-a390-949981a4081e&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "b559e0b4-d01e-47ac-a97d-7537e623a736",
+        "name": "长子高鑫",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b559e0b4-d01e-47ac-a97d-7537e623a736&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d52dd92c-f102-48b9-af65-2cbb3445e6c1",
+        "name": "次子高东",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d52dd92c-f102-48b9-af65-2cbb3445e6c1&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 唐华"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉云 之子 唐华 字振华 行五八九号 居墨城 生于 公元一九八二年农历壬戌十二月初十日子时 娶鄱阳湖杨小春 生于 公元一九九零年庚午七月廿七日戌时 生子二高鑫 高东 。",
+      "aliases": {},
+      "birth": "公元一九八二年农历壬戌十二月初十日子时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "b559e0b4-d01e-47ac-a97d-7537e623a736",
+    "name": "高鑫",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "861d7998-a456-492d-becf-6356d7e1a597",
+      "name": "唐华",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=861d7998-a456-492d-becf-6356d7e1a597&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 高鑫",
+        "次子 高东"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐华 长子 高鑫 字剑钢 居墨城 生于 公元二零零九年己丑二月廿五日午时。",
+      "aliases": {},
+      "birth": "公元二零零九年己丑二月廿五日午时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "84cbea47-579b-44e0-b12e-9ce7aaa177aa",
+    "name": "绍仁",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5958920e-6eb3-4e70-a908-ea4f82852107",
+      "name": "声祖",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5958920e-6eb3-4e70-a908-ea4f82852107&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "8dcaa4ea-fe25-4bf0-a390-949981a4081e",
+        "name": "嗣子汉云",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8dcaa4ea-fe25-4bf0-a390-949981a4081e&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 绍仁",
+        "次子 绍意"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声祖 长子 绍仁 行二一一 居墨城 生于 公元一九一六年民国丙辰九月初一日申时 殁葬未详 生子一 汉云系继绍意之长子。",
+      "aliases": {},
+      "birth": "公元一九一六年民国丙辰九月初一日申时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5d358db9-76d6-4415-845e-23356c9e724b",
+    "name": "绍意",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5958920e-6eb3-4e70-a908-ea4f82852107",
+      "name": "声祖",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5958920e-6eb3-4e70-a908-ea4f82852107&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "c9fb5d58-60eb-4e65-b4c7-118b4d525149",
+        "name": "次子汉星",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c9fb5d58-60eb-4e65-b4c7-118b4d525149&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 绍仁",
+        "次子 绍意"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声祖 次子 绍意 行三七六 居墨城 生于 公元一九三一年辛未四月十六日巳时殁葬未详 娶淳湖杜氏 生于公元一九三七年辛丑 殁葬未详 生子二 汉云出继胞兄绍仁为嗣 汉星 生女一 适傅垄勒。",
+      "aliases": {},
+      "birth": "公元一九三一年辛未四月十六日巳时殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "852893ba-762f-4c79-bbb4-0b6f4e8c240f",
+    "name": "绵达",
+    "generation": 26,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "70f83f1a-900b-47e8-bd9f-570dbc0f54da",
+      "name": "系官",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=70f83f1a-900b-47e8-bd9f-570dbc0f54da&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "1f892760-dc2a-408a-be6a-12c37c8b3acf",
+        "name": "长子今概",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1f892760-dc2a-408a-be6a-12c37c8b3acf&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 绵通",
+        "次子 绵达"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 系官 次子 绵达 居墨城 生娶殁葬未详 生子一 今概。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "8b2433dd-20b9-42ee-bbb4-4131a3f61aa1",
+    "name": "唐林",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "c9fb5d58-60eb-4e65-b4c7-118b4d525149",
+      "name": "汉星",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c9fb5d58-60eb-4e65-b4c7-118b4d525149&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "650ea5a6-c37e-4eb5-857d-fb1cab074152",
+        "name": "长子高鹏",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=650ea5a6-c37e-4eb5-857d-fb1cab074152&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐林",
+        "次子 唐宋"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉星 长子 唐林 行五八零号 居墨城 生于 公元一九八二年农历壬戌九月十三日辰时 娶福建莆田陈燕红 生于 公元一九八四年农历甲子冬月六日巳时 生子一 高鹏 生女一语函生于公元二零零八年戊子二月廿二日寅时 。",
+      "aliases": {},
+      "birth": "公元一九八二年农历壬戌九月十三日辰时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "650ea5a6-c37e-4eb5-857d-fb1cab074152",
+    "name": "高鹏",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "8b2433dd-20b9-42ee-bbb4-4131a3f61aa1",
+      "name": "唐林",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8b2433dd-20b9-42ee-bbb4-4131a3f61aa1&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 高鹏"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐林 长子 高鹏 字伟贤 居墨城 生于 公元二零零四年甲申九月初八日巳时。",
+      "aliases": {},
+      "birth": "公元二零零四年甲申九月初八日巳时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "54a42abb-2aaa-4787-9566-fe69907b9e60",
+    "name": "唐宋",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "c9fb5d58-60eb-4e65-b4c7-118b4d525149",
+      "name": "汉星",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c9fb5d58-60eb-4e65-b4c7-118b4d525149&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "c4f5e74c-a7d5-4827-b44e-4b641e1526d0",
+        "name": "长子高翔",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c4f5e74c-a7d5-4827-b44e-4b641e1526d0&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐林",
+        "次子 唐宋"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉星 次子 唐宋 行六三三号 居墨城 生于 公元一九八四年农历甲子十一月廿三日子时 娶贵州芩巩吴双兰 生于 公元一九八四年农历甲子五月初五日巳时 生子一高翔 生女一语萱生于公元二零零九年己丑二月初十日丑时 。",
+      "aliases": {},
+      "birth": "公元一九八四年农历甲子十一月廿三日子时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "c4f5e74c-a7d5-4827-b44e-4b641e1526d0",
+    "name": "高翔",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "54a42abb-2aaa-4787-9566-fe69907b9e60",
+      "name": "唐宋",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=54a42abb-2aaa-4787-9566-fe69907b9e60&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 高翔"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐宋 长子 高翔 字子茗 居墨城 生于 公元二零一四年甲午九月十八日巳时。",
+      "aliases": {},
+      "birth": "公元二零一四年甲午九月十八日巳时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d52dd92c-f102-48b9-af65-2cbb3445e6c1",
+    "name": "高东",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "861d7998-a456-492d-becf-6356d7e1a597",
+      "name": "唐华",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=861d7998-a456-492d-becf-6356d7e1a597&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 高鑫",
+        "次子 高东"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐华 次子 高东 字丙坤 居墨城 生于 公元二零一二年壬辰十一月十四日午时。",
+      "aliases": {},
+      "birth": "公元二零一二年壬辰十一月十四日午时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "c9fb5d58-60eb-4e65-b4c7-118b4d525149",
+    "name": "汉星",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5d358db9-76d6-4415-845e-23356c9e724b",
+      "name": "绍意",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5d358db9-76d6-4415-845e-23356c9e724b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "8b2433dd-20b9-42ee-bbb4-4131a3f61aa1",
+        "name": "长子唐林",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8b2433dd-20b9-42ee-bbb4-4131a3f61aa1&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "54a42abb-2aaa-4787-9566-fe69907b9e60",
+        "name": "次子唐宋",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=54a42abb-2aaa-4787-9566-fe69907b9e60&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "次子 汉星"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍意 次子 汉星 居墨城 生于 公元一九五九年农历己亥十一月十二日午时 娶麦城章群弟 生于 公元一九六一年辛丑八月廿日巳时 生子二 唐林 唐宋。",
+      "aliases": {},
+      "birth": "公元一九五九年农历己亥十一月十二日午时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "952e06d8-1f42-4a8b-b72d-1dad0218d813",
+    "name": "唐勇",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "bfb5e500-b389-40ac-b25e-8cc18c198134",
+      "name": "汉鹏",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bfb5e500-b389-40ac-b25e-8cc18c198134&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "79998fa2-bca2-41c8-8419-7de06a6adda2",
+        "name": "长子高曦",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=79998fa2-bca2-41c8-8419-7de06a6adda2&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "1c1047c1-a950-41bc-ba87-c38b6ba95ca8",
+        "name": "次子高焯",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1c1047c1-a950-41bc-ba87-c38b6ba95ca8&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "73bbc21b-f5c7-4f60-854c-aa21a59b3eb5",
+        "name": "三子高栋",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=73bbc21b-f5c7-4f60-854c-aa21a59b3eb5&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 唐勇"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉鹏 之子 唐勇 行三零六号 居墨城 生于 公元一九七二年农历壬子八月初一日戌时 殁于 公元二零二四年甲辰七月初七日申时葬新祺周架子山 娶南昌高新熊林林 生于 公元一九九零年庚午六月初七日戌时 生子三高曦 高焯 高栋 生女一文丽生于公元二零零一辛巳年七月廿二日卯时 。",
+      "aliases": {},
+      "birth": "公元一九七二年农历壬子八月初一日戌时",
+      "death": "公元二零二四年甲辰七月初七日申时",
+      "burial": "新祺周架子山",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "79998fa2-bca2-41c8-8419-7de06a6adda2",
+    "name": "高曦",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "952e06d8-1f42-4a8b-b72d-1dad0218d813",
+      "name": "唐勇",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=952e06d8-1f42-4a8b-b72d-1dad0218d813&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 高曦",
+        "次子 高焯",
+        "三子 高栋"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐勇 长子 高曦 居墨城 生于 公元二零一二年壬辰三月十五日寅时。",
+      "aliases": {},
+      "birth": "公元二零一二年壬辰三月十五日寅时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "1c1047c1-a950-41bc-ba87-c38b6ba95ca8",
+    "name": "高焯",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "952e06d8-1f42-4a8b-b72d-1dad0218d813",
+      "name": "唐勇",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=952e06d8-1f42-4a8b-b72d-1dad0218d813&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 高曦",
+        "次子 高焯",
+        "三子 高栋"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐勇 次子 高焯 居墨城 生于 公元二零一五年乙未五月十一日申时。",
+      "aliases": {},
+      "birth": "公元二零一五年乙未五月十一日申时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "73bbc21b-f5c7-4f60-854c-aa21a59b3eb5",
+    "name": "高栋",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "952e06d8-1f42-4a8b-b72d-1dad0218d813",
+      "name": "唐勇",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=952e06d8-1f42-4a8b-b72d-1dad0218d813&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 高曦",
+        "次子 高焯",
+        "三子 高栋"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐勇 三子 高栋 居墨城 生于 公元二零二一年辛丑七月十二日戌时。",
+      "aliases": {},
+      "birth": "公元二零二一年辛丑七月十二日戌时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "fce5805b-6291-4275-b08f-35cbd5940bc4",
+    "name": "绍钊",
+    "generation": 31,
+    "url": null,
+    "note": "承继声仪长子为嗣",
+    "father": {
+      "nid": "77fa074b-2aca-478d-b03d-cc6c185d1592",
+      "name": "声高",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=77fa074b-2aca-478d-b03d-cc6c185d1592&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [
+      {
+        "nid": "96362a26-e9fc-4323-8f8a-d39fec37dfe9",
+        "name": "嗣子汉梅",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=96362a26-e9fc-4323-8f8a-d39fec37dfe9&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 绍钊"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声高 嗣子 绍钊 行二五五号居墨城 生于 公元一九二零年民国庚申十月十六日殁葬未详 生子一 汉枚 系承继绍银之长子为嗣。",
+      "aliases": {
+        "hao": "居墨城"
+      },
+      "birth": "公元一九二零年民国庚申十月十六日殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "96362a26-e9fc-4323-8f8a-d39fec37dfe9",
+    "name": "汉梅",
+    "generation": 32,
+    "url": null,
+    "note": "承继绍银长子为嗣",
+    "father": {
+      "nid": "fce5805b-6291-4275-b08f-35cbd5940bc4",
+      "name": "绍钊",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fce5805b-6291-4275-b08f-35cbd5940bc4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [
+      {
+        "nid": "1413bee7-cf7e-4960-babd-6429a145541d",
+        "name": "长子唐环",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1413bee7-cf7e-4960-babd-6429a145541d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "48179e0a-5ff3-4310-9ff3-2da79c9b1a80",
+        "name": "次子唐勇",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=48179e0a-5ff3-4310-9ff3-2da79c9b1a80&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 汉梅"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍钊 嗣子 汉梅 居墨城 生于 公元一九四九农历己丑十月初二日午时 娶大塘程金凤 生于公元一九五七年殁葬未详 生子一唐环 继娶大塘程菊香 生于 公元一九五九年己亥九月廿日未时 生子一 唐勇 生女一 淑娇适金盘万。",
+      "aliases": {},
+      "birth": "公元一九四九农历己丑十月初二日午时",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "1413bee7-cf7e-4960-babd-6429a145541d",
+    "name": "唐环",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "96362a26-e9fc-4323-8f8a-d39fec37dfe9",
+      "name": "汉梅",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=96362a26-e9fc-4323-8f8a-d39fec37dfe9&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "a3d5de13-f4a9-45a8-8185-1d6c91bd943d",
+        "name": "长子高翔",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a3d5de13-f4a9-45a8-8185-1d6c91bd943d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐环",
+        "次子 唐勇"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉梅 长子 唐环 名唐环行四九七号 居墨城 生于 公元一九七八年农历戊午七月廿四日卯时 娶兰新魏云云生庚未详离异 生女二长女文静 次女幸宇适向塘 继娶丰城朱娇萍 生于 公元一九八零年庚申十月廿五日巳时 生子一高翔 。",
+      "aliases": {},
+      "birth": "公元一九七八年农历戊午七月廿四日卯时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a3d5de13-f4a9-45a8-8185-1d6c91bd943d",
+    "name": "高翔",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "1413bee7-cf7e-4960-babd-6429a145541d",
+      "name": "唐环",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1413bee7-cf7e-4960-babd-6429a145541d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 高翔"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐环 长子 高翔 居墨城 生于 公元二零一一年辛卯七月廿五日丑时。",
+      "aliases": {},
+      "birth": "公元二零一一年辛卯七月廿五日丑时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "48179e0a-5ff3-4310-9ff3-2da79c9b1a80",
+    "name": "唐勇",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "96362a26-e9fc-4323-8f8a-d39fec37dfe9",
+      "name": "汉梅",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=96362a26-e9fc-4323-8f8a-d39fec37dfe9&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "c01e081c-c133-4071-ad0e-d62122db7614",
+        "name": "长子高新",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c01e081c-c133-4071-ad0e-d62122db7614&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "20189ff7-a884-4a90-90c2-69658708073e",
+        "name": "次子高俊",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=20189ff7-a884-4a90-90c2-69658708073e&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐环",
+        "次子 唐勇"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉梅 次子 唐勇 行七七四号 居墨城 生于 公元一九八六年农历丙寅十一月十三日卯时 娶湾里陈家陈氏 生于 公元一九九零年庚午十二月廿日亥时 生子二高新 高俊 生女二长女文君生于公元二零一六年丙申正月廿六日辰时待适 次女君雅生于公元二零二零年庚子七月初七日巳时待适。",
+      "aliases": {},
+      "birth": "公元一九八六年农历丙寅十一月十三日卯时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "c01e081c-c133-4071-ad0e-d62122db7614",
+    "name": "高新",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "48179e0a-5ff3-4310-9ff3-2da79c9b1a80",
+      "name": "唐勇",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=48179e0a-5ff3-4310-9ff3-2da79c9b1a80&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 高新",
+        "次子 高俊"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐勇 长子 高新 居墨城 生于 公元二零一零年庚寅六月廿四日午时。",
+      "aliases": {},
+      "birth": "公元二零一零年庚寅六月廿四日午时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "20189ff7-a884-4a90-90c2-69658708073e",
+    "name": "高俊",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "48179e0a-5ff3-4310-9ff3-2da79c9b1a80",
+      "name": "唐勇",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=48179e0a-5ff3-4310-9ff3-2da79c9b1a80&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 高新",
+        "次子 高俊"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐勇 次子 高俊 居墨城 生于 公元二零一九年己亥十一月廿一日丑时。",
+      "aliases": {},
+      "birth": "公元二零一九年己亥十一月廿一日丑时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "34b1ab18-62ed-4a29-9f7e-118816e6b872",
+    "name": "绍铭",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "217c96ec-603f-461f-a96e-57ba737fd2b0",
+      "name": "声长",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=217c96ec-603f-461f-a96e-57ba737fd2b0&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "bfb5e500-b389-40ac-b25e-8cc18c198134",
+        "name": "之子汉鹏",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bfb5e500-b389-40ac-b25e-8cc18c198134&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 绍铭"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声长 长子 绍铭 名绍明 行一七七 居墨城 生于 公元一九一二年民国壬子十月十五日午时 殁未详 葬柴背山 娶老鼠窝陈氏 生殁葬未详 生子一 汉鹏 生女一 适樟树坪余。",
+      "aliases": {},
+      "birth": "公元一九一二年民国壬子十月十五日午时 殁未详",
+      "death": null,
+      "burial": "柴背山",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "0f5330c0-d9e7-400d-92da-651e428567af",
+    "name": "汉宏",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "d06c7073-018c-4339-beb5-a2f09a47cfae",
+      "name": "绍钱",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d06c7073-018c-4339-beb5-a2f09a47cfae&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "0503c78b-df6a-4731-9001-088dac4feb76",
+        "name": "之子唐剑",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0503c78b-df6a-4731-9001-088dac4feb76&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 汉宏"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍钱 之子 汉宏 居墨城 生于 公元一九四八年民国戊子十二月五日戌时 娶抚洲市何香兰 生于 公元一九四七年民国丁亥十月初三日 生子一唐剑 生女一徐容生于公元一九七六年丙辰六月十三日酉时适江苏昆山。",
+      "aliases": {},
+      "birth": "公元一九四八年民国戊子十二月五日戌时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "0503c78b-df6a-4731-9001-088dac4feb76",
+    "name": "唐剑",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0f5330c0-d9e7-400d-92da-651e428567af",
+      "name": "汉宏",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f5330c0-d9e7-400d-92da-651e428567af&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "56849434-d13b-45f2-b323-e7b9694dbec4",
+        "name": "之子高才",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=56849434-d13b-45f2-b323-e7b9694dbec4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 唐剑"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉宏 之子 唐剑 行三三四号 居墨城 生于 公元一九七三年农历壬子腊月初五日午时 娶新建联圩涂爱兰 生于 公元一九七三年农历壬子十一月十五日子时 生子一 高才 。",
+      "aliases": {},
+      "birth": "公元一九七三年农历壬子腊月初五日午时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "56849434-d13b-45f2-b323-e7b9694dbec4",
+    "name": "高才",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0503c78b-df6a-4731-9001-088dac4feb76",
+      "name": "唐剑",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0503c78b-df6a-4731-9001-088dac4feb76&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 高才"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐剑 之子 高才 居墨城 生于 公元一九九七年丁丑六月十四日卯时 娶江苏泰州新华魏志玉 生于 公元一九九九年己卯二月初二日吉时。",
+      "aliases": {},
+      "birth": "公元一九九七年丁丑六月十四日卯时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "f296819d-173c-4ac7-b869-9fd8b2365c53",
+    "name": "绍银",
+    "generation": 31,
+    "url": null,
+    "note": "承祧声仪之子一子二祧",
+    "father": {
+      "nid": "218cbe5f-c507-4645-ac73-beac0628d80b",
+      "name": "声凰",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=218cbe5f-c507-4645-ac73-beac0628d80b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "祧子",
+    "children": [
+      {
+        "nid": "e48aeb2a-be4e-4933-ad4c-0430d35b07d5",
+        "name": "长子汉梅",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e48aeb2a-be4e-4933-ad4c-0430d35b07d5&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d532b977-20a3-468a-b39b-22de54df804f",
+        "name": "次子汉桃",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d532b977-20a3-468a-b39b-22de54df804f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "祧子 绍银"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声凰 祧子 绍银 行二九零 居墨城 生于 公元一九二三年民国癸亥六月廿五日午时 殁葬未详 娶吴城叶氏 生于 公元一九二九年民国己巳十一月廿日午时殁葬未详 生子三 汉梅出继绍钊名下为嗣 汉桃 汉柱归祖声仪嫡孙 生女二 长适美里勒 次女大塘程。",
+      "aliases": {},
+      "birth": "公元一九二三年民国癸亥六月廿五日午时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "e48aeb2a-be4e-4933-ad4c-0430d35b07d5",
+    "name": "汉梅",
+    "generation": 32,
+    "url": null,
+    "note": "出继绍钊名下为嗣",
+    "father": {
+      "nid": "f296819d-173c-4ac7-b869-9fd8b2365c53",
+      "name": "绍银",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f296819d-173c-4ac7-b869-9fd8b2365c53&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 汉梅",
+        "次子 汉桃"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍银 长子 汉梅 居墨城 出继绍钊名下为嗣 详前。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d532b977-20a3-468a-b39b-22de54df804f",
+    "name": "汉桃",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "f296819d-173c-4ac7-b869-9fd8b2365c53",
+      "name": "绍银",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f296819d-173c-4ac7-b869-9fd8b2365c53&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "2e4a08b6-d2ef-4e0b-9889-c80ded46e246",
+        "name": "长子唐仪",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2e4a08b6-d2ef-4e0b-9889-c80ded46e246&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "213fcf63-377e-4719-803a-1b004d13f08a",
+        "name": "次子唐远",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=213fcf63-377e-4719-803a-1b004d13f08a&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 汉梅",
+        "次子 汉桃"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍银 次子 汉桃 居墨城 生于 公元一九五五年乙未二月廿五日申时 娶金桥小溪头闵小娣 生于 公元一九五五年乙未腊月十七日辰时 生子二 唐仪 唐远。",
+      "aliases": {},
+      "birth": "公元一九五五年乙未二月廿五日申时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "2e4a08b6-d2ef-4e0b-9889-c80ded46e246",
+    "name": "唐仪",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "d532b977-20a3-468a-b39b-22de54df804f",
+      "name": "汉桃",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d532b977-20a3-468a-b39b-22de54df804f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "f40eccb1-5892-4128-8f5e-ff72bb3055a1",
+        "name": "长子高峰",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f40eccb1-5892-4128-8f5e-ff72bb3055a1&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "5dceaae5-4946-4830-a658-44b6fd0ca534",
+        "name": "次子高健",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5dceaae5-4946-4830-a658-44b6fd0ca534&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐仪",
+        "次子 唐远"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉桃 长子 唐仪 行四二一号 居墨城 生于 公元一九七六年农历丙辰九月初九日午时 娶清淇李玉玲 生于 公元一九七九年农历己未八月十三日离异 生子二 高峰 高健 。",
+      "aliases": {},
+      "birth": "公元一九七六年农历丙辰九月初九日午时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "f40eccb1-5892-4128-8f5e-ff72bb3055a1",
+    "name": "高峰",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "2e4a08b6-d2ef-4e0b-9889-c80ded46e246",
+      "name": "唐仪",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2e4a08b6-d2ef-4e0b-9889-c80ded46e246&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 高峰",
+        "次子 高健"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐仪 长子 高峰 居墨城 生于 公元二零零一年辛巳十二月初九日未时。",
+      "aliases": {},
+      "birth": "公元二零零一年辛巳十二月初九日未时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5dceaae5-4946-4830-a658-44b6fd0ca534",
+    "name": "高健",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "2e4a08b6-d2ef-4e0b-9889-c80ded46e246",
+      "name": "唐仪",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2e4a08b6-d2ef-4e0b-9889-c80ded46e246&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 高峰",
+        "次子 高健"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐仪 次子 高健 居墨城 生于 公元二零零四年癸未十二月廿二日巳时。",
+      "aliases": {},
+      "birth": "公元二零零四年癸未十二月廿二日巳时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "bfb5e500-b389-40ac-b25e-8cc18c198134",
+    "name": "汉鹏",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "34b1ab18-62ed-4a29-9f7e-118816e6b872",
+      "name": "绍铭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=34b1ab18-62ed-4a29-9f7e-118816e6b872&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "952e06d8-1f42-4a8b-b72d-1dad0218d813",
+        "name": "之子唐勇",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=952e06d8-1f42-4a8b-b72d-1dad0218d813&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 汉鹏"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍铭 之子 汉鹏 学历中专 居墨城 中共党员曾任江西蚕桑场第一分场场长 生于 公元一九四四年民国甲申年三月十五日巳时 殁于 公元二零一四年甲午三月初一日巳时葬未详 娶万安罗顺英 生于 公元一九四二年辛巳十二月十九日亥时 生子一 唐勇 生女三 长女徐文适立新蔡 次女徐萍适江西遂川县 三女徐艳适永修下泥。",
+      "aliases": {},
+      "birth": "公元一九四四年民国甲申年三月十五日巳时",
+      "death": "公元二零一四年甲午三月初一日巳时",
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a6fccb79-0277-4fd4-a45d-6b5f488f5395",
+    "name": "绍钊",
+    "generation": 31,
+    "url": null,
+    "note": "出继声高名下为嗣",
+    "father": {
+      "nid": "c786d66f-0bf2-4497-a960-f366b75c204d",
+      "name": "声仪",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c786d66f-0bf2-4497-a960-f366b75c204d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 绍钊",
+        "次子 绍钱",
+        "三子 绍银"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声仪 长子 绍钊 出继声高名下为嗣 详前。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "95b44f9b-3b4a-4775-983f-a682619c9a87",
+    "name": "绍钱",
+    "generation": 31,
+    "url": null,
+    "note": "出继声凤名下为嗣",
+    "father": {
+      "nid": "c786d66f-0bf2-4497-a960-f366b75c204d",
+      "name": "声仪",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c786d66f-0bf2-4497-a960-f366b75c204d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 绍钊",
+        "次子 绍钱",
+        "三子 绍银"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声仪 次子 绍钱 出继声凤名下为嗣 详前。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "408cb3cf-3daa-4b23-a405-38f52cdd01b9",
+    "name": "绍银",
+    "generation": 31,
+    "url": null,
+    "note": "出祧声凰一子二祧",
+    "father": {
+      "nid": "c786d66f-0bf2-4497-a960-f366b75c204d",
+      "name": "声仪",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c786d66f-0bf2-4497-a960-f366b75c204d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "48277436-cb83-45f7-aa0a-9d4b3288d6a7",
+        "name": "三子汉柱",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=48277436-cb83-45f7-aa0a-9d4b3288d6a7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 绍钊",
+        "次子 绍钱",
+        "三子 绍银"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声仪 三子 绍银 行二九一 居墨城 生于 公元一九二三年民国癸亥六月廿五日午时 殁葬未详 娶吴城叶氏 生于 公元一九二九年民国己巳十月廿日时殁葬未详 子一 汉柱 生女二 三适南昌罗家集 四女未字。",
+      "aliases": {},
+      "birth": "公元一九二三年民国癸亥六月廿五日午时 殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "48277436-cb83-45f7-aa0a-9d4b3288d6a7",
+    "name": "汉柱",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "408cb3cf-3daa-4b23-a405-38f52cdd01b9",
+      "name": "绍银",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=408cb3cf-3daa-4b23-a405-38f52cdd01b9&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "aa38eeb4-9378-4c35-a946-1f61c81bb76a",
+        "name": "长子唐龙",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=aa38eeb4-9378-4c35-a946-1f61c81bb76a&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "4cae3c25-d5f1-40be-8f43-e074af1b7759",
+        "name": "次子唐彪",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4cae3c25-d5f1-40be-8f43-e074af1b7759&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "三子 汉柱"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍银 三子 汉柱 居墨城 生于 公元一九六七年农历丁未腊月初一日辰时 娶樟坪刘家刘永红 生于 公元一九六六年丙午九月初八日子时 生子二 唐龙 唐彪。",
+      "aliases": {},
+      "birth": "公元一九六七年农历丁未腊月初一日辰时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "aa38eeb4-9378-4c35-a946-1f61c81bb76a",
+    "name": "唐龙",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "48277436-cb83-45f7-aa0a-9d4b3288d6a7",
+      "name": "汉柱",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=48277436-cb83-45f7-aa0a-9d4b3288d6a7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐龙",
+        "次子 唐彪"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉柱 长子 唐龙 行七二二号 居墨城 生于 公元一九八七年农历丁卯九月初四日子时 娶湖南唐慧敏 生于 公元一九八七年农历丁卯六月廿六日辰时 生女一 嘉歆 生于公元二零一六年农历丙申六月廿五日巳时 。",
+      "aliases": {},
+      "birth": "公元一九八七年农历丁卯九月初四日子时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "4cae3c25-d5f1-40be-8f43-e074af1b7759",
+    "name": "唐彪",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "48277436-cb83-45f7-aa0a-9d4b3288d6a7",
+      "name": "汉柱",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=48277436-cb83-45f7-aa0a-9d4b3288d6a7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "c3959665-ea25-4891-aaf4-194196e3de6c",
+        "name": "长子高辰",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c3959665-ea25-4891-aaf4-194196e3de6c&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐龙",
+        "次子 唐彪"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉柱 次子 唐彪 行七七三号 居墨城 生于 公元一九八八年农历戊辰子月廿一日卯时 娶大塘程家程美娟 生于 公元一九九一年辛未十月廿七日卯时 生子一高辰 生女一芷彤生于公元二零一九年十二月廿二日亥时 。",
+      "aliases": {},
+      "birth": "公元一九八八年农历戊辰子月廿一日卯时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "c3959665-ea25-4891-aaf4-194196e3de6c",
+    "name": "高辰",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "4cae3c25-d5f1-40be-8f43-e074af1b7759",
+      "name": "唐彪",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4cae3c25-d5f1-40be-8f43-e074af1b7759&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 高辰"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐彪 长子 高辰 居墨城 生于 公元二零一六年丙申三月初二日酉时。",
+      "aliases": {},
+      "birth": "公元二零一六年丙申三月初二日酉时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d06c7073-018c-4339-beb5-a2f09a47cfae",
+    "name": "绍钱",
+    "generation": 31,
+    "url": null,
+    "note": "承继声仪次子为嗣",
+    "father": {
+      "nid": "72872477-db1e-4992-9b14-162be30c5c1a",
+      "name": "声凤",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=72872477-db1e-4992-9b14-162be30c5c1a&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [
+      {
+        "nid": "0f5330c0-d9e7-400d-92da-651e428567af",
+        "name": "之子汉宏",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f5330c0-d9e7-400d-92da-651e428567af&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 绍钱"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声凤 嗣子 绍钱 名绍全 行二三一 居墨城 生于 公元一九一八年民国戊午十二月十二日未时殁葬未详 娶大塘潘氏 生于 公元一九二二年民国壬戌十月初三日辰时殁葬未详 生子一 汉宏。",
+      "aliases": {},
+      "birth": "公元一九一八年民国戊午十二月十二日未时殁",
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "e309fdb2-cbce-4bcb-9081-b4792e12ecc1",
+    "name": "绍先",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "95a85147-e997-4bcd-b3a1-d5cfbadf3917",
+      "name": "声禄",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=95a85147-e997-4bcd-b3a1-d5cfbadf3917&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "7ae0065c-1d30-4373-88b8-c6af4f66c3c7",
+        "name": "长子汉斌",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ae0065c-1d30-4373-88b8-c6af4f66c3c7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "f2b94b42-515a-4569-9859-3653d0e81add",
+        "name": "次子汉武",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f2b94b42-515a-4569-9859-3653d0e81add&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 绍先"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声禄 长子 绍先 行四三五 居墨城 生于 公元一九三五年民国乙亥三月三日午时 殁于 公元二零一二年壬辰四月廿四日午时葬未详 娶隋家庄杜冬秀 生于 公元一九四零年民国庚辰十月十二日子时殁葬未详 生子二 汉斌 汉武 生女六长适安山余 次适安基山熊 三适广东郑 四适八角勒 五适安基山熊 六适江南刘。",
+      "aliases": {},
+      "birth": "公元一九三五年民国乙亥三月三日午时",
+      "death": "公元二零一二年壬辰四月廿四日午时",
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "7ae0065c-1d30-4373-88b8-c6af4f66c3c7",
+    "name": "汉斌",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "e309fdb2-cbce-4bcb-9081-b4792e12ecc1",
+      "name": "绍先",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e309fdb2-cbce-4bcb-9081-b4792e12ecc1&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "bf55255c-1b06-433b-a1ef-203dfdd41d9b",
+        "name": "长子唐军",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bf55255c-1b06-433b-a1ef-203dfdd41d9b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "c378bded-0efc-4674-8a78-36a15836a58e",
+        "name": "次子唐柏",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c378bded-0efc-4674-8a78-36a15836a58e&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 汉斌",
+        "次子 汉武"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍先 长子 汉斌 居墨城 生于 公元一九七四年农历甲寅十一月初六日亥时 娶大塘吴房蔡红玉 生于 公元一九七五年农历乙卯七月初三日子时 生子二 唐金 唐柏 生女三长女倩琴生于公元一九九八年戊寅八月初六日巳时待适 次女徐倩生于公元二零零二年壬午九月廿七日巳时待适 三女诗琴生于公元二零零五年乙酉六月十六日辰时待适。",
+      "aliases": {},
+      "birth": "公元一九七四年农历甲寅十一月初六日亥时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "bf55255c-1b06-433b-a1ef-203dfdd41d9b",
+    "name": "唐军",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "7ae0065c-1d30-4373-88b8-c6af4f66c3c7",
+      "name": "汉斌",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ae0065c-1d30-4373-88b8-c6af4f66c3c7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐军",
+        "次子 唐柏"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉斌 长子 唐军 字文杰名唐金 居墨城 生于 公元二零零三年农历癸未十月廿四日寅时 。",
+      "aliases": {},
+      "birth": "公元二零零三年农历癸未十月廿四日寅时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "c378bded-0efc-4674-8a78-36a15836a58e",
+    "name": "唐柏",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "7ae0065c-1d30-4373-88b8-c6af4f66c3c7",
+      "name": "汉斌",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ae0065c-1d30-4373-88b8-c6af4f66c3c7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐军",
+        "次子 唐柏"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉斌 次子 唐柏 字文豪 居墨城 生于 公元二零零七年农历丁亥九月初八日午时 。",
+      "aliases": {},
+      "birth": "公元二零零七年农历丁亥九月初八日午时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "f2b94b42-515a-4569-9859-3653d0e81add",
+    "name": "汉武",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "e309fdb2-cbce-4bcb-9081-b4792e12ecc1",
+      "name": "绍先",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e309fdb2-cbce-4bcb-9081-b4792e12ecc1&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "40bff8a7-f177-4735-b60e-4f3e3dc7b18a",
+        "name": "长子唐松",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=40bff8a7-f177-4735-b60e-4f3e3dc7b18a&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "74cc64e0-c57a-4b71-8896-d315a4e29fa1",
+        "name": "次子唐峰",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=74cc64e0-c57a-4b71-8896-d315a4e29fa1&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 汉斌",
+        "次子 汉武"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍先 次子 汉武 居墨城 生于 公元一九七九年农历己未四月初三日卯时 娶永修横山熊爱英 生于 公元一九八一年农历辛酉十二月十六日子时 生子二唐松 唐峰 生女五 潇潇生于公元二零零三年农历癸未五月十九日巳时 欢欢生于公元二零零五年农历乙酉三月初二日寅时 三女琴琴生于公元二零零六年丙戌腊月二十日 四女文文生于公元二零零七年丁亥六月廿七日 五女贝贝生于公元二零一三年癸巳五月十七日。",
+      "aliases": {},
+      "birth": "公元一九七九年农历己未四月初三日卯时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "40bff8a7-f177-4735-b60e-4f3e3dc7b18a",
+    "name": "唐松",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "f2b94b42-515a-4569-9859-3653d0e81add",
+      "name": "汉武",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f2b94b42-515a-4569-9859-3653d0e81add&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐松",
+        "次子 唐峰"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉武 长子 唐松 居墨城 生于 公元二零零九年己丑六月十一日酉时。",
+      "aliases": {},
+      "birth": "公元二零零九年己丑六月十一日酉时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "db2ace3a-e3d7-45e2-8adc-ab3c6efb5323",
+    "name": "绍先",
+    "generation": 31,
+    "url": null,
+    "note": "承继声禄之子双祧为嗣",
+    "father": {
+      "nid": "bdf53456-d895-410c-8e54-24aae5d05a77",
+      "name": "声福",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bdf53456-d895-410c-8e54-24aae5d05a77&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 绍先"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声福 嗣子 绍先 行四三五 居墨城 承继声禄之子双祧为嗣 详前。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "495b1701-bc2a-4c42-ae57-ba281002279a",
+    "name": "绍庭",
+    "generation": 31,
+    "url": null,
+    "note": "承继声祯长子为嗣",
+    "father": {
+      "nid": "64da3ec3-a3c0-46aa-9711-0da55b891476",
+      "name": "声祥",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64da3ec3-a3c0-46aa-9711-0da55b891476&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [
+      {
+        "nid": "786e9551-4740-428b-9803-490e5fb502c7",
+        "name": "长子汉明",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=786e9551-4740-428b-9803-490e5fb502c7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "515c37be-7df2-4bf9-b3d0-33af71186e89",
+        "name": "次子汉亮",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=515c37be-7df2-4bf9-b3d0-33af71186e89&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 绍庭"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声祥 嗣子 绍庭 行六八零 居墨城 生于 公元一九五零年农历庚寅九月初三日亥时 娶金桥下边杜家杜菜花 生于 公元一九五九年农历己亥十月初七日亥时 生子二 汉明 汉亮 生女一建英适象山永丰三房熊。",
+      "aliases": {},
+      "birth": "公元一九五零年农历庚寅九月初三日亥时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "786e9551-4740-428b-9803-490e5fb502c7",
+    "name": "汉明",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "495b1701-bc2a-4c42-ae57-ba281002279a",
+      "name": "绍庭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=495b1701-bc2a-4c42-ae57-ba281002279a&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "8e04c2c7-881a-4641-a10f-987a83aa40ec",
+        "name": "长子唐志",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8e04c2c7-881a-4641-a10f-987a83aa40ec&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "6bbde68e-0645-4aa6-82d4-d709d43cd0ce",
+        "name": "次子唐冬",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6bbde68e-0645-4aa6-82d4-d709d43cd0ce&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 汉明",
+        "次子 汉亮"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍庭 长子 汉明 居墨城 生于 公元一九七六年农历丙辰十一月廿八日亥时 娶金桥梓里庄熊利梅 生于 公元一九七六年农历丙辰十一月廿六日吉时 生子二 唐志 唐冬 生女一 凤玲生于公元二零零零年农历壬午十月初三日待适 。",
+      "aliases": {},
+      "birth": "公元一九七六年农历丙辰十一月廿八日亥时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "8e04c2c7-881a-4641-a10f-987a83aa40ec",
+    "name": "唐志",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "786e9551-4740-428b-9803-490e5fb502c7",
+      "name": "汉明",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=786e9551-4740-428b-9803-490e5fb502c7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐志",
+        "次子 唐冬"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉明 长子 唐志 居墨城 生于 公元一九九八年农历戊寅十月初四日吉时 。",
+      "aliases": {},
+      "birth": "公元一九九八年农历戊寅十月初四日吉时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "6bbde68e-0645-4aa6-82d4-d709d43cd0ce",
+    "name": "唐冬",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "786e9551-4740-428b-9803-490e5fb502c7",
+      "name": "汉明",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=786e9551-4740-428b-9803-490e5fb502c7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐志",
+        "次子 唐冬"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉明 次子 唐冬 居墨城 生于 公元二零零零年农历庚辰八月初五日 。",
+      "aliases": {},
+      "birth": "公元二零零零年农历庚辰八月初五日 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "515c37be-7df2-4bf9-b3d0-33af71186e89",
+    "name": "汉亮",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "495b1701-bc2a-4c42-ae57-ba281002279a",
+      "name": "绍庭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=495b1701-bc2a-4c42-ae57-ba281002279a&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "82aeff4d-4ba5-4394-8eff-d74765bfd872",
+        "name": "长子唐正",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=82aeff4d-4ba5-4394-8eff-d74765bfd872&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 汉明",
+        "次子 汉亮"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍庭 次子 汉亮 居墨城 生于 公元一九七八年农历戊午九月廿五日辰时 娶永修横山熊菊花 生于 公元一九八零年农历庚申九月廿七日午时 生子一 唐正 生女二春蕾生于公元二零零四年农历甲申五月十日午时待适 文欣生于公元二零零六年农历丙戌五月廿九日亥时待适 。",
+      "aliases": {},
+      "birth": "公元一九七八年农历戊午九月廿五日辰时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "82aeff4d-4ba5-4394-8eff-d74765bfd872",
+    "name": "唐正",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "515c37be-7df2-4bf9-b3d0-33af71186e89",
+      "name": "汉亮",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=515c37be-7df2-4bf9-b3d0-33af71186e89&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 唐正"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉亮 长子 唐正 居来麦城 生于 公元二零零七年农历丁亥十月十一日酉时 。",
+      "aliases": {},
+      "birth": "公元二零零七年农历丁亥十月十一日酉时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "213fcf63-377e-4719-803a-1b004d13f08a",
+    "name": "唐远",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "d532b977-20a3-468a-b39b-22de54df804f",
+      "name": "汉桃",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d532b977-20a3-468a-b39b-22de54df804f&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐仪",
+        "次子 唐远"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉桃 次子 唐远 行五一六号 居墨城 生于 公元一九七八年农历戊午十二月廿七日丑时 娶美里勒芙蓉 生于 公元一九七八年农历戊午九月廿六日酉时 生女三长女嘉乐生于公元二零零四年农历甲申八月廿四日卯时 次女嘉惠生于公元二零零六年农历丙戌七月二日巳时 三女嘉敏生于公元二零一二年七月十七日吉时 。",
+      "aliases": {},
+      "birth": "公元一九七八年农历戊午十二月廿七日丑时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "495302e0-5e13-4fd8-a426-2d18a70f3a30",
+    "name": "绍桃",
+    "generation": 31,
+    "url": null,
+    "note": "承继声达次子为嗣",
+    "father": {
+      "nid": "86aa119d-8f5d-41b4-adc0-481e6a308d58",
+      "name": "声选",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=86aa119d-8f5d-41b4-adc0-481e6a308d58&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [
+      {
+        "nid": "71d09ec6-c7c2-4f4b-a51f-799e1e293cd1",
+        "name": "之子汉策",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=71d09ec6-c7c2-4f4b-a51f-799e1e293cd1&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 绍桃"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声选 嗣子 绍桃 行九七六 居墨城 生于 公元一九六三年农历癸卯十二月十一日卯时 娶八角勒玲花 生于 公元一九六九年己酉七月初一日子时 生子一 汉策 生女一 徐超生于公元一九九一年辛未四月十八日亥时适南昌万家。",
+      "aliases": {},
+      "birth": "公元一九六三年农历癸卯十二月十一日卯时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "524652e5-0190-48bb-95b3-29ab75a15554",
+    "name": "绍庆",
+    "generation": 31,
+    "url": null,
+    "note": "承继声祯次子为嗣",
+    "father": {
+      "nid": "f8e9a661-03ea-45fe-8bb7-4d218abe1547",
+      "name": "声祉",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f8e9a661-03ea-45fe-8bb7-4d218abe1547&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [
+      {
+        "nid": "8804d9d9-c396-4c74-bf3e-743a69bd389c",
+        "name": "长子汉卿",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8804d9d9-c396-4c74-bf3e-743a69bd389c&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "a7317560-0cf2-4053-8501-63d613f1e949",
+        "name": "次子汉平",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a7317560-0cf2-4053-8501-63d613f1e949&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 绍庆"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声祉 嗣子 绍庆 行八七三 居墨城 生于 公元一九五八农历戊戌八月十六日亥时 娶华光万氏美华 生于 公元一九六二年农历壬寅十月初六日辰时 殁于 公元二零一四年甲午一月初二日丑时葬未详 生子二 汉卿 汉平 。",
+      "aliases": {},
+      "birth": "公元一九五八农历戊戌八月十六日亥时",
+      "death": "公元二零一四年甲午一月初二日丑时",
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "8804d9d9-c396-4c74-bf3e-743a69bd389c",
+    "name": "汉卿",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "524652e5-0190-48bb-95b3-29ab75a15554",
+      "name": "绍庆",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=524652e5-0190-48bb-95b3-29ab75a15554&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "d16cae0f-bca5-499a-b89f-3ddfcb3512b4",
+        "name": "长子唐荣",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d16cae0f-bca5-499a-b89f-3ddfcb3512b4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 汉卿",
+        "次子 汉平"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍庆 长子 汉卿 居墨城 生于 公元一九八二年农历壬戌十月廿六日辰时 娶永修三角乡彭冬林 生于 公元一九八三年农历癸亥十一月十二日子时离异 生子一唐荣 生女一恬恬生于公元二零零五年农历乙酉十月初七日子时 继娶河南付珂珂 生于 公元一九八七年二月廿日午时。",
+      "aliases": {},
+      "birth": "公元一九八二年农历壬戌十月廿六日辰时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d16cae0f-bca5-499a-b89f-3ddfcb3512b4",
+    "name": "唐荣",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "8804d9d9-c396-4c74-bf3e-743a69bd389c",
+      "name": "汉卿",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8804d9d9-c396-4c74-bf3e-743a69bd389c&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 唐荣"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉卿 长子 唐荣 居墨城 生于 公元二零零六年农历丙戌九月廿日子时 。",
+      "aliases": {},
+      "birth": "公元二零零六年农历丙戌九月廿日子时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a7317560-0cf2-4053-8501-63d613f1e949",
+    "name": "汉平",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "524652e5-0190-48bb-95b3-29ab75a15554",
+      "name": "绍庆",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=524652e5-0190-48bb-95b3-29ab75a15554&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "4a523a23-0137-4647-af0d-048a9f3f2489",
+        "name": "长子唐宇",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4a523a23-0137-4647-af0d-048a9f3f2489&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "5c2f4ce3-0e7f-42c0-82a1-01b6310648d0",
+        "name": "次子唐佳",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5c2f4ce3-0e7f-42c0-82a1-01b6310648d0&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 汉卿",
+        "次子 汉平"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍庆 次子 汉平 行一三二一号 居墨城 生于 公元一九八四年农历甲子六月十一日丑时 娶婺源县郑璐 生于 生于一九八五年乙丑十一月初三日 生子二唐宇 唐佳 。",
+      "aliases": {},
+      "birth": "公元一九八四年农历甲子六月十一日丑时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "4a523a23-0137-4647-af0d-048a9f3f2489",
+    "name": "唐宇",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "a7317560-0cf2-4053-8501-63d613f1e949",
+      "name": "汉平",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a7317560-0cf2-4053-8501-63d613f1e949&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐宇",
+        "次子 唐佳"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉平 长子 唐宇 字郑宇 居墨城 生于 公元二零一零年庚寅五月廿八日戌时。",
+      "aliases": {},
+      "birth": "公元二零一零年庚寅五月廿八日戌时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "74cc64e0-c57a-4b71-8896-d315a4e29fa1",
+    "name": "唐峰",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "f2b94b42-515a-4569-9859-3653d0e81add",
+      "name": "汉武",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f2b94b42-515a-4569-9859-3653d0e81add&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐松",
+        "次子 唐峰"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉武 次子 唐峰 居墨城 生于 公元二零一五年乙未四月十八日卯时。",
+      "aliases": {},
+      "birth": "公元二零一五年乙未四月十八日卯时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "71d09ec6-c7c2-4f4b-a51f-799e1e293cd1",
+    "name": "汉策",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "495302e0-5e13-4fd8-a426-2d18a70f3a30",
+      "name": "绍桃",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=495302e0-5e13-4fd8-a426-2d18a70f3a30&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 汉策"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍桃 之子 汉策 行一四七七号 居墨城 生于 公元一九八八年农历戊辰九月廿六日未时 娶刘俊离异 生女一青云生于公元二零一零年 继娶汤小花离异 生女小云生于公元二零一五年 再娶程桃香 生庚未详 生女三女生于公元二零二二年 。",
+      "aliases": {},
+      "birth": "公元一九八八年农历戊辰九月廿六日未时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "550320cc-a813-4d1c-895e-dec193e5c4d3",
+    "name": "汉平",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "4343d9d1-a9db-4420-962e-54cf5524f2bc",
+      "name": "绍英",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4343d9d1-a9db-4420-962e-54cf5524f2bc&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "88065901-9722-4409-800a-f8f2fc86d878",
+        "name": "之子唐文",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=88065901-9722-4409-800a-f8f2fc86d878&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 汉平",
+        "次子 汉林"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍英 长子 汉平 行一三七七号 居墨城 生于 公元一九八五年农历乙丑十月廿六日亥时 生子一唐文。",
+      "aliases": {},
+      "birth": "公元一九八五年农历乙丑十月廿六日亥时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "88065901-9722-4409-800a-f8f2fc86d878",
+    "name": "唐文",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "550320cc-a813-4d1c-895e-dec193e5c4d3",
+      "name": "汉平",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=550320cc-a813-4d1c-895e-dec193e5c4d3&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 唐文"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉平 之子 唐文 居墨城 生于 公元二零一八年戊戌十月廿日未时。",
+      "aliases": {},
+      "birth": "公元二零一八年戊戌十月廿日未时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "661688b4-bd6f-4316-aa96-1eb418d30e77",
+    "name": "汉林",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "4343d9d1-a9db-4420-962e-54cf5524f2bc",
+      "name": "绍英",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4343d9d1-a9db-4420-962e-54cf5524f2bc&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 汉平",
+        "次子 汉林"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍英 次子 汉林 行一五六一号 居墨城 生于 公元一九九零年农历庚午六月初五日未时 。",
+      "aliases": {},
+      "birth": "公元一九九零年农历庚午六月初五日未时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5e637f2b-db0f-4300-9ad7-14951987264f",
+    "name": "绍庆",
+    "generation": 31,
+    "url": null,
+    "note": "出继声祉名下为嗣",
+    "father": {
+      "nid": "59ad8afd-1885-4c42-916d-e3e86b6368e6",
+      "name": "声祯",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=59ad8afd-1885-4c42-916d-e3e86b6368e6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 4,
+      "rank": 2,
+      "list": [
+        "长子 绍庭",
+        "次子 绍庆",
+        "三子 绍贵",
+        "四子 绍迟"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声祯 次子 绍庆 居墨城 出继声祉名下为嗣 详前。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "19169a5a-e505-4c74-aca3-bcaaac7904e3",
+    "name": "绍庭",
+    "generation": 31,
+    "url": null,
+    "note": "出继声祥名下为嗣",
+    "father": {
+      "nid": "59ad8afd-1885-4c42-916d-e3e86b6368e6",
+      "name": "声祯",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=59ad8afd-1885-4c42-916d-e3e86b6368e6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 4,
+      "rank": 1,
+      "list": [
+        "长子 绍庭",
+        "次子 绍庆",
+        "三子 绍贵",
+        "四子 绍迟"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声祯 长子 绍庭 出继声祥名下为嗣 详前。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5c2f4ce3-0e7f-42c0-82a1-01b6310648d0",
+    "name": "唐佳",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "a7317560-0cf2-4053-8501-63d613f1e949",
+      "name": "汉平",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a7317560-0cf2-4053-8501-63d613f1e949&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐宇",
+        "次子 唐佳"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉平 次子 唐佳 字宇航 居墨城 生于 公元二零一六年丙申三月初五日亥时。",
+      "aliases": {},
+      "birth": "公元二零一六年丙申三月初五日亥时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "89d636e4-66fa-4009-bfaf-abd05941231b",
+    "name": "汉辉",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0385a549-ac84-4278-8a60-9f7b9ede02fa",
+      "name": "绍贵",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0385a549-ac84-4278-8a60-9f7b9ede02fa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 汉辉",
+        "次子 汉威"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍贵 长子 汉辉 行一五一一号 居墨城 生于 公元一九八九年农历己巳七月三十日巳时 。",
+      "aliases": {},
+      "birth": "公元一九八九年农历己巳七月三十日巳时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "dd287c9f-7d64-4965-94bc-2cb039750ce6",
+    "name": "汉威",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0385a549-ac84-4278-8a60-9f7b9ede02fa",
+      "name": "绍贵",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0385a549-ac84-4278-8a60-9f7b9ede02fa&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "f1744084-f6b3-4ad5-89d1-4b33eb25e345",
+        "name": "长子唐睿",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f1744084-f6b3-4ad5-89d1-4b33eb25e345&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 汉辉",
+        "次子 汉威"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍贵 次子 汉威 居墨城 生于 公元一九九二年农历壬申六月廿二日丑时 娶金溪县吴俊婷 生于 生于公元一九九二年壬申年十月初十日酉时 生子一唐睿 生女二长女梦瑶生于公元二零一五年乙未四月初七日子时 次女梦婕生于公元二零一九年己亥三月初三日戌时 。",
+      "aliases": {},
+      "birth": "公元一九九二年农历壬申六月廿二日丑时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "f1744084-f6b3-4ad5-89d1-4b33eb25e345",
+    "name": "唐睿",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "dd287c9f-7d64-4965-94bc-2cb039750ce6",
+      "name": "汉威",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=dd287c9f-7d64-4965-94bc-2cb039750ce6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 唐睿"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉威 长子 唐睿 居墨城 生于 公元二零二四年甲辰子月初九日辰时。",
+      "aliases": {},
+      "birth": "公元二零二四年甲辰子月初九日辰时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "61fe0ed9-e7b1-4478-b558-dd6ca42aad09",
+    "name": "绍迟",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "59ad8afd-1885-4c42-916d-e3e86b6368e6",
+      "name": "声祯",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=59ad8afd-1885-4c42-916d-e3e86b6368e6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [],
+    "siblings": {
+      "total_count": 4,
+      "rank": 4,
+      "list": [
+        "长子 绍庭",
+        "次子 绍庆",
+        "三子 绍贵",
+        "四子 绍迟"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声祯 四子 绍迟 居墨城 生于 公元一九七四年农历甲寅十月初八日巳时 娶永修三角乡胡采连 生于 公元一九七五年农历乙卯十一月廿二日巳时 生女三长女徐露生于公元一九九九年农历己卯九月廿一日巳时 次女徐敏生于公元二零零一年六月十六日辰时 三女徐蓁生于公元二零一四年甲午十一月十六日巳时。",
+      "aliases": {},
+      "birth": "公元一九七四年农历甲寅十月初八日巳时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "fd65994b-4bc0-46d4-85d6-effa6be384e2",
+    "name": "绍桃",
+    "generation": 31,
+    "url": null,
+    "note": "出继声选名下为嗣",
+    "father": {
+      "nid": "eca580b5-42d8-43c7-9e00-56e7b3e80fa7",
+      "name": "声达",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=eca580b5-42d8-43c7-9e00-56e7b3e80fa7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 绍忆",
+        "次子 绍桃",
+        "三子 绍林"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声达 次子 绍桃 居墨城 出继声选名下为嗣 详前。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "4343d9d1-a9db-4420-962e-54cf5524f2bc",
+    "name": "绍英",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "9039e59b-125e-4cdd-ad7e-034d9395b530",
+      "name": "声远",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9039e59b-125e-4cdd-ad7e-034d9395b530&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "550320cc-a813-4d1c-895e-dec193e5c4d3",
+        "name": "长子汉平",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=550320cc-a813-4d1c-895e-dec193e5c4d3&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "661688b4-bd6f-4316-aa96-1eb418d30e77",
+        "name": "次子汉林",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=661688b4-bd6f-4316-aa96-1eb418d30e77&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 绍英"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声远 长子 绍英 行六八三 居墨城 生于 公元一九五零年农历庚寅七月廿七日寅时 娶金桥大庄胡招连 生于 公元一九五六年共知国丙申四月初九日辰时 生子二 汉平 汉林 生女四 长迎春生于公元一九七六年丙辰四月三十日适金桥乡蔷薇张 次凌香生于公元一九七七年丁巳十一月初六日适南昌塘南新联乡李 三雪梅生于公元一九八零年己未腊月初三日适南昌经开区梅林大街王 四春梅生于公元一九八二年壬戌十一月初二日适南昌塘南西联村曾子角 。",
+      "aliases": {},
+      "birth": "公元一九五零年农历庚寅七月廿七日寅时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5328f565-dd4a-489d-b546-069c8e81780d",
+    "name": "汉胜",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "adf12abc-8da2-4987-ad82-76248e9f9024",
+      "name": "绍忆",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=adf12abc-8da2-4987-ad82-76248e9f9024&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "b98c6038-b040-467e-acda-66b152d995ac",
+        "name": "长子唐晨",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b98c6038-b040-467e-acda-66b152d995ac&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "e7605624-a701-4dc0-80a6-f74b11538678",
+        "name": "次子唐浩",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e7605624-a701-4dc0-80a6-f74b11538678&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 汉胜"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍忆 之子 汉胜 居墨城 生于 公元一九八一年农历辛酉八月十七日未时 娶厚田陈桂凤 生于 公元一九八四年甲子九月廿六日亥时 生子二唐晨 唐浩 。",
+      "aliases": {},
+      "birth": "公元一九八一年农历辛酉八月十七日未时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "e7605624-a701-4dc0-80a6-f74b11538678",
+    "name": "唐浩",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5328f565-dd4a-489d-b546-069c8e81780d",
+      "name": "汉胜",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5328f565-dd4a-489d-b546-069c8e81780d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 唐晨",
+        "次子 唐浩"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉胜 次子 唐浩 居墨城 生于 公元二零一七年丁酉五月廿二日戌时。",
+      "aliases": {},
+      "birth": "公元二零一七年丁酉五月廿二日戌时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "b98c6038-b040-467e-acda-66b152d995ac",
+    "name": "唐晨",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5328f565-dd4a-489d-b546-069c8e81780d",
+      "name": "汉胜",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5328f565-dd4a-489d-b546-069c8e81780d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 唐晨",
+        "次子 唐浩"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉胜 长子 唐晨 居墨城 生于 公元二零零七年农历丁亥正月初五日酉时 。",
+      "aliases": {},
+      "birth": "公元二零零七年农历丁亥正月初五日酉时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "7628621f-27ef-47a8-8367-a33010b81844",
+    "name": "绍林",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "eca580b5-42d8-43c7-9e00-56e7b3e80fa7",
+      "name": "声达",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=eca580b5-42d8-43c7-9e00-56e7b3e80fa7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 绍忆",
+        "次子 绍桃",
+        "三子 绍林"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声达 三子 绍林 行一零八六 居墨城 生于 公元一九六七年农历丁未五月廿五日午时 娶隋庄杜氏梅秀 生于 公元一九六七年农历丁未十二月十四日未时 生子一 汉杰 生女 徐娟 生于公元一九九七年农历丁丑六月初二日午时。",
+      "aliases": {},
+      "birth": "公元一九六七年农历丁未五月廿五日午时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a08c3da4-cbdc-495c-ba4b-b9508a44aab6",
+    "name": "绍菊",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0d6e21a7-9b9f-4103-8b9f-f23306dc8e72",
+      "name": "声通",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0d6e21a7-9b9f-4103-8b9f-f23306dc8e72&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "b8d767b7-c39e-4cf9-be42-425685a8bc67",
+        "name": "长子汉强",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b8d767b7-c39e-4cf9-be42-425685a8bc67&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "0f1d1e83-f704-4723-b342-002ffde4d35d",
+        "name": "次子汉疆",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f1d1e83-f704-4723-b342-002ffde4d35d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "41be7815-8293-446f-91fc-bf7ae5d61b0b",
+        "name": "三子汉武",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=41be7815-8293-446f-91fc-bf7ae5d61b0b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 绍菊"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声通 长子 绍菊 行五九零 居墨城 生于 公元一九四六民国丙戌三月廿三日子时 娶二方熊家熊佰英 生于 公元一九五二年壬辰正月十五日戌时 生子三 汉强 汉疆 汉武又名汉礼 生女二 长女凤华生于公元一九七二年二月廿四日寅时适江苏淮安 次女黄华生于公元一九七六年丙辰九月十九日酉时适武汉徐家。",
+      "aliases": {},
+      "birth": "公元一九四六民国丙戌三月廿三日子时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "b8d767b7-c39e-4cf9-be42-425685a8bc67",
+    "name": "汉强",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "a08c3da4-cbdc-495c-ba4b-b9508a44aab6",
+      "name": "绍菊",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a08c3da4-cbdc-495c-ba4b-b9508a44aab6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "3b631b54-4e54-4793-aa5f-b3bc55d44eb4",
+        "name": "之子唐伟",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3b631b54-4e54-4793-aa5f-b3bc55d44eb4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 汉强",
+        "次子 汉疆",
+        "三子 汉武"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍菊 长子 汉强 居墨城 生于 公元一九六九年农历己酉三月廿三日戌时 娶大塘程桃英 生于 公元一九六九年农历己酉三月十二日亥时 生子一 唐伟 生女二长女燕燕生于公元一九九二年壬申十二月廿二日辰时适芜湖市 次女丹丹生于公元一九九四年甲戌十二月廿二日辰时适大塘曹门蔡伟 。",
+      "aliases": {},
+      "birth": "公元一九六九年农历己酉三月廿三日戌时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "3b631b54-4e54-4793-aa5f-b3bc55d44eb4",
+    "name": "唐伟",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "b8d767b7-c39e-4cf9-be42-425685a8bc67",
+      "name": "汉强",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b8d767b7-c39e-4cf9-be42-425685a8bc67&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [
+      {
+        "nid": "c2381379-061d-43d8-9f85-38f77488ca8d",
+        "name": "长子高昱",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c2381379-061d-43d8-9f85-38f77488ca8d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 唐伟"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉强 之子 唐伟 行七八九号 居墨城 生于 公元一九九零年农历庚午六月十七日辰时 娶昌北八一村熊凯 生于 公元一九八九年己巳五月廿日戌时 殁于 公元二零二零年庚子二月十五日酉时 病故葬墨城面前山有碑 生子一高昱字昱凡 生女三长女佳倚生于公元二零一七年丁酉三月初九日戌时 次女欣怡生于公元二零二一年辛丑冬月十三日戌时 三女紫沫生于公元二零二三年癸卯七月初三日未时 继娶贵州省曹兴燕 生于 公元一九九四年甲戌七月廿四申时。",
+      "aliases": {},
+      "birth": "公元一九九零年农历庚午六月十七日辰时",
+      "death": "公元二零二零年庚子二月十五日酉时 病故",
+      "burial": "墨城面前山有碑",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "c2381379-061d-43d8-9f85-38f77488ca8d",
+    "name": "高昱",
+    "generation": 34,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "3b631b54-4e54-4793-aa5f-b3bc55d44eb4",
+      "name": "唐伟",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3b631b54-4e54-4793-aa5f-b3bc55d44eb4&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 高昱"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第34世 唐伟 长子 高昱 字昱凡 居墨城 生于 公元二零一四年甲午十月廿八日申时。",
+      "aliases": {},
+      "birth": "公元二零一四年甲午十月廿八日申时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "0f1d1e83-f704-4723-b342-002ffde4d35d",
+    "name": "汉疆",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "a08c3da4-cbdc-495c-ba4b-b9508a44aab6",
+      "name": "绍菊",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a08c3da4-cbdc-495c-ba4b-b9508a44aab6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "310a1717-c89e-4723-a7ed-2600f9b2f937",
+        "name": "长子唐冲",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=310a1717-c89e-4723-a7ed-2600f9b2f937&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "2b2e064f-42fe-4e10-8a21-3aebf463e55c",
+        "name": "次子唐华",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2b2e064f-42fe-4e10-8a21-3aebf463e55c&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "e963be1a-9a7e-4cc5-a002-811b65102420",
+        "name": "三子唐龙",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e963be1a-9a7e-4cc5-a002-811b65102420&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 汉强",
+        "次子 汉疆",
+        "三子 汉武"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍菊 次子 汉疆 名汉江居墨城 生于 公元一九七零年农历庚戌十月十五日亥时 娶大塘八房蔡英 离异 生于 公元一九八二年农历壬戌十二月五日 生子三 唐冲 唐华 唐龙 生女一 丽丽生于一九九五年农历乙亥十一月廿二日适抚州黄志于 继娶岳阳刘姝 生于 公元一九八二年壬戌十二月初五日酉时 生女依萍生于公元二零零九年戊子十二月廿四日申时 。",
+      "aliases": {},
+      "birth": "公元一九七零年农历庚戌十月十五日亥时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "0385a549-ac84-4278-8a60-9f7b9ede02fa",
+    "name": "绍贵",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "59ad8afd-1885-4c42-916d-e3e86b6368e6",
+      "name": "声祯",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=59ad8afd-1885-4c42-916d-e3e86b6368e6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "89d636e4-66fa-4009-bfaf-abd05941231b",
+        "name": "长子汉辉",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=89d636e4-66fa-4009-bfaf-abd05941231b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "dd287c9f-7d64-4965-94bc-2cb039750ce6",
+        "name": "次子汉威",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=dd287c9f-7d64-4965-94bc-2cb039750ce6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 3,
+      "list": [
+        "长子 绍庭",
+        "次子 绍庆",
+        "三子 绍贵",
+        "四子 绍迟"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声祯 三子 绍贵 行一零零八 居墨城 生于 公元一九六四年农历甲辰十二月十五日巳时 娶马口郝招仔 生于 公元一九六三年农历癸卯十一月廿四日子时 生子二 汉辉 汉威 生女二 红霞生于一九九八年农历戊寅三月十六日卯时 双桃生于一九九九年农历己卯六月初十日卯时。",
+      "aliases": {},
+      "birth": "公元一九六四年农历甲辰十二月十五日巳时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "adf12abc-8da2-4987-ad82-76248e9f9024",
+    "name": "绍忆",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "eca580b5-42d8-43c7-9e00-56e7b3e80fa7",
+      "name": "声达",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=eca580b5-42d8-43c7-9e00-56e7b3e80fa7&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "5328f565-dd4a-489d-b546-069c8e81780d",
+        "name": "之子汉胜",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5328f565-dd4a-489d-b546-069c8e81780d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 绍忆",
+        "次子 绍桃",
+        "三子 绍林"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 声达 长子 绍忆 名绍意 居墨城 生于 公元一九五六农历丙申七月初七日未时 娶美里勒系招 生于 公元一九五六年丙申十月初一日子时 生子 汉胜 生女三长女海英生于公元一九七七年丁巳十月初五日申时适瀚坪余 次女海莲生于公元一九七九年己未六月初三日申时适永修泥塘熊 三女海燕生于公元一九八三年癸亥十月初一日未时适永修马口陈。",
+      "aliases": {},
+      "birth": "公元一九五六农历丙申七月初七日未时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "e963be1a-9a7e-4cc5-a002-811b65102420",
+    "name": "唐龙",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0f1d1e83-f704-4723-b342-002ffde4d35d",
+      "name": "汉疆",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f1d1e83-f704-4723-b342-002ffde4d35d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 唐冲",
+        "次子 唐华 ",
+        "三子 唐龙"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉疆 三子 唐龙 字唐国 居墨城 生于 公元二零零一年农历辛巳四月初三日申时 。",
+      "aliases": {},
+      "birth": "公元二零零一年农历辛巳四月初三日申时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "41be7815-8293-446f-91fc-bf7ae5d61b0b",
+    "name": "汉武",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "a08c3da4-cbdc-495c-ba4b-b9508a44aab6",
+      "name": "绍菊",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a08c3da4-cbdc-495c-ba4b-b9508a44aab6&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "321a8be2-6376-4a0a-9ad3-f3c4653c3f77",
+        "name": "长子唐超",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=321a8be2-6376-4a0a-9ad3-f3c4653c3f77&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 汉强",
+        "次子 汉疆",
+        "三子 汉武"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 绍菊 三子 汉武 又名汉礼居墨城 生于 公元一九七八年农历戊午八月十三日亥时 娶昌北凤凰村邓燕兰 生于 公元一九八二年农历壬戌四月廿日巳时 生子 唐超 养女格格生于公元二零零七年丁亥六月廿四日辰时。",
+      "aliases": {},
+      "birth": "公元一九七八年农历戊午八月十三日亥时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "321a8be2-6376-4a0a-9ad3-f3c4653c3f77",
+    "name": "唐超",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "41be7815-8293-446f-91fc-bf7ae5d61b0b",
+      "name": "汉武",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=41be7815-8293-446f-91fc-bf7ae5d61b0b&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 唐超"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉武 长子 唐超 字骏超 居墨城 生于 公元二零零五年农历乙酉十月十三日丑时 。",
+      "aliases": {},
+      "birth": "公元二零零五年农历乙酉十月十三日丑时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "310a1717-c89e-4723-a7ed-2600f9b2f937",
+    "name": "唐冲",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0f1d1e83-f704-4723-b342-002ffde4d35d",
+      "name": "汉疆",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f1d1e83-f704-4723-b342-002ffde4d35d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 唐冲",
+        "次子 唐华 ",
+        "三子 唐龙"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉疆 长子 唐冲 居墨城 生于 公元一九九四年农历甲戌十月二十日戌时 。",
+      "aliases": {},
+      "birth": "公元一九九四年农历甲戌十月二十日戌时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "2b2e064f-42fe-4e10-8a21-3aebf463e55c",
+    "name": "唐华",
+    "generation": 33,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0f1d1e83-f704-4723-b342-002ffde4d35d",
+      "name": "汉疆",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f1d1e83-f704-4723-b342-002ffde4d35d&TId=1&GId=6461&ZId=44665&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 唐冲",
+        "次子 唐华 ",
+        "三子 唐龙"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第33世 汉疆 次子 唐华 居墨城 生于 公元一九九七年农历丁丑十月廿三日申时 。",
+      "aliases": {},
+      "birth": "公元一九九七年农历丁丑十月廿三日申时 。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  }
+]

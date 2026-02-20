@@ -1,0 +1,1152 @@
+[
+  {
+    "nid": "aed5c96f-5944-4686-932c-c4aebc26cbe3",
+    "name": "协权",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "2c5ce3dc-a19b-443e-80d0-58636331a0a7",
+      "name": "美发",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2c5ce3dc-a19b-443e-80d0-58636331a0a7&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "a316c884-c192-4c1a-93cf-a96b692abdce",
+        "name": "之子其亮",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a316c884-c192-4c1a-93cf-a96b692abdce&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 协权"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 美发 长子 协权 居夏家垄 生子一 其亮。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "2c5ce3dc-a19b-443e-80d0-58636331a0a7",
+    "name": "美发",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "2ad7acb5-59ba-487c-a6b3-bc4039ddf02b",
+      "name": "济爱",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2ad7acb5-59ba-487c-a6b3-bc4039ddf02b&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "aed5c96f-5944-4686-932c-c4aebc26cbe3",
+        "name": "长子协权",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=aed5c96f-5944-4686-932c-c4aebc26cbe3&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 美发"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 济爱 长子 美发 行六五六号 居夏家垅 生于 公元一九二九年民国己巳四月初七日午时 殁于 公元一九五零年 葬小淇向西 娶甘舍李氏 生殁未详 生子一 协權。",
+      "aliases": {},
+      "birth": "公元一九二九年民国己巳四月初七日午时",
+      "death": "公元一九五零年",
+      "burial": "小淇向西",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "57cf6c50-7284-42e4-b356-1f063d59b48b",
+    "name": "烈文",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "f1d00f92-8ee8-4915-8ac8-906fd77a7fdb",
+      "name": "伟程",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f1d00f92-8ee8-4915-8ac8-906fd77a7fdb&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "2ad7acb5-59ba-487c-a6b3-bc4039ddf02b",
+        "name": "长子济爱",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2ad7acb5-59ba-487c-a6b3-bc4039ddf02b&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 烈文",
+        "次子 烈樸"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 伟程 长子 烈文 字行三五七号居夏家壠 生于 公元一八九二年光绪壬寅四月初五日未祥 殁未详 葬牛马牛山向西南 娶甘舍李氏 生殁葬未详 生子一 济爱。",
+      "aliases": {
+        "hao": "居夏家壠"
+      },
+      "birth": "公元一八九二年光绪壬寅四月初五日未祥 殁未详",
+      "death": null,
+      "burial": "牛马牛山向西南",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a316c884-c192-4c1a-93cf-a96b692abdce",
+    "name": "其亮",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "aed5c96f-5944-4686-932c-c4aebc26cbe3",
+      "name": "协权",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=aed5c96f-5944-4686-932c-c4aebc26cbe3&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "之子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "之子 其亮"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协权 之子 其亮 字徐亮 居夏家垅。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5986e7bf-3ec7-4c97-8e50-2d8ee08753f5",
+    "name": "烈樸",
+    "generation": 28,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "f1d00f92-8ee8-4915-8ac8-906fd77a7fdb",
+      "name": "伟程",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f1d00f92-8ee8-4915-8ac8-906fd77a7fdb&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "0a98f702-f60a-436e-8261-7cf314ff0b12",
+        "name": "长子济芬",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0a98f702-f60a-436e-8261-7cf314ff0b12&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "b6499fbc-2525-407a-8f74-c0114532aad6",
+        "name": "次子济芳",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b6499fbc-2525-407a-8f74-c0114532aad6&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "99b2332b-9c97-46ac-a196-ff2aff529309",
+        "name": "三子济茂",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=99b2332b-9c97-46ac-a196-ff2aff529309&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 烈文",
+        "次子 烈樸"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第28世 伟程 次子 烈樸 字行三七二号居夏家壠 生于 公元一八九四年光绪甲午十二月廿日戌时 殁于 公元一九四三年九月 葬小溪山向西 娶赤海李氏 生于 公元一八九六年三月廿七日 殁于 丙子年正月廿五日 葬下山向南 生子三 济芬 济芳 济茂。",
+      "aliases": {
+        "hao": "居夏家壠"
+      },
+      "birth": "公元一八九四年光绪甲午十二月廿日戌时",
+      "death": "公元一九四三年九月",
+      "burial": "小溪山向西",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "0a98f702-f60a-436e-8261-7cf314ff0b12",
+    "name": "济芬",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5986e7bf-3ec7-4c97-8e50-2d8ee08753f5",
+      "name": "烈樸",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5986e7bf-3ec7-4c97-8e50-2d8ee08753f5&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "5cd2882c-0333-4b3b-b717-319b12403dca",
+        "name": "长子美桃",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5cd2882c-0333-4b3b-b717-319b12403dca&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "ba596d2c-6747-45fa-9523-ddfa5f9a78ce",
+        "name": "次子美柏",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ba596d2c-6747-45fa-9523-ddfa5f9a78ce&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 济芬",
+        "次子 济芳 ",
+        "三子 济茂"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 烈樸 长子 济芬 字 行五七零号 居夏家垅 生于 公元一九二零年民国庚申三月十八日申时 殁于 公元一九五六年八月十六日午时 葬古山向南 娶二房邓氏转适 生子二 美桃 美柏。",
+      "aliases": {},
+      "birth": "公元一九二零年民国庚申三月十八日申时",
+      "death": "公元一九五六年八月十六日午时",
+      "burial": "古山向南",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "5cd2882c-0333-4b3b-b717-319b12403dca",
+    "name": "美桃",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0a98f702-f60a-436e-8261-7cf314ff0b12",
+      "name": "济芬",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0a98f702-f60a-436e-8261-7cf314ff0b12&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "8e9ed44d-ff03-4381-962c-81fbf108ae04",
+        "name": "长子协瑚",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8e9ed44d-ff03-4381-962c-81fbf108ae04&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "77b8c484-8ff1-4eec-b3c0-434b5786c081",
+        "name": "次子协珍",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=77b8c484-8ff1-4eec-b3c0-434b5786c081&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 美桃",
+        "次子 美柏"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 济芬 长子 美桃 居夏家垄 生于 公元一九四三年民国癸未九月十七日寅时 殁于 公元二零二二年十月廿九日巳时葬青坑墓区 娶妻天古院潘招英 生于 公元一九四八年民国戊子二月二十三日戌时 生子二 长子协瑚 次子协珍 生女二长女协花适吴坪陈氏 次女协香适新石下戴。",
+      "aliases": {},
+      "birth": "公元一九四三年民国癸未九月十七日寅时",
+      "death": "公元二零二二年十月廿九日巳时",
+      "burial": "青坑墓区",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "77b8c484-8ff1-4eec-b3c0-434b5786c081",
+    "name": "协珍",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5cd2882c-0333-4b3b-b717-319b12403dca",
+      "name": "美桃",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5cd2882c-0333-4b3b-b717-319b12403dca&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "502661d4-3278-4095-8169-c00058750e00",
+        "name": "长子其文",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=502661d4-3278-4095-8169-c00058750e00&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 协瑚",
+        "次子 协珍"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 美桃 次子 协珍 字协金 居住夏家垄 生于 公元一九七一年共和国辛亥七月初三日卯时 娶吴家坪陈春连 生于 公元一九六九年共和国己酉正月初十日辰时 生子二 其文 其武出继协瑚名下为嗣 生女一玉蓉生于公元一九九一年辛未十一月十四日申时。",
+      "aliases": {},
+      "birth": "公元一九七一年共和国辛亥七月初三日卯时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "f1d00f92-8ee8-4915-8ac8-906fd77a7fdb",
+    "name": "伟程",
+    "generation": 27,
+    "url": null,
+    "note": "迁居夏家垅",
+    "father": {
+      "nid": "90a16730-707f-4b88-8b7c-fa5e8ff255c3",
+      "name": "昭炳",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90a16730-707f-4b88-8b7c-fa5e8ff255c3&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "57cf6c50-7284-42e4-b356-1f063d59b48b",
+        "name": "长子烈文",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=57cf6c50-7284-42e4-b356-1f063d59b48b&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "5986e7bf-3ec7-4c97-8e50-2d8ee08753f5",
+        "name": "次子烈樸",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5986e7bf-3ec7-4c97-8e50-2d8ee08753f5&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 伟程"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第27世 昭炳 长子 伟程 行二四六号 由莲塘迁居夏家垅 生于 公元一八七一年同治辛未七月初三日亥时 殁未详 葬古山向南 娶熊氏 生殁葬未详 生子二 烈文 烈樸。",
+      "aliases": {},
+      "birth": "公元一八七一年同治辛未七月初三日亥时 殁未详",
+      "death": null,
+      "burial": "古山向南",
+      "migration": "居夏家垅",
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "8e9ed44d-ff03-4381-962c-81fbf108ae04",
+    "name": "协瑚",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5cd2882c-0333-4b3b-b717-319b12403dca",
+      "name": "美桃",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5cd2882c-0333-4b3b-b717-319b12403dca&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "273690bf-ca6e-445d-9e0d-d385a4b428af",
+        "name": "嗣子其武",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=273690bf-ca6e-445d-9e0d-d385a4b428af&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 协瑚",
+        "次子 协珍"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 美桃 长子 协瑚 居住夏家垄 生于 公元一九六九年共和国己酉四月十二日未时 子一 其武承继协珍次子为嗣。",
+      "aliases": {},
+      "birth": "公元一九六九年共和国己酉四月十二日未时 子一 其武承继协珍次子为嗣。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "2ad7acb5-59ba-487c-a6b3-bc4039ddf02b",
+    "name": "济爱",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "57cf6c50-7284-42e4-b356-1f063d59b48b",
+      "name": "烈文",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=57cf6c50-7284-42e4-b356-1f063d59b48b&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "2c5ce3dc-a19b-443e-80d0-58636331a0a7",
+        "name": "长子美发",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2c5ce3dc-a19b-443e-80d0-58636331a0a7&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 济爱"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 烈文 长子 济爱 字 行四五九号 居夏家垅 生于 公元一九零八年光绪戊申七月廿九亥时 殁于 公元一九五二年六月十二日 葬下山园向东 娶朱沙冈熊氏 生殁未详 葬塘尾山向东 生子一 美发。",
+      "aliases": {},
+      "birth": "公元一九零八年光绪戊申七月廿九亥时",
+      "death": "公元一九五二年六月十二日",
+      "burial": "下山园向东",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "ba596d2c-6747-45fa-9523-ddfa5f9a78ce",
+    "name": "美柏",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "0a98f702-f60a-436e-8261-7cf314ff0b12",
+      "name": "济芬",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0a98f702-f60a-436e-8261-7cf314ff0b12&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "a2e065ed-2124-40bb-892a-8c065b9bd2dd",
+        "name": "长子协勇",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a2e065ed-2124-40bb-892a-8c065b9bd2dd&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 美桃",
+        "次子 美柏"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 济芬 次子 美柏 居住夏家垄 生于 公元一九五零年共和国庚寅十月初三日子时 娶妻溪霞义庄陈奎桂 生于 公元一九五六年共和国丙申八月十八日午时 生子一 协勇 生女一徐萍生于公元一九七六年丙辰六月初六日子时适桥岭甘舍李。",
+      "aliases": {},
+      "birth": "公元一九五零年共和国庚寅十月初三日子时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a2e065ed-2124-40bb-892a-8c065b9bd2dd",
+    "name": "协勇",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "ba596d2c-6747-45fa-9523-ddfa5f9a78ce",
+      "name": "美柏",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ba596d2c-6747-45fa-9523-ddfa5f9a78ce&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "511e1609-393f-4576-a989-39cbb52cd41e",
+        "name": "长子其伦",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=511e1609-393f-4576-a989-39cbb52cd41e&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 协勇"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 美柏 长子 协勇 字捡根 行 居夏家垄 生于 公元一九七九年共和国己未四月初一日辰时 娶丰城新城袁村袁文鸳 生于 公元一九八四年共和国甲子八月二十四日辰时 生子一其伦 生女二长女可欣生于公元二零零三年癸未十一月初一日卯时 次女亦菲生于公元二零一二年壬辰五月初四日午时。",
+      "aliases": {},
+      "birth": "公元一九七九年共和国己未四月初一日辰时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "511e1609-393f-4576-a989-39cbb52cd41e",
+    "name": "其伦",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "a2e065ed-2124-40bb-892a-8c065b9bd2dd",
+      "name": "协勇",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a2e065ed-2124-40bb-892a-8c065b9bd2dd&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 其伦"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协勇 长子 其伦 居夏家垅 生于 公元二零零七年丁亥八月十二日午时。",
+      "aliases": {},
+      "birth": "公元二零零七年丁亥八月十二日午时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "b6499fbc-2525-407a-8f74-c0114532aad6",
+    "name": "济芳",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5986e7bf-3ec7-4c97-8e50-2d8ee08753f5",
+      "name": "烈樸",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5986e7bf-3ec7-4c97-8e50-2d8ee08753f5&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "a61d5d70-8280-4512-9da7-3c366e26d34a",
+        "name": "长子美松",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a61d5d70-8280-4512-9da7-3c366e26d34a&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 济芬",
+        "次子 济芳 ",
+        "三子 济茂"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 烈樸 次子 济芳 字 行六四一号 居夏家垅 生于 公元一九二六年民国丙寅六月十七日寅时 殁于 公元一九九零年十一月廿日亥时 娶二房邓氏 生未详 殁于 公元一九八六年九月十辰时 生子一 美松 生女二 长适华沅彭 次适上哉王。",
+      "aliases": {},
+      "birth": "公元一九二六年民国丙寅六月十七日寅时",
+      "death": "公元一九九零年十一月廿日亥时",
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a61d5d70-8280-4512-9da7-3c366e26d34a",
+    "name": "美松",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "b6499fbc-2525-407a-8f74-c0114532aad6",
+      "name": "济芳",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b6499fbc-2525-407a-8f74-c0114532aad6&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "14d5698d-5c9c-4065-ad16-d1ae3f247906",
+        "name": "长子协旻",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=14d5698d-5c9c-4065-ad16-d1ae3f247906&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 美松"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 济芳 长子 美松 居夏家垄 生于 公元一九六三年共和国癸卯九月十七日未时 娶妻乐化泉岗垄戚茶莲 生于 公元一九六六年共和国丙午十月二十六日亥时 生子一 协旻 生女五 长女徐艳兰生于公元一九八四年共和国甲子十一月十九日时出嫁 次女徐艳丽生于公元一九八六年共和国丙寅二月初九日时出嫁 三女徐艳珍生于公元一九八七年共和国丁卯八月十六日时 四女徐荣华生于公元一九八八年共和国戊辰十月初八日时 五女徐六妹生于公元一九九零年共和国庚午十月十五日时。",
+      "aliases": {},
+      "birth": "公元一九六三年共和国癸卯九月十七日未时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "502661d4-3278-4095-8169-c00058750e00",
+    "name": "其文",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "77b8c484-8ff1-4eec-b3c0-434b5786c081",
+      "name": "协珍",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=77b8c484-8ff1-4eec-b3c0-434b5786c081&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 其文"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协珍 长子 其文 行一五九一号 居夏家垅 生于 公元一九九零年共和国庚午十二月廿三日卯时 娶邓氏 生于 公元一九八九年己巳十二月三十日 。",
+      "aliases": {},
+      "birth": "公元一九九零年共和国庚午十二月廿三日卯时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "273690bf-ca6e-445d-9e0d-d385a4b428af",
+    "name": "其武",
+    "generation": 32,
+    "url": null,
+    "note": "承继协珍次子为嗣",
+    "father": {
+      "nid": "8e9ed44d-ff03-4381-962c-81fbf108ae04",
+      "name": "协瑚",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8e9ed44d-ff03-4381-962c-81fbf108ae04&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "嗣子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "嗣子 其武"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协瑚 嗣子 其武 居夏家垅 生于 公元一九九三年共和国癸酉二月二十五日辰时 殁葬未详 。",
+      "aliases": {},
+      "birth": "公元一九九三年共和国癸酉二月二十五日辰时 殁",
+      "death": null,
+      "burial": "未详 。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "57c2d115-13d8-4552-8094-6deb0d743c6a",
+    "name": "其传",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "14d5698d-5c9c-4065-ad16-d1ae3f247906",
+      "name": "协旻",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=14d5698d-5c9c-4065-ad16-d1ae3f247906&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 2,
+      "list": [
+        "长子 其心",
+        "次子 其传",
+        "三子 其宣"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协旻 次子 其传 居夏家垅 生于 公元二零二一年辛丑十月初八日未时。",
+      "aliases": {},
+      "birth": "公元二零二一年辛丑十月初八日未时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "37dbe5d9-f292-47f1-9ad7-e66f79165d3d",
+    "name": "其宣",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "14d5698d-5c9c-4065-ad16-d1ae3f247906",
+      "name": "协旻",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=14d5698d-5c9c-4065-ad16-d1ae3f247906&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 其心",
+        "次子 其传",
+        "三子 其宣"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协旻 三子 其宣 居夏家垅 生于 公元二零二一年辛丑十月初八日未时。",
+      "aliases": {},
+      "birth": "公元二零二一年辛丑十月初八日未时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "99b2332b-9c97-46ac-a196-ff2aff529309",
+    "name": "济茂",
+    "generation": 29,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "5986e7bf-3ec7-4c97-8e50-2d8ee08753f5",
+      "name": "烈樸",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5986e7bf-3ec7-4c97-8e50-2d8ee08753f5&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "48a91d16-c0ea-454b-9b18-acfaea44fe3b",
+        "name": "长子美良",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=48a91d16-c0ea-454b-9b18-acfaea44fe3b&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d645415e-de9d-408d-9755-473fbb04f4fe",
+        "name": "次子美伟",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d645415e-de9d-408d-9755-473fbb04f4fe&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 济芬",
+        "次子 济芳 ",
+        "三子 济茂"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 烈樸 三子 济茂 字 行七零八号 居夏家垅 生于 公元一九三二年民国壬申四月廿二戌时 殁于 公元一九九一年辛未四月十六日葬本里下山向东南有碑 娶虞霞丐前村蔡招仔 生于 公元一九三六年民国丙子月初一丑时 殁于 公元二零零五年七月廿五日葬本里平山向南有碑 生子二 美良 美伟 生女三 长适南昌向塘李 次适溪霞甘舍李 三适港漘柳。",
+      "aliases": {},
+      "birth": "公元一九三二年民国壬申四月廿二戌时",
+      "death": "公元一九九一年辛未四月十六日",
+      "burial": "本里下山向东南有碑",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "14d5698d-5c9c-4065-ad16-d1ae3f247906",
+    "name": "协旻",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "a61d5d70-8280-4512-9da7-3c366e26d34a",
+      "name": "美松",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a61d5d70-8280-4512-9da7-3c366e26d34a&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "a3c3e43e-b891-43d8-9e87-79c36662c498",
+        "name": "长子其心",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a3c3e43e-b891-43d8-9e87-79c36662c498&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "57c2d115-13d8-4552-8094-6deb0d743c6a",
+        "name": "次子其传",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=57c2d115-13d8-4552-8094-6deb0d743c6a&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "37dbe5d9-f292-47f1-9ad7-e66f79165d3d",
+        "name": "三子其宣",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=37dbe5d9-f292-47f1-9ad7-e66f79165d3d&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 协旻"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 美松 长子 协旻 居住夏家垄 生于 公元一九八九年共和国己巳十月三十日辰时 娶古玉凤 生于 公元一九八八年戊辰八月初十日 生子三其心 其传 其宣 生女一 。",
+      "aliases": {},
+      "birth": "公元一九八九年共和国己巳十月三十日辰时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "a3c3e43e-b891-43d8-9e87-79c36662c498",
+    "name": "其心",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "14d5698d-5c9c-4065-ad16-d1ae3f247906",
+      "name": "协旻",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=14d5698d-5c9c-4065-ad16-d1ae3f247906&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 其心",
+        "次子 其传",
+        "三子 其宣"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协旻 长子 其心 居夏家垅 生于 公元二零一六年丙申十二月十五日亥时。",
+      "aliases": {},
+      "birth": "公元二零一六年丙申十二月十五日亥时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "84fefd4b-abe1-4195-ba38-78f7064d47eb",
+    "name": "其威",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "d13316cf-35c2-4ac1-8fe1-c48cb115c330",
+      "name": "协华",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d13316cf-35c2-4ac1-8fe1-c48cb115c330&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 其威"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协华 长子 其威 居夏家垅 生于 公元二零一零年庚寅正月初八日午时。",
+      "aliases": {},
+      "birth": "公元二零一零年庚寅正月初八日午时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d6f1a8d9-2d1d-4160-a6d7-0144e1a21966",
+    "name": "协荣",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "48a91d16-c0ea-454b-9b18-acfaea44fe3b",
+      "name": "美良",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=48a91d16-c0ea-454b-9b18-acfaea44fe3b&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "948c2e6e-d0ff-47b6-a760-33a385a65968",
+        "name": "长子其淳",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=948c2e6e-d0ff-47b6-a760-33a385a65968&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 协华",
+        "次子 协荣"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 美良 次子 协荣 居住夏家垄 生于 公元一九八四年共和国甲子九月二十二日寅时 娶丰城何球 生于 公元一九八五年乙丑九月初八日辰时 生子一其淳 生女二长女徐婧生于公元二零零六年丙戌闰七月初四日巳时 次女徐妍生于公元二零一一年辛卯十一月二十日卯时。",
+      "aliases": {},
+      "birth": "公元一九八四年共和国甲子九月二十二日寅时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "948c2e6e-d0ff-47b6-a760-33a385a65968",
+    "name": "其淳",
+    "generation": 32,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "d6f1a8d9-2d1d-4160-a6d7-0144e1a21966",
+      "name": "协荣",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d6f1a8d9-2d1d-4160-a6d7-0144e1a21966&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 其淳"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第32世 协荣 长子 其淳 居夏家垅 生于 公元二零一六年丙申正月初四日酉时。",
+      "aliases": {},
+      "birth": "公元二零一六年丙申正月初四日酉时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d645415e-de9d-408d-9755-473fbb04f4fe",
+    "name": "美伟",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "99b2332b-9c97-46ac-a196-ff2aff529309",
+      "name": "济茂",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=99b2332b-9c97-46ac-a196-ff2aff529309&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "52e44e28-14c0-46cb-85a7-c5d143292bfe",
+        "name": "长子协雷",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=52e44e28-14c0-46cb-85a7-c5d143292bfe&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 美良",
+        "次子 美伟"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 济茂 次子 美伟 行一二五三 居夏家垄 生于 公元一九六九年共和国己酉十月十八日戌时 娶南昌向塘黄菊英 生于 公元一九七四年甲寅四月初五日 生子一协雷 生女一妍婷生于公元二零零三年癸未十月初五日酉时。",
+      "aliases": {},
+      "birth": "公元一九六九年共和国己酉十月十八日戌时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "52e44e28-14c0-46cb-85a7-c5d143292bfe",
+    "name": "协雷",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "d645415e-de9d-408d-9755-473fbb04f4fe",
+      "name": "美伟",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d645415e-de9d-408d-9755-473fbb04f4fe&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 协雷"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 美伟 长子 协雷 居夏家垅 生于 公元一九九三年癸酉六月二十日卯时 娶南昌县敷林村喻梅 生于 公元一九九五年正月初八日吉时 生女一芷玥生于公元二零二零年庚子四月初七日申时。",
+      "aliases": {},
+      "birth": "公元一九九三年癸酉六月二十日卯时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "48a91d16-c0ea-454b-9b18-acfaea44fe3b",
+    "name": "美良",
+    "generation": 30,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "99b2332b-9c97-46ac-a196-ff2aff529309",
+      "name": "济茂",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=99b2332b-9c97-46ac-a196-ff2aff529309&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "d13316cf-35c2-4ac1-8fe1-c48cb115c330",
+        "name": "长子协华",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d13316cf-35c2-4ac1-8fe1-c48cb115c330&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d6f1a8d9-2d1d-4160-a6d7-0144e1a21966",
+        "name": "次子协荣",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d6f1a8d9-2d1d-4160-a6d7-0144e1a21966&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 美良",
+        "次子 美伟"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第30世 济茂 长子 美良 居住夏家垄 生于 公元一九五九年共和国己亥十月十一日丑时 娶妻清淇熊宁英 生于 公元一九五八年共和国戊戌八月二十日申时 生子二长子协华 次子协荣。",
+      "aliases": {},
+      "birth": "公元一九五九年共和国己亥十月十一日丑时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d13316cf-35c2-4ac1-8fe1-c48cb115c330",
+    "name": "协华",
+    "generation": 31,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "48a91d16-c0ea-454b-9b18-acfaea44fe3b",
+      "name": "美良",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=48a91d16-c0ea-454b-9b18-acfaea44fe3b&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "84fefd4b-abe1-4195-ba38-78f7064d47eb",
+        "name": "长子其威",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=84fefd4b-abe1-4195-ba38-78f7064d47eb&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 协华",
+        "次子 协荣"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第31世 美良 长子 协华 居住夏家垄 生于 公元一九八二年共和国壬戌六月二十二日子时 娶赣州市王萍 生于 公元一九八六年共和国丙寅十月三十日寅时 生子一其威 生女一雨萱生于公元二零一八年戊戌六月二十日巳时。",
+      "aliases": {},
+      "birth": "公元一九八二年共和国壬戌六月二十二日子时",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  }
+]
