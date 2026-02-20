@@ -1,0 +1,209 @@
+[
+  {
+    "nid": "7ea56d5d-a5aa-423b-8a35-4b70694d478d",
+    "name": "尚志",
+    "generation": 14,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "932e08df-a2bc-4650-b2f4-f8aa1567ab65",
+      "name": "伯恭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=932e08df-a2bc-4650-b2f4-f8aa1567ab65&TId=1&GId=6461&ZId=44455&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [],
+    "siblings": {
+      "total_count": 5,
+      "rank": 1,
+      "list": [
+        "长子 尚志",
+        "次子 尚斌",
+        "三子 尚䌹",
+        "四子 尚贤",
+        "幼子 尚理"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第14世 伯恭 长子 尚志 讳志和 生于 公元一四二二年明朝成祖永乐二十年壬寅正月初十日申时 殁葬未详。",
+      "aliases": {
+        "hui": "志和"
+      },
+      "birth": "公元一四二二年明朝成祖永乐二十年壬寅正月初十日申时 殁",
+      "death": null,
+      "burial": "未详。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "d5a82c2a-a8b7-4ae4-a017-8b65f7d02930",
+    "name": "尚斌",
+    "generation": 14,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "932e08df-a2bc-4650-b2f4-f8aa1567ab65",
+      "name": "伯恭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=932e08df-a2bc-4650-b2f4-f8aa1567ab65&TId=1&GId=6461&ZId=44455&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "a9dd6110-3c93-4ca5-ae17-0eb34264c6d8",
+        "name": "长子永年",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a9dd6110-3c93-4ca5-ae17-0eb34264c6d8&TId=1&GId=6461&ZId=44461&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "39501f52-42a8-4051-a9f0-34e9089cf5f6",
+        "name": "次子永宁",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=39501f52-42a8-4051-a9f0-34e9089cf5f6&TId=1&GId=6461&ZId=44462&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "df609632-32ad-4518-933d-24279f47a575",
+        "name": "三子永昌",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=df609632-32ad-4518-933d-24279f47a575&TId=1&GId=6461&ZId=44463&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "6c4fdc05-19d4-4bcb-bbde-165f5a354202",
+        "name": "四子永清",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6c4fdc05-19d4-4bcb-bbde-165f5a354202&TId=1&GId=6461&ZId=44464&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "026a928f-7a40-4713-9018-e006e29f1dfa",
+        "name": "五子永邵",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=026a928f-7a40-4713-9018-e006e29f1dfa&TId=1&GId=6461&ZId=44465&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 5,
+      "rank": 2,
+      "list": [
+        "长子 尚志",
+        "次子 尚斌",
+        "三子 尚䌹",
+        "四子 尚贤",
+        "幼子 尚理"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第14世 伯恭 次子 尚斌 生殁葬未详 公赋性魁梧胸有大略 永乐年间以税户人才闢取赴京钦授冠带奉使浙闽两省督理逋租事竞复命将跻以疾殁于金陵 娶蔡氏李氏 合墓葬于莲塘村倪家岭向东南有碑 生子五 永年 永宁 永昌 永清 永邵。",
+      "aliases": {},
+      "birth": null,
+      "death": "金陵",
+      "burial": "未详 公赋性魁梧胸有大略 永乐年间以税户人才闢取赴京钦授冠带奉使浙闽两省督理逋租事竞复命将跻以疾殁于金陵",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "932e08df-a2bc-4650-b2f4-f8aa1567ab65",
+    "name": "伯恭",
+    "generation": 13,
+    "url": null,
+    "note": "八脑支祖 娶陈杨二位安人",
+    "father": {
+      "nid": "63ff3193-d341-43b3-986d-f463cc8a230b",
+      "name": "友恒",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=63ff3193-d341-43b3-986d-f463cc8a230b&TId=1&GId=6461&ZId=44455&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "7ea56d5d-a5aa-423b-8a35-4b70694d478d",
+        "name": "长子尚志",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ea56d5d-a5aa-423b-8a35-4b70694d478d&TId=1&GId=6461&ZId=44455&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d5a82c2a-a8b7-4ae4-a017-8b65f7d02930",
+        "name": "次子尚斌",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d5a82c2a-a8b7-4ae4-a017-8b65f7d02930&TId=1&GId=6461&ZId=44455&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "65e6c53a-16ad-4d57-81a9-6bee83e16ae6",
+        "name": "三子尚䌹",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=65e6c53a-16ad-4d57-81a9-6bee83e16ae6&TId=1&GId=6461&ZId=44466&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "6fc398db-e624-47ee-9743-5c108c12c992",
+        "name": "四子尚贤",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6fc398db-e624-47ee-9743-5c108c12c992&TId=1&GId=6461&ZId=44467&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "f1a65828-183c-4bd8-a033-d9cfb628d399",
+        "name": "幼子尚理",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f1a65828-183c-4bd8-a033-d9cfb628d399&TId=1&GId=6461&ZId=44455&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 伯恭",
+        "次子 伯贞"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第13世 友恒 长子 伯恭 讳敬同号晓峰行三十三 八脑支祖 雄才多谋好善乐施称长者 生于 公元一四零四年明朝成祖永乐二年甲申八月初八日午时 殁于 公元一四七三年宪宗成化九年癸巳十月初二日辰时 葬华峰熊村西北侧有碑 娶陈氏 生于 公元一四一四年明朝成祖永乐十二年甲午三月廿九日午时 殁于 公元一四四四年英宗正统九年甲子十月十八日未时 在未详 继娶杨氏 生于公元一四三零年明朝宣宗宣德五年庚戌十一月三十日卯时 殁于公元一四九六年宪宗成化二十年十月初二日戌时 葬未详 厕室闵氏 生于公元一四三八年明朝英宗正统三年戊午八月十五日子时 殁于公元一五零四年孝宗弘治七年甲子十一月十一日未时 葬未详 生子五 尚志 尚斌 尚䌹 尚贤 尚理。",
+      "aliases": {
+        "hui": "敬同",
+        "hao": "晓峰行三十三"
+      },
+      "birth": "公元一四零四年明朝成祖永乐二年甲申八月初八日午时",
+      "death": "公元一四七三年宪宗成化九年癸巳十月初二日辰时",
+      "burial": "华峰熊村西北侧有碑",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "f1a65828-183c-4bd8-a033-d9cfb628d399",
+    "name": "尚理",
+    "generation": 14,
+    "url": null,
+    "note": null,
+    "father": {
+      "nid": "932e08df-a2bc-4650-b2f4-f8aa1567ab65",
+      "name": "伯恭",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=932e08df-a2bc-4650-b2f4-f8aa1567ab65&TId=1&GId=6461&ZId=44455&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "幼子",
+    "children": [],
+    "siblings": {
+      "total_count": 5,
+      "rank": 5,
+      "list": [
+        "长子 尚志",
+        "次子 尚斌",
+        "三子 尚䌹",
+        "四子 尚贤",
+        "幼子 尚理"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第14世 伯恭 幼子 尚理 讳习和号慎庵 八老支祖 迁居进贤临川两县 礼步村待寻。",
+      "aliases": {
+        "hui": "习和",
+        "hao": "慎庵"
+      },
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": "居进贤临川两县",
+      "description": null
+    },
+    "spouse": null
+  }
+]
