@@ -454,6 +454,7 @@
             background: rgba(255, 255, 255, 0.95);
             padding: 18px 25px 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
         #branch-header h1 {
@@ -485,11 +486,7 @@
         }
 
         .branch-node rect {
-            transition: filter 0.15s;
-        }
-
-        .branch-node rect:hover {
-            filter: brightness(0.88);
+            transition: fill 0.15s;
         }
 
         .branch-node.loading rect {
@@ -1372,15 +1369,39 @@
             const nodeEnter = node.enter().append('g')
                 .attr('class', 'branch-node')
                 .attr('transform', `translate(${source.y0},${source.x0})`)
+                .on('mouseover', (event, d) => {
+                    d3.select(event.currentTarget).select('rect')
+                        .style('fill', d.depth === 0 ? '#455a6d' : '#a9cce3');
+                })
+                .on('mouseout', (event, d) => {
+                    d3.select(event.currentTarget).select('rect')
+                        .style('fill', d.depth === 0 ? '#2c3e50' : '#d6eaf8');
+                })
+                .on('mousedown', (event, d) => {
+                    d3.select(event.currentTarget).select('rect')
+                        .style('fill', d.depth === 0 ? '#1a252f' : '#7fb3d3');
+                })
+                .on('mouseup', (event, d) => {
+                    d3.select(event.currentTarget).select('rect')
+                        .style('fill', d.depth === 0 ? '#455a6d' : '#a9cce3');
+                })
+                .on('mouseleave', (event, d) => {
+                    d3.select(event.currentTarget).select('rect')
+                        .style('fill', d.depth === 0 ? '#2c3e50' : '#d6eaf8');
+                })
                 .on('click', (event, d) => onBranchNodeClick(event, d))
                 .on('touchstart', (event, d) => {
                     event.stopPropagation();
+                    d3.select(event.currentTarget).select('rect')
+                        .style('fill', d.depth === 0 ? '#1a252f' : '#7fb3d3');
                     const t = event.touches[0];
                     d._touchStartX = t.clientX;
                     d._touchStartY = t.clientY;
                 }, { passive: true })
                 .on('touchend', (event, d) => {
                     event.stopPropagation();
+                    d3.select(event.currentTarget).select('rect')
+                        .style('fill', d.depth === 0 ? '#2c3e50' : '#d6eaf8');
                     const t = event.changedTouches[0];
                     const dx = Math.abs(t.clientX - (d._touchStartX || 0));
                     const dy = Math.abs(t.clientY - (d._touchStartY || 0));
