@@ -9494,5 +9494,37 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "756cba1f-69d4-48a4-beb9-ab8ff3d258ad",
+    "name": "济禄",
+    "generation": 29,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=756cba1f-69d4-48a4-beb9-ab8ff3d258ad&TId=1&GId=6461&ZId=43606&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "f24920cb-0f1e-41de-b041-68fcadc3bb17",
+      "name": "烈华",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f24920cb-0f1e-41de-b041-68fcadc3bb17&TId=1&GId=6461&ZId=43606&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 济福",
+        "三子 济禄"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第29世 烈华 三子 济禄 字俊虎 居港里 生于 公元二零零四年甲申二月廿一日辰时。",
+      "aliases": {},
+      "birth": "公元二零零四年甲申二月廿一日辰时。",
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

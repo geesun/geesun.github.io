@@ -13313,5 +13313,45 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "c08d1b69-db15-436f-ac79-dc1b971d15ad",
+    "name": "朝钦",
+    "generation": 16,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c08d1b69-db15-436f-ac79-dc1b971d15ad&TId=1&GId=6461&ZId=44549&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "6c4fdc05-19d4-4bcb-bbde-165f5a354202",
+      "name": "永清",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6c4fdc05-19d4-4bcb-bbde-165f5a354202&TId=1&GId=6461&ZId=44549&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "9e6632fe-3398-4f2a-8694-6f5f437ad1ab",
+        "name": "之子一佳",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9e6632fe-3398-4f2a-8694-6f5f437ad1ab&TId=1&GId=6461&ZId=44549&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 朝英",
+        "次子 朝爵",
+        "三子 朝钦"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第16世 永清 三子 朝钦 徙居凤嘴 生娶殁葬未详 生子一 一佳。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

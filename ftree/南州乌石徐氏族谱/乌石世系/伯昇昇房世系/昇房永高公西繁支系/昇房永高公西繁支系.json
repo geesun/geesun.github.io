@@ -9989,5 +9989,101 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "7949df47-0347-4ffe-ba7b-4c5b04251a23",
+    "name": "懋茶",
+    "generation": 20,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7949df47-0347-4ffe-ba7b-4c5b04251a23&TId=1&GId=6461&ZId=45165&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "1f75091c-3622-4391-a7ed-6b11d818270b",
+      "name": "光滔",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1f75091c-3622-4391-a7ed-6b11d818270b&TId=1&GId=6461&ZId=45165&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "4568faa4-de13-4a72-b650-e0b66b02373c",
+        "name": "之子崇珺",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4568faa4-de13-4a72-b650-e0b66b02373c&TId=1&GId=6461&ZId=45165&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 1,
+      "list": [
+        "长子 懋茶",
+        "次子 懋菱"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第20世 光滔 长子 懋茶 迁居上官庄 生娶殁葬未详 生子一 崇珺。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": "居上官庄",
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "1cdcf467-79dc-4d48-800a-f182996a10ff",
+    "name": "显滨",
+    "generation": 22,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1cdcf467-79dc-4d48-800a-f182996a10ff&TId=1&GId=6461&ZId=45166&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "3d5889af-3f3a-47d5-b61a-773cdecea2f1",
+      "name": "崇𤫞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3d5889af-3f3a-47d5-b61a-773cdecea2f1&TId=1&GId=6461&ZId=45166&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "0f91fb94-38b4-48d4-8f39-395e28604209",
+        "name": "长子荣尧",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0f91fb94-38b4-48d4-8f39-395e28604209&TId=1&GId=6461&ZId=45166&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "661109f3-725e-48cc-b202-4ab0c7d96bde",
+        "name": "次子荣明",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=661109f3-725e-48cc-b202-4ab0c7d96bde&TId=1&GId=6461&ZId=45166&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "ba4bda26-5938-415f-a9ad-1438fb1b3964",
+        "name": "三子荣朋",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ba4bda26-5938-415f-a9ad-1438fb1b3964&TId=1&GId=6461&ZId=45166&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "362bcbdd-b25a-479c-a096-57934c5d7bd3",
+        "name": "四子荣晓",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=362bcbdd-b25a-479c-a096-57934c5d7bd3&TId=1&GId=6461&ZId=45166&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 显源",
+        "次子 显滨"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第22世 崇𤫞 次子 显滨 迁南垅徐 生娶殁葬未详 生子四 荣尧 荣明 荣朋 荣晓。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": "南垅徐",
+      "description": null
+    },
+    "spouse": null
   }
 ]

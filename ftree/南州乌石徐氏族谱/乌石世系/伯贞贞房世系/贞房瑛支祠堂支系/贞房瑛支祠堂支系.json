@@ -14934,5 +14934,154 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "a80f6f99-5261-48ad-b9d5-34233ef5224b",
+    "name": "嘉玟",
+    "generation": 21,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a80f6f99-5261-48ad-b9d5-34233ef5224b&TId=1&GId=6461&ZId=45350&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "7ab25869-175e-4698-aa60-395fa95c2b7e",
+      "name": "曰濲",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ab25869-175e-4698-aa60-395fa95c2b7e&TId=1&GId=6461&ZId=45350&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "43e4d975-6bc8-40eb-9693-7e140946dc94",
+        "name": "长子隆元",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=43e4d975-6bc8-40eb-9693-7e140946dc94&TId=1&GId=6461&ZId=45350&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 嘉帝",
+        "次子 嘉玟"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第21世 曰濲 次子 嘉玟 居桃竹筒 生娶殁葬未详。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详。",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "db44788d-1b91-4456-ad95-8873c38cedf5",
+    "name": "维超",
+    "generation": 24,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=db44788d-1b91-4456-ad95-8873c38cedf5&TId=1&GId=6461&ZId=44637&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "b2488168-1ec9-4d41-b249-2bc64fe7f205",
+      "name": "盛发",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b2488168-1ec9-4d41-b249-2bc64fe7f205&TId=1&GId=6461&ZId=44637&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "fe97c955-8081-413b-b951-e7c7a1323de4",
+        "name": "长子新池",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fe97c955-8081-413b-b951-e7c7a1323de4&TId=1&GId=6461&ZId=44637&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "128cc2e7-3ef3-4fe2-b5f1-9bd3b79ba176",
+        "name": "次子新浪",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=128cc2e7-3ef3-4fe2-b5f1-9bd3b79ba176&TId=1&GId=6461&ZId=44637&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "e37bbe9c-f53b-40ce-9a0c-746adbcef3b0",
+        "name": "三子新塘",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e37bbe9c-f53b-40ce-9a0c-746adbcef3b0&TId=1&GId=6461&ZId=44637&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "49247cbe-41ac-405d-b66f-06149d029d9f",
+        "name": "四子新吉",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=49247cbe-41ac-405d-b66f-06149d029d9f&TId=1&GId=6461&ZId=44637&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "7887eb12-b9b2-4860-b39e-29fb905ed2f9",
+        "name": "五子新銮",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7887eb12-b9b2-4860-b39e-29fb905ed2f9&TId=1&GId=6461&ZId=44637&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 3,
+      "list": [
+        "长子 维起",
+        "次子 维达",
+        "三子 维超"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第24世 盛发 三子 维超 居鲤溪 生于 公元一七二六年清朝世宗雍正四年丙午正月二十九日午时 殁于 公元一七九二年乾隆五十七年壬子十月十二日巳时 葬庙下 娶张氏 生于 公元一七二七年清朝世宗雍正五年丁未四月十五日丑时 殁于 乾隆十年己丑十月二十日申时 葬庙下 生子五 新池 新浪 新塘 新吉 新銮。",
+      "aliases": {},
+      "birth": "公元一七二六年清朝世宗雍正四年丙午正月二十九日午时",
+      "death": "公元一七九二年乾隆五十七年壬子十月十二日巳时",
+      "burial": "庙下",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "71df42f4-0f2c-46fb-9f32-e5e0e326092d",
+    "name": "维起",
+    "generation": 24,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=71df42f4-0f2c-46fb-9f32-e5e0e326092d&TId=1&GId=6461&ZId=44636&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "b2488168-1ec9-4d41-b249-2bc64fe7f205",
+      "name": "盛发",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b2488168-1ec9-4d41-b249-2bc64fe7f205&TId=1&GId=6461&ZId=44636&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "fb36d8d7-fe85-4464-8eaa-3839ffcf2d25",
+        "name": "长子新惠",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fb36d8d7-fe85-4464-8eaa-3839ffcf2d25&TId=1&GId=6461&ZId=44636&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "fc8470df-09e7-4d64-94a0-67beefb62762",
+        "name": "次子新昌",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fc8470df-09e7-4d64-94a0-67beefb62762&TId=1&GId=6461&ZId=44636&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 3,
+      "rank": 1,
+      "list": [
+        "长子 维起",
+        "次子 维达",
+        "三子 维超"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第24世 盛发 长子 维起 行三四 居吉家桥 生于 公元一七七零年庚寅三月十八日子时 殁于 公元一八二九年甲辰九月十六日巳时 葬乌石山 娶帅氏 生殁葬未详 生子二 新惠 新昌。",
+      "aliases": {},
+      "birth": "公元一七七零年庚寅三月十八日子时",
+      "death": "公元一八二九年甲辰九月十六日巳时",
+      "burial": "乌石山",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

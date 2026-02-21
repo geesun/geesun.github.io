@@ -19549,5 +19549,65 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "b4683e58-5f33-4791-9719-839a165d7fcc",
+    "name": "崇珠",
+    "generation": 21,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b4683e58-5f33-4791-9719-839a165d7fcc&TId=1&GId=6461&ZId=44652&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "a5de038c-4e53-4409-9473-a94cb4b0f93b",
+      "name": "懋简",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a5de038c-4e53-4409-9473-a94cb4b0f93b&TId=1&GId=6461&ZId=44652&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "2e8cb5f1-1ad9-40a9-b18b-6a41775d4759",
+        "name": "长子显仁",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2e8cb5f1-1ad9-40a9-b18b-6a41775d4759&TId=1&GId=6461&ZId=44652&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "f1ce98bd-766a-4415-87ce-ebf2d1941da0",
+        "name": "次子显佑",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f1ce98bd-766a-4415-87ce-ebf2d1941da0&TId=1&GId=6461&ZId=44652&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "42c946dc-2343-4f61-864b-8da68edc8df7",
+        "name": "三子显倬",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=42c946dc-2343-4f61-864b-8da68edc8df7&TId=1&GId=6461&ZId=44652&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "bdd6ea65-dcce-41ff-9d30-92d074f605d1",
+        "name": "四子显迁",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bdd6ea65-dcce-41ff-9d30-92d074f605d1&TId=1&GId=6461&ZId=45682&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 5,
+      "rank": 5,
+      "list": [
+        "长子 崇珪",
+        "长子 崇珪",
+        "次子 崇玘",
+        "次子 崇𤣱",
+        "三子 崇珠"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第21世 懋简 三子 崇珠 生娶殁葬未详 生子四 显仁 显佑 显倬 显迁。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

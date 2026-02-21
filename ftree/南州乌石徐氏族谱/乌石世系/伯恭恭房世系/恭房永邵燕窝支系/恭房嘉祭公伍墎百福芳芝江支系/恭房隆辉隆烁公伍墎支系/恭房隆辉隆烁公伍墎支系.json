@@ -15254,5 +15254,43 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "40859ba9-c089-4282-845b-5996ff76495d",
+    "name": "昭德",
+    "generation": 26,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=40859ba9-c089-4282-845b-5996ff76495d&TId=1&GId=6461&ZId=46276&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "61853337-6be2-45ce-b076-0688e6c166a7",
+      "name": "新櫬",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=61853337-6be2-45ce-b076-0688e6c166a7&TId=1&GId=6461&ZId=46276&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [
+      {
+        "nid": "f45fc344-c528-4c5a-8167-a1d0b7f9b081",
+        "name": "之子伟京",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f45fc344-c528-4c5a-8167-a1d0b7f9b081&TId=1&GId=6461&ZId=46276&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "四子 昭德"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 新櫬 四子 昭德 居神灵嘴 生娶殁葬未详 生子一 伟京。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

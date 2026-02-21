@@ -45868,5 +45868,49 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "f1d00f92-8ee8-4915-8ac8-906fd77a7fdb",
+    "name": "伟程",
+    "generation": 27,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f1d00f92-8ee8-4915-8ac8-906fd77a7fdb&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "90a16730-707f-4b88-8b7c-fa5e8ff255c3",
+      "name": "昭炳",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90a16730-707f-4b88-8b7c-fa5e8ff255c3&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "57cf6c50-7284-42e4-b356-1f063d59b48b",
+        "name": "长子烈文",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=57cf6c50-7284-42e4-b356-1f063d59b48b&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "5986e7bf-3ec7-4c97-8e50-2d8ee08753f5",
+        "name": "次子烈樸",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5986e7bf-3ec7-4c97-8e50-2d8ee08753f5&TId=1&GId=6461&ZId=45239&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 1,
+      "rank": 1,
+      "list": [
+        "长子 伟程"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第27世 昭炳 长子 伟程 行二四六号 由莲塘迁居夏家垅 生于 公元一八七一年同治辛未七月初三日亥时 殁未详 葬古山向南 娶熊氏 生殁葬未详 生子二 烈文 烈樸。",
+      "aliases": {},
+      "birth": "公元一八七一年同治辛未七月初三日亥时 殁未详",
+      "death": null,
+      "burial": "古山向南",
+      "migration": "居夏家垅",
+      "description": null
+    },
+    "spouse": null
   }
 ]

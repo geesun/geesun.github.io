@@ -448,5 +448,104 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "ccd30f37-fb2c-4dec-adcc-b9e60787600e",
+    "name": "光益",
+    "generation": 19,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ccd30f37-fb2c-4dec-adcc-b9e60787600e&TId=1&GId=6461&ZId=44728&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "d2f1d625-90b5-44bb-9979-16199e8534f8",
+      "name": "公望",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2f1d625-90b5-44bb-9979-16199e8534f8&TId=1&GId=6461&ZId=44728&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "c240a786-b91a-4254-a7a0-74bbee358386",
+        "name": "长子懋金",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c240a786-b91a-4254-a7a0-74bbee358386&TId=1&GId=6461&ZId=44728&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d370f880-0b4b-4753-bbfd-f70648a19658",
+        "name": "次子懋翕",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d370f880-0b4b-4753-bbfd-f70648a19658&TId=1&GId=6461&ZId=44728&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "0893bbab-5787-4a46-b4f5-5b578209d23a",
+        "name": "三子懋全",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0893bbab-5787-4a46-b4f5-5b578209d23a&TId=1&GId=6461&ZId=44728&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "0ee9e8b7-c877-4e92-b784-f1b80a9b7d27",
+        "name": "四子懋余",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0ee9e8b7-c877-4e92-b784-f1b80a9b7d27&TId=1&GId=6461&ZId=44728&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "a5a5c553-c56c-4399-9598-0faaedeb3037",
+        "name": "五子懋合",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a5a5c553-c56c-4399-9598-0faaedeb3037&TId=1&GId=6461&ZId=44728&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 3,
+      "list": [
+        "长子 光政",
+        "次子 光言",
+        "三子 光益",
+        "四子 光从"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第19世 公望 三子 光益 迁居夏家垅 生娶殁葬未详 生子五 懋金 懋翕 懋全 懋余。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": "居夏家垅",
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "4d8f17ca-6794-4b87-b28a-7c4e2b944ddc",
+    "name": "光从",
+    "generation": 19,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4d8f17ca-6794-4b87-b28a-7c4e2b944ddc&TId=1&GId=6461&ZId=44728&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "d2f1d625-90b5-44bb-9979-16199e8534f8",
+      "name": "公望",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2f1d625-90b5-44bb-9979-16199e8534f8&TId=1&GId=6461&ZId=44728&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [],
+    "siblings": {
+      "total_count": 4,
+      "rank": 4,
+      "list": [
+        "长子 光政",
+        "次子 光言",
+        "三子 光益",
+        "四子 光从"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第19世 公望 四子 光从",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": null,
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

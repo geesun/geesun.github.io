@@ -265,5 +265,123 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "d23c2c17-09cc-443d-9cb8-3fb3d4f566ff",
+    "name": "尚琼",
+    "generation": 14,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d23c2c17-09cc-443d-9cb8-3fb3d4f566ff&TId=1&GId=6461&ZId=44638&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "97e90c36-6cac-405a-9884-8bf0090d3f7f",
+      "name": "伯贞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97e90c36-6cac-405a-9884-8bf0090d3f7f&TId=1&GId=6461&ZId=44638&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "三子",
+    "children": [
+      {
+        "nid": "2a84496c-6c50-4f40-8afd-7fff5d430fd0",
+        "name": "之子永肃",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2a84496c-6c50-4f40-8afd-7fff5d430fd0&TId=1&GId=6461&ZId=44638&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 7,
+      "rank": 3,
+      "list": [
+        "长子 尚玘",
+        "次子 尚瑛",
+        "三子 尚琼",
+        "四子 尚顼",
+        "五子 尚珍",
+        "六子 尚瓛",
+        "幼子 尚瓛"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第14世 伯贞 三子 尚琼 讳定和号云壑 九老郭家垅支祖 公性聪敏善属诗文 迁郭家垅 生于 明朝英宗天顺二年戊寅七月廿六日寅时 殁于 世宗嘉靖十二年癸巳十月十一日未时 葬山现南坪庄牯龙岗坐东向西有碑 廿一世嗣孙隆柏 盛但立碑 娶万氏 生于 明朝英宗天顺四年庚辰四月初四日子时 殁于 世宗嘉靖十年辛卯十月十七日卯时 葬本村面前山 生子一 永肃。",
+      "aliases": {
+        "hui": "定和",
+        "hao": "云壑"
+      },
+      "birth": "明朝英宗天顺二年戊寅七月廿六日寅时",
+      "death": "世宗嘉靖十二年癸巳十月十一日未时",
+      "burial": "山现南坪庄牯龙岗坐东向西有碑 廿一世嗣孙隆柏 盛但立碑",
+      "migration": "郭家垅",
+      "description": null
+    },
+    "spouse": null
+  },
+  {
+    "nid": "2abf447b-47bd-4196-80cd-d1c2bfc25027",
+    "name": "尚玘",
+    "generation": 14,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2abf447b-47bd-4196-80cd-d1c2bfc25027&TId=1&GId=6461&ZId=44634&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "97e90c36-6cac-405a-9884-8bf0090d3f7f",
+      "name": "伯贞",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97e90c36-6cac-405a-9884-8bf0090d3f7f&TId=1&GId=6461&ZId=44634&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "长子",
+    "children": [
+      {
+        "nid": "5d7749d9-bac3-437e-8fcd-f7f0b480c649",
+        "name": "长子永猷",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5d7749d9-bac3-437e-8fcd-f7f0b480c649&TId=1&GId=6461&ZId=44634&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "92e4aa46-fe33-4218-b68c-4f58765d0f1e",
+        "name": "次子永润",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=92e4aa46-fe33-4218-b68c-4f58765d0f1e&TId=1&GId=6461&ZId=44634&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "5b1b12e8-a0ec-475e-a80b-ea83b589a724",
+        "name": "三子永隅",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5b1b12e8-a0ec-475e-a80b-ea83b589a724&TId=1&GId=6461&ZId=44634&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d8d0dd2b-7ea7-47c4-83da-e68dfa974f58",
+        "name": "四子永良",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d8d0dd2b-7ea7-47c4-83da-e68dfa974f58&TId=1&GId=6461&ZId=44634&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "4f5ff8c1-f4d9-4ad2-b021-295d15be24f5",
+        "name": "幼子永熙",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4f5ff8c1-f4d9-4ad2-b021-295d15be24f5&TId=1&GId=6461&ZId=44634&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 7,
+      "rank": 1,
+      "list": [
+        "长子 尚玘",
+        "次子 尚瑛",
+        "三子 尚琼",
+        "四子 尚顼",
+        "五子 尚珍",
+        "六子 尚瓛",
+        "幼子 尚瓛"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第14世 伯贞 长子 尚玘 讳宣和号懦夫 象马垅支祖 生于 公元一四五零年明朝代宗景泰元年庚午三月廿五日午时 殁于 公元一五一八年武宗正德十三年戊寅十月廿六日戌时 享春秋六旬有八 葬南坪去牯龙岡坐东向西有碑 廿一世孙嘉汜 廿三世孙盛辉武重立碑 娶吴坪赵宗赵氏 生于 公元一四五一年明朝代宗景泰二年辛未七月初八日巳时 殁于 公元一四九四年孝宗宏治七年甲寅十一月十六日未时 葬本村大禾塆坐北向南有碑 继娶樊氏 生于 公元一四五八年明朝英宗天顺二年戊寅八月十八日辰时 殁葬卜老基阳熙坐北向南 生子五 永猷 永润 永偶 永良 永熙。",
+      "aliases": {
+        "hui": "宣和",
+        "hao": "懦夫"
+      },
+      "birth": "公元一四五零年明朝代宗景泰元年庚午三月廿五日午时",
+      "death": "公元一五一八年武宗正德十三年戊寅十月廿六日戌时 享春秋六旬有八",
+      "burial": "南坪去牯龙岡坐东向西有碑 廿一世孙嘉汜 廿三世孙盛辉武重立碑",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

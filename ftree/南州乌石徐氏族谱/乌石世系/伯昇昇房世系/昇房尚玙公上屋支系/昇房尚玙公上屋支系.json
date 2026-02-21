@@ -25244,5 +25244,44 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "8239d322-bbe9-4a00-8f02-eec652ed052e",
+    "name": "易垣",
+    "generation": 16,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8239d322-bbe9-4a00-8f02-eec652ed052e&TId=1&GId=6461&ZId=45212&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "468a6116-2ec6-4752-9cf5-f68d24938048",
+      "name": "永福",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=468a6116-2ec6-4752-9cf5-f68d24938048&TId=1&GId=6461&ZId=45212&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "次子",
+    "children": [
+      {
+        "nid": "876625c6-40d7-44f4-8d1d-cbb3eb02b2dc",
+        "name": "之子观倬",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=876625c6-40d7-44f4-8d1d-cbb3eb02b2dc&TId=1&GId=6461&ZId=45212&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 易昭",
+        "次子 易垣"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第16世 永福 次子 易垣 尧垅祖 生娶殁葬朝家山向东麻石碑 生子一 观倬。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "朝家山向东麻石碑",
+      "migration": null,
+      "description": null
+    },
+    "spouse": null
   }
 ]

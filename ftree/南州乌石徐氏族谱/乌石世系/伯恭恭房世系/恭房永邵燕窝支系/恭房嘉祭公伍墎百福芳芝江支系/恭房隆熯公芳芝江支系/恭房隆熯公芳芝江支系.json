@@ -16740,5 +16740,58 @@
       "description": null
     },
     "spouse": null
+  },
+  {
+    "nid": "34e7c313-de43-4c72-be1a-603320e30eca",
+    "name": "昭喜",
+    "generation": 26,
+    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=34e7c313-de43-4c72-be1a-603320e30eca&TId=1&GId=6461&ZId=46276&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
+    "note": null,
+    "father": {
+      "nid": "8d81ef63-61b7-4398-9eb1-6cfdbfdcbd35",
+      "name": "新池",
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8d81ef63-61b7-4398-9eb1-6cfdbfdcbd35&TId=1&GId=6461&ZId=46276&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+    },
+    "relation_to_father": "四子",
+    "children": [
+      {
+        "nid": "8db71001-9400-4683-b46f-e261f7b5975d",
+        "name": "长子伟有",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8db71001-9400-4683-b46f-e261f7b5975d&TId=1&GId=6461&ZId=46276&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "a3a27a26-0c49-4d2b-b084-963b5ca6e9bf",
+        "name": "次子伟福",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a3a27a26-0c49-4d2b-b084-963b5ca6e9bf&TId=1&GId=6461&ZId=46276&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "93c987af-f6f2-4ecd-b8f5-9c6ec8c096f9",
+        "name": "三子伟香",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=93c987af-f6f2-4ecd-b8f5-9c6ec8c096f9&TId=1&GId=6461&ZId=46276&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      }
+    ],
+    "siblings": {
+      "total_count": 4,
+      "rank": 4,
+      "list": [
+        "长子 昭晨",
+        "次子 昭鹤",
+        "三子 昭礼",
+        "四子 昭喜"
+      ]
+    },
+    "detail_info": {
+      "raw_text": "第26世 新池 四子 昭喜 居芳芝江迁神灵嘴 生娶殁葬未详 生子三 伟有 伟福 伟香。",
+      "aliases": {},
+      "birth": null,
+      "death": null,
+      "burial": "未详",
+      "migration": "神灵嘴",
+      "description": null
+    },
+    "spouse": null
   }
 ]
