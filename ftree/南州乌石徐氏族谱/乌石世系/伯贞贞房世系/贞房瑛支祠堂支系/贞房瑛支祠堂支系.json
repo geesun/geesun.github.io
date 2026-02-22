@@ -1,31 +1,64 @@
 [
   {
-    "nid": "0bb41f80-52c3-49c9-9169-0ca4e23acf33",
+    "nid": "97e90c36-6cac-405a-9884-8bf0090d3f7f",
     "name": "伯贞",
     "generation": 13,
     "url": null,
-    "note": null,
+    "note": "九脑支祖 娶金祝二位安人",
     "father": {
       "nid": "63ff3193-d341-43b3-986d-f463cc8a230b",
       "name": "友恒",
       "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=63ff3193-d341-43b3-986d-f463cc8a230b&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
     },
-    "relation_to_father": null,
+    "relation_to_father": "次子",
     "children": [
       {
-        "nid": "c0b6d1bd-0edd-431b-b00a-4d6aff72ff85",
+        "nid": "2abf447b-47bd-4196-80cd-d1c2bfc25027",
+        "name": "长子尚玘",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2abf447b-47bd-4196-80cd-d1c2bfc25027&TId=1&GId=6461&ZId=44634&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d1be366b-8363-4dd6-9f50-effe094fea3b",
         "name": "次子尚瑛",
         "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c0b6d1bd-0edd-431b-b00a-4d6aff72ff85&TId=1&GId=6461&ZId=44635&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d1be366b-8363-4dd6-9f50-effe094fea3b&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d23c2c17-09cc-443d-9cb8-3fb3d4f566ff",
+        "name": "三子尚琼",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d23c2c17-09cc-443d-9cb8-3fb3d4f566ff&TId=1&GId=6461&ZId=44638&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "d6a1e2c1-cecc-4a37-ba57-0ee0caee0298",
+        "name": "四子尚顼",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d6a1e2c1-cecc-4a37-ba57-0ee0caee0298&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "ebbe33d7-e424-47e4-a23f-78f8766995fd",
+        "name": "五子尚珍",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ebbe33d7-e424-47e4-a23f-78f8766995fd&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      },
+      {
+        "nid": "887f6af7-7eee-42b0-99cf-81a528c7341e",
+        "name": "六子尚瓛",
+        "relation": "",
+        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=887f6af7-7eee-42b0-99cf-81a528c7341e&TId=1&GId=6461&ZId=44456&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
       }
     ],
     "siblings": {
-      "total_count": 0,
-      "rank": null,
-      "list": []
+      "total_count": 2,
+      "rank": 2,
+      "list": [
+        "长子 伯恭",
+        "次子 伯贞"
+      ]
     },
     "detail_info": {
-      "raw_text": "第13世 次子 伯贞 讳文同号古愚 九脑支祖 生于 公元一四一零年明朝成祖永乐八年庚寅十月五日午时 殁于 公元一四八八年孝宗弘治元年戊申十一月廿六日未时 葬莲花地坐北向南 明景泰乙亥以税户人才开取赴京授姑苏太仓使 闽之沙县浮流巡宰有平寇功当进级自请退休 娶余氏 生于 公元一四一四年明朝成祖永乐十二年甲午正月廿日午时 殁于公元一四五六年代宗景泰七年丙子十月十八日未时 葬未详 继娶祝氏 生于公元一四三零年明朝宣宗宣德五年庚戌十二月初八日戌时 殁于 公元一四九六年孝宗弘治九年丙辰十月廿日戌时 葬未详 生子六 尚玘 尚瑛 尚琼 尚顼 尚珍 尚瓛。",
+      "raw_text": "第13世 友恒 次子 伯贞 讳文同号古愚 九脑支祖 生于 公元一四一零年明朝成祖永乐八年庚寅十月五日午时 殁于 公元一四八八年孝宗弘治元年戊申十一月廿六日未时 葬莲花地坐北向南 明景泰乙亥以税户人才开取赴京授姑苏太仓使 闽之沙县浮流巡宰有平寇功当进级自请退休 娶余氏 生于 公元一四一四年明朝成祖永乐十二年甲午正月廿日午时 殁于公元一四五六年代宗景泰七年丙子十月十八日未时 葬未详 继娶祝氏 生于公元一四三零年明朝宣宗宣德五年庚戌十二月初八日戌时 殁于 公元一四九六年孝宗弘治九年丙辰十月廿日戌时 葬未详 生子六 尚玘 尚瑛 尚琼 尚顼 尚珍 尚瓛。",
       "aliases": {
         "hui": "文同",
         "hao": "古愚"
@@ -706,9 +739,9 @@
     "url": null,
     "note": "学官垅",
     "father": {
-      "nid": "c0b6d1bd-0edd-431b-b00a-4d6aff72ff85",
+      "nid": "d1be366b-8363-4dd6-9f50-effe094fea3b",
       "name": "尚瑛",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c0b6d1bd-0edd-431b-b00a-4d6aff72ff85&TId=1&GId=6461&ZId=44635&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d1be366b-8363-4dd6-9f50-effe094fea3b&TId=1&GId=6461&ZId=44635&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
     },
     "relation_to_father": "之子",
     "children": [
@@ -1019,15 +1052,15 @@
     "spouse": null
   },
   {
-    "nid": "c0b6d1bd-0edd-431b-b00a-4d6aff72ff85",
+    "nid": "d1be366b-8363-4dd6-9f50-effe094fea3b",
     "name": "尚瑛",
     "generation": 14,
     "url": null,
-    "note": "居学官垅村又名祠堂村",
+    "note": "祠堂 吉家桥 鲤溪支祖",
     "father": {
-      "nid": "0bb41f80-52c3-49c9-9169-0ca4e23acf33",
+      "nid": "97e90c36-6cac-405a-9884-8bf0090d3f7f",
       "name": "伯贞",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0bb41f80-52c3-49c9-9169-0ca4e23acf33&TId=1&GId=6461&ZId=44635&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97e90c36-6cac-405a-9884-8bf0090d3f7f&TId=1&GId=6461&ZId=44635&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
     },
     "relation_to_father": "次子",
     "children": [
