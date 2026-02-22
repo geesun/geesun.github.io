@@ -3,32 +3,27 @@
     "nid": "59984c7f-e1a8-4119-ae06-b6dcf1ad3c6e",
     "name": "光昭",
     "generation": 19,
-    "url": null,
     "note": null,
     "father": {
       "nid": "368f7bfe-f284-41af-acbf-0e03f96f7620",
-      "name": "公悦",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=368f7bfe-f284-41af-acbf-0e03f96f7620&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "公悦"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "58fa2de4-865f-44b2-98d5-41e9385a1e2f",
         "name": "长子懋盛",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=58fa2de4-865f-44b2-98d5-41e9385a1e2f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "1e0e2360-127b-41c7-980f-69d0c30ff474",
         "name": "次子懋章",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1e0e2360-127b-41c7-980f-69d0c30ff474&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "1b5c53d0-feaf-48b8-8f39-92074ff79b99",
         "name": "三子懋英",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1b5c53d0-feaf-48b8-8f39-92074ff79b99&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -54,12 +49,10 @@
     "nid": "d2431ea4-4b20-42f4-9c49-8031ec74d95a",
     "name": "崇贤",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "1e0e2360-127b-41c7-980f-69d0c30ff474",
-      "name": "懋章",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1e0e2360-127b-41c7-980f-69d0c30ff474&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋章"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -85,26 +78,22 @@
     "nid": "368f7bfe-f284-41af-acbf-0e03f96f7620",
     "name": "公悦",
     "generation": 18,
-    "url": null,
     "note": null,
     "father": {
       "nid": "36792671-1338-49ed-8baa-9b36d95dc93e",
-      "name": "眐观",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=36792671-1338-49ed-8baa-9b36d95dc93e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "眐观"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "59984c7f-e1a8-4119-ae06-b6dcf1ad3c6e",
         "name": "长子光昭",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=59984c7f-e1a8-4119-ae06-b6dcf1ad3c6e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "90cf67f5-bae7-4e02-8682-d4c9fe21c987",
         "name": "次子光暘",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90cf67f5-bae7-4e02-8682-d4c9fe21c987&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -133,26 +122,22 @@
     "nid": "1b5c53d0-feaf-48b8-8f39-92074ff79b99",
     "name": "懋英",
     "generation": 20,
-    "url": null,
     "note": null,
     "father": {
       "nid": "59984c7f-e1a8-4119-ae06-b6dcf1ad3c6e",
-      "name": "光昭",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=59984c7f-e1a8-4119-ae06-b6dcf1ad3c6e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "光昭"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "18d80902-a4b7-4581-b62d-ebdaf35af2c8",
         "name": "长子崇倌",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=18d80902-a4b7-4581-b62d-ebdaf35af2c8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "226729c6-c126-457a-a0b6-690cebaae37a",
         "name": "次子崇细",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=226729c6-c126-457a-a0b6-690cebaae37a&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -179,20 +164,17 @@
     "nid": "18d80902-a4b7-4581-b62d-ebdaf35af2c8",
     "name": "崇倌",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "1b5c53d0-feaf-48b8-8f39-92074ff79b99",
-      "name": "懋英",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1b5c53d0-feaf-48b8-8f39-92074ff79b99&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋英"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "affa1ac4-3c4b-4afc-b9b9-72cfbfae0426",
         "name": "之子显桢",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=affa1ac4-3c4b-4afc-b9b9-72cfbfae0426&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -218,12 +200,10 @@
     "nid": "affa1ac4-3c4b-4afc-b9b9-72cfbfae0426",
     "name": "显桢",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "18d80902-a4b7-4581-b62d-ebdaf35af2c8",
-      "name": "崇倌",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=18d80902-a4b7-4581-b62d-ebdaf35af2c8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇倌"
     },
     "relation_to_father": "之子",
     "children": [],
@@ -249,26 +229,22 @@
     "nid": "226729c6-c126-457a-a0b6-690cebaae37a",
     "name": "崇细",
     "generation": 21,
-    "url": null,
     "note": "昭公支系图",
     "father": {
       "nid": "1b5c53d0-feaf-48b8-8f39-92074ff79b99",
-      "name": "懋英",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1b5c53d0-feaf-48b8-8f39-92074ff79b99&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋英"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "fc7eebaf-65d4-4bcf-968f-135c2f8383f3",
         "name": "长子显宾",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fc7eebaf-65d4-4bcf-968f-135c2f8383f3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "31f4d39d-4051-4a3b-bc5d-8e29ed419da3",
         "name": "次子显黌",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=31f4d39d-4051-4a3b-bc5d-8e29ed419da3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -294,20 +270,17 @@
     "nid": "fc7eebaf-65d4-4bcf-968f-135c2f8383f3",
     "name": "显宾",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "226729c6-c126-457a-a0b6-690cebaae37a",
-      "name": "崇细",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=226729c6-c126-457a-a0b6-690cebaae37a&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇细"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "01954634-23a4-4d57-bc0c-f6357b4da864",
         "name": "嗣子荣梅",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=01954634-23a4-4d57-bc0c-f6357b4da864&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -333,32 +306,27 @@
     "nid": "31f4d39d-4051-4a3b-bc5d-8e29ed419da3",
     "name": "显黌",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "226729c6-c126-457a-a0b6-690cebaae37a",
-      "name": "崇细",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=226729c6-c126-457a-a0b6-690cebaae37a&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇细"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "79e6222a-a3a8-4f6e-9df6-6295b1859965",
         "name": "长子荣杨",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=79e6222a-a3a8-4f6e-9df6-6295b1859965&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "00634415-c304-4988-af33-0be0e19f7192",
         "name": "次子崇梅",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=00634415-c304-4988-af33-0be0e19f7192&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "416f7c5e-2458-4770-85e0-9741d152e257",
         "name": "三子荣桂",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=416f7c5e-2458-4770-85e0-9741d152e257&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -384,12 +352,10 @@
     "nid": "58fa2de4-865f-44b2-98d5-41e9385a1e2f",
     "name": "懋盛",
     "generation": 20,
-    "url": null,
     "note": null,
     "father": {
       "nid": "59984c7f-e1a8-4119-ae06-b6dcf1ad3c6e",
-      "name": "光昭",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=59984c7f-e1a8-4119-ae06-b6dcf1ad3c6e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "光昭"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -417,44 +383,37 @@
     "nid": "4022707c-5ae8-43f5-ab2f-c96d248bacef",
     "name": "懋行",
     "generation": 20,
-    "url": null,
     "note": null,
     "father": {
       "nid": "90cf67f5-bae7-4e02-8682-d4c9fe21c987",
-      "name": "光暘",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90cf67f5-bae7-4e02-8682-d4c9fe21c987&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "光暘"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "fe3f7059-cc46-4e03-b75e-c08ebf6de195",
         "name": "长子崇禹",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fe3f7059-cc46-4e03-b75e-c08ebf6de195&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "54576095-45c0-4035-bb07-b4d5bda58814",
         "name": "次子崇契",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=54576095-45c0-4035-bb07-b4d5bda58814&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "a317f6a1-e384-430e-bd6c-66c6899b7af3",
         "name": "三子崇奭",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a317f6a1-e384-430e-bd6c-66c6899b7af3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "c27fce53-c20b-4836-a09f-98d53f067ea6",
         "name": "四子崇产",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c27fce53-c20b-4836-a09f-98d53f067ea6&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "dd1ce206-48d4-480e-8549-fc5ce4f2d3e7",
         "name": "五子崇孔",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=dd1ce206-48d4-480e-8549-fc5ce4f2d3e7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -483,32 +442,27 @@
     "nid": "54576095-45c0-4035-bb07-b4d5bda58814",
     "name": "崇契",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "4022707c-5ae8-43f5-ab2f-c96d248bacef",
-      "name": "懋行",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4022707c-5ae8-43f5-ab2f-c96d248bacef&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋行"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "0a4f9926-f41c-4d01-a5d7-9a0fd516fe49",
         "name": "长子显朝",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0a4f9926-f41c-4d01-a5d7-9a0fd516fe49&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "30f8bd40-9c85-442e-bef8-d597d98496a0",
         "name": "次子显吉",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=30f8bd40-9c85-442e-bef8-d597d98496a0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "d49b76fa-f6fc-417e-b678-b86d9aab0593",
         "name": "三子显祥",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d49b76fa-f6fc-417e-b678-b86d9aab0593&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -537,38 +491,32 @@
     "nid": "0a4f9926-f41c-4d01-a5d7-9a0fd516fe49",
     "name": "显朝",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "54576095-45c0-4035-bb07-b4d5bda58814",
-      "name": "崇契",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=54576095-45c0-4035-bb07-b4d5bda58814&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇契"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "a815451f-67f2-4f83-8f94-c55520adc5e5",
         "name": "长子荣衮",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a815451f-67f2-4f83-8f94-c55520adc5e5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "89540c99-6304-4c0f-bfac-6aefacf51ab0",
         "name": "次子荣繍",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=89540c99-6304-4c0f-bfac-6aefacf51ab0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "996099e6-02dd-40ad-8afc-d64464ad41c4",
         "name": "三子荣绮",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=996099e6-02dd-40ad-8afc-d64464ad41c4&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "084d5b50-8948-4838-b9e9-2ea4e17126e1",
         "name": "四子荣藻",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=084d5b50-8948-4838-b9e9-2ea4e17126e1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -595,32 +543,27 @@
     "nid": "30f8bd40-9c85-442e-bef8-d597d98496a0",
     "name": "显吉",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "54576095-45c0-4035-bb07-b4d5bda58814",
-      "name": "崇契",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=54576095-45c0-4035-bb07-b4d5bda58814&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇契"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "aa3b3af1-2779-4512-bf10-8a9bf9ce05f0",
         "name": "长子荣纶",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=aa3b3af1-2779-4512-bf10-8a9bf9ce05f0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "740faa63-dea8-4acd-b99d-f14577cf46df",
         "name": "次子荣纬",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=740faa63-dea8-4acd-b99d-f14577cf46df&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "a304ad6e-2e70-43da-a8da-07706eb01899",
         "name": "三子荣绂",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a304ad6e-2e70-43da-a8da-07706eb01899&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -647,26 +590,22 @@
     "nid": "d49b76fa-f6fc-417e-b678-b86d9aab0593",
     "name": "显祥",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "54576095-45c0-4035-bb07-b4d5bda58814",
-      "name": "崇契",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=54576095-45c0-4035-bb07-b4d5bda58814&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇契"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "50c9d733-0a87-4a95-9526-c5fb7018fdf7",
         "name": "长子荣绘",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50c9d733-0a87-4a95-9526-c5fb7018fdf7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "da40554e-a8ec-4d8a-9046-713054bdb985",
         "name": "次子荣绩",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da40554e-a8ec-4d8a-9046-713054bdb985&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -693,32 +632,27 @@
     "nid": "fe3f7059-cc46-4e03-b75e-c08ebf6de195",
     "name": "崇禹",
     "generation": 21,
-    "url": null,
     "note": "暘公行支",
     "father": {
       "nid": "4022707c-5ae8-43f5-ab2f-c96d248bacef",
-      "name": "懋行",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4022707c-5ae8-43f5-ab2f-c96d248bacef&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋行"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "1c994767-fba3-423e-a33e-9f5b920df029",
         "name": "长子显能",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1c994767-fba3-423e-a33e-9f5b920df029&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "90851e92-417e-408c-8e96-8e4648882126",
         "name": "次子显祖",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90851e92-417e-408c-8e96-8e4648882126&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "57bafcb8-5e07-44d6-9034-66ea5b418a14",
         "name": "三子显相",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=57bafcb8-5e07-44d6-9034-66ea5b418a14&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -747,12 +681,10 @@
     "nid": "1c994767-fba3-423e-a33e-9f5b920df029",
     "name": "显能",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "fe3f7059-cc46-4e03-b75e-c08ebf6de195",
-      "name": "崇禹",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fe3f7059-cc46-4e03-b75e-c08ebf6de195&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇禹"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -780,20 +712,17 @@
     "nid": "1e0e2360-127b-41c7-980f-69d0c30ff474",
     "name": "懋章",
     "generation": 20,
-    "url": null,
     "note": null,
     "father": {
       "nid": "59984c7f-e1a8-4119-ae06-b6dcf1ad3c6e",
-      "name": "光昭",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=59984c7f-e1a8-4119-ae06-b6dcf1ad3c6e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "光昭"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "d2431ea4-4b20-42f4-9c49-8031ec74d95a",
         "name": "长子崇贤",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2431ea4-4b20-42f4-9c49-8031ec74d95a&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -820,20 +749,17 @@
     "nid": "57bafcb8-5e07-44d6-9034-66ea5b418a14",
     "name": "显相",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "fe3f7059-cc46-4e03-b75e-c08ebf6de195",
-      "name": "崇禹",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fe3f7059-cc46-4e03-b75e-c08ebf6de195&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇禹"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "52dc795d-9eb9-4bb7-a678-6e21d156f73e",
         "name": "长子荣封",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=52dc795d-9eb9-4bb7-a678-6e21d156f73e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -860,26 +786,22 @@
     "nid": "a317f6a1-e384-430e-bd6c-66c6899b7af3",
     "name": "崇奭",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "4022707c-5ae8-43f5-ab2f-c96d248bacef",
-      "name": "懋行",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4022707c-5ae8-43f5-ab2f-c96d248bacef&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋行"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "ca0a948c-ea60-4e4a-8fd2-9a10f2366f25",
         "name": "长子显贤",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ca0a948c-ea60-4e4a-8fd2-9a10f2366f25&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "66f44e19-eddb-43ce-812f-257ebb9736ee",
         "name": "次子显德",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=66f44e19-eddb-43ce-812f-257ebb9736ee&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -908,26 +830,22 @@
     "nid": "ca0a948c-ea60-4e4a-8fd2-9a10f2366f25",
     "name": "显贤",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a317f6a1-e384-430e-bd6c-66c6899b7af3",
-      "name": "崇奭",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a317f6a1-e384-430e-bd6c-66c6899b7af3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇奭"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "a4e6bb9d-2a6e-415b-b073-bd15a7b55df2",
         "name": "长子荣忠",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a4e6bb9d-2a6e-415b-b073-bd15a7b55df2&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "7ee827e1-8511-4f0e-a2e8-50d2b2538e63",
         "name": "次子荣孝",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ee827e1-8511-4f0e-a2e8-50d2b2538e63&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -953,12 +871,10 @@
     "nid": "66f44e19-eddb-43ce-812f-257ebb9736ee",
     "name": "显德",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a317f6a1-e384-430e-bd6c-66c6899b7af3",
-      "name": "崇奭",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a317f6a1-e384-430e-bd6c-66c6899b7af3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇奭"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -985,12 +901,10 @@
     "nid": "c27fce53-c20b-4836-a09f-98d53f067ea6",
     "name": "崇产",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "4022707c-5ae8-43f5-ab2f-c96d248bacef",
-      "name": "懋行",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4022707c-5ae8-43f5-ab2f-c96d248bacef&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋行"
     },
     "relation_to_father": "四子",
     "children": [],
@@ -1020,20 +934,17 @@
     "nid": "90851e92-417e-408c-8e96-8e4648882126",
     "name": "显祖",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "fe3f7059-cc46-4e03-b75e-c08ebf6de195",
-      "name": "崇禹",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fe3f7059-cc46-4e03-b75e-c08ebf6de195&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇禹"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "d2f851e8-e308-4132-b113-dcd900c0d46d",
         "name": "长子荣诰",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2f851e8-e308-4132-b113-dcd900c0d46d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1060,44 +971,37 @@
     "nid": "90cf67f5-bae7-4e02-8682-d4c9fe21c987",
     "name": "光暘",
     "generation": 19,
-    "url": null,
     "note": null,
     "father": {
       "nid": "368f7bfe-f284-41af-acbf-0e03f96f7620",
-      "name": "公悦",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=368f7bfe-f284-41af-acbf-0e03f96f7620&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "公悦"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "2b99a674-d027-483a-816e-0d6e221687bf",
         "name": "长子懋文",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2b99a674-d027-483a-816e-0d6e221687bf&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "4022707c-5ae8-43f5-ab2f-c96d248bacef",
         "name": "次子懋行",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4022707c-5ae8-43f5-ab2f-c96d248bacef&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "83ab94eb-744b-4e68-a75c-3f548706d1d4",
         "name": "三子懋莊",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=83ab94eb-744b-4e68-a75c-3f548706d1d4&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "63066c65-7a0f-4d2d-adc8-16da1ab4bd28",
         "name": "四子懋第",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=63066c65-7a0f-4d2d-adc8-16da1ab4bd28&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "f834ea08-e3ef-428f-adfc-a79c7bd208e1",
         "name": "五子懋武",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f834ea08-e3ef-428f-adfc-a79c7bd208e1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1123,20 +1027,17 @@
     "nid": "11678be3-cef6-4a68-8d52-123975ac1df2",
     "name": "显麟",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "dd1ce206-48d4-480e-8549-fc5ce4f2d3e7",
-      "name": "崇孔",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=dd1ce206-48d4-480e-8549-fc5ce4f2d3e7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇孔"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "56e67fbb-755e-4548-be02-963152690689",
         "name": "长子荣朗",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=56e67fbb-755e-4548-be02-963152690689&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1163,12 +1064,10 @@
     "nid": "9141cf07-e69e-467e-be53-ccd9f083ec4a",
     "name": "显龙",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "dd1ce206-48d4-480e-8549-fc5ce4f2d3e7",
-      "name": "崇孔",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=dd1ce206-48d4-480e-8549-fc5ce4f2d3e7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇孔"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -1196,32 +1095,27 @@
     "nid": "2b99a674-d027-483a-816e-0d6e221687bf",
     "name": "懋文",
     "generation": 20,
-    "url": null,
     "note": null,
     "father": {
       "nid": "90cf67f5-bae7-4e02-8682-d4c9fe21c987",
-      "name": "光暘",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90cf67f5-bae7-4e02-8682-d4c9fe21c987&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "光暘"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "b7020964-191e-42ca-94ae-661efde0a353",
         "name": "长子崇臯",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b7020964-191e-42ca-94ae-661efde0a353&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "c8480e0d-abe3-4292-a250-202c22140c95",
         "name": "次子崇泰",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c8480e0d-abe3-4292-a250-202c22140c95&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "3bbde8e6-e29f-4996-af3e-4dc14eccc986",
         "name": "三子崇富",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3bbde8e6-e29f-4996-af3e-4dc14eccc986&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1250,44 +1144,37 @@
     "nid": "b7020964-191e-42ca-94ae-661efde0a353",
     "name": "崇臯",
     "generation": 21,
-    "url": null,
     "note": "暘公文支",
     "father": {
       "nid": "2b99a674-d027-483a-816e-0d6e221687bf",
-      "name": "懋文",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2b99a674-d027-483a-816e-0d6e221687bf&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋文"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "bbdf74bd-7ef6-4b54-935f-3f64db2f4b44",
         "name": "长子显亮",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bbdf74bd-7ef6-4b54-935f-3f64db2f4b44&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "5b1ac103-211f-4a0d-8b42-e7af52bb7d11",
         "name": "次子显微",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5b1ac103-211f-4a0d-8b42-e7af52bb7d11&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "a2508171-ec86-4d84-a3c7-056f8cc7005f",
         "name": "三子显赤",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a2508171-ec86-4d84-a3c7-056f8cc7005f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "e243688a-1494-47d6-bc9a-910f33e68994",
         "name": "四子显素",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e243688a-1494-47d6-bc9a-910f33e68994&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "bcf81aef-fff6-4ec1-abb2-722e8d445721",
         "name": "五子显宣",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bcf81aef-fff6-4ec1-abb2-722e8d445721&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1314,32 +1201,27 @@
     "nid": "dd1ce206-48d4-480e-8549-fc5ce4f2d3e7",
     "name": "崇孔",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "4022707c-5ae8-43f5-ab2f-c96d248bacef",
-      "name": "懋行",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4022707c-5ae8-43f5-ab2f-c96d248bacef&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋行"
     },
     "relation_to_father": "五子",
     "children": [
       {
         "nid": "2c205f4c-f368-4c69-9eb2-be0c6c2eda6f",
         "name": "长子显麒",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2c205f4c-f368-4c69-9eb2-be0c6c2eda6f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "11678be3-cef6-4a68-8d52-123975ac1df2",
         "name": "次子显麟",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=11678be3-cef6-4a68-8d52-123975ac1df2&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "9141cf07-e69e-467e-be53-ccd9f083ec4a",
         "name": "三子显龙",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9141cf07-e69e-467e-be53-ccd9f083ec4a&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1368,12 +1250,10 @@
     "nid": "2c205f4c-f368-4c69-9eb2-be0c6c2eda6f",
     "name": "显麒",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "dd1ce206-48d4-480e-8549-fc5ce4f2d3e7",
-      "name": "崇孔",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=dd1ce206-48d4-480e-8549-fc5ce4f2d3e7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇孔"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -1401,26 +1281,22 @@
     "nid": "a2508171-ec86-4d84-a3c7-056f8cc7005f",
     "name": "显赤",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "b7020964-191e-42ca-94ae-661efde0a353",
-      "name": "崇臯",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b7020964-191e-42ca-94ae-661efde0a353&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇臯"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "12f556dc-4318-4c1f-970c-2729e3f36941",
         "name": "长子荣唯",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=12f556dc-4318-4c1f-970c-2729e3f36941&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "c54422a8-cd37-453b-a235-6c58ac4d2579",
         "name": "次子荣昱",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c54422a8-cd37-453b-a235-6c58ac4d2579&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1449,12 +1325,10 @@
     "nid": "e243688a-1494-47d6-bc9a-910f33e68994",
     "name": "显素",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "b7020964-191e-42ca-94ae-661efde0a353",
-      "name": "崇臯",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b7020964-191e-42ca-94ae-661efde0a353&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇臯"
     },
     "relation_to_father": "四子",
     "children": [],
@@ -1484,32 +1358,27 @@
     "nid": "bcf81aef-fff6-4ec1-abb2-722e8d445721",
     "name": "显宣",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "b7020964-191e-42ca-94ae-661efde0a353",
-      "name": "崇臯",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b7020964-191e-42ca-94ae-661efde0a353&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇臯"
     },
     "relation_to_father": "五子",
     "children": [
       {
         "nid": "6a7700c5-30dc-46b4-8dae-adfb4cf9d820",
         "name": "长子荣国",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6a7700c5-30dc-46b4-8dae-adfb4cf9d820&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "89664201-5d0a-49cc-9a55-8bd7daffeb3e",
         "name": "次子荣衡",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=89664201-5d0a-49cc-9a55-8bd7daffeb3e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "0018a91c-598f-4aec-86e1-1c315431089e",
         "name": "三子荣第",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0018a91c-598f-4aec-86e1-1c315431089e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1538,20 +1407,17 @@
     "nid": "c8480e0d-abe3-4292-a250-202c22140c95",
     "name": "崇泰",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "2b99a674-d027-483a-816e-0d6e221687bf",
-      "name": "懋文",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2b99a674-d027-483a-816e-0d6e221687bf&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋文"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "6a4340b0-67c5-4333-be3b-ae65d2c4cb06",
         "name": "之子显进",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6a4340b0-67c5-4333-be3b-ae65d2c4cb06&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1578,26 +1444,22 @@
     "nid": "6a4340b0-67c5-4333-be3b-ae65d2c4cb06",
     "name": "显进",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "c8480e0d-abe3-4292-a250-202c22140c95",
-      "name": "崇泰",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c8480e0d-abe3-4292-a250-202c22140c95&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇泰"
     },
     "relation_to_father": "之子",
     "children": [
       {
         "nid": "4a857b3a-2b05-4bd4-a6c0-c21cecfdc131",
         "name": "长子荣谚",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4a857b3a-2b05-4bd4-a6c0-c21cecfdc131&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "83de5065-ab3e-42a6-b53f-edc0cce15953",
         "name": "次子荣广",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=83de5065-ab3e-42a6-b53f-edc0cce15953&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1622,20 +1484,17 @@
     "nid": "bbdf74bd-7ef6-4b54-935f-3f64db2f4b44",
     "name": "显亮",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "b7020964-191e-42ca-94ae-661efde0a353",
-      "name": "崇臯",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b7020964-191e-42ca-94ae-661efde0a353&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇臯"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "37e5c6db-2b47-488b-add5-94836d8e8865",
         "name": "长子荣秩",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=37e5c6db-2b47-488b-add5-94836d8e8865&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1664,12 +1523,10 @@
     "nid": "5b1ac103-211f-4a0d-8b42-e7af52bb7d11",
     "name": "显微",
     "generation": 22,
-    "url": null,
     "note": null,
     "father": {
       "nid": "b7020964-191e-42ca-94ae-661efde0a353",
-      "name": "崇臯",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b7020964-191e-42ca-94ae-661efde0a353&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "崇臯"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -1699,12 +1556,10 @@
     "nid": "f28674d9-636e-4df1-a74a-cbfdb122f91e",
     "name": "崇公",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "f834ea08-e3ef-428f-adfc-a79c7bd208e1",
-      "name": "懋武",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f834ea08-e3ef-428f-adfc-a79c7bd208e1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋武"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -1731,12 +1586,10 @@
     "nid": "22328f0a-9433-4044-9437-ea9b8d9aacbf",
     "name": "崇卿",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "f834ea08-e3ef-428f-adfc-a79c7bd208e1",
-      "name": "懋武",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f834ea08-e3ef-428f-adfc-a79c7bd208e1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋武"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -1763,12 +1616,10 @@
     "nid": "01954634-23a4-4d57-bc0c-f6357b4da864",
     "name": "荣梅",
     "generation": 23,
-    "url": null,
     "note": "出继胞弟显黌之次子",
     "father": {
       "nid": "fc7eebaf-65d4-4bcf-968f-135c2f8383f3",
-      "name": "显宾",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fc7eebaf-65d4-4bcf-968f-135c2f8383f3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显宾"
     },
     "relation_to_father": "嗣子",
     "children": [],
@@ -1794,32 +1645,27 @@
     "nid": "996099e6-02dd-40ad-8afc-d64464ad41c4",
     "name": "荣绮",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "0a4f9926-f41c-4d01-a5d7-9a0fd516fe49",
-      "name": "显朝",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0a4f9926-f41c-4d01-a5d7-9a0fd516fe49&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显朝"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "54fb788b-5132-4dd5-85b5-f46cb2955681",
         "name": "长子世庸",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=54fb788b-5132-4dd5-85b5-f46cb2955681&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "75bf2381-c56c-4b04-b282-503f4ae7b021",
         "name": "次子世儒",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=75bf2381-c56c-4b04-b282-503f4ae7b021&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "96d3d043-e5e6-4cfc-9dcb-8fdc2c6cdad3",
         "name": "三子世侃",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=96d3d043-e5e6-4cfc-9dcb-8fdc2c6cdad3&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1847,12 +1693,10 @@
     "nid": "3bbde8e6-e29f-4996-af3e-4dc14eccc986",
     "name": "崇富",
     "generation": 21,
-    "url": null,
     "note": null,
     "father": {
       "nid": "2b99a674-d027-483a-816e-0d6e221687bf",
-      "name": "懋文",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2b99a674-d027-483a-816e-0d6e221687bf&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "懋文"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -1880,26 +1724,22 @@
     "nid": "f834ea08-e3ef-428f-adfc-a79c7bd208e1",
     "name": "懋武",
     "generation": 20,
-    "url": null,
     "note": null,
     "father": {
       "nid": "90cf67f5-bae7-4e02-8682-d4c9fe21c987",
-      "name": "光暘",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90cf67f5-bae7-4e02-8682-d4c9fe21c987&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "光暘"
     },
     "relation_to_father": "五子",
     "children": [
       {
         "nid": "f28674d9-636e-4df1-a74a-cbfdb122f91e",
         "name": "长子崇公",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f28674d9-636e-4df1-a74a-cbfdb122f91e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "22328f0a-9433-4044-9437-ea9b8d9aacbf",
         "name": "次子崇卿",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=22328f0a-9433-4044-9437-ea9b8d9aacbf&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1928,32 +1768,27 @@
     "nid": "89540c99-6304-4c0f-bfac-6aefacf51ab0",
     "name": "荣繍",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "0a4f9926-f41c-4d01-a5d7-9a0fd516fe49",
-      "name": "显朝",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0a4f9926-f41c-4d01-a5d7-9a0fd516fe49&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显朝"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "656e6adf-d09a-4378-89eb-8187610227e1",
         "name": "长子世枢",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=656e6adf-d09a-4378-89eb-8187610227e1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "af85a55a-e395-4c10-90b8-c04adfb6fbc4",
         "name": "次子世棻",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=af85a55a-e395-4c10-90b8-c04adfb6fbc4&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "7af54b1b-7694-478e-89d3-a5b50b6f6975",
         "name": "三子世榜",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7af54b1b-7694-478e-89d3-a5b50b6f6975&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -1981,12 +1816,10 @@
     "nid": "656e6adf-d09a-4378-89eb-8187610227e1",
     "name": "世枢",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "89540c99-6304-4c0f-bfac-6aefacf51ab0",
-      "name": "荣繍",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=89540c99-6304-4c0f-bfac-6aefacf51ab0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣繍"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -2014,12 +1847,10 @@
     "nid": "af85a55a-e395-4c10-90b8-c04adfb6fbc4",
     "name": "世棻",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "89540c99-6304-4c0f-bfac-6aefacf51ab0",
-      "name": "荣繍",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=89540c99-6304-4c0f-bfac-6aefacf51ab0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣繍"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -2047,12 +1878,10 @@
     "nid": "7af54b1b-7694-478e-89d3-a5b50b6f6975",
     "name": "世榜",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "89540c99-6304-4c0f-bfac-6aefacf51ab0",
-      "name": "荣繍",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=89540c99-6304-4c0f-bfac-6aefacf51ab0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣繍"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -2080,20 +1909,17 @@
     "nid": "084d5b50-8948-4838-b9e9-2ea4e17126e1",
     "name": "荣藻",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "0a4f9926-f41c-4d01-a5d7-9a0fd516fe49",
-      "name": "显朝",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0a4f9926-f41c-4d01-a5d7-9a0fd516fe49&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显朝"
     },
     "relation_to_father": "四子",
     "children": [
       {
         "nid": "765e79ca-ac5d-4453-ba59-bcb627e055a6",
         "name": "之子世材",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=765e79ca-ac5d-4453-ba59-bcb627e055a6&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2121,20 +1947,17 @@
     "nid": "765e79ca-ac5d-4453-ba59-bcb627e055a6",
     "name": "世材",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "084d5b50-8948-4838-b9e9-2ea4e17126e1",
-      "name": "荣藻",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=084d5b50-8948-4838-b9e9-2ea4e17126e1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣藻"
     },
     "relation_to_father": "之子",
     "children": [
       {
         "nid": "6f3b2fbf-acde-4179-a9f0-7de97d0b5af1",
         "name": "之子系选",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6f3b2fbf-acde-4179-a9f0-7de97d0b5af1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2159,38 +1982,32 @@
     "nid": "6f3b2fbf-acde-4179-a9f0-7de97d0b5af1",
     "name": "系选",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "765e79ca-ac5d-4453-ba59-bcb627e055a6",
-      "name": "世材",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=765e79ca-ac5d-4453-ba59-bcb627e055a6&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世材"
     },
     "relation_to_father": "之子",
     "children": [
       {
         "nid": "2a79484b-d393-4820-9ba3-a6054f570ea4",
         "name": "长子绵正",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2a79484b-d393-4820-9ba3-a6054f570ea4&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "0632082c-ae37-47e7-b793-0ef9c06cb8d1",
         "name": "次子绵大",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0632082c-ae37-47e7-b793-0ef9c06cb8d1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "797b2fdb-f91d-4801-b4de-8ded43d608e7",
         "name": "三子绵祥",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=797b2fdb-f91d-4801-b4de-8ded43d608e7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "7e8cae96-0d9d-45fc-976e-4dec29246037",
         "name": "四子绵兆",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7e8cae96-0d9d-45fc-976e-4dec29246037&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2215,20 +2032,17 @@
     "nid": "2a79484b-d393-4820-9ba3-a6054f570ea4",
     "name": "绵正",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6f3b2fbf-acde-4179-a9f0-7de97d0b5af1",
-      "name": "系选",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6f3b2fbf-acde-4179-a9f0-7de97d0b5af1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系选"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "33ae24a9-f132-44c5-9da9-ef2dff8d6db5",
         "name": "之子今花",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=33ae24a9-f132-44c5-9da9-ef2dff8d6db5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2256,12 +2070,10 @@
     "nid": "33ae24a9-f132-44c5-9da9-ef2dff8d6db5",
     "name": "今花",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "2a79484b-d393-4820-9ba3-a6054f570ea4",
-      "name": "绵正",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2a79484b-d393-4820-9ba3-a6054f570ea4&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵正"
     },
     "relation_to_father": "之子",
     "children": [],
@@ -2287,20 +2099,17 @@
     "nid": "0632082c-ae37-47e7-b793-0ef9c06cb8d1",
     "name": "绵大",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6f3b2fbf-acde-4179-a9f0-7de97d0b5af1",
-      "name": "系选",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6f3b2fbf-acde-4179-a9f0-7de97d0b5af1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系选"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "6436f7d8-9818-418b-860d-4884f13cdb07",
         "name": "之子今伶",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6436f7d8-9818-418b-860d-4884f13cdb07&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2328,12 +2137,10 @@
     "nid": "6436f7d8-9818-418b-860d-4884f13cdb07",
     "name": "今伶",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "0632082c-ae37-47e7-b793-0ef9c06cb8d1",
-      "name": "绵大",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0632082c-ae37-47e7-b793-0ef9c06cb8d1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵大"
     },
     "relation_to_father": "之子",
     "children": [],
@@ -2359,20 +2166,17 @@
     "nid": "797b2fdb-f91d-4801-b4de-8ded43d608e7",
     "name": "绵祥",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6f3b2fbf-acde-4179-a9f0-7de97d0b5af1",
-      "name": "系选",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6f3b2fbf-acde-4179-a9f0-7de97d0b5af1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系选"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "d0e420c2-335d-4848-8952-ba49f7eb3227",
         "name": "之子今茂",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d0e420c2-335d-4848-8952-ba49f7eb3227&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2400,20 +2204,17 @@
     "nid": "a815451f-67f2-4f83-8f94-c55520adc5e5",
     "name": "荣衮",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "0a4f9926-f41c-4d01-a5d7-9a0fd516fe49",
-      "name": "显朝",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0a4f9926-f41c-4d01-a5d7-9a0fd516fe49&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显朝"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "db562a8e-e889-4110-ac04-1d3411eccdd7",
         "name": "之子世章",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=db562a8e-e889-4110-ac04-1d3411eccdd7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2441,12 +2242,10 @@
     "nid": "7e8cae96-0d9d-45fc-976e-4dec29246037",
     "name": "绵兆",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6f3b2fbf-acde-4179-a9f0-7de97d0b5af1",
-      "name": "系选",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6f3b2fbf-acde-4179-a9f0-7de97d0b5af1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系选"
     },
     "relation_to_father": "四子",
     "children": [],
@@ -2475,26 +2274,22 @@
     "nid": "79e6222a-a3a8-4f6e-9df6-6295b1859965",
     "name": "荣杨",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "31f4d39d-4051-4a3b-bc5d-8e29ed419da3",
-      "name": "显黌",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=31f4d39d-4051-4a3b-bc5d-8e29ed419da3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显黌"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "297f5636-7464-45ae-ae91-455d6f852578",
         "name": "长子世万",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=297f5636-7464-45ae-ae91-455d6f852578&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "c8f1a570-0231-4504-a7e2-5c95cdb72121",
         "name": "次子世茂",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c8f1a570-0231-4504-a7e2-5c95cdb72121&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2521,12 +2316,10 @@
     "nid": "297f5636-7464-45ae-ae91-455d6f852578",
     "name": "世万",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "79e6222a-a3a8-4f6e-9df6-6295b1859965",
-      "name": "荣杨",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=79e6222a-a3a8-4f6e-9df6-6295b1859965&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣杨"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -2553,12 +2346,10 @@
     "nid": "c8f1a570-0231-4504-a7e2-5c95cdb72121",
     "name": "世茂",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "79e6222a-a3a8-4f6e-9df6-6295b1859965",
-      "name": "荣杨",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=79e6222a-a3a8-4f6e-9df6-6295b1859965&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣杨"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -2585,12 +2376,10 @@
     "nid": "00634415-c304-4988-af33-0be0e19f7192",
     "name": "崇梅",
     "generation": 23,
-    "url": null,
     "note": "出继兄显宾为嗣",
     "father": {
       "nid": "31f4d39d-4051-4a3b-bc5d-8e29ed419da3",
-      "name": "显黌",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=31f4d39d-4051-4a3b-bc5d-8e29ed419da3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显黌"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -2618,12 +2407,10 @@
     "nid": "416f7c5e-2458-4770-85e0-9741d152e257",
     "name": "荣桂",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "31f4d39d-4051-4a3b-bc5d-8e29ed419da3",
-      "name": "显黌",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=31f4d39d-4051-4a3b-bc5d-8e29ed419da3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显黌"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -2651,12 +2438,10 @@
     "nid": "db562a8e-e889-4110-ac04-1d3411eccdd7",
     "name": "世章",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a815451f-67f2-4f83-8f94-c55520adc5e5",
-      "name": "荣衮",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a815451f-67f2-4f83-8f94-c55520adc5e5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣衮"
     },
     "relation_to_father": "之子",
     "children": [],
@@ -2682,12 +2467,10 @@
     "nid": "d0e420c2-335d-4848-8952-ba49f7eb3227",
     "name": "今茂",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "797b2fdb-f91d-4801-b4de-8ded43d608e7",
-      "name": "绵祥",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=797b2fdb-f91d-4801-b4de-8ded43d608e7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵祥"
     },
     "relation_to_father": "之子",
     "children": [],
@@ -2713,12 +2496,10 @@
     "nid": "37e5c6db-2b47-488b-add5-94836d8e8865",
     "name": "荣秩",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "bbdf74bd-7ef6-4b54-935f-3f64db2f4b44",
-      "name": "显亮",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bbdf74bd-7ef6-4b54-935f-3f64db2f4b44&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显亮"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -2744,12 +2525,10 @@
     "nid": "12f556dc-4318-4c1f-970c-2729e3f36941",
     "name": "荣唯",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a2508171-ec86-4d84-a3c7-056f8cc7005f",
-      "name": "显赤",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a2508171-ec86-4d84-a3c7-056f8cc7005f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显赤"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -2776,20 +2555,17 @@
     "nid": "9320ef85-dcc0-482e-8cb7-06c933ecb82f",
     "name": "世文",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6a7700c5-30dc-46b4-8dae-adfb4cf9d820",
-      "name": "荣国",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6a7700c5-30dc-46b4-8dae-adfb4cf9d820&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣国"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "a2b09809-1210-4b35-a71b-3ffa13482b05",
         "name": "之子系学",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a2b09809-1210-4b35-a71b-3ffa13482b05&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2816,26 +2592,22 @@
     "nid": "a2b09809-1210-4b35-a71b-3ffa13482b05",
     "name": "系学",
     "generation": 25,
-    "url": null,
     "note": "悦公文支",
     "father": {
       "nid": "9320ef85-dcc0-482e-8cb7-06c933ecb82f",
-      "name": "世文",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9320ef85-dcc0-482e-8cb7-06c933ecb82f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世文"
     },
     "relation_to_father": "之子",
     "children": [
       {
         "nid": "64f63c60-2d2f-4024-b6cd-99736a72d532",
         "name": "长子绵益",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64f63c60-2d2f-4024-b6cd-99736a72d532&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "c39c4212-d2dc-43d3-85f2-0c5558bb7655",
         "name": "次子绵礼",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c39c4212-d2dc-43d3-85f2-0c5558bb7655&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2860,32 +2632,27 @@
     "nid": "64f63c60-2d2f-4024-b6cd-99736a72d532",
     "name": "绵益",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a2b09809-1210-4b35-a71b-3ffa13482b05",
-      "name": "系学",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a2b09809-1210-4b35-a71b-3ffa13482b05&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系学"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "287aefea-4809-4903-b5b6-baa5f92b060d",
         "name": "长子今梧",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=287aefea-4809-4903-b5b6-baa5f92b060d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "e3123266-6997-4982-9364-2b9fabadd069",
         "name": "次子今桐",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e3123266-6997-4982-9364-2b9fabadd069&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "89855bfe-a730-41be-84ed-1dd8e1b958a9",
         "name": "三子今杠",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=89855bfe-a730-41be-84ed-1dd8e1b958a9&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2911,20 +2678,17 @@
     "nid": "287aefea-4809-4903-b5b6-baa5f92b060d",
     "name": "今梧",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "64f63c60-2d2f-4024-b6cd-99736a72d532",
-      "name": "绵益",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64f63c60-2d2f-4024-b6cd-99736a72d532&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵益"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "83592982-6026-4c5c-a2ae-702a7be59528",
         "name": "长子古规",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=83592982-6026-4c5c-a2ae-702a7be59528&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2951,20 +2715,17 @@
     "nid": "e3123266-6997-4982-9364-2b9fabadd069",
     "name": "今桐",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "64f63c60-2d2f-4024-b6cd-99736a72d532",
-      "name": "绵益",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64f63c60-2d2f-4024-b6cd-99736a72d532&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵益"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "da90942d-9e2f-47e7-9d99-d46611803660",
         "name": "长子古範",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da90942d-9e2f-47e7-9d99-d46611803660&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -2991,12 +2752,10 @@
     "nid": "c54422a8-cd37-453b-a235-6c58ac4d2579",
     "name": "荣昱",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a2508171-ec86-4d84-a3c7-056f8cc7005f",
-      "name": "显赤",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a2508171-ec86-4d84-a3c7-056f8cc7005f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显赤"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -3023,20 +2782,17 @@
     "nid": "c39c4212-d2dc-43d3-85f2-0c5558bb7655",
     "name": "绵礼",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a2b09809-1210-4b35-a71b-3ffa13482b05",
-      "name": "系学",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a2b09809-1210-4b35-a71b-3ffa13482b05&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系学"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "89b27181-0aa5-4479-9f91-78eee137e4a8",
         "name": "嗣子今杠",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=89b27181-0aa5-4479-9f91-78eee137e4a8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3062,20 +2818,17 @@
     "nid": "89b27181-0aa5-4479-9f91-78eee137e4a8",
     "name": "今杠",
     "generation": 27,
-    "url": null,
     "note": "承继兄绵益三子为嗣",
     "father": {
       "nid": "c39c4212-d2dc-43d3-85f2-0c5558bb7655",
-      "name": "绵礼",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c39c4212-d2dc-43d3-85f2-0c5558bb7655&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵礼"
     },
     "relation_to_father": "嗣子",
     "children": [
       {
         "nid": "7c26b2b2-dea5-44ba-a9f8-7c3b66875d84",
         "name": "长子古模",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7c26b2b2-dea5-44ba-a9f8-7c3b66875d84&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3100,12 +2853,10 @@
     "nid": "e0477415-7de2-400e-98c4-42555fead607",
     "name": "世质",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6a7700c5-30dc-46b4-8dae-adfb4cf9d820",
-      "name": "荣国",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6a7700c5-30dc-46b4-8dae-adfb4cf9d820&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣国"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -3133,26 +2884,22 @@
     "nid": "a8861b92-28b8-46d5-98da-313610bf0afb",
     "name": "世彬",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6a7700c5-30dc-46b4-8dae-adfb4cf9d820",
-      "name": "荣国",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6a7700c5-30dc-46b4-8dae-adfb4cf9d820&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣国"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "763b5e45-3665-4219-80b5-de63108d1cd5",
         "name": "长子系祖",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=763b5e45-3665-4219-80b5-de63108d1cd5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "217902d6-edad-4db5-bd04-79545fa6ab51",
         "name": "次子系贱",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=217902d6-edad-4db5-bd04-79545fa6ab51&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3179,12 +2926,10 @@
     "nid": "763b5e45-3665-4219-80b5-de63108d1cd5",
     "name": "系祖",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a8861b92-28b8-46d5-98da-313610bf0afb",
-      "name": "世彬",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a8861b92-28b8-46d5-98da-313610bf0afb&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世彬"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -3211,12 +2956,10 @@
     "nid": "217902d6-edad-4db5-bd04-79545fa6ab51",
     "name": "系贱",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a8861b92-28b8-46d5-98da-313610bf0afb",
-      "name": "世彬",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a8861b92-28b8-46d5-98da-313610bf0afb&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世彬"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -3243,12 +2986,10 @@
     "nid": "89664201-5d0a-49cc-9a55-8bd7daffeb3e",
     "name": "荣衡",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "bcf81aef-fff6-4ec1-abb2-722e8d445721",
-      "name": "显宣",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bcf81aef-fff6-4ec1-abb2-722e8d445721&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显宣"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -3276,32 +3017,27 @@
     "nid": "0018a91c-598f-4aec-86e1-1c315431089e",
     "name": "荣第",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "bcf81aef-fff6-4ec1-abb2-722e8d445721",
-      "name": "显宣",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bcf81aef-fff6-4ec1-abb2-722e8d445721&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显宣"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "de45ea52-e8e8-4427-bb92-4f8e2562d434",
         "name": "长子世绎",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=de45ea52-e8e8-4427-bb92-4f8e2562d434&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "f0928b65-68fb-48f2-8419-b3e77a816ea6",
         "name": "次子世振",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f0928b65-68fb-48f2-8419-b3e77a816ea6&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "df01c58b-59fa-4f60-a6ad-508340d1774a",
         "name": "三子世绚",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=df01c58b-59fa-4f60-a6ad-508340d1774a&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3328,32 +3064,27 @@
     "nid": "6a7700c5-30dc-46b4-8dae-adfb4cf9d820",
     "name": "荣国",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "bcf81aef-fff6-4ec1-abb2-722e8d445721",
-      "name": "显宣",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bcf81aef-fff6-4ec1-abb2-722e8d445721&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显宣"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "9320ef85-dcc0-482e-8cb7-06c933ecb82f",
         "name": "长子世文",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9320ef85-dcc0-482e-8cb7-06c933ecb82f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "e0477415-7de2-400e-98c4-42555fead607",
         "name": "次子世质",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e0477415-7de2-400e-98c4-42555fead607&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "a8861b92-28b8-46d5-98da-313610bf0afb",
         "name": "三子世彬",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a8861b92-28b8-46d5-98da-313610bf0afb&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3380,12 +3111,10 @@
     "nid": "89855bfe-a730-41be-84ed-1dd8e1b958a9",
     "name": "今杠",
     "generation": 27,
-    "url": null,
     "note": "出继弟绵礼为嗣",
     "father": {
       "nid": "64f63c60-2d2f-4024-b6cd-99736a72d532",
-      "name": "绵益",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=64f63c60-2d2f-4024-b6cd-99736a72d532&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵益"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -3413,12 +3142,10 @@
     "nid": "df01c58b-59fa-4f60-a6ad-508340d1774a",
     "name": "世绚",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "0018a91c-598f-4aec-86e1-1c315431089e",
-      "name": "荣第",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0018a91c-598f-4aec-86e1-1c315431089e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣第"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -3446,12 +3173,10 @@
     "nid": "4a857b3a-2b05-4bd4-a6c0-c21cecfdc131",
     "name": "荣谚",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6a4340b0-67c5-4333-be3b-ae65d2c4cb06",
-      "name": "显进",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6a4340b0-67c5-4333-be3b-ae65d2c4cb06&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显进"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -3478,20 +3203,17 @@
     "nid": "83de5065-ab3e-42a6-b53f-edc0cce15953",
     "name": "荣广",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6a4340b0-67c5-4333-be3b-ae65d2c4cb06",
-      "name": "显进",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6a4340b0-67c5-4333-be3b-ae65d2c4cb06&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显进"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "25cef30f-3779-4eea-8b46-e66b47fec503",
         "name": "长子世继",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=25cef30f-3779-4eea-8b46-e66b47fec503&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3517,12 +3239,10 @@
     "nid": "25cef30f-3779-4eea-8b46-e66b47fec503",
     "name": "世继",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "83de5065-ab3e-42a6-b53f-edc0cce15953",
-      "name": "荣广",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=83de5065-ab3e-42a6-b53f-edc0cce15953&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣广"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -3548,26 +3268,22 @@
     "nid": "d2f851e8-e308-4132-b113-dcd900c0d46d",
     "name": "荣诰",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "90851e92-417e-408c-8e96-8e4648882126",
-      "name": "显祖",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90851e92-417e-408c-8e96-8e4648882126&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显祖"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "b1e22aa5-3d75-4309-82e9-ce51bdb60035",
         "name": "长子世楫",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b1e22aa5-3d75-4309-82e9-ce51bdb60035&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "75449ae6-613a-494e-a3e1-88a97976334a",
         "name": "次子世杭",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=75449ae6-613a-494e-a3e1-88a97976334a&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3592,12 +3308,10 @@
     "nid": "b1e22aa5-3d75-4309-82e9-ce51bdb60035",
     "name": "世楫",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "d2f851e8-e308-4132-b113-dcd900c0d46d",
-      "name": "荣诰",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2f851e8-e308-4132-b113-dcd900c0d46d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣诰"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -3624,12 +3338,10 @@
     "nid": "de45ea52-e8e8-4427-bb92-4f8e2562d434",
     "name": "世绎",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "0018a91c-598f-4aec-86e1-1c315431089e",
-      "name": "荣第",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0018a91c-598f-4aec-86e1-1c315431089e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣第"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -3657,32 +3369,27 @@
     "nid": "52dc795d-9eb9-4bb7-a678-6e21d156f73e",
     "name": "荣封",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "57bafcb8-5e07-44d6-9034-66ea5b418a14",
-      "name": "显相",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=57bafcb8-5e07-44d6-9034-66ea5b418a14&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显相"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "796806ef-db91-4418-83da-334f1edc9f58",
         "name": "长子世桃",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=796806ef-db91-4418-83da-334f1edc9f58&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "e63cc229-a358-4db6-9e9d-455adf20622d",
         "name": "次子世李",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e63cc229-a358-4db6-9e9d-455adf20622d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "99bac694-e573-45d0-a770-8ef9df288a67",
         "name": "三子世椿",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=99bac694-e573-45d0-a770-8ef9df288a67&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3707,44 +3414,37 @@
     "nid": "796806ef-db91-4418-83da-334f1edc9f58",
     "name": "世桃",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "52dc795d-9eb9-4bb7-a678-6e21d156f73e",
-      "name": "荣封",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=52dc795d-9eb9-4bb7-a678-6e21d156f73e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣封"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "7c133117-c77b-4d96-869e-d1bff22067b2",
         "name": "长子系博",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7c133117-c77b-4d96-869e-d1bff22067b2&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "ee462089-cd7a-43b2-aba4-2073d7f22885",
         "name": "次子系厚",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ee462089-cd7a-43b2-aba4-2073d7f22885&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5",
         "name": "三子系悠",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "d5ddccbd-8984-4dd5-b084-5025dedf1f44",
         "name": "四子系秋",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d5ddccbd-8984-4dd5-b084-5025dedf1f44&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "1d3b1597-a3e5-4c24-8ce5-850a6ad540bc",
         "name": "五子系眠",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1d3b1597-a3e5-4c24-8ce5-850a6ad540bc&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3771,20 +3471,17 @@
     "nid": "7c133117-c77b-4d96-869e-d1bff22067b2",
     "name": "系博",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "796806ef-db91-4418-83da-334f1edc9f58",
-      "name": "世桃",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=796806ef-db91-4418-83da-334f1edc9f58&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世桃"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "a8de4f26-04c3-4f5c-aa1b-a783333248e3",
         "name": "长子绵忠",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a8de4f26-04c3-4f5c-aa1b-a783333248e3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3813,26 +3510,22 @@
     "nid": "a8de4f26-04c3-4f5c-aa1b-a783333248e3",
     "name": "绵忠",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "7c133117-c77b-4d96-869e-d1bff22067b2",
-      "name": "系博",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7c133117-c77b-4d96-869e-d1bff22067b2&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系博"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "1eceb14d-d016-4174-82d5-41f10356dc26",
         "name": "长子今仁",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1eceb14d-d016-4174-82d5-41f10356dc26&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "a2c81b4c-0caa-4a9a-817e-b7ad6e3bd196",
         "name": "次子今信",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a2c81b4c-0caa-4a9a-817e-b7ad6e3bd196&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3857,20 +3550,17 @@
     "nid": "1eceb14d-d016-4174-82d5-41f10356dc26",
     "name": "今仁",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a8de4f26-04c3-4f5c-aa1b-a783333248e3",
-      "name": "绵忠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a8de4f26-04c3-4f5c-aa1b-a783333248e3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵忠"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "b249962b-9b15-4649-84ab-e0acc36c938f",
         "name": "长子古晳",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b249962b-9b15-4649-84ab-e0acc36c938f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -3896,12 +3586,10 @@
     "nid": "f0928b65-68fb-48f2-8419-b3e77a816ea6",
     "name": "世振",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "0018a91c-598f-4aec-86e1-1c315431089e",
-      "name": "荣第",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0018a91c-598f-4aec-86e1-1c315431089e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣第"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -3929,12 +3617,10 @@
     "nid": "ee462089-cd7a-43b2-aba4-2073d7f22885",
     "name": "系厚",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "796806ef-db91-4418-83da-334f1edc9f58",
-      "name": "世桃",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=796806ef-db91-4418-83da-334f1edc9f58&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世桃"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -3964,44 +3650,37 @@
     "nid": "02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5",
     "name": "系悠",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "796806ef-db91-4418-83da-334f1edc9f58",
-      "name": "世桃",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=796806ef-db91-4418-83da-334f1edc9f58&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世桃"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "1ef24806-3043-459e-840b-589693dea2a3",
         "name": "长子绵远",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1ef24806-3043-459e-840b-589693dea2a3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "9b08887d-05c5-44e3-bd42-6d9f26430ff7",
         "name": "次子绵永",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9b08887d-05c5-44e3-bd42-6d9f26430ff7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "72792dc4-7b4f-4476-802f-82ad06f8003c",
         "name": "三子绵和",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=72792dc4-7b4f-4476-802f-82ad06f8003c&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "3423b33f-2903-499a-a525-0be80e9712ff",
         "name": "四子绵忠",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3423b33f-2903-499a-a525-0be80e9712ff&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "42d624b4-4f4b-4222-a4bb-6fd1c669e668",
         "name": "五子绵义",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=42d624b4-4f4b-4222-a4bb-6fd1c669e668&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4030,26 +3709,22 @@
     "nid": "1ef24806-3043-459e-840b-589693dea2a3",
     "name": "绵远",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5",
-      "name": "系悠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系悠"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "618d87ee-44d4-4aab-88a2-9a98b45dafd5",
         "name": "长子今仙",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=618d87ee-44d4-4aab-88a2-9a98b45dafd5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "761b7286-bc84-4122-af1e-71c05f22f6c8",
         "name": "次子今仕",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=761b7286-bc84-4122-af1e-71c05f22f6c8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4078,20 +3753,17 @@
     "nid": "618d87ee-44d4-4aab-88a2-9a98b45dafd5",
     "name": "今仙",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "1ef24806-3043-459e-840b-589693dea2a3",
-      "name": "绵远",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1ef24806-3043-459e-840b-589693dea2a3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵远"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "da73da6f-080c-4b2e-a819-fe5a4822ac3b",
         "name": "长子古智",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da73da6f-080c-4b2e-a819-fe5a4822ac3b&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4117,26 +3789,22 @@
     "nid": "761b7286-bc84-4122-af1e-71c05f22f6c8",
     "name": "今仕",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "1ef24806-3043-459e-840b-589693dea2a3",
-      "name": "绵远",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1ef24806-3043-459e-840b-589693dea2a3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵远"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "ee59264f-9641-48a6-a082-f3094280fee8",
         "name": "长子古楼",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ee59264f-9641-48a6-a082-f3094280fee8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "cc75bf4e-ccf9-48c2-ab30-189951e3a048",
         "name": "次子古台",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=cc75bf4e-ccf9-48c2-ab30-189951e3a048&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4162,12 +3830,10 @@
     "nid": "9b08887d-05c5-44e3-bd42-6d9f26430ff7",
     "name": "绵永",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5",
-      "name": "系悠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系悠"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -4197,12 +3863,10 @@
     "nid": "72792dc4-7b4f-4476-802f-82ad06f8003c",
     "name": "绵和",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5",
-      "name": "系悠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系悠"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -4232,12 +3896,10 @@
     "nid": "3423b33f-2903-499a-a525-0be80e9712ff",
     "name": "绵忠",
     "generation": 26,
-    "url": null,
     "note": "出继兄绵博为嗣",
     "father": {
       "nid": "02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5",
-      "name": "系悠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系悠"
     },
     "relation_to_father": "四子",
     "children": [],
@@ -4267,12 +3929,10 @@
     "nid": "42d624b4-4f4b-4222-a4bb-6fd1c669e668",
     "name": "绵义",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5",
-      "name": "系悠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=02c7bdda-d35a-4de3-bd27-ddb71a7d2ca5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系悠"
     },
     "relation_to_father": "五子",
     "children": [],
@@ -4302,12 +3962,10 @@
     "nid": "75449ae6-613a-494e-a3e1-88a97976334a",
     "name": "世杭",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "d2f851e8-e308-4132-b113-dcd900c0d46d",
-      "name": "荣诰",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2f851e8-e308-4132-b113-dcd900c0d46d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣诰"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -4334,26 +3992,22 @@
     "nid": "1d3b1597-a3e5-4c24-8ce5-850a6ad540bc",
     "name": "系眠",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "796806ef-db91-4418-83da-334f1edc9f58",
-      "name": "世桃",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=796806ef-db91-4418-83da-334f1edc9f58&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世桃"
     },
     "relation_to_father": "五子",
     "children": [
       {
         "nid": "7ed709ff-631b-4409-9689-96ee85199352",
         "name": "长子绵高",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ed709ff-631b-4409-9689-96ee85199352&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "5785abd4-3b28-405b-9bde-940c9e35a5a6",
         "name": "次子绵祖",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=5785abd4-3b28-405b-9bde-940c9e35a5a6&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4382,26 +4036,22 @@
     "nid": "7ed709ff-631b-4409-9689-96ee85199352",
     "name": "绵高",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "1d3b1597-a3e5-4c24-8ce5-850a6ad540bc",
-      "name": "系眠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1d3b1597-a3e5-4c24-8ce5-850a6ad540bc&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系眠"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "2471173b-4c01-4eb7-aa67-fd2c8e22cf1a",
         "name": "长子今康",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2471173b-4c01-4eb7-aa67-fd2c8e22cf1a&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "538e1d8f-94de-4375-a26f-c0ff808b52c9",
         "name": "次子今甯",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=538e1d8f-94de-4375-a26f-c0ff808b52c9&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4427,12 +4077,10 @@
     "nid": "2471173b-4c01-4eb7-aa67-fd2c8e22cf1a",
     "name": "今康",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "7ed709ff-631b-4409-9689-96ee85199352",
-      "name": "绵高",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ed709ff-631b-4409-9689-96ee85199352&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵高"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -4459,12 +4107,10 @@
     "nid": "538e1d8f-94de-4375-a26f-c0ff808b52c9",
     "name": "今甯",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "7ed709ff-631b-4409-9689-96ee85199352",
-      "name": "绵高",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ed709ff-631b-4409-9689-96ee85199352&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵高"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -4491,12 +4137,10 @@
     "nid": "5785abd4-3b28-405b-9bde-940c9e35a5a6",
     "name": "绵祖",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "1d3b1597-a3e5-4c24-8ce5-850a6ad540bc",
-      "name": "系眠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1d3b1597-a3e5-4c24-8ce5-850a6ad540bc&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系眠"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -4523,32 +4167,27 @@
     "nid": "e63cc229-a358-4db6-9e9d-455adf20622d",
     "name": "世李",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "52dc795d-9eb9-4bb7-a678-6e21d156f73e",
-      "name": "荣封",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=52dc795d-9eb9-4bb7-a678-6e21d156f73e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣封"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "256f1daa-9ef2-422b-8af3-5d08a835c232",
         "name": "长子系泰",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=256f1daa-9ef2-422b-8af3-5d08a835c232&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "8fd60ae6-22f5-4c17-874d-472c2c22bf6e",
         "name": "次子系国",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8fd60ae6-22f5-4c17-874d-472c2c22bf6e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "34e9e5d8-f73e-4bdd-92c2-f8f54df6b366",
         "name": "三子系邦",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=34e9e5d8-f73e-4bdd-92c2-f8f54df6b366&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4575,12 +4214,10 @@
     "nid": "a2c81b4c-0caa-4a9a-817e-b7ad6e3bd196",
     "name": "今信",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a8de4f26-04c3-4f5c-aa1b-a783333248e3",
-      "name": "绵忠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a8de4f26-04c3-4f5c-aa1b-a783333248e3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵忠"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -4607,20 +4244,17 @@
     "nid": "8fd60ae6-22f5-4c17-874d-472c2c22bf6e",
     "name": "系国",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "e63cc229-a358-4db6-9e9d-455adf20622d",
-      "name": "世李",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e63cc229-a358-4db6-9e9d-455adf20622d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世李"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "c7e16d37-9cdb-4d27-9795-e3367d466d02",
         "name": "长子绵發",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c7e16d37-9cdb-4d27-9795-e3367d466d02&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4647,32 +4281,27 @@
     "nid": "c7e16d37-9cdb-4d27-9795-e3367d466d02",
     "name": "绵發",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "8fd60ae6-22f5-4c17-874d-472c2c22bf6e",
-      "name": "系国",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8fd60ae6-22f5-4c17-874d-472c2c22bf6e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系国"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "ec56a7cd-03c8-4308-8820-4db9dfbb9d8d",
         "name": "长子今学",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ec56a7cd-03c8-4308-8820-4db9dfbb9d8d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "d90d5287-c9c3-4276-8a24-bb518d8865f5",
         "name": "次子今生",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d90d5287-c9c3-4276-8a24-bb518d8865f5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "e5b87b27-a292-49a5-9d99-b41f3a15640f",
         "name": "三子今杏",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e5b87b27-a292-49a5-9d99-b41f3a15640f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4697,12 +4326,10 @@
     "nid": "ec56a7cd-03c8-4308-8820-4db9dfbb9d8d",
     "name": "今学",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "c7e16d37-9cdb-4d27-9795-e3367d466d02",
-      "name": "绵發",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c7e16d37-9cdb-4d27-9795-e3367d466d02&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵發"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -4730,12 +4357,10 @@
     "nid": "d90d5287-c9c3-4276-8a24-bb518d8865f5",
     "name": "今生",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "c7e16d37-9cdb-4d27-9795-e3367d466d02",
-      "name": "绵發",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c7e16d37-9cdb-4d27-9795-e3367d466d02&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵發"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -4763,12 +4388,10 @@
     "nid": "e5b87b27-a292-49a5-9d99-b41f3a15640f",
     "name": "今杏",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "c7e16d37-9cdb-4d27-9795-e3367d466d02",
-      "name": "绵發",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c7e16d37-9cdb-4d27-9795-e3367d466d02&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵發"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -4796,12 +4419,10 @@
     "nid": "34e9e5d8-f73e-4bdd-92c2-f8f54df6b366",
     "name": "系邦",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "e63cc229-a358-4db6-9e9d-455adf20622d",
-      "name": "世李",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e63cc229-a358-4db6-9e9d-455adf20622d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世李"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -4829,20 +4450,17 @@
     "nid": "99bac694-e573-45d0-a770-8ef9df288a67",
     "name": "世椿",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "52dc795d-9eb9-4bb7-a678-6e21d156f73e",
-      "name": "荣封",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=52dc795d-9eb9-4bb7-a678-6e21d156f73e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣封"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "42d19b53-10f0-465c-b465-0d8403c5a183",
         "name": "之子系傳",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=42d19b53-10f0-465c-b465-0d8403c5a183&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -4869,12 +4487,10 @@
     "nid": "d5ddccbd-8984-4dd5-b084-5025dedf1f44",
     "name": "系秋",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "796806ef-db91-4418-83da-334f1edc9f58",
-      "name": "世桃",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=796806ef-db91-4418-83da-334f1edc9f58&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世桃"
     },
     "relation_to_father": "四子",
     "children": [],
@@ -4904,12 +4520,10 @@
     "nid": "256f1daa-9ef2-422b-8af3-5d08a835c232",
     "name": "系泰",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "e63cc229-a358-4db6-9e9d-455adf20622d",
-      "name": "世李",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e63cc229-a358-4db6-9e9d-455adf20622d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世李"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -4937,12 +4551,10 @@
     "nid": "42d19b53-10f0-465c-b465-0d8403c5a183",
     "name": "系傳",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "99bac694-e573-45d0-a770-8ef9df288a67",
-      "name": "世椿",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=99bac694-e573-45d0-a770-8ef9df288a67&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世椿"
     },
     "relation_to_father": "之子",
     "children": [],
@@ -4968,12 +4580,10 @@
     "nid": "c51ab501-b4a9-4f1c-a6e4-e6087a1644f0",
     "name": "世桥",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "740faa63-dea8-4acd-b99d-f14577cf46df",
-      "name": "荣纬",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=740faa63-dea8-4acd-b99d-f14577cf46df&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣纬"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -4999,32 +4609,27 @@
     "nid": "a304ad6e-2e70-43da-a8da-07706eb01899",
     "name": "荣绂",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "30f8bd40-9c85-442e-bef8-d597d98496a0",
-      "name": "显吉",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=30f8bd40-9c85-442e-bef8-d597d98496a0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显吉"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "7c833876-fb4e-49c3-aadf-11b62be3975f",
         "name": "长子世双",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7c833876-fb4e-49c3-aadf-11b62be3975f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "e5e7a3b7-9473-40de-9370-3f58dcbf2f54",
         "name": "次子世星",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e5e7a3b7-9473-40de-9370-3f58dcbf2f54&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "e0d17ca2-6f91-414e-b8c1-17cc64ea4cb4",
         "name": "三子世千",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e0d17ca2-6f91-414e-b8c1-17cc64ea4cb4&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5051,12 +4656,10 @@
     "nid": "7c833876-fb4e-49c3-aadf-11b62be3975f",
     "name": "世双",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a304ad6e-2e70-43da-a8da-07706eb01899",
-      "name": "荣绂",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a304ad6e-2e70-43da-a8da-07706eb01899&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绂"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -5084,12 +4687,10 @@
     "nid": "e5e7a3b7-9473-40de-9370-3f58dcbf2f54",
     "name": "世星",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a304ad6e-2e70-43da-a8da-07706eb01899",
-      "name": "荣绂",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a304ad6e-2e70-43da-a8da-07706eb01899&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绂"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -5117,12 +4718,10 @@
     "nid": "e0d17ca2-6f91-414e-b8c1-17cc64ea4cb4",
     "name": "世千",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a304ad6e-2e70-43da-a8da-07706eb01899",
-      "name": "荣绂",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a304ad6e-2e70-43da-a8da-07706eb01899&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绂"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -5150,32 +4749,27 @@
     "nid": "a4e6bb9d-2a6e-415b-b073-bd15a7b55df2",
     "name": "荣忠",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "ca0a948c-ea60-4e4a-8fd2-9a10f2366f25",
-      "name": "显贤",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ca0a948c-ea60-4e4a-8fd2-9a10f2366f25&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显贤"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "a197a1c4-8e89-4704-81aa-7b59dc523fc1",
         "name": "长子世达",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a197a1c4-8e89-4704-81aa-7b59dc523fc1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "fdc44f41-3b96-4fc8-8898-9dde6ad9eb16",
         "name": "次子世远",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fdc44f41-3b96-4fc8-8898-9dde6ad9eb16&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "461bc871-2d3f-4682-8df4-e9759a8ce923",
         "name": "三子世道",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=461bc871-2d3f-4682-8df4-e9759a8ce923&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5201,12 +4795,10 @@
     "nid": "aa3b3af1-2779-4512-bf10-8a9bf9ce05f0",
     "name": "荣纶",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "30f8bd40-9c85-442e-bef8-d597d98496a0",
-      "name": "显吉",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=30f8bd40-9c85-442e-bef8-d597d98496a0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显吉"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -5234,20 +4826,17 @@
     "nid": "740faa63-dea8-4acd-b99d-f14577cf46df",
     "name": "荣纬",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "30f8bd40-9c85-442e-bef8-d597d98496a0",
-      "name": "显吉",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=30f8bd40-9c85-442e-bef8-d597d98496a0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显吉"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "c51ab501-b4a9-4f1c-a6e4-e6087a1644f0",
         "name": "长子世桥",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c51ab501-b4a9-4f1c-a6e4-e6087a1644f0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5274,12 +4863,10 @@
     "nid": "a197a1c4-8e89-4704-81aa-7b59dc523fc1",
     "name": "世达",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a4e6bb9d-2a6e-415b-b073-bd15a7b55df2",
-      "name": "荣忠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a4e6bb9d-2a6e-415b-b073-bd15a7b55df2&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣忠"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -5307,12 +4894,10 @@
     "nid": "fdc44f41-3b96-4fc8-8898-9dde6ad9eb16",
     "name": "世远",
     "generation": 24,
-    "url": null,
     "note": "出继胞弟荣孝为嗣",
     "father": {
       "nid": "a4e6bb9d-2a6e-415b-b073-bd15a7b55df2",
-      "name": "荣忠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a4e6bb9d-2a6e-415b-b073-bd15a7b55df2&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣忠"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -5340,26 +4925,22 @@
     "nid": "f30ead18-b24a-4331-8b45-ad3cc3adfbab",
     "name": "绵英",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "1445e8af-52fe-4ea5-af97-8e547d454ee0",
-      "name": "系勉",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1445e8af-52fe-4ea5-af97-8e547d454ee0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系勉"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "2961ff0b-39d2-429e-a451-7fb6aabb3b13",
         "name": "长子今福",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2961ff0b-39d2-429e-a451-7fb6aabb3b13&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "57b93bd5-aff2-4677-b979-9fece5fc34e4",
         "name": "次子今禄",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=57b93bd5-aff2-4677-b979-9fece5fc34e4&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5384,20 +4965,17 @@
     "nid": "2961ff0b-39d2-429e-a451-7fb6aabb3b13",
     "name": "今福",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "f30ead18-b24a-4331-8b45-ad3cc3adfbab",
-      "name": "绵英",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f30ead18-b24a-4331-8b45-ad3cc3adfbab&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵英"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "94648879-bc28-475b-ad79-8827c59be4e8",
         "name": "长子恭古",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=94648879-bc28-475b-ad79-8827c59be4e8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5423,12 +5001,10 @@
     "nid": "57b93bd5-aff2-4677-b979-9fece5fc34e4",
     "name": "今禄",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "f30ead18-b24a-4331-8b45-ad3cc3adfbab",
-      "name": "绵英",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f30ead18-b24a-4331-8b45-ad3cc3adfbab&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵英"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -5455,12 +5031,10 @@
     "nid": "b8678a1a-a767-4e5b-8ce9-08267cc1d5fd",
     "name": "系襟",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "461bc871-2d3f-4682-8df4-e9759a8ce923",
-      "name": "世道",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=461bc871-2d3f-4682-8df4-e9759a8ce923&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世道"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -5487,20 +5061,17 @@
     "nid": "7ee827e1-8511-4f0e-a2e8-50d2b2538e63",
     "name": "荣孝",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "ca0a948c-ea60-4e4a-8fd2-9a10f2366f25",
-      "name": "显贤",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ca0a948c-ea60-4e4a-8fd2-9a10f2366f25&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显贤"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "4e0d46d1-953f-437c-9a7f-679598eec7cf",
         "name": "嗣子世远",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4e0d46d1-953f-437c-9a7f-679598eec7cf&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5526,12 +5097,10 @@
     "nid": "4e0d46d1-953f-437c-9a7f-679598eec7cf",
     "name": "世远",
     "generation": 24,
-    "url": null,
     "note": "承继荣忠次子为嗣",
     "father": {
       "nid": "7ee827e1-8511-4f0e-a2e8-50d2b2538e63",
-      "name": "荣孝",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7ee827e1-8511-4f0e-a2e8-50d2b2538e63&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣孝"
     },
     "relation_to_father": "嗣子",
     "children": [],
@@ -5557,20 +5126,17 @@
     "nid": "56e67fbb-755e-4548-be02-963152690689",
     "name": "荣朗",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "11678be3-cef6-4a68-8d52-123975ac1df2",
-      "name": "显麟",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=11678be3-cef6-4a68-8d52-123975ac1df2&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显麟"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "38e1d62d-c063-4f56-8cce-34b8c292551b",
         "name": "长子世梅",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=38e1d62d-c063-4f56-8cce-34b8c292551b&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5595,32 +5161,27 @@
     "nid": "38e1d62d-c063-4f56-8cce-34b8c292551b",
     "name": "世梅",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "56e67fbb-755e-4548-be02-963152690689",
-      "name": "荣朗",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=56e67fbb-755e-4548-be02-963152690689&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣朗"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "f8bed0a3-8541-4a70-8ea0-89443dd8dde3",
         "name": "长子系进",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f8bed0a3-8541-4a70-8ea0-89443dd8dde3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "4b475789-3168-4e4d-a4dd-580278e8ae13",
         "name": "次子系连",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4b475789-3168-4e4d-a4dd-580278e8ae13&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "f75b4b25-f2d1-4bc5-a1aa-a6df519d8ef5",
         "name": "三子系道",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f75b4b25-f2d1-4bc5-a1aa-a6df519d8ef5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5645,20 +5206,17 @@
     "nid": "f8bed0a3-8541-4a70-8ea0-89443dd8dde3",
     "name": "系进",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "38e1d62d-c063-4f56-8cce-34b8c292551b",
-      "name": "世梅",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=38e1d62d-c063-4f56-8cce-34b8c292551b&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世梅"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "72e5d31a-2ff5-44d7-8027-b8274e79bb24",
         "name": "嗣子绵添",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=72e5d31a-2ff5-44d7-8027-b8274e79bb24&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5685,12 +5243,10 @@
     "nid": "72e5d31a-2ff5-44d7-8027-b8274e79bb24",
     "name": "绵添",
     "generation": 26,
-    "url": null,
     "note": "承继系连次子为嗣",
     "father": {
       "nid": "f8bed0a3-8541-4a70-8ea0-89443dd8dde3",
-      "name": "系进",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f8bed0a3-8541-4a70-8ea0-89443dd8dde3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系进"
     },
     "relation_to_father": "嗣子",
     "children": [],
@@ -5716,26 +5272,22 @@
     "nid": "461bc871-2d3f-4682-8df4-e9759a8ce923",
     "name": "世道",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "a4e6bb9d-2a6e-415b-b073-bd15a7b55df2",
-      "name": "荣忠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a4e6bb9d-2a6e-415b-b073-bd15a7b55df2&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣忠"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "1445e8af-52fe-4ea5-af97-8e547d454ee0",
         "name": "长子系勉",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1445e8af-52fe-4ea5-af97-8e547d454ee0&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "b8678a1a-a767-4e5b-8ce9-08267cc1d5fd",
         "name": "次子系襟",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b8678a1a-a767-4e5b-8ce9-08267cc1d5fd&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5762,26 +5314,22 @@
     "nid": "66f867c3-74e3-4666-aea5-c87c78c57899",
     "name": "绵国",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "4b475789-3168-4e4d-a4dd-580278e8ae13",
-      "name": "系连",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4b475789-3168-4e4d-a4dd-580278e8ae13&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系连"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "ced8d41e-3414-4dae-aa6d-3474b914e07d",
         "name": "长子今分",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ced8d41e-3414-4dae-aa6d-3474b914e07d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "57b612e9-6350-49b3-b474-01d37cfc8c85",
         "name": "次子今受",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=57b612e9-6350-49b3-b474-01d37cfc8c85&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -5811,12 +5359,10 @@
     "nid": "ced8d41e-3414-4dae-aa6d-3474b914e07d",
     "name": "今分",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "66f867c3-74e3-4666-aea5-c87c78c57899",
-      "name": "绵国",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=66f867c3-74e3-4666-aea5-c87c78c57899&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵国"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -5843,12 +5389,10 @@
     "nid": "57b612e9-6350-49b3-b474-01d37cfc8c85",
     "name": "今受",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "66f867c3-74e3-4666-aea5-c87c78c57899",
-      "name": "绵国",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=66f867c3-74e3-4666-aea5-c87c78c57899&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵国"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -5875,12 +5419,10 @@
     "nid": "e99fa3d7-e2ee-4b1f-86da-d74557559a4e",
     "name": "绵添",
     "generation": 26,
-    "url": null,
     "note": "出继系进为嗣",
     "father": {
       "nid": "4b475789-3168-4e4d-a4dd-580278e8ae13",
-      "name": "系连",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4b475789-3168-4e4d-a4dd-580278e8ae13&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系连"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -5911,12 +5453,10 @@
     "nid": "448eebff-61af-4f5b-a843-5d2c251d3337",
     "name": "绵官",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "4b475789-3168-4e4d-a4dd-580278e8ae13",
-      "name": "系连",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4b475789-3168-4e4d-a4dd-580278e8ae13&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系连"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -5947,12 +5487,10 @@
     "nid": "81d29f38-f1ad-4f3b-8850-f5edcf7ee1a4",
     "name": "绵清",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "4b475789-3168-4e4d-a4dd-580278e8ae13",
-      "name": "系连",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4b475789-3168-4e4d-a4dd-580278e8ae13&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系连"
     },
     "relation_to_father": "四子",
     "children": [],
@@ -5983,12 +5521,10 @@
     "nid": "c2028f88-1fde-42c7-b320-6bfc736d993c",
     "name": "绵民",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "4b475789-3168-4e4d-a4dd-580278e8ae13",
-      "name": "系连",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4b475789-3168-4e4d-a4dd-580278e8ae13&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系连"
     },
     "relation_to_father": "五子",
     "children": [],
@@ -6019,20 +5555,17 @@
     "nid": "1445e8af-52fe-4ea5-af97-8e547d454ee0",
     "name": "系勉",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "461bc871-2d3f-4682-8df4-e9759a8ce923",
-      "name": "世道",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=461bc871-2d3f-4682-8df4-e9759a8ce923&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世道"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "f30ead18-b24a-4331-8b45-ad3cc3adfbab",
         "name": "长子绵英",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f30ead18-b24a-4331-8b45-ad3cc3adfbab&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6058,12 +5591,10 @@
     "nid": "f75b4b25-f2d1-4bc5-a1aa-a6df519d8ef5",
     "name": "系道",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "38e1d62d-c063-4f56-8cce-34b8c292551b",
-      "name": "世梅",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=38e1d62d-c063-4f56-8cce-34b8c292551b&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世梅"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -6091,32 +5622,27 @@
     "nid": "50c9d733-0a87-4a95-9526-c5fb7018fdf7",
     "name": "荣绘",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "d49b76fa-f6fc-417e-b678-b86d9aab0593",
-      "name": "显祥",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d49b76fa-f6fc-417e-b678-b86d9aab0593&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显祥"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "9bbadff3-130f-4c93-9d0b-601fed8465a8",
         "name": "长子世寀",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9bbadff3-130f-4c93-9d0b-601fed8465a8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "854db0ff-7e57-4be1-8338-211bd130699c",
         "name": "次子世楪",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=854db0ff-7e57-4be1-8338-211bd130699c&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "50668e47-31ef-4615-aeeb-a2eb9b76fbac",
         "name": "三子世来",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50668e47-31ef-4615-aeeb-a2eb9b76fbac&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6142,12 +5668,10 @@
     "nid": "9bbadff3-130f-4c93-9d0b-601fed8465a8",
     "name": "世寀",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "50c9d733-0a87-4a95-9526-c5fb7018fdf7",
-      "name": "荣绘",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50c9d733-0a87-4a95-9526-c5fb7018fdf7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绘"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -6175,32 +5699,27 @@
     "nid": "854db0ff-7e57-4be1-8338-211bd130699c",
     "name": "世楪",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "50c9d733-0a87-4a95-9526-c5fb7018fdf7",
-      "name": "荣绘",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50c9d733-0a87-4a95-9526-c5fb7018fdf7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绘"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "825e498e-6a5f-4fd5-9645-c026425c3993",
         "name": "长子系焕",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=825e498e-6a5f-4fd5-9645-c026425c3993&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "d4f47987-ca6c-4b20-ac65-1dfa77be53ed",
         "name": "次子系炙",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d4f47987-ca6c-4b20-ac65-1dfa77be53ed&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "0b19c4b8-66f0-4b72-bb59-93d62f30b912",
         "name": "三子系炲",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0b19c4b8-66f0-4b72-bb59-93d62f30b912&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6227,12 +5746,10 @@
     "nid": "825e498e-6a5f-4fd5-9645-c026425c3993",
     "name": "系焕",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "854db0ff-7e57-4be1-8338-211bd130699c",
-      "name": "世楪",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=854db0ff-7e57-4be1-8338-211bd130699c&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世楪"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -6260,12 +5777,10 @@
     "nid": "d4f47987-ca6c-4b20-ac65-1dfa77be53ed",
     "name": "系炙",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "854db0ff-7e57-4be1-8338-211bd130699c",
-      "name": "世楪",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=854db0ff-7e57-4be1-8338-211bd130699c&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世楪"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -6293,12 +5808,10 @@
     "nid": "0b19c4b8-66f0-4b72-bb59-93d62f30b912",
     "name": "系炲",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "854db0ff-7e57-4be1-8338-211bd130699c",
-      "name": "世楪",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=854db0ff-7e57-4be1-8338-211bd130699c&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世楪"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -6326,38 +5839,32 @@
     "nid": "50668e47-31ef-4615-aeeb-a2eb9b76fbac",
     "name": "世来",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "50c9d733-0a87-4a95-9526-c5fb7018fdf7",
-      "name": "荣绘",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50c9d733-0a87-4a95-9526-c5fb7018fdf7&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绘"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "58bd75bb-2069-49ab-8837-3060d53daa81",
         "name": "长子系钧",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=58bd75bb-2069-49ab-8837-3060d53daa81&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "734cc4c8-3f02-4c3a-86c4-f7d6d3940eec",
         "name": "次子系本",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=734cc4c8-3f02-4c3a-86c4-f7d6d3940eec&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "03a2c625-88ee-407f-b2b6-d147aa078457",
         "name": "三子系成",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=03a2c625-88ee-407f-b2b6-d147aa078457&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "9569c30c-2208-4af7-92c5-f6151ec6cb08",
         "name": "四子系安",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9569c30c-2208-4af7-92c5-f6151ec6cb08&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6384,12 +5891,10 @@
     "nid": "58bd75bb-2069-49ab-8837-3060d53daa81",
     "name": "系钧",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "50668e47-31ef-4615-aeeb-a2eb9b76fbac",
-      "name": "世来",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50668e47-31ef-4615-aeeb-a2eb9b76fbac&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世来"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -6418,12 +5923,10 @@
     "nid": "734cc4c8-3f02-4c3a-86c4-f7d6d3940eec",
     "name": "系本",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "50668e47-31ef-4615-aeeb-a2eb9b76fbac",
-      "name": "世来",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50668e47-31ef-4615-aeeb-a2eb9b76fbac&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世来"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -6452,12 +5955,10 @@
     "nid": "ab66f98a-2081-4939-bd00-a6a97fc8a4f8",
     "name": "绵士",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "4b475789-3168-4e4d-a4dd-580278e8ae13",
-      "name": "系连",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4b475789-3168-4e4d-a4dd-580278e8ae13&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系连"
     },
     "relation_to_father": "六子",
     "children": [],
@@ -6488,26 +5989,22 @@
     "nid": "9569c30c-2208-4af7-92c5-f6151ec6cb08",
     "name": "系安",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "50668e47-31ef-4615-aeeb-a2eb9b76fbac",
-      "name": "世来",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50668e47-31ef-4615-aeeb-a2eb9b76fbac&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世来"
     },
     "relation_to_father": "四子",
     "children": [
       {
         "nid": "3135eb90-5e4c-4539-ad59-a4fb074161df",
         "name": "长子绵俊",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3135eb90-5e4c-4539-ad59-a4fb074161df&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "611845dd-2e0d-40af-9709-4c81747ae982",
         "name": "次子绵傑",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=611845dd-2e0d-40af-9709-4c81747ae982&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6535,50 +6032,42 @@
     "nid": "4b475789-3168-4e4d-a4dd-580278e8ae13",
     "name": "系连",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "38e1d62d-c063-4f56-8cce-34b8c292551b",
-      "name": "世梅",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=38e1d62d-c063-4f56-8cce-34b8c292551b&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世梅"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "66f867c3-74e3-4666-aea5-c87c78c57899",
         "name": "长子绵国",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=66f867c3-74e3-4666-aea5-c87c78c57899&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "e99fa3d7-e2ee-4b1f-86da-d74557559a4e",
         "name": "次子绵添",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e99fa3d7-e2ee-4b1f-86da-d74557559a4e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "448eebff-61af-4f5b-a843-5d2c251d3337",
         "name": "三子绵官",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=448eebff-61af-4f5b-a843-5d2c251d3337&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "81d29f38-f1ad-4f3b-8850-f5edcf7ee1a4",
         "name": "四子绵清",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=81d29f38-f1ad-4f3b-8850-f5edcf7ee1a4&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "c2028f88-1fde-42c7-b320-6bfc736d993c",
         "name": "五子绵民",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c2028f88-1fde-42c7-b320-6bfc736d993c&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "ab66f98a-2081-4939-bd00-a6a97fc8a4f8",
         "name": "六子绵士",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ab66f98a-2081-4939-bd00-a6a97fc8a4f8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6605,12 +6094,10 @@
     "nid": "611845dd-2e0d-40af-9709-4c81747ae982",
     "name": "绵傑",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "9569c30c-2208-4af7-92c5-f6151ec6cb08",
-      "name": "系安",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9569c30c-2208-4af7-92c5-f6151ec6cb08&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系安"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -6637,38 +6124,32 @@
     "nid": "da40554e-a8ec-4d8a-9046-713054bdb985",
     "name": "荣绩",
     "generation": 23,
-    "url": null,
     "note": null,
     "father": {
       "nid": "d49b76fa-f6fc-417e-b678-b86d9aab0593",
-      "name": "显祥",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d49b76fa-f6fc-417e-b678-b86d9aab0593&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "显祥"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "c08fc999-e8cb-4afe-9b0d-27b4a43429f8",
         "name": "长子世孟",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c08fc999-e8cb-4afe-9b0d-27b4a43429f8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "8f1af0ae-1c23-461f-b77f-f058eb1705a5",
         "name": "次子世仲",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8f1af0ae-1c23-461f-b77f-f058eb1705a5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "60cac9e9-99da-466c-8408-d0a3b24fe9ee",
         "name": "三子世季",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=60cac9e9-99da-466c-8408-d0a3b24fe9ee&TId=1&GId=6461&ZId=45241&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "0d919322-0be2-4e30-8857-211205963fd1",
         "name": "四子世補",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=0d919322-0be2-4e30-8857-211205963fd1&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6694,26 +6175,22 @@
     "nid": "8f1af0ae-1c23-461f-b77f-f058eb1705a5",
     "name": "世仲",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "da40554e-a8ec-4d8a-9046-713054bdb985",
-      "name": "荣绩",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da40554e-a8ec-4d8a-9046-713054bdb985&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绩"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "dbca8a6d-b0c0-409d-97ad-74ef9e7ef575",
         "name": "长子系災",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=dbca8a6d-b0c0-409d-97ad-74ef9e7ef575&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "ccdd830f-4560-4337-b624-bc291ecb4bcc",
         "name": "次子系燹",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ccdd830f-4560-4337-b624-bc291ecb4bcc&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6741,12 +6218,10 @@
     "nid": "dbca8a6d-b0c0-409d-97ad-74ef9e7ef575",
     "name": "系災",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "8f1af0ae-1c23-461f-b77f-f058eb1705a5",
-      "name": "世仲",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8f1af0ae-1c23-461f-b77f-f058eb1705a5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世仲"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -6773,12 +6248,10 @@
     "nid": "3135eb90-5e4c-4539-ad59-a4fb074161df",
     "name": "绵俊",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "9569c30c-2208-4af7-92c5-f6151ec6cb08",
-      "name": "系安",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9569c30c-2208-4af7-92c5-f6151ec6cb08&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系安"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -6805,12 +6278,10 @@
     "nid": "ccdd830f-4560-4337-b624-bc291ecb4bcc",
     "name": "系燹",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "8f1af0ae-1c23-461f-b77f-f058eb1705a5",
-      "name": "世仲",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=8f1af0ae-1c23-461f-b77f-f058eb1705a5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世仲"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -6837,26 +6308,22 @@
     "nid": "c08fc999-e8cb-4afe-9b0d-27b4a43429f8",
     "name": "世孟",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "da40554e-a8ec-4d8a-9046-713054bdb985",
-      "name": "荣绩",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da40554e-a8ec-4d8a-9046-713054bdb985&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绩"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "c29421ff-388c-4635-a64e-d365517fa162",
         "name": "长子系恩",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c29421ff-388c-4635-a64e-d365517fa162&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "d2b1c21c-dcb0-46da-b961-0fe629845761",
         "name": "次子系科",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2b1c21c-dcb0-46da-b961-0fe629845761&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6884,12 +6351,10 @@
     "nid": "03a2c625-88ee-407f-b2b6-d147aa078457",
     "name": "系成",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "50668e47-31ef-4615-aeeb-a2eb9b76fbac",
-      "name": "世来",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=50668e47-31ef-4615-aeeb-a2eb9b76fbac&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世来"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -6918,38 +6383,32 @@
     "nid": "717a3b68-eb44-43a3-bb9e-de3312e59850",
     "name": "绵庭",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "c29421ff-388c-4635-a64e-d365517fa162",
-      "name": "系恩",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c29421ff-388c-4635-a64e-d365517fa162&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系恩"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "ca021ae0-521b-45d4-b549-f53d3abbf638",
         "name": "长子今桃",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ca021ae0-521b-45d4-b549-f53d3abbf638&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "44144ae9-c33b-415e-99ee-5ce4ee234822",
         "name": "次子今柳",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=44144ae9-c33b-415e-99ee-5ce4ee234822&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "10c8a65c-f7eb-4481-a3ff-062701219b96",
         "name": "三子今樗",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=10c8a65c-f7eb-4481-a3ff-062701219b96&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "a02a0cf7-5357-4df8-9b01-667c1384f34f",
         "name": "四子今树",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=a02a0cf7-5357-4df8-9b01-667c1384f34f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -6976,20 +6435,17 @@
     "nid": "ca021ae0-521b-45d4-b549-f53d3abbf638",
     "name": "今桃",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "717a3b68-eb44-43a3-bb9e-de3312e59850",
-      "name": "绵庭",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=717a3b68-eb44-43a3-bb9e-de3312e59850&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵庭"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "590f8b53-9fd5-4e9a-bdbc-824ccd380ebf",
         "name": "嗣子汤古",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=590f8b53-9fd5-4e9a-bdbc-824ccd380ebf&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7017,12 +6473,10 @@
     "nid": "44144ae9-c33b-415e-99ee-5ce4ee234822",
     "name": "今柳",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "717a3b68-eb44-43a3-bb9e-de3312e59850",
-      "name": "绵庭",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=717a3b68-eb44-43a3-bb9e-de3312e59850&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵庭"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -7051,32 +6505,27 @@
     "nid": "c29421ff-388c-4635-a64e-d365517fa162",
     "name": "系恩",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "c08fc999-e8cb-4afe-9b0d-27b4a43429f8",
-      "name": "世孟",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c08fc999-e8cb-4afe-9b0d-27b4a43429f8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世孟"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "717a3b68-eb44-43a3-bb9e-de3312e59850",
         "name": "长子绵庭",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=717a3b68-eb44-43a3-bb9e-de3312e59850&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "3a6cfe59-1832-45bd-9669-dfad974f947f",
         "name": "次子绵栋",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3a6cfe59-1832-45bd-9669-dfad974f947f&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "104e790a-6aa0-4921-9efc-c65c2a35a651",
         "name": "三子绵许",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=104e790a-6aa0-4921-9efc-c65c2a35a651&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7102,12 +6551,10 @@
     "nid": "0d919322-0be2-4e30-8857-211205963fd1",
     "name": "世補",
     "generation": 24,
-    "url": null,
     "note": null,
     "father": {
       "nid": "da40554e-a8ec-4d8a-9046-713054bdb985",
-      "name": "荣绩",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da40554e-a8ec-4d8a-9046-713054bdb985&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绩"
     },
     "relation_to_father": "四子",
     "children": [],
@@ -7136,12 +6583,10 @@
     "nid": "a02a0cf7-5357-4df8-9b01-667c1384f34f",
     "name": "今树",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "717a3b68-eb44-43a3-bb9e-de3312e59850",
-      "name": "绵庭",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=717a3b68-eb44-43a3-bb9e-de3312e59850&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵庭"
     },
     "relation_to_father": "四子",
     "children": [],
@@ -7170,12 +6615,10 @@
     "nid": "10c8a65c-f7eb-4481-a3ff-062701219b96",
     "name": "今樗",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "717a3b68-eb44-43a3-bb9e-de3312e59850",
-      "name": "绵庭",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=717a3b68-eb44-43a3-bb9e-de3312e59850&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵庭"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -7204,20 +6647,17 @@
     "nid": "d2b1c21c-dcb0-46da-b961-0fe629845761",
     "name": "系科",
     "generation": 25,
-    "url": null,
     "note": null,
     "father": {
       "nid": "c08fc999-e8cb-4afe-9b0d-27b4a43429f8",
-      "name": "世孟",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c08fc999-e8cb-4afe-9b0d-27b4a43429f8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "世孟"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "6d9caa94-3c8f-458f-8b9c-fcb83233be8e",
         "name": "之子绵保",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6d9caa94-3c8f-458f-8b9c-fcb83233be8e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7243,20 +6683,17 @@
     "nid": "6d9caa94-3c8f-458f-8b9c-fcb83233be8e",
     "name": "绵保",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "d2b1c21c-dcb0-46da-b961-0fe629845761",
-      "name": "系科",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d2b1c21c-dcb0-46da-b961-0fe629845761&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系科"
     },
     "relation_to_father": "之子",
     "children": [
       {
         "nid": "c31e316f-d0d8-4c4f-a769-a999621ae213",
         "name": "之子今用",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c31e316f-d0d8-4c4f-a769-a999621ae213&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7281,12 +6718,10 @@
     "nid": "c31e316f-d0d8-4c4f-a769-a999621ae213",
     "name": "今用",
     "generation": 27,
-    "url": null,
     "note": null,
     "father": {
       "nid": "6d9caa94-3c8f-458f-8b9c-fcb83233be8e",
-      "name": "绵保",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6d9caa94-3c8f-458f-8b9c-fcb83233be8e&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "绵保"
     },
     "relation_to_father": "之子",
     "children": [],
@@ -7312,20 +6747,17 @@
     "nid": "590f8b53-9fd5-4e9a-bdbc-824ccd380ebf",
     "name": "汤古",
     "generation": 28,
-    "url": null,
     "note": "承继今作四子为嗣",
     "father": {
       "nid": "ca021ae0-521b-45d4-b549-f53d3abbf638",
-      "name": "今桃",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ca021ae0-521b-45d4-b549-f53d3abbf638&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "今桃"
     },
     "relation_to_father": "嗣子",
     "children": [
       {
         "nid": "3e186df5-4698-4746-9060-cdbc8a98829a",
         "name": "之子家發",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3e186df5-4698-4746-9060-cdbc8a98829a&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7350,12 +6782,10 @@
     "nid": "3e186df5-4698-4746-9060-cdbc8a98829a",
     "name": "家發",
     "generation": 29,
-    "url": null,
     "note": null,
     "father": {
       "nid": "590f8b53-9fd5-4e9a-bdbc-824ccd380ebf",
-      "name": "汤古",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=590f8b53-9fd5-4e9a-bdbc-824ccd380ebf&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "汤古"
     },
     "relation_to_father": "之子",
     "children": [],
@@ -7381,12 +6811,10 @@
     "nid": "94648879-bc28-475b-ad79-8827c59be4e8",
     "name": "恭古",
     "generation": 28,
-    "url": null,
     "note": null,
     "father": {
       "nid": "2961ff0b-39d2-429e-a451-7fb6aabb3b13",
-      "name": "今福",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=2961ff0b-39d2-429e-a451-7fb6aabb3b13&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "今福"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -7412,12 +6840,10 @@
     "nid": "83592982-6026-4c5c-a2ae-702a7be59528",
     "name": "古规",
     "generation": 28,
-    "url": null,
     "note": null,
     "father": {
       "nid": "287aefea-4809-4903-b5b6-baa5f92b060d",
-      "name": "今梧",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=287aefea-4809-4903-b5b6-baa5f92b060d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "今梧"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -7443,12 +6869,10 @@
     "nid": "104e790a-6aa0-4921-9efc-c65c2a35a651",
     "name": "绵许",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "c29421ff-388c-4635-a64e-d365517fa162",
-      "name": "系恩",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c29421ff-388c-4635-a64e-d365517fa162&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系恩"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -7476,20 +6900,17 @@
     "nid": "35c194ea-275f-48c3-930e-b5b4d5ffe995",
     "name": "家谟",
     "generation": 29,
-    "url": null,
     "note": "承继莊支古芸次子为嗣",
     "father": {
       "nid": "da90942d-9e2f-47e7-9d99-d46611803660",
-      "name": "古範",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da90942d-9e2f-47e7-9d99-d46611803660&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "古範"
     },
     "relation_to_father": "嗣子",
     "children": [
       {
         "nid": "e146d308-5f9c-42e4-abe8-e0863e16634d",
         "name": "嗣子声桢",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e146d308-5f9c-42e4-abe8-e0863e16634d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7514,20 +6935,17 @@
     "nid": "e146d308-5f9c-42e4-abe8-e0863e16634d",
     "name": "声桢",
     "generation": 30,
-    "url": null,
     "note": "承继兄家𧨸三子为嗣",
     "father": {
       "nid": "35c194ea-275f-48c3-930e-b5b4d5ffe995",
-      "name": "家谟",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=35c194ea-275f-48c3-930e-b5b4d5ffe995&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "家谟"
     },
     "relation_to_father": "嗣子",
     "children": [
       {
         "nid": "cc7febfa-3e35-49af-aa36-4667ef842b1b",
         "name": "长子绍烘",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=cc7febfa-3e35-49af-aa36-4667ef842b1b&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7552,12 +6970,10 @@
     "nid": "cc7febfa-3e35-49af-aa36-4667ef842b1b",
     "name": "绍烘",
     "generation": 31,
-    "url": null,
     "note": null,
     "father": {
       "nid": "e146d308-5f9c-42e4-abe8-e0863e16634d",
-      "name": "声桢",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e146d308-5f9c-42e4-abe8-e0863e16634d&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "声桢"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -7583,12 +6999,10 @@
     "nid": "7c26b2b2-dea5-44ba-a9f8-7c3b66875d84",
     "name": "古模",
     "generation": 28,
-    "url": null,
     "note": null,
     "father": {
       "nid": "89b27181-0aa5-4479-9f91-78eee137e4a8",
-      "name": "今杠",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=89b27181-0aa5-4479-9f91-78eee137e4a8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "今杠"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -7614,12 +7028,10 @@
     "nid": "b249962b-9b15-4649-84ab-e0acc36c938f",
     "name": "古晳",
     "generation": 28,
-    "url": null,
     "note": null,
     "father": {
       "nid": "1eceb14d-d016-4174-82d5-41f10356dc26",
-      "name": "今仁",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1eceb14d-d016-4174-82d5-41f10356dc26&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "今仁"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -7645,12 +7057,10 @@
     "nid": "da73da6f-080c-4b2e-a819-fe5a4822ac3b",
     "name": "古智",
     "generation": 28,
-    "url": null,
     "note": null,
     "father": {
       "nid": "618d87ee-44d4-4aab-88a2-9a98b45dafd5",
-      "name": "今仙",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=618d87ee-44d4-4aab-88a2-9a98b45dafd5&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "今仙"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -7676,32 +7086,27 @@
     "nid": "ee59264f-9641-48a6-a082-f3094280fee8",
     "name": "古楼",
     "generation": 28,
-    "url": null,
     "note": null,
     "father": {
       "nid": "761b7286-bc84-4122-af1e-71c05f22f6c8",
-      "name": "今仕",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=761b7286-bc84-4122-af1e-71c05f22f6c8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "今仕"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "97399208-b211-4fd4-be21-8580efe7d344",
         "name": "长子家友",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97399208-b211-4fd4-be21-8580efe7d344&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "402307cd-928a-45ae-bccf-abd46d885635",
         "name": "次子家芊",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=402307cd-928a-45ae-bccf-abd46d885635&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "94be451b-37b3-4f30-9d08-a9597bdd8991",
         "name": "三子家萬",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=94be451b-37b3-4f30-9d08-a9597bdd8991&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7727,20 +7132,17 @@
     "nid": "97399208-b211-4fd4-be21-8580efe7d344",
     "name": "家友",
     "generation": 29,
-    "url": null,
     "note": null,
     "father": {
       "nid": "ee59264f-9641-48a6-a082-f3094280fee8",
-      "name": "古楼",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ee59264f-9641-48a6-a082-f3094280fee8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "古楼"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "b565c5da-152b-43b5-9973-0dcd0aca0ce3",
         "name": "嗣子声水",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=b565c5da-152b-43b5-9973-0dcd0aca0ce3&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7767,12 +7169,10 @@
     "nid": "b565c5da-152b-43b5-9973-0dcd0aca0ce3",
     "name": "声水",
     "generation": 30,
-    "url": null,
     "note": "承继家芊长子为嗣",
     "father": {
       "nid": "97399208-b211-4fd4-be21-8580efe7d344",
-      "name": "家友",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97399208-b211-4fd4-be21-8580efe7d344&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "家友"
     },
     "relation_to_father": "嗣子",
     "children": [],
@@ -7798,12 +7198,10 @@
     "nid": "3a6cfe59-1832-45bd-9669-dfad974f947f",
     "name": "绵栋",
     "generation": 26,
-    "url": null,
     "note": null,
     "father": {
       "nid": "c29421ff-388c-4635-a64e-d365517fa162",
-      "name": "系恩",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c29421ff-388c-4635-a64e-d365517fa162&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "系恩"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -7831,12 +7229,10 @@
     "nid": "097d3b9b-f1f4-48c0-bf4a-0f32787620cd",
     "name": "声水",
     "generation": 30,
-    "url": null,
     "note": "出继家友名下为嗣",
     "father": {
       "nid": "402307cd-928a-45ae-bccf-abd46d885635",
-      "name": "家芊",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=402307cd-928a-45ae-bccf-abd46d885635&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "家芊"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -7864,12 +7260,10 @@
     "nid": "fddb5dd4-b620-4a24-bd70-3904fdd15927",
     "name": "声财",
     "generation": 30,
-    "url": null,
     "note": null,
     "father": {
       "nid": "402307cd-928a-45ae-bccf-abd46d885635",
-      "name": "家芊",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=402307cd-928a-45ae-bccf-abd46d885635&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "家芊"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -7897,12 +7291,10 @@
     "nid": "53b3cd2a-ec11-418b-9f1b-12e2628c8398",
     "name": "声宝",
     "generation": 30,
-    "url": null,
     "note": "出继家万为嗣",
     "father": {
       "nid": "402307cd-928a-45ae-bccf-abd46d885635",
-      "name": "家芊",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=402307cd-928a-45ae-bccf-abd46d885635&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "家芊"
     },
     "relation_to_father": "三子",
     "children": [],
@@ -7930,20 +7322,17 @@
     "nid": "94be451b-37b3-4f30-9d08-a9597bdd8991",
     "name": "家萬",
     "generation": 29,
-    "url": null,
     "note": null,
     "father": {
       "nid": "ee59264f-9641-48a6-a082-f3094280fee8",
-      "name": "古楼",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ee59264f-9641-48a6-a082-f3094280fee8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "古楼"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "97194d74-089f-443b-8bd1-ca8c9d572651",
         "name": "长子声宝",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=97194d74-089f-443b-8bd1-ca8c9d572651&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -7970,12 +7359,10 @@
     "nid": "97194d74-089f-443b-8bd1-ca8c9d572651",
     "name": "声宝",
     "generation": 30,
-    "url": null,
     "note": "承继家芊三子为嗣",
     "father": {
       "nid": "94be451b-37b3-4f30-9d08-a9597bdd8991",
-      "name": "家萬",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=94be451b-37b3-4f30-9d08-a9597bdd8991&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "家萬"
     },
     "relation_to_father": "长子",
     "children": [],
@@ -8001,12 +7388,10 @@
     "nid": "cc75bf4e-ccf9-48c2-ab30-189951e3a048",
     "name": "古台",
     "generation": 28,
-    "url": null,
     "note": null,
     "father": {
       "nid": "761b7286-bc84-4122-af1e-71c05f22f6c8",
-      "name": "今仕",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=761b7286-bc84-4122-af1e-71c05f22f6c8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "今仕"
     },
     "relation_to_father": "次子",
     "children": [],
@@ -8033,20 +7418,17 @@
     "nid": "da90942d-9e2f-47e7-9d99-d46611803660",
     "name": "古範",
     "generation": 28,
-    "url": null,
     "note": "即古波",
     "father": {
       "nid": "e3123266-6997-4982-9364-2b9fabadd069",
-      "name": "今桐",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e3123266-6997-4982-9364-2b9fabadd069&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "今桐"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "35c194ea-275f-48c3-930e-b5b4d5ffe995",
         "name": "嗣子家谟",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=35c194ea-275f-48c3-930e-b5b4d5ffe995&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -8071,32 +7453,27 @@
     "nid": "402307cd-928a-45ae-bccf-abd46d885635",
     "name": "家芊",
     "generation": 29,
-    "url": null,
     "note": null,
     "father": {
       "nid": "ee59264f-9641-48a6-a082-f3094280fee8",
-      "name": "古楼",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ee59264f-9641-48a6-a082-f3094280fee8&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "古楼"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "097d3b9b-f1f4-48c0-bf4a-0f32787620cd",
         "name": "长子声水",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=097d3b9b-f1f4-48c0-bf4a-0f32787620cd&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "fddb5dd4-b620-4a24-bd70-3904fdd15927",
         "name": "次子声财",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fddb5dd4-b620-4a24-bd70-3904fdd15927&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "53b3cd2a-ec11-418b-9f1b-12e2628c8398",
         "name": "三子声宝",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=53b3cd2a-ec11-418b-9f1b-12e2628c8398&TId=1&GId=6461&ZId=44648&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -8123,38 +7500,32 @@
     "nid": "54fb788b-5132-4dd5-85b5-f46cb2955681",
     "name": "世庸",
     "generation": 24,
-    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=54fb788b-5132-4dd5-85b5-f46cb2955681&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
     "note": null,
     "father": {
       "nid": "996099e6-02dd-40ad-8afc-d64464ad41c4",
-      "name": "荣绮",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=996099e6-02dd-40ad-8afc-d64464ad41c4&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绮"
     },
     "relation_to_father": "长子",
     "children": [
       {
         "nid": "461251c7-e18d-4214-abd1-05362820c77a",
         "name": "长子系发",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=461251c7-e18d-4214-abd1-05362820c77a&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "1d22d2b9-c398-498f-a838-ae7a5b1346d0",
         "name": "次子系强",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=1d22d2b9-c398-498f-a838-ae7a5b1346d0&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "ef121f9b-f52e-454b-88dd-a8c1ae5f97cd",
         "name": "三子系毅",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ef121f9b-f52e-454b-88dd-a8c1ae5f97cd&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "4797a054-f970-4ef5-8cdd-ddc7d7e437bf",
         "name": "四子系裕",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=4797a054-f970-4ef5-8cdd-ddc7d7e437bf&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -8181,44 +7552,37 @@
     "nid": "83ab94eb-744b-4e68-a75c-3f548706d1d4",
     "name": "懋莊",
     "generation": 20,
-    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=83ab94eb-744b-4e68-a75c-3f548706d1d4&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
     "note": null,
     "father": {
       "nid": "90cf67f5-bae7-4e02-8682-d4c9fe21c987",
-      "name": "光暘",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90cf67f5-bae7-4e02-8682-d4c9fe21c987&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "光暘"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "bbfab7d1-b17f-4ec2-aa6c-59637daa6804",
         "name": "长子崇稷",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=bbfab7d1-b17f-4ec2-aa6c-59637daa6804&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "7db3fa1a-b073-4ff7-89d5-c5c408c1db46",
         "name": "次子崇益",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7db3fa1a-b073-4ff7-89d5-c5c408c1db46&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "27eca3e3-fa80-4072-b89b-0213f09d0048",
         "name": "三子崇畢",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=27eca3e3-fa80-4072-b89b-0213f09d0048&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "e3c293fd-cc2c-4ec4-aa68-20a89942b41d",
         "name": "四子崇闳",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=e3c293fd-cc2c-4ec4-aa68-20a89942b41d&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "ac841c1c-3499-45d7-8386-debe9266d05b",
         "name": "五子崇第",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=ac841c1c-3499-45d7-8386-debe9266d05b&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -8247,20 +7611,17 @@
     "nid": "96d3d043-e5e6-4cfc-9dcb-8fdc2c6cdad3",
     "name": "世侃",
     "generation": 24,
-    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=96d3d043-e5e6-4cfc-9dcb-8fdc2c6cdad3&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
     "note": null,
     "father": {
       "nid": "996099e6-02dd-40ad-8afc-d64464ad41c4",
-      "name": "荣绮",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=996099e6-02dd-40ad-8afc-d64464ad41c4&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绮"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "c1b921d2-ffda-4332-8a4c-7d39dd50570c",
         "name": "长子系柔",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c1b921d2-ffda-4332-8a4c-7d39dd50570c&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -8287,26 +7648,22 @@
     "nid": "60cac9e9-99da-466c-8408-d0a3b24fe9ee",
     "name": "世季",
     "generation": 24,
-    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=60cac9e9-99da-466c-8408-d0a3b24fe9ee&TId=1&GId=6461&ZId=45241&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
     "note": null,
     "father": {
       "nid": "da40554e-a8ec-4d8a-9046-713054bdb985",
-      "name": "荣绩",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=da40554e-a8ec-4d8a-9046-713054bdb985&TId=1&GId=6461&ZId=45241&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绩"
     },
     "relation_to_father": "三子",
     "children": [
       {
         "nid": "7b9d7d83-b269-4125-b9cd-6d7d7b35b510",
         "name": "长子系盛",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=7b9d7d83-b269-4125-b9cd-6d7d7b35b510&TId=1&GId=6461&ZId=45241&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "f6ab69d6-dae2-498b-a8ab-643d45645960",
         "name": "次子系盈",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=f6ab69d6-dae2-498b-a8ab-643d45645960&TId=1&GId=6461&ZId=45241&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -8334,38 +7691,32 @@
     "nid": "75bf2381-c56c-4b04-b282-503f4ae7b021",
     "name": "世儒",
     "generation": 24,
-    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=75bf2381-c56c-4b04-b282-503f4ae7b021&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
     "note": null,
     "father": {
       "nid": "996099e6-02dd-40ad-8afc-d64464ad41c4",
-      "name": "荣绮",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=996099e6-02dd-40ad-8afc-d64464ad41c4&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "荣绮"
     },
     "relation_to_father": "次子",
     "children": [
       {
         "nid": "87e2ce5c-e52a-4e27-a73e-b389bdf006e7",
         "name": "长子系刚",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=87e2ce5c-e52a-4e27-a73e-b389bdf006e7&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "6c450cae-f4c2-43e3-aad2-155889fdc01b",
         "name": "次子系宽",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=6c450cae-f4c2-43e3-aad2-155889fdc01b&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "9e284d19-a6d6-42fd-b4b4-5e39264777d5",
         "name": "三子系文",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=9e284d19-a6d6-42fd-b4b4-5e39264777d5&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "c4c8fbc0-4dff-445b-aee1-c9226f966728",
         "name": "四子系理",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=c4c8fbc0-4dff-445b-aee1-c9226f966728&TId=1&GId=6461&ZId=45240&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
@@ -8392,38 +7743,32 @@
     "nid": "63066c65-7a0f-4d2d-adc8-16da1ab4bd28",
     "name": "懋第",
     "generation": 20,
-    "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=63066c65-7a0f-4d2d-adc8-16da1ab4bd28&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId=",
     "note": null,
     "father": {
       "nid": "90cf67f5-bae7-4e02-8682-d4c9fe21c987",
-      "name": "光暘",
-      "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=90cf67f5-bae7-4e02-8682-d4c9fe21c987&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+      "name": "光暘"
     },
     "relation_to_father": "四子",
     "children": [
       {
         "nid": "86aba7c4-398e-47f1-93a6-7948444d682e",
         "name": "长子崇荣",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=86aba7c4-398e-47f1-93a6-7948444d682e&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "3d887760-f803-478f-959b-50ac8d0a2b3f",
         "name": "次子崇讃",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=3d887760-f803-478f-959b-50ac8d0a2b3f&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "fa3aea1b-1cd2-44b8-b94a-0062c116866a",
         "name": "三子崇议",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=fa3aea1b-1cd2-44b8-b94a-0062c116866a&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       },
       {
         "nid": "d1c10f03-4dc8-4e57-88d1-7e628a3464b8",
         "name": "四子崇谦",
-        "relation": "",
-        "url": "http://112.5.13.209:88/wap/zp_CV.aspx?NId=d1c10f03-4dc8-4e57-88d1-7e628a3464b8&TId=1&GId=6461&ZId=46302&UId=南昌谱源公司&MId=&XId=307&AId=&RId="
+        "relation": ""
       }
     ],
     "siblings": {
